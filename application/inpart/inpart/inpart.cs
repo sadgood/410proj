@@ -78,6 +78,7 @@ public class inpart
     NXOpen.Annotations.Dimension[] dimary = null;
     NXOpen.Annotations.Dimension[] left = null;
     public ArrayList theday = new ArrayList();//theday是一个里面存放排列组合后得到的尺寸的数组
+    List<NXOpen.Annotations.Dimension[]> finaloneinpro = new List<NXOpen.Annotations.Dimension[]>();//在本工序内进行校核的时候存放和要校核的尺寸成环的其他所有尺寸的list
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -591,6 +592,34 @@ public class inpart
 
 
     }
+    public void afandfor(NXOpen.Annotations.Dimension[] a,out NXOpen.Annotations.Dimension[] b,out NXOpen.Annotations.Dimension[] c)//这个函数对一个数组中的增减环进行筛选，注意这个数组中的尺寸应该已经和需要校核的尺寸成环
+    {///////////////////其中a是输入进来的需要进行增减环赛选的尺寸数组，b是减环，c是增环
+        ArrayList vv = new ArrayList();//存放减环
+        ArrayList bb = new ArrayList();//存放增环
+        int qq = 0;
+    foreach(NXOpen.Annotations.Dimension f in a)
+    {
+    qq = cirdect(f);
+        if(qq == -1)
+        {
+           vv.Add(f);//加入减环
+        }
+        if(qq == 1)
+        {
+            bb.Add(f);//加入增环
+        }
+        if(qq==0)
+        {
+        
+        
+        }
+  
+    }
+        b = (NXOpen.Annotations.Dimension[])vv.ToArray(typeof(NXOpen.Annotations.Dimension));
+        c = (NXOpen.Annotations.Dimension[])bb.ToArray(typeof(NXOpen.Annotations.Dimension));
+    
+    }
+
     public int apply_cb()
     {
                                     
@@ -651,29 +680,25 @@ public class inpart
                 }
                 thefinalori = (NXOpen.Annotations.Dimension[])theday.ToArray(typeof(NXOpen.Annotations.Dimension));
                 if (checknow(thefinalori))//如果成环的话。。。。almost there
-                { 
-                foreach(NXOpen.Annotations.Dimension g in thefinalori)
                 {
-                    int qq = 0;
-                 qq = cirdect(g);
-                 if (qq == -1)
-                 {
-                     deccir.Add(g);
-                 }
-                 if (qq == 1)
-                 {
-                     addcir.Add(g);
-                 }
-                 if (qq == 0)
-                 { 
+                    finaloneinpro.Add(thefinalori);//这个list存放的是所有和需校核尺寸成环的尺寸链，记住其里面的每个元素是一个尺寸数组
                  
-                 
-                 }
-                }
-                
                 };
             
             }
+
+            foreach (NXOpen.Annotations.Dimension[] zz in finaloneinpro)
+            { 
+                
+                NXOpen.Annotations.Dimension[] pp;
+                NXOpen.Annotations.Dimension[] qq;
+                afandfor(zz, out pp, out qq);//这里又有问题
+
+            }
+
+
+
+
            }
             else
            {
@@ -700,7 +725,7 @@ public class inpart
                             NXOpen.Annotations.Dimension[] ho = (NXOpen.Annotations.Dimension[])deccir.ToArray(typeof(NXOpen.Annotations.Dimension));
                             foreach (NXOpen.Annotations.Dimension qqq in ho)
                             {
-                                //setappendzeng(qqq);
+                            
                                 setappendjian(qqq);
                             }
                         }
