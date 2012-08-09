@@ -77,7 +77,7 @@ public class inpart
     DatumAxis xformone = null;//要校核的尺寸生成的轴
     NXOpen.Annotations.Dimension[] dimary = null;
     NXOpen.Annotations.Dimension[] left = null;
-    public ArrayList theday = new ArrayList();
+    public ArrayList theday = new ArrayList();//theday是一个里面存放排列组合后得到的尺寸的数组
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -641,9 +641,10 @@ public class inpart
           
             foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
             {
-
+                theday.Clear();
                 for (int j = 0; j < a.Length; j++)//下面这个for循环从索引得到对应的dimension数组。
                 {
+                   
                     theday.Add(left[j]);
                    // thefinalori[j] = left[j];//得到索引所表示的数组
                     
