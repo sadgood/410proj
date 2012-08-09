@@ -69,7 +69,7 @@ public class inpart
     public ArrayList addcir = new ArrayList();//存储增环
     public ArrayList deccir = new ArrayList();//存储减环
     public ArrayList thedown = new ArrayList();//记录整个工序内除过要校核尺寸外的尺寸
-    List<int[]> lst_Combination;
+    List<int[]> lst_Combination = new List<int[]>();//list用add方法时也要用new分配内存
     double finalx = 0;//对应一个尺寸属性列表中的x分值，下同。
     double finaly = 0;
     double finalz = 0;
@@ -597,6 +597,7 @@ public class inpart
     
        
         int errorCode = 0;
+        List<int[]> nene;
         try
         {
            //需要校核的尺寸的相关操作
@@ -609,7 +610,7 @@ public class inpart
             finalz = theoridim.GetRealAttribute("Z");
            if(!selection01.GetProperties().GetLogical("Enable"))
            {
-           //下面这段得到一个数组，这个数组里面有除过要校核的尺寸之外所有的尺寸。
+           //下面这段得到一个数组，这个数组里面有除过要校核的尺寸之外所有的尺寸。-------下面这个是在整个工序内进行判断
             dimary = theSession.Parts.Work.Dimensions.ToArray();
             foreach (NXOpen.Annotations.Dimension a in dimary)
             {
@@ -629,8 +630,13 @@ public class inpart
             for (int t = 2; t <= left.Length; t++)//该循环从2开始，因为一个尺寸连最起码有三个，它也有可能达到left数组的长度。
             {
 
-              lst_Combination = Algorithms.PermutationAndCombination<int>.GetCombination(arr, t);
-
+               nene = Algorithms.PermutationAndCombination<int>.GetCombination(arr, t);//nene是每一次循环得到的结果，如果直接用nene参与下一步计算，以前的循环结果就作废了
+               foreach (int[] ne in nene)
+               {
+                   lst_Combination.Add(ne);
+               }
+             
+             
             }
           
             foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
