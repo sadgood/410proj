@@ -1,0 +1,25 @@
+VERSION  120
+EDIT UG_GATEWAY_MAIN_MENUBAR
+BEFORE UG_HELP		
+CASCADE_BUTTON jerryhe
+LABEL 测试
+END_OF_BEFORE
+MENU jerryhe
+BUTTON gongxujieduan
+LABEL 工序阶段划分
+ACTIONS gongxujieduan.dll
+SEPARATOR
+CASCADE_BUTTON PMI
+LABEL PMI三维尺寸链校核
+END_OF_MENU
+MENU PMI
+BUTTON gongyi
+LABEL 工艺人员PMI矢量标注
+ACTIONS pmibiaozhu.dll
+BUTTON jiaohe
+LABEL 本工序三维尺寸链校核
+ACTIONS inpart.dll
+BUTTON crojiaohe
+LABEL 全工艺三维尺寸链校核
+ACTIONS cropart.dll
+END_OF_MENU
