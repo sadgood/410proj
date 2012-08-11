@@ -337,7 +337,24 @@ public class inpart
         {
            toggle0.GetProperties().SetLogical("Value", false);
            selection01.GetProperties().SetLogical("Enable",false);
-           
+             tree_control0.InsertColumn(1, "jerry", -1);
+
+           NXOpen.BlockStyler.Node node1 = tree_control0.CreateNode("NodeDisplayText");
+            ////  // node1.DisplayText = "成环尺寸";
+           node1.ForegroundColor = 198;
+            
+
+           tree_control0.InsertNode(node1, null, null, Tree.NodeInsertOption.AlwaysLast);
+           NXOpen.BlockStyler.Node p = tree_control0.CreateNode("fuck");
+           tree_control0.InsertNode(p, node1,null, Tree.NodeInsertOption.First);
+            ////   // BlockStyler.Node node = tree_control0.CreateNode(“NodeDisplayText”);
+            ////   NXOpen.BlockStyler.Node node = tree_control0.CreateNode("NodeData");
+            ////    DataContainer nodeData = node.GetNodeData();
+            ////    nodeData.AddTaggedObject("Data",(TaggedObject)theoridim );
+            ////    nodeData.Dispose();
+            ////    tree_control0.InsertNode(node,node1, null, Tree.NodeInsertOption.AlwaysLast);
+            ////   // tree_control0.set
+     
       
         }
         catch (Exception ex)
@@ -750,22 +767,7 @@ public class inpart
                    
                  }
 
-            //  tree_control0.InsertColumn(1, "jerry", -1);
-           
-            //NXOpen.BlockStyler.Node node1 = tree_control0.CreateNode("NodeDisplayText");
-            ////  // node1.DisplayText = "成环尺寸";
-            ////   node1.ForegroundColor = 198;
-         
-
-            ////   tree_control0.InsertNode(node1, null, null, Tree.NodeInsertOption.First);
-            ////   // BlockStyler.Node node = tree_control0.CreateNode(“NodeDisplayText”);
-            ////   NXOpen.BlockStyler.Node node = tree_control0.CreateNode("NodeData");
-            ////    DataContainer nodeData = node.GetNodeData();
-            ////    nodeData.AddTaggedObject("Data",(TaggedObject)theoridim );
-            ////    nodeData.Dispose();
-            ////    tree_control0.InsertNode(node,node1, null, Tree.NodeInsertOption.AlwaysLast);
-            ////   // tree_control0.set
-     
+          
 
             }
            
