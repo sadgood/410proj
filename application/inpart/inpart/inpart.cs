@@ -326,46 +326,8 @@ public class inpart
         }
     }
    
-    //------------------------------------------------------------------------------
-    //Callback Name: dialogShown_cb
-    //This callback is executed just before the dialog launch. Thus any value set 
-    //here will take precedence and dialog will be launched showing that value. 
-    //------------------------------------------------------------------------------
-    public void dialogShown_cb()
-    {
-        try
-        {
-           toggle0.GetProperties().SetLogical("Value", false);
-          selection01.GetProperties().SetLogical("Enable",false);
-          finalx = 0;
-          finaly = 0;
-          finalz = 0;
-           //  tree_control0.InsertColumn(1, "jerry", -1);
+   
 
-           //NXOpen.BlockStyler.Node node1 = tree_control0.CreateNode("NodeDisplayText");
-           // ////  // node1.DisplayText = "成环尺寸";
-           //node1.ForegroundColor = 198;
-            
-
-           //tree_control0.InsertNode(node1, null, null, Tree.NodeInsertOption.AlwaysLast);
-           //NXOpen.BlockStyler.Node p = tree_control0.CreateNode("fuck");
-           //tree_control0.InsertNode(p, node1,null, Tree.NodeInsertOption.First);
-           // ////   // BlockStyler.Node node = tree_control0.CreateNode(“NodeDisplayText”);
-           // ////   NXOpen.BlockStyler.Node node = tree_control0.CreateNode("NodeData");
-           // ////    DataContainer nodeData = node.GetNodeData();
-           // ////    nodeData.AddTaggedObject("Data",(TaggedObject)theoridim );
-           // ////    nodeData.Dispose();
-           // ////    tree_control0.InsertNode(node,node1, null, Tree.NodeInsertOption.AlwaysLast);
-           // ////   // tree_control0.set
-     
-      
-        }
-        catch (Exception ex)
-        {
-            //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
-        }
-    }
     public static T Tag2NXObject<T>(Tag tag)
     {
         try
@@ -644,16 +606,47 @@ public class inpart
         c = (NXOpen.Annotations.Dimension[])bb.ToArray(typeof(NXOpen.Annotations.Dimension));
     
     }
-
+    public void dialogShown_cb()
+    {
+        try
+        {
+            toggle0.GetProperties().SetLogical("Value", false);
+            selection01.GetProperties().SetLogical("Enable", false);
+            finalx = 0;
+            finaly = 0;
+            finalz = 0;
+        
+       }
+        catch (Exception ex)
+        {
+            //---- Enter your exception handling code here -----
+            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+        }
+    }
     public int apply_cb()
     {
-                                    
-    
+
+        
        
         int errorCode = 0;
         List<int[]> nene;
         try
         {
+            tree_control0.InsertColumn(1, "尺寸链/增减环", 100);
+            tree_control0.InsertColumn(2, "名义尺", 100);
+            tree_control0.InsertColumn(3, "上公差", 100);
+            tree_control0.InsertColumn(4, "下公差", 100);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    NXOpen.BlockStyler.Node a = tree_control0.CreateNode("wocao" + i.ToString());
+            //    tree_control0.InsertNode(a, null, null, Tree.NodeInsertOption.First);
+            //    for (int q = 0; q < 5; q++)
+            //    {
+            //        NXOpen.BlockStyler.Node qq = tree_control0.CreateNode("wocaonidaye" + i.ToString() + q.ToString());
+            //        tree_control0.InsertNode(qq, a, null, Tree.NodeInsertOption.Last);
+
+            //    }
+            //}
            //需要校核的尺寸的相关操作
             theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
             NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
@@ -710,11 +703,23 @@ public class inpart
                 };
             
             }
-               
 
-
-
-
+            foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)
+            {
+               NXOpen.BlockStyler.Node jerry1 = tree_control0.CreateNode("成环尺寸连");
+               jerry1.ForegroundColor = 198;
+               tree_control0.InsertNode(jerry1, null, null, Tree.NodeInsertOption.Last);
+               for (int p = 0; p < ori.Length; p++)
+               {
+                   NXOpen.BlockStyler.Node f = tree_control0.CreateNode("dec");
+                   DataContainer q = f.GetNodeData();
+                   q.AddTaggedObject("data", ori[p]);
+                   q.AddString("1", "2");
+                   q.Dispose();
+                   tree_control0.InsertNode(f, jerry1, null, Tree.NodeInsertOption.Last);
+               }
+            }
+            
            }
             else
            {
