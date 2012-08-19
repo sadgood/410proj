@@ -336,24 +336,27 @@ public class inpart
         try
         {
            toggle0.GetProperties().SetLogical("Value", false);
-           selection01.GetProperties().SetLogical("Enable",false);
-             tree_control0.InsertColumn(1, "jerry", -1);
+          selection01.GetProperties().SetLogical("Enable",false);
+          finalx = 0;
+          finaly = 0;
+          finalz = 0;
+           //  tree_control0.InsertColumn(1, "jerry", -1);
 
-           NXOpen.BlockStyler.Node node1 = tree_control0.CreateNode("NodeDisplayText");
-            ////  // node1.DisplayText = "成环尺寸";
-           node1.ForegroundColor = 198;
+           //NXOpen.BlockStyler.Node node1 = tree_control0.CreateNode("NodeDisplayText");
+           // ////  // node1.DisplayText = "成环尺寸";
+           //node1.ForegroundColor = 198;
             
 
-           tree_control0.InsertNode(node1, null, null, Tree.NodeInsertOption.AlwaysLast);
-           NXOpen.BlockStyler.Node p = tree_control0.CreateNode("fuck");
-           tree_control0.InsertNode(p, node1,null, Tree.NodeInsertOption.First);
-            ////   // BlockStyler.Node node = tree_control0.CreateNode(“NodeDisplayText”);
-            ////   NXOpen.BlockStyler.Node node = tree_control0.CreateNode("NodeData");
-            ////    DataContainer nodeData = node.GetNodeData();
-            ////    nodeData.AddTaggedObject("Data",(TaggedObject)theoridim );
-            ////    nodeData.Dispose();
-            ////    tree_control0.InsertNode(node,node1, null, Tree.NodeInsertOption.AlwaysLast);
-            ////   // tree_control0.set
+           //tree_control0.InsertNode(node1, null, null, Tree.NodeInsertOption.AlwaysLast);
+           //NXOpen.BlockStyler.Node p = tree_control0.CreateNode("fuck");
+           //tree_control0.InsertNode(p, node1,null, Tree.NodeInsertOption.First);
+           // ////   // BlockStyler.Node node = tree_control0.CreateNode(“NodeDisplayText”);
+           // ////   NXOpen.BlockStyler.Node node = tree_control0.CreateNode("NodeData");
+           // ////    DataContainer nodeData = node.GetNodeData();
+           // ////    nodeData.AddTaggedObject("Data",(TaggedObject)theoridim );
+           // ////    nodeData.Dispose();
+           // ////    tree_control0.InsertNode(node,node1, null, Tree.NodeInsertOption.AlwaysLast);
+           // ////   // tree_control0.set
      
       
         }
@@ -542,6 +545,11 @@ public class inpart
         bool wety = (Math.Abs(finaly)) <= 0.000000000001;
         bool wetz = (Math.Abs(finalz)) <= 0.000000000001;
         bool puanduan = (wetx && wety && wetz);
+        theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
+        NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+        finalx = theoridim.GetRealAttribute("X");
+        finaly = theoridim.GetRealAttribute("Y");
+        finalz = theoridim.GetRealAttribute("Z");
         return puanduan;
     }
     public void setappendzeng(NXOpen.Annotations.Dimension zengdim)//true为增环，false为减环,zengdim为要加文本的
@@ -681,8 +689,7 @@ public class inpart
                {
                    lst_Combination.Add(ne);
                }
-             
-             
+          
             }
           
             foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
@@ -691,7 +698,7 @@ public class inpart
                 for (int j = 0; j < a.Length; j++)//下面这个for循环从索引得到对应的dimension数组。
                 {
                    
-                    theday.Add(left[j]);
+                    theday.Add(left[a[j]]);//这一步有问题。。。。。妈的。------这里一个小错误就让我调试了一早上
                    // thefinalori[j] = left[j];//得到索引所表示的数组
                     
                 }
@@ -703,15 +710,7 @@ public class inpart
                 };
             
             }
-
-            foreach (NXOpen.Annotations.Dimension[] zz in finaloneinpro)
-            { 
-                
-                NXOpen.Annotations.Dimension[] pp;
-                NXOpen.Annotations.Dimension[] qq;
-                afandfor(zz, out pp, out qq);//这里又有问题
-
-            }
+               
 
 
 
@@ -720,7 +719,7 @@ public class inpart
             else
            {
              theallpmi = selection01.GetProperties().GetTaggedObjectVector("SelectedObjects");//这是一种特殊情况，假设用户已经指定了这些尺寸。
-          //   NXOpen.Annotations.Dimension[] nonamedim = null;
+       
              ArrayList noname = new ArrayList();
              for (int u = 0; u < theallpmi.Length; u++)
              {
