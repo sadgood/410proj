@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="count.cs" />
     <Compile Include="random.cs" />
     <Compile Include="inpart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -78,7 +78,7 @@ public class inpart
     NXOpen.Annotations.Dimension[] dimary = null;
     NXOpen.Annotations.Dimension[] left = null;
     public ArrayList theday = new ArrayList();//theday是一个里面存放排列组合后得到的尺寸的数组
-    List<NXOpen.Annotations.Dimension[]> finaloneinpro = new List<NXOpen.Annotations.Dimension[]>();//在本工序内进行校核的时候存放和要校核的尺寸成环的其他所有尺寸的list
+   public  List<NXOpen.Annotations.Dimension[]> finaloneinpro = new List<NXOpen.Annotations.Dimension[]>();//在本工序内进行校核的时候存放和要校核的尺寸成环的其他所有尺寸的list
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -632,6 +632,7 @@ public class inpart
         List<int[]> nene;
         try
         {
+         
             tree_control0.InsertColumn(1, "尺寸链/增减环", 100);
             tree_control0.InsertColumn(2, "名义尺", 100);
             tree_control0.InsertColumn(3, "上公差", 100);
@@ -704,22 +705,23 @@ public class inpart
             
             }
 
-            foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)
-            {
-               NXOpen.BlockStyler.Node jerry1 = tree_control0.CreateNode("成环尺寸连");
-               jerry1.ForegroundColor = 198;
-               tree_control0.InsertNode(jerry1, null, null, Tree.NodeInsertOption.Last);
-               for (int p = 0; p < ori.Length; p++)
-               {
-                   NXOpen.BlockStyler.Node f = tree_control0.CreateNode("dec");
-                   DataContainer q = f.GetNodeData();
-                   q.AddTaggedObject("data", ori[p]);
-                   q.AddString("1", "2");
-                   q.Dispose();
-                   tree_control0.InsertNode(f, jerry1, null, Tree.NodeInsertOption.Last);
-               }
-            }
-            
+            //foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)
+            //{
+            //   NXOpen.BlockStyler.Node jerry1 = tree_control0.CreateNode("成环尺寸连");
+            //   jerry1.ForegroundColor = 198;
+            //   tree_control0.InsertNode(jerry1, null, null, Tree.NodeInsertOption.Last);
+            //   for (int p = 0; p < ori.Length; p++)
+            //   {
+            //       NXOpen.BlockStyler.Node f = tree_control0.CreateNode("dec");
+            //       DataContainer q = f.GetNodeData();
+            //       q.AddTaggedObject("data", ori[p]);
+            //       q.AddString("1", "2");
+            //       q.Dispose();
+            //       tree_control0.InsertNode(f, jerry1, null, Tree.NodeInsertOption.Last);
+            //   }
+            //}
+          
+   
            }
             else
            {
@@ -774,8 +776,8 @@ public class inpart
           
 
             }
-           
-      
+        
+
         }
         catch (Exception ex)
         {
