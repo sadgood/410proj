@@ -705,21 +705,16 @@ public class inpart
             
             }
 
-            //foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)
-            //{
-            //   NXOpen.BlockStyler.Node jerry1 = tree_control0.CreateNode("成环尺寸连");
-            //   jerry1.ForegroundColor = 198;
-            //   tree_control0.InsertNode(jerry1, null, null, Tree.NodeInsertOption.Last);
-            //   for (int p = 0; p < ori.Length; p++)
-            //   {
-            //       NXOpen.BlockStyler.Node f = tree_control0.CreateNode("dec");
-            //       DataContainer q = f.GetNodeData();
-            //       q.AddTaggedObject("data", ori[p]);
-            //       q.AddString("1", "2");
-            //       q.Dispose();
-            //       tree_control0.InsertNode(f, jerry1, null, Tree.NodeInsertOption.Last);
-            //   }
-            //}
+            foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)
+            {
+                //NXOpen.BlockStyler.Node jerry1 = tree_control0.CreateNode("成环尺寸连");
+                //jerry1.ForegroundColor = 198;
+                //tree_control0.InsertNode(jerry1, null, null, Tree.NodeInsertOption.Last);
+                foreach (NXOpen.Annotations.Dimension sda in ori)
+                {
+              
+                }
+            }
           
    
            }
