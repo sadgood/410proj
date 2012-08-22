@@ -39,7 +39,7 @@ public class count
         aclsmin = zengmin - jianmin;
      if(aclsmax <= clsmax && aclsmin >= clsmin)
      {
-
+         
      }
 
     }
@@ -60,4 +60,5 @@ public class count
          final[2] = low;
          return final;
     }
+    
 }
