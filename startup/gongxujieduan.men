@@ -21,5 +21,5 @@ LABEL 本工序三维尺寸链校核
 ACTIONS inpart.dll
 BUTTON crojiaohe
 LABEL 全工艺三维尺寸链校核
-ACTIONS cropart.dll
+ACTIONS allpro.dll
 END_OF_MENU
