@@ -752,9 +752,16 @@ public class inpart
 
                     }
                     count ct = new count();
+                    ArrayList zengzu = new ArrayList();
+                    ArrayList jianzu = new ArrayList();
+                    NXOpen.Annotations.Dimension[] zengshuzu = null;
+                    NXOpen.Annotations.Dimension[] jianshuzu = null;
+                    NXOpen.BlockStyler.Node finalnode = null; 
                     foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                     {
-                        NXOpen.BlockStyler.Node finalnode = tree_control0.CreateNode("成环尺寸链");
+                        jianzu.Clear();
+                        zengzu.Clear();
+                        finalnode = tree_control0.CreateNode("成环尺寸链");
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {
@@ -768,13 +775,15 @@ public class inpart
                            p = cirdect(sda);
                            if (p == -1)
                            {
-                               //.SetColumnDisplayText(5, "减环");
+                             
                                finalchild.SetColumnDisplayText(5,"减环");
+                               jianzu.Add(sda);
                            
                            }
                            if (p == 1)
                            {
                                finalchild.SetColumnDisplayText(5, "增环");
+                               zengzu.Add(sda);
                            }
                            if (p == 0)
                            {
@@ -785,8 +794,24 @@ public class inpart
                            finalchild.SetColumnDisplayText(3, final[1].ToString());
                            finalchild.SetColumnDisplayText(4, final[2].ToString());
                         }
+                      zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+                      jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+                      if (ct.countcircle(zengshuzu, jianshuzu, theoridim))
+                      {
+                          //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
+
+                          finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
+                          finalnode.ForegroundColor = 198;//红色表示未通过尺寸链校核
+                      }
+                      else
+                      {
+                          finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
+                          finalnode.ForegroundColor = 198;
+                      }
+
                     }
-                    
+
+                   
 
                 }
                 else
