@@ -22,7 +22,9 @@
 using System;
 using NXOpen;
 using NXOpen.BlockStyler;
-
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 //------------------------------------------------------------------------------
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
@@ -68,6 +70,8 @@ public class allpro
     public static readonly int       SnapPointTypesOnByDefault_PointonSurface = (1 <<11);
     public static readonly int     SnapPointTypesOnByDefault_PointConstructor = (1 <<12);
     public static readonly int     SnapPointTypesOnByDefault_BoundedGridPoint = (1 <<16);
+    public ArrayList dimary = new ArrayList();//这个动态数组存放所有需要进行校核的尺寸，很重要。
+    public NXOpen.Annotations.Dimension[] dimarydim;//与dimary对应的数组
     
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
@@ -231,6 +235,7 @@ public class allpro
     {
         try
         {
+            selectPart0.GetProperties().SetLogical("Enable", false);
         }
         catch (Exception ex)
         {
@@ -258,6 +263,20 @@ public class allpro
     //------------------------------------------------------------------------------
     //Callback Name: update_cb
     //------------------------------------------------------------------------------
+    public ArrayList getpartlist(string path)////////得到一个文件夹里面所有prt的全路径
+    {
+        string[] prtinfo;
+        ArrayList prtinfoary = new ArrayList();
+        FileInfo[] prtfile;
+        DirectoryInfo profolder = new DirectoryInfo(path);
+        prtfile = profolder.GetFiles("*.prt");
+        foreach (FileInfo eachprt in prtfile)
+        {
+            //eachprt.FullName
+            prtinfoary.Add(eachprt.FullName);
+        }
+        return prtinfoary;
+    }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -270,12 +289,38 @@ public class allpro
             }
             else if(block == toggle0)
             {
+                if (toggle0.GetProperties().GetLogical("Value"))
+                {
+                    selectPart0.GetProperties().SetLogical("Enable", true);
+                    nativeFolderBrowser0.GetProperties().SetLogical("Enable", false);
+                }
+                else
+                {
+                    selectPart0.GetProperties().SetLogical("Enable", false);
+                    nativeFolderBrowser0.GetProperties().SetLogical("Enable", true);
+                }
             }
             else if(block == selectPart0)
             {
             }
             else if(block == button0)
             {
+              ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
+              string path = nativeFolderBrowser0.GetProperties().GetString("Path");
+              prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
+                foreach(string loadpath in prtnameary)
+                {
+                    PartLoadStatus loadcondition;
+                    Part thetempart;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
+                    thetempart = theSession.Parts.Open(loadpath,out loadcondition);
+                    //NXOpen.PartCollection.//一定要解决这个问题
+
+                    foreach (NXOpen.Annotations.Dimension eachdim in thetempart.Dimensions.ToArray())
+                    {
+                        dimary.Add(eachdim);
+                    
+                    }
+                }
             }
         }
         catch (Exception ex)
