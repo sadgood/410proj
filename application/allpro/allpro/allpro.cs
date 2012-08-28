@@ -250,8 +250,8 @@ public class allpro
             selectPart0.GetProperties().SetLogical("Enable", false);
             tree_control0.InsertColumn(1, "尺寸链", 130);//一定有注意不同的回调函数的问题
             tree_control0.InsertColumn(2, "名义尺", 100);
-            tree_control0.InsertColumn(3, "上公差", 100);
-            tree_control0.InsertColumn(4, "下公差", 100);
+            tree_control0.InsertColumn(3, "实际上公差/最大上公差", 200);
+            tree_control0.InsertColumn(4, "实际下公差/最小下公差", 200);
             tree_control0.InsertColumn(5, "增/减环", 100);
             tree_control0.InsertColumn(6,"所在部件",100);
             //tree_control0.InsertColumn(7,"具体细节",100);
@@ -351,9 +351,11 @@ public class allpro
                 finalx = theoridim.GetRealAttribute("X");
                 finaly = theoridim.GetRealAttribute("Y");
                 finalz = theoridim.GetRealAttribute("Z");
-                Part thework = theSession.Parts.Display;//当前工作部件的路径
+                Part thework = theSession.Parts.Display;//当前工作部件的路径 
                 if (!selectPart0.GetProperties().GetLogical("Enable"))
-                {   ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
+                {
+                    #region
+                    ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
                 string path = nativeFolderBrowser0.GetProperties().GetString("Path");
                 prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
 
@@ -427,18 +429,22 @@ public class allpro
                 NXOpen.Annotations.Dimension[] zengshuzu = null;
                 NXOpen.Annotations.Dimension[] jianshuzu = null;
                 NXOpen.BlockStyler.Node finalnode = null;
+                #region
                 foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                 {
                     jianzu.Clear();
                     zengzu.Clear();
                     finalnode = tree_control0.CreateNode("成环尺寸链");
                     tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
+                    NXOpen.BlockStyler.Node finalchild = null;
+                    double[] final = { 0, 0, 0 };
+                    #region
                     foreach (NXOpen.Annotations.Dimension sda in ori)
                     {
-                        NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("NodeData");
+                        finalchild = tree_control0.CreateNode("NodeData");
                         DataContainer nodeData = finalchild.GetNodeData();
                         int p = 0;
-                        double[] final = { 0, 0, 0 };
+                       
                         nodeData.AddTaggedObject("Data", sda);
                         nodeData.Dispose();
                         tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
@@ -469,24 +475,38 @@ public class allpro
                         string prtname = sdafile.Name;
                         finalchild.SetColumnDisplayText(6, prtname);
                     }
+                    #endregion
                     zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                     jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
-                    if (ct.countcircle(zengshuzu, jianshuzu, theoridim))
+                    double a = 0;
+                    double b = 0;
+
+                    if (ct.countcircle(zengshuzu, jianshuzu, theoridim,out a, out b))
                     {
                         //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
-
+                        //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                        //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
                         finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
                         finalnode.ForegroundColor = 60;//红色表示未通过尺寸链校核
+                        finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                        finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
                     }
                     else
                     {
                         finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
                         finalnode.ForegroundColor = 198;
+                        //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                        //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                        finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                        finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
                     }
 
                 }
+                #endregion
                 }
-           else
+                    #endregion 
+                #region
+                else
                 {
                     
                 NXOpen.TaggedObject[] partcol = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
@@ -557,12 +577,14 @@ public class allpro
                         zengzu.Clear();
                         finalnode = tree_control0.CreateNode("成环尺寸链");
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
+                        NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("NodeData");//这个和下面的都是从下面的foreach语句中提取出来的，因为要在里面加上最大公差和最小公差
+                        double[] final = { 0, 0, 0 };
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {
-                            NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("NodeData");
+                           
                             DataContainer nodeData = finalchild.GetNodeData();
                             int p = 0;
-                            double[] final = { 0, 0, 0 };
+                          
                             nodeData.AddTaggedObject("Data", sda);
                             nodeData.Dispose();
                             tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
@@ -586,8 +608,8 @@ public class allpro
                             }
                             final = ct.getspec(sda);
                             finalchild.SetColumnDisplayText(2, final[0].ToString());
-                            finalchild.SetColumnDisplayText(3, final[1].ToString());
-                            finalchild.SetColumnDisplayText(4, final[2].ToString());
+                            //finalchild.SetColumnDisplayText(3, final[1].ToString());
+                            //finalchild.SetColumnDisplayText(4, final[2].ToString());
                             Part sdapart = (Part)sda.OwningPart;
                             FileInfo sdafile = new FileInfo(sdapart.FullPath);
                             string prtname = sdafile.Name;
@@ -595,24 +617,35 @@ public class allpro
                         }
                         zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                         jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
-                        if (ct.countcircle(zengshuzu, jianshuzu, theoridim))
+                        double a = 0;
+                        double b = 0;
+                        if (ct.countcircle(zengshuzu, jianshuzu, theoridim,out a,out b))
                         {
                             //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
                             finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                            finalnode.ForegroundColor = 98;//红色表示未通过尺寸链校核
+                            finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
+                            //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                            //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
                         }
                         else
                         {
                             finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
-                            finalnode.ForegroundColor = 98;
+                            finalnode.ForegroundColor = 198;
+                            //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                            //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+
                         }
 
                     }
 
 
                 }
-
+                #endregion
             }
         }
         catch (Exception ex)

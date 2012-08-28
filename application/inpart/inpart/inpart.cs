@@ -786,17 +786,28 @@ public class inpart
                         }
                       zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                       jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
-                      if (ct.countcircle(zengshuzu, jianshuzu, theoridim))
+                      double a = 0;
+                      double b = 0;
+                      if (ct.countcircle(zengshuzu, jianshuzu, theoridim, out a, out b))
                       {
                           //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
                           finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                          finalnode.ForegroundColor = 60;//60表示淡绿色
+                          finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
+                          //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                          //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                          finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1] + "/" + a);
+                          finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
                       }
                       else
                       {
                           finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
                           finalnode.ForegroundColor = 198;
+                          //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                          //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                          finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                          finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+
                       }
 
                     }
@@ -908,17 +919,28 @@ public class inpart
                         }
                         zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                         jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
-                        if (ct.countcircle(zengshuzu, jianshuzu, theoridim))
+                        double a = 0;
+                        double b = 0;
+                        if (ct.countcircle(zengshuzu, jianshuzu, theoridim, out a, out b))
                         {
                             //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
                             finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                            finalnode.ForegroundColor = 198;//红色表示未通过尺寸链校核
+                            finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
+                            //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                            //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
                         }
                         else
                         {
                             finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
                             finalnode.ForegroundColor = 198;
+                            //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                            //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
+                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+
                         }
 
                     }
