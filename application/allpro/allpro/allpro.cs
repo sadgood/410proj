@@ -441,7 +441,7 @@ public class allpro
                     #region
                     foreach (NXOpen.Annotations.Dimension sda in ori)
                     {
-                        finalchild = tree_control0.CreateNode("NodeData");
+                        finalchild = tree_control0.CreateNode("组成环");
                         DataContainer nodeData = finalchild.GetNodeData();
                         int p = 0;
                        
@@ -577,7 +577,7 @@ public class allpro
                         zengzu.Clear();
                         finalnode = tree_control0.CreateNode("成环尺寸链");
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
-                        NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("NodeData");//这个和下面的都是从下面的foreach语句中提取出来的，因为要在里面加上最大公差和最小公差
+                        NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("组成环");//这个和下面的都是从下面的foreach语句中提取出来的，因为要在里面加上最大公差和最小公差
                         double[] final = { 0, 0, 0 };
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {

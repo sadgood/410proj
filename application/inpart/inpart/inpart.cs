@@ -298,12 +298,12 @@ public class inpart
             //tree_control0.SetOnEndLabelEditHandler(new NXOpen.BlockStyler.Tree.OnEndLabelEditCallback(OnEndLabelEditCallback));
             
             //tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
+
+            tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
             
-           // tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
+            tree_control0.SetOnMenuHandler(new NXOpen.BlockStyler.Tree.OnMenuCallback(OnMenuCallback));;
             
-            //tree_control0.SetOnMenuHandler(new NXOpen.BlockStyler.Tree.OnMenuCallback(OnMenuCallback));;
-            
-            //tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback));;
+            tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback));;
             
             //tree_control0.SetIsDropAllowedHandler(new NXOpen.BlockStyler.Tree.IsDropAllowedCallback(IsDropAllowedCallback));;
             
@@ -615,8 +615,8 @@ public class inpart
             finalz = 0;
             tree_control0.InsertColumn(1, "尺寸链", 130);//一定有注意不同的回调函数的问题
             tree_control0.InsertColumn(2, "名义尺", 100);
-            tree_control0.InsertColumn(3, "上公差", 100);
-            tree_control0.InsertColumn(4, "下公差", 100);
+            tree_control0.InsertColumn(3, "实际上公差/最大上公差", 200);
+            tree_control0.InsertColumn(4, "实际下公差/最小下公差", 200);
             tree_control0.InsertColumn(5, "增/减环", 100);
          
        }
@@ -661,10 +661,14 @@ public class inpart
             }
             else if(block == toggle0)
             {
-         
-                if(toggle0.GetProperties().GetLogical("Value"))
+
+                if (toggle0.GetProperties().GetLogical("Value"))
                 {
-                    selection01.GetProperties().SetLogical("Enable",true);
+                    selection01.GetProperties().SetLogical("Enable", true);
+                }
+                else
+                {
+                    selection0.GetProperties().SetLogical("Enable", false);
                 }
             //---------Enter your code here-----------
             }
@@ -754,7 +758,7 @@ public class inpart
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {
-                            NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("NodeData");
+                            NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("组成环");
                             DataContainer nodeData = finalchild.GetNodeData();
                             int p = 0;
                             double[] final = { 0, 0, 0 };
@@ -887,7 +891,7 @@ public class inpart
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {
-                            NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("NodeData");
+                            NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("组成环");
                             DataContainer nodeData = finalchild.GetNodeData();
                             int p = 0;
                             double[] final = { 0, 0, 0 };
@@ -1118,32 +1122,74 @@ public class inpart
     //{
     //}
 
-    //public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
-    //{
-    //    try
-    //    {
-    //        string[] options = new string[] { "AcceptText", "DefaultText", " RejectText" };
+    public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
+    {
+        try
+        {
+            string[] options = new string[] { "AcceptText", "DefaultText", " RejectText" };
+            tree.SetEditOptions(options, 1);
 
-    //        //The option must be set here or there will be no options available to edit.
-    //        tree.SetEditOptions(options, 1);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        //---- Enter the exception handling code here. -----
+        }
+        catch (Exception ex)
+        {
+            //---- Enter the exception handling code here. -----
 
-    //    }
-    //    //return tree.ControlType.ListBox; // Or tree.ControlType.ComboBox
+        }
+        //return tree.ControlType.ListBox; // Or tree.ControlType.ComboBox
+       
+        //return tree.ControlType.ListBox;
+        return NXOpen.BlockStyler.Tree.ControlType.ComboBox;
+    }
+//   enum MenuID
+//{
+//   AddNode,
+//   DeleteNode,
+//   SubMenuItem1,
+//   SubMenu1
+//};
 
-    //    return tree.SetOnPreSelectHandler(
-    //}
-    
-    //public void OnMenuCallback(Tree tree, Node node, int columnID)
-    //{
-    //}
-    
-    //public void OnMenuSelectionCallback(Tree tree, Node node, int menuItemID)
-    //{
-    //}
+    public void OnMenuCallback(Tree tree, Node node, int columnID)
+    {
+        try
+        {
+            TreeListMenu menu = tree.CreateMenu();
+            menu.AddMenuItem(1, "设为补偿环");
+            tree.SetMenu(menu);
+            menu.Dispose();
+        }
+        catch (Exception ex)
+        {
+            //---- Enter the exception handling code here. -----
+        }
+
+    }
+
+    public void OnMenuSelectionCallback(Tree tree, Node node, int menuItemID)
+    {
+        try
+        {
+            if (menuItemID == 1)
+            //theUI.NXMessageBox.Show("fuck", NXMessageBox.DialogType.Information, "u r a bitch ");
+            {
+                if (!node.DisplayText.Contains("组成环"))
+                {
+                    theUI.NXMessageBox.Show("请选择一个组成环", NXMessageBox.DialogType.Warning, "请选择本节点下的组成环");
+                
+                }
+                else 
+                { 
+                
+                }
+            
+            
+            }
+        }
+        catch (Exception ex)
+        {
+            //---- Enter your exception handling code here -----
+        }
+
+    }
     
     //public Node.DropType IsDropAllowedCallback(Tree tree, Node node, int columnID, Node targetNode, int targetColumnID)
     //{

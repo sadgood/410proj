@@ -44,9 +44,13 @@ public class count
         else
         {
             return false;
-
         }
 
+    }
+    public void settol(NXOpen.Annotations.Dimension dim, double up, double down)//这个方法用来设定一个尺寸的上下公差
+    {
+        dim.UpperMetricToleranceValue = up;
+        dim.LowerMetricToleranceValue = down;
     }
     public double[] getspec(NXOpen.Annotations.Dimension dim)//返回一个尺寸的名义值和上下公差，第一个值是名义值，第二个是上公差，第三个是下公差
     {
@@ -65,5 +69,5 @@ public class count
         final[2] = low;
         return final;
     }
-
+   
 }
