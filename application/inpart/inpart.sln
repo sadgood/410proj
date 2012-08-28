@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "inpart", "inpart\inpart.csproj", "{41DFEA5E-40FB-4984-ABDA-1259461B32D6}"
 EndProject
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ugraf", "D:\Program Files (x86)\UGS\NX 7.5\UGII\ugraf.exe", "{063988E8-1BEE-44FE-9AE8-7CE135F546B2}"
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ugraf", "D:\Program Files\UGS\NX 7.5\UGII\ugraf.exe", "{6731CB8A-269F-4BE6-B467-635522B5D8F5}"
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = D:\Program Files (x86)\UGS\NX 7.5\UGII\ugraf.exe
-		RemoteMachine = JERRY-PC
-		StartingDirectory = D:\Program Files (x86)\UGS\NX 7.5\UGII
+		Executable = D:\Program Files\UGS\NX 7.5\UGII\ugraf.exe
+		RemoteMachine = YIBO-PC
+		StartingDirectory = D:\Program Files\UGS\NX 7.5\UGII
 		Environment = 默认值
 		LaunchingEngine = 5fff7536-0c87-462d-8fd2-7971d948e6dc
 		LaunchSQLEngine = No
@@ -35,12 +35,12 @@ Global
 		{41DFEA5E-40FB-4984-ABDA-1259461B32D6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{41DFEA5E-40FB-4984-ABDA-1259461B32D6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{41DFEA5E-40FB-4984-ABDA-1259461B32D6}.Release|x86.ActiveCfg = Release|Any CPU
-		{063988E8-1BEE-44FE-9AE8-7CE135F546B2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{063988E8-1BEE-44FE-9AE8-7CE135F546B2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{063988E8-1BEE-44FE-9AE8-7CE135F546B2}.Debug|x86.ActiveCfg = Debug|x86
-		{063988E8-1BEE-44FE-9AE8-7CE135F546B2}.Release|Any CPU.ActiveCfg = Debug|x86
-		{063988E8-1BEE-44FE-9AE8-7CE135F546B2}.Release|Mixed Platforms.ActiveCfg = Debug|x86
-		{063988E8-1BEE-44FE-9AE8-7CE135F546B2}.Release|x86.ActiveCfg = Debug|x86
+		{6731CB8A-269F-4BE6-B467-635522B5D8F5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6731CB8A-269F-4BE6-B467-635522B5D8F5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{6731CB8A-269F-4BE6-B467-635522B5D8F5}.Debug|x86.ActiveCfg = Debug|x86
+		{6731CB8A-269F-4BE6-B467-635522B5D8F5}.Release|Any CPU.ActiveCfg = Debug|x86
+		{6731CB8A-269F-4BE6-B467-635522B5D8F5}.Release|Mixed Platforms.ActiveCfg = Debug|x86
+		{6731CB8A-269F-4BE6-B467-635522B5D8F5}.Release|x86.ActiveCfg = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -550,8 +550,8 @@ public class inpart
 
     }
     public int cirdect(NXOpen.Annotations.Dimension cirdick)//这个方法判断一个尺寸对于要校核的是增环还是减环，或者垂直无贡献
-    { 
-    // -1为减环，0为无贡献，1为增环
+    {
+        //1为减环，0为无贡献， -1为增环
         int aa = 0;
         DatumAxis correct = creataxis(cirdick);
         double anglllll = anglemethod(correct, xformone);
@@ -765,14 +765,15 @@ public class inpart
                            if (p == -1)
                            {
                              
-                               finalchild.SetColumnDisplayText(5,"减环");
-                               jianzu.Add(sda);
-                           
+                               finalchild.SetColumnDisplayText(5,"增环");
+                               //jianzu.Add(sda);
+                               zengzu.Add(sda);
                            }
                            if (p == 1)
                            {
-                               finalchild.SetColumnDisplayText(5, "增环");
-                               zengzu.Add(sda);
+                               finalchild.SetColumnDisplayText(5, "减环");
+                               //zengzu.Add(sda);
+                               jianzu.Add(sda);
                            }
                            if (p == 0)
                            {
@@ -790,7 +791,7 @@ public class inpart
                           //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
                           finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                          finalnode.ForegroundColor = 198;//红色表示未通过尺寸链校核
+                          finalnode.ForegroundColor = 60;//60表示淡绿色
                       }
                       else
                       {
@@ -886,14 +887,15 @@ public class inpart
                             if (p == -1)
                             {
 
-                                finalchild.SetColumnDisplayText(5, "减环");
-                                jianzu.Add(sda);
-
+                                finalchild.SetColumnDisplayText(5, "增环");
+                                //jianzu.Add(sda);
+                                zengzu.Add(sda);
                             }
                             if (p == 1)
                             {
-                                finalchild.SetColumnDisplayText(5, "增环");
-                                zengzu.Add(sda);
+                                finalchild.SetColumnDisplayText(5, "减环");
+                                //zengzu.Add(sda);
+                                jianzu.Add(sda);
                             }
                             if (p == 0)
                             {

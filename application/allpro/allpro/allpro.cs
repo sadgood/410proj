@@ -254,6 +254,7 @@ public class allpro
             tree_control0.InsertColumn(4, "下公差", 100);
             tree_control0.InsertColumn(5, "增/减环", 100);
             tree_control0.InsertColumn(6,"所在部件",100);
+            //tree_control0.InsertColumn(7,"具体细节",100);
         }
         catch (Exception ex)
         {
@@ -296,7 +297,7 @@ public class allpro
             //prtinfo[0] = eachprt.FullName;//第一个是全路径，第二个是文件名
             //prtinfo[1] = eachprt.Name;
             //prtinfoary.Add(prtinfo);
-           
+           //
         }
         return prtinfoary;
     }
@@ -445,14 +446,15 @@ public class allpro
                         if (p == -1)
                         {
 
-                            finalchild.SetColumnDisplayText(5, "减环");
-                            jianzu.Add(sda);
-
+                            finalchild.SetColumnDisplayText(5, "增环");
+                            //jianzu.Add(sda);
+                            zengzu.Add(sda);
                         }
                         if (p == 1)
                         {
-                            finalchild.SetColumnDisplayText(5, "增环");
-                            zengzu.Add(sda);
+                            finalchild.SetColumnDisplayText(5, "减环");
+                            //zengzu.Add(sda);
+                            jianzu.Add(sda);
                         }
                         if (p == 0)
                         {
@@ -474,7 +476,7 @@ public class allpro
                         //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
                         finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                        finalnode.ForegroundColor = 198;//红色表示未通过尺寸链校核
+                        finalnode.ForegroundColor = 60;//红色表示未通过尺寸链校核
                     }
                     else
                     {
@@ -568,14 +570,15 @@ public class allpro
                             if (p == -1)
                             {
 
-                                finalchild.SetColumnDisplayText(5, "减环");
-                                jianzu.Add(sda);
-
+                                finalchild.SetColumnDisplayText(5, "增环");
+                                //jianzu.Add(sda);
+                                zengzu.Add(sda);
                             }
                             if (p == 1)
                             {
-                                finalchild.SetColumnDisplayText(5, "增环");
-                                zengzu.Add(sda);
+                                finalchild.SetColumnDisplayText(5, "减环");
+                                //zengzu.Add(sda);
+                                jianzu.Add(sda);
                             }
                             if (p == 0)
                             {
@@ -597,12 +600,12 @@ public class allpro
                             //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
                             finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                            finalnode.ForegroundColor = 198;//红色表示未通过尺寸链校核
+                            finalnode.ForegroundColor = 98;//红色表示未通过尺寸链校核
                         }
                         else
                         {
                             finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
-                            finalnode.ForegroundColor = 198;
+                            finalnode.ForegroundColor = 98;
                         }
 
                     }
