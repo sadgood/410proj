@@ -363,10 +363,9 @@ public class allpro
 
                 foreach (NXOpen.Annotations.Dimension workdim in thework.Dimensions)
                 {
-                    if (workdim != theoridim)
-                    {
+                    
                         dimary.Add(workdim);
-                    }
+                    
                 }
                 foreach (string loadpath in prtnameary)
                 {
@@ -388,7 +387,33 @@ public class allpro
                     }
                 }
                 List<int[]> nene;
-                left = (NXOpen.Annotations.Dimension[])dimary.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
+                foreach (NXOpen.Annotations.Dimension a in dimary)
+                {
+                    string finalstr = null;
+                    a.SetAttribute("temp", "temp");
+                    if (a != theoridim)//如果遍历的尺寸不等于需要校核的尺寸，则把他加入到thedown中，起名字太难了。
+                    {
+                        NXObject.AttributeInformation[] attrinfo = null;
+                        attrinfo = a.GetAttributeTitlesByType(NXObject.AttributeType.Any);
+                        bool reslt;
+                        string mm = null;
+                        foreach (NXObject.AttributeInformation inf in attrinfo)
+                        {
+
+                            mm = inf.Title;
+                            finalstr = finalstr + mm.ToString();
+
+                        }
+                        if (finalstr.Contains("XYZ"))
+                        {
+                            thedown.Add(a);
+                        }
+
+                        reslt = false;
+                    }
+                    a.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
+                }
+                left = (NXOpen.Annotations.Dimension[])thedown.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
                 int[] arr = new int[left.Length];//下面这个for循环定义了一个索引数组，里面存放的是left这个数组的索引。一一对应
                 for (int i = 0; i < arr.Length; i++)
                 {
@@ -522,15 +547,40 @@ public class allpro
                     {
                         foreach (NXOpen.Annotations.Dimension eachdim in eachpart.Dimensions.ToArray())
                         {
-                            if (eachdim != theoridim)
-                            {
+                           
                                 dimary.Add(eachdim);
-                            }
+                            
                         }
                     
                     }
+                    foreach (NXOpen.Annotations.Dimension a in dimary)
+                    {
+                        string finalstr = null;
+                        a.SetAttribute("temp", "temp");
+                        if (a != theoridim)//如果遍历的尺寸不等于需要校核的尺寸，则把他加入到thedown中，起名字太难了。
+                        {
+                            NXObject.AttributeInformation[] attrinfo = null;
+                            attrinfo = a.GetAttributeTitlesByType(NXObject.AttributeType.Any);
+                            bool reslt;
+                            string mm = null;
+                            foreach (NXObject.AttributeInformation inf in attrinfo)
+                            {
+
+                                mm = inf.Title;
+                                finalstr = finalstr + mm.ToString();
+
+                            }
+                            if (finalstr.Contains("XYZ"))
+                            {
+                                thedown.Add(a);
+                            }
+
+                            reslt = false;
+                        }
+                        a.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
+                    }
                     List<int[]> nene;
-                    left = (NXOpen.Annotations.Dimension[])dimary.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
+                    left = (NXOpen.Annotations.Dimension[])thedown.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
                     int[] arr = new int[left.Length];//下面这个for循环定义了一个索引数组，里面存放的是left这个数组的索引。一一对应
                     for (int i = 0; i < arr.Length; i++)
                     {
