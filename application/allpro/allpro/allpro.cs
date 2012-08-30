@@ -84,7 +84,9 @@ public class allpro
     DatumAxis xformone = null;//要校核的尺寸生成的轴
     NXOpen.Annotations.Dimension[] left = null;//存放除过要校核的之外的所有尺寸
     public ArrayList theday = new ArrayList();//theday是一个里面存放排列组合后得到的尺寸的数组
+    public Node trannode = null;//这个node用来在menu和combox这两个回调中转换，从而达到只有被menu调用的node才会被combox回调
     public List<NXOpen.Annotations.Dimension[]> finaloneinpro = new List<NXOpen.Annotations.Dimension[]>();//校核的时候存放和要校核的尺寸成环的其他所有尺寸的list
+    public ArrayList partpool = new ArrayList();//存放除过workpart（或者displaypart）之外的所有要校核的part
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
     //------------------------------------------------------------------------------
@@ -213,9 +215,10 @@ public class allpro
             selectPart0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("selectPart0");
             tree_control0 = (NXOpen.BlockStyler.Tree)theDialog.TopBlock.FindBlock("tree_control0");
             button0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0");
-            
-            
-            
+            //tree_control0.SetToolTipTextHandler(new NXOpen.BlockStyler.Tree.ToolTipTextCallback(ToolTipTextcallback));
+            tree_control0.SetOnMenuHandler(new NXOpen.BlockStyler.Tree.OnMenuCallback(OnMenuCallback)); ;
+            tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback)); ;
+            tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
             
             
             
@@ -270,6 +273,29 @@ public class allpro
         int errorCode = 0;
         try
         {
+            //Part dispart = null;
+            //ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
+            //string path = nativeFolderBrowser0.GetProperties().GetString("Path");
+            //prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
+            //string workpath = dispart.FullPath;
+            //foreach (string loadpath in prtnameary)
+            //{
+            //    if (loadpath != workpath)
+            //    {
+            //        //PartLoadStatus loadcondition;
+            //        PartSaveStatus savecondition;
+            //        Part thetempart;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
+            //        //thetempart = theSession.Parts.Open(loadpath, out loadcondition);
+            //        thetempart = theSession.Parts.save
+            //    }
+            //}
+            foreach (NXOpen.Part clsprt in partpool)
+            {
+                clsprt.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
+            
+            }
+            NXOpen.Part workpart = theSession.Parts.Work;
+            workpart.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
         }
         catch (Exception ex)
         {
@@ -355,7 +381,7 @@ public class allpro
                 if (!selectPart0.GetProperties().GetLogical("Enable"))
                 {
                     #region
-                    ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
+                ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
                 string path = nativeFolderBrowser0.GetProperties().GetString("Path");
                 prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
 
@@ -364,7 +390,7 @@ public class allpro
                 foreach (NXOpen.Annotations.Dimension workdim in thework.Dimensions)
                 {
                     
-                        dimary.Add(workdim);
+                        dimary.Add(workdim);//如果以后出错，可能这里我把displaypart当成了workpart
                     
                 }
                 foreach (string loadpath in prtnameary)
@@ -375,7 +401,7 @@ public class allpro
                         Part thetempart;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
                         thetempart = theSession.Parts.Open(loadpath, out loadcondition);
                         //NXOpen.PartCollection.//一定要解决这个问题
-
+                        partpool.Add(thetempart);
                         foreach (NXOpen.Annotations.Dimension eachdim in thetempart.Dimensions.ToArray())
                         {
                             dimary.Add(eachdim);
@@ -506,15 +532,15 @@ public class allpro
                     double a = 0;
                     double b = 0;
 
-                    if (ct.countcircle(zengshuzu, jianshuzu, theoridim,out a, out b))
+                    if (ct.countcircle(zengshuzu, jianshuzu,out a, out b))
                     {
                         //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
                         //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
                         //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
                         finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
                         finalnode.ForegroundColor = 60;//红色表示未通过尺寸链校核
-                        finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                        finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                        finalnode.SetColumnDisplayText(3,a.ToString());
+                        finalnode.SetColumnDisplayText(4,b.ToString());
                     }
                     else
                     {
@@ -522,8 +548,8 @@ public class allpro
                         finalnode.ForegroundColor = 198;
                         //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
                         //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                        finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                        finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                        finalnode.SetColumnDisplayText(3,a.ToString());
+                        finalnode.SetColumnDisplayText(4,b.ToString());
                     }
 
                 }
@@ -669,7 +695,7 @@ public class allpro
                         jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                         double a = 0;
                         double b = 0;
-                        if (ct.countcircle(zengshuzu, jianshuzu, theoridim,out a,out b))
+                        if (ct.countcircle(zengshuzu, jianshuzu,out a,out b))
                         {
                             //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
@@ -677,8 +703,8 @@ public class allpro
                             finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
                             //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
                             //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                            finalnode.SetColumnDisplayText(3,a.ToString());
+                            finalnode.SetColumnDisplayText(4,b.ToString());
                         }
                         else
                         {
@@ -686,8 +712,8 @@ public class allpro
                             finalnode.ForegroundColor = 198;
                             //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
                             //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                            finalnode.SetColumnDisplayText(3,a.ToString());
+                            finalnode.SetColumnDisplayText(4,b.ToString());
 
                         }
 
@@ -1023,7 +1049,134 @@ public class allpro
             theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
         }
     }
-    
+    public void OnMenuCallback(Tree tree, Node node, int columnID)
+    {
+        try
+        {
+            TreeListMenu menu = tree.CreateMenu();
+            if (node.DisplayText.Contains("组成环"))
+            {
+                menu.AddMenuItem(1, "设为补偿环");
+            }
+            else if (node.DisplayText.Contains("成环尺寸链"))
+            {
+                menu.AddMenuItem(2, "不合理尺寸链");
+            }
+            tree.SetMenu(menu);
+            menu.Dispose();
+        }
+        catch (Exception ex)
+        {
+            //---- Enter the exception handling code here. -----
+        }
+
+    }
+
+    public void OnMenuSelectionCallback(Tree tree, Node node, int menuItemID)
+    {
+        try
+        {
+            if (menuItemID == 1)
+            {
+                trannode = node;
+                tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
+                //tree_control0.SetOnBeginLabelEditHandler(new NXOpen.BlockStyler.Tree.OnBeginLabelEditCallback(OnBeginLabelEditCallback));
+
+                //tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
+
+                //tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
+            }
+
+            else if (menuItemID == 2)
+            {
+                int m = theUI.NXMessageBox.Show("删除可疑尺寸链", NXMessageBox.DialogType.Question, "确定删除该可疑尺寸链以及其所有组成环？");
+                if (m == 1)
+                {
+                    tree_control0.DeleteNode(node);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            //---- Enter your exception handling code here -----
+        }
+
+    }
+    public Tree.EditControlOption OnEditOptionSelectedCallback(Tree tree, Node node, int columnID, int selectedOptionID, string selectedOptionText, Tree.ControlType type)
+    {
+        Tree.EditControlOption OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
+        try
+        {
+            if (node == trannode)
+            {
+                double editdouble = Double.Parse(selectedOptionText);
+                DataContainer editcontainer = node.GetNodeData();
+                NXOpen.TaggedObject edittag = editcontainer.GetTaggedObject("Data");
+                NXOpen.Annotations.Dimension editpmi = (NXOpen.Annotations.Dimension)edittag;
+                count ct = new count();
+                if (columnID == 3)
+                {
+
+                    ct.settolup(editpmi, editdouble);
+                   
+                }
+                else if (columnID == 4)
+                {
+                    ct.settoldown(editpmi, editdouble);
+                }
+                OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
+            }
+            else
+            {
+                theUI.NXMessageBox.Show("无法修改", NXMessageBox.DialogType.Error, "无法对该节点的值进行修改");
+                OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            //---- Enter the exception handling code here. -----
+        }
+        return OnEditOptionSelected;
+
+    }
+
+
+    public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
+    {
+        try
+        {
+            if (node == trannode)
+            {
+                tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
+                if (columnID == 3)
+                {
+                    string[] opt = new string[] {null};
+                    tree.SetEditOptions(opt, 0);
+                }
+                else if (columnID == 4)
+                {
+                    string[] opt = new string[] {null};
+                    tree.SetEditOptions(opt, 0);
+                }
+
+            }
+            else
+            {
+                theUI.NXMessageBox.Show("无法修改", NXMessageBox.DialogType.Error, "无法对该节点的值进行修改");
+
+            }
+        }
+        catch (Exception ex)
+        {
+            //---- Enter the exception handling code here. -----
+
+        }
+        //return tree.ControlType.ListBox; // Or tree.ControlType.ComboBox
+
+        //return tree.ControlType.ListBox;
+        return NXOpen.BlockStyler.Tree.ControlType.ComboBox;
+    }
     
     
     

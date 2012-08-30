@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class count
 {
 
-    public bool countcircle(NXOpen.Annotations.Dimension[] zeng, NXOpen.Annotations.Dimension[] jian, NXOpen.Annotations.Dimension fengbi, out double a, out double b)//这个函数是进行尺寸链校核计算的主方法
+    public bool countcircle(NXOpen.Annotations.Dimension[] zeng, NXOpen.Annotations.Dimension[] jian, out double a, out double b)//这个函数是进行尺寸链校核计算的主方法
     {
         double zengmax = 0;//所有增环的最大尺寸之和
         double zengmin = 0;//所有增环的最小尺寸之和
@@ -31,23 +31,34 @@ public class count
             jianmin = getspec(jianhuan)[0] + getspec(jianhuan)[2];
         }
 
-        clsmax = getspec(fengbi)[0] + getspec(fengbi)[1];
-        clsmin = getspec(fengbi)[0] + getspec(fengbi)[2];
+        //clsmax = getspec(fengbi)[0] + getspec(fengbi)[1];
+        //clsmin = getspec(fengbi)[0] + getspec(fengbi)[2];
         aclsmax = zengmax - jianmin;
         aclsmin = zengmin - jianmax;
-        a = aclsmax - getspec(fengbi)[0];
+        a = aclsmax;
+        b = aclsmin;
+        //a = aclsmax - getspec(fengbi)[0];
+        //a = aclsmax - getspec(fengbi)[0];
         //b = getspec(fengbi)[0] - aclsmin;
-        b = aclsmin - getspec(fengbi)[0];
-        if (aclsmax >= clsmax && aclsmin <= clsmin)
+        //b = aclsmin - getspec(fengbi)[0];
+        //b = aclsmin - getspec(fengbi)[0];
+        //if (aclsmax >= clsmax && aclsmin <= clsmin)
+        //{
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+
+        //}
+        if (b <= 0)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
-
+            return true;
         }
-
     }
     public double[] getspec(NXOpen.Annotations.Dimension dim)//返回一个尺寸的名义值和上下公差，第一个值是名义值，第二个是上公差，第三个是下公差
     {
@@ -66,5 +77,15 @@ public class count
         final[2] = low;
         return final;
     }
+    public void settolup(NXOpen.Annotations.Dimension dim, double up)//这个方法用来设定一个尺寸的上下公差
+    {
 
+        //dim.LowerMetricToleranceValue = up;
+        dim.UpperMetricToleranceValue = up;
+    }
+    public void settoldown(NXOpen.Annotations.Dimension dim, double down)//这个方法用来设定一个尺寸的上下公差
+    {
+        //dim.UpperMetricToleranceValue = up;
+        dim.LowerMetricToleranceValue = down;
+    }
 }

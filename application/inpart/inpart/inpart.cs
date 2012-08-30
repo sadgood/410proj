@@ -287,8 +287,8 @@ public class inpart
             //tree_control0.SetOnSelectHandler(new NXOpen.BlockStyler.Tree.OnSelectCallback(OnSelectcallback));
             
             //tree_control0.SetOnStateChangeHandler(new NXOpen.BlockStyler.Tree.OnStateChangeCallback(OnStateChangecallback));
-            
-            //tree_control0.SetToolTipTextHandler(new NXOpen.BlockStyler.Tree.ToolTipTextCallback(ToolTipTextcallback));
+
+            tree_control0.SetToolTipTextHandler(new NXOpen.BlockStyler.Tree.ToolTipTextCallback(ToolTipTextcallback));
             
             //tree_control0.SetColumnSortHandler(new NXOpen.BlockStyler.Tree.ColumnSortCallback(ColumnSortcallback));
             
@@ -296,12 +296,12 @@ public class inpart
 
             //tree_control0.SetOnBeginLabelEditHandler(new NXOpen.BlockStyler.Tree.OnBeginLabelEditCallback(OnBeginLabelEditCallback));
 
-            //tree_control0.SetOnEndLabelEditHandler(new NXOpen.BlockStyler.Tree.OnEndLabelEditCallback(OnEndLabelEditCallback));
+            tree_control0.SetOnEndLabelEditHandler(new NXOpen.BlockStyler.Tree.OnEndLabelEditCallback(OnEndLabelEditCallback));
 
-            tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
+            //tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
 
             //tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
-            //tree_control0.SetOnDropHandler(
+          
             tree_control0.SetOnMenuHandler(new NXOpen.BlockStyler.Tree.OnMenuCallback(OnMenuCallback));;
             
             tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback));;
@@ -522,13 +522,10 @@ public class inpart
         NXOpen.Annotations.AppendedText appendedText1;
         appendedText1 = workPart.Annotations.NewAppendedText();
         string[] lines4 = new string[1];
-       
             lines4[0] = "增";
             appendedText1.SetAfterText(lines4);
             zengdim.SetAppendedText(appendedText1);
             appendedText1.Dispose();
-
-
     }
     public void setappendjian(NXOpen.Annotations.Dimension zengdim)//true为增环，false为减环,zengdim为要加文本的
     {
@@ -812,7 +809,7 @@ public class inpart
                       jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                       double a = 0;
                       double b = 0;
-                      if (ct.countcircle(zengshuzu, jianshuzu, theoridim, out a, out b))
+                      if (ct.countcircle(zengshuzu, jianshuzu,out a, out b))
                       {
                           //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
@@ -820,8 +817,8 @@ public class inpart
                           finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
                           //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
                           //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                          finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1] + "/" + a);
-                          finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                          finalnode.SetColumnDisplayText(3,a.ToString());
+                          finalnode.SetColumnDisplayText(4,b.ToString());
                       }
                       else
                       {
@@ -829,8 +826,8 @@ public class inpart
                           finalnode.ForegroundColor = 198;
                           //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
                           //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
-                          finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                          finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                          finalnode.SetColumnDisplayText(3,a.ToString());
+                          finalnode.SetColumnDisplayText(4,b.ToString());
 
                       }
 
@@ -963,7 +960,7 @@ public class inpart
                         jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                         double a = 0;
                         double b = 0;
-                        if (ct.countcircle(zengshuzu, jianshuzu, theoridim, out a, out b))
+                        if (ct.countcircle(zengshuzu, jianshuzu, out a, out b))
                         {
                             //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
@@ -971,8 +968,8 @@ public class inpart
                             finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
                             //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
                             //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                            finalnode.SetColumnDisplayText(3,a.ToString());
+                            finalnode.SetColumnDisplayText(4,b.ToString());
                         }
                         else
                         {
@@ -980,8 +977,8 @@ public class inpart
                             finalnode.ForegroundColor = 198;
                             //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
                             //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(3, ct.getspec(theoridim)[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(4, ct.getspec(theoridim)[2].ToString() + "/" + b.ToString());
+                            finalnode.SetColumnDisplayText(3,a.ToString());
+                            finalnode.SetColumnDisplayText(4,b.ToString());
 
                         }
 
@@ -1134,10 +1131,18 @@ public class inpart
     //{
     //}
 
-    //public string ToolTipTextcallback(NXOpen.BlockStyler.Tree tree, NXOpen.BlockStyler.Node node, int columnID)
-    //{
-    //   
-    //}
+    public string ToolTipTextcallback(NXOpen.BlockStyler.Tree tree, NXOpen.BlockStyler.Node node, int columnID)
+    {
+        string info =null;
+        if (node == trannode )
+        {
+            if(columnID == 3 || columnID == 4)
+            {
+            info = "请三击该节点三次进行修改";
+            }
+        }
+        return info;
+    }
     
     //public int ColumnSortcallback(NXOpen.BlockStyler.Tree tree, int columnID, NXOpen.BlockStyler.Node node1, NXOpen.BlockStyler.Node node2)
     //{
@@ -1147,86 +1152,104 @@ public class inpart
     //{
     //}
 
-    //public Tree.BeginLabelEditState OnBeginLabelEditCallback(Tree tree, Node node, int columnID)
-    //{
-    //    Tree.BeginLabelEditState a = Tree.BeginLabelEditState.Allow;
-    //    if(columnID == 1)
-    //    {
-    //        a = Tree.BeginLabelEditState.Disallow;
-    //    }
-    //    return a;
-    //}
-
-    //public Tree.EndLabelEditState OnEndLabelEditCallback(Tree tree, Node node, int columnID, string editedText)
-    //{
-    //    return Tree.EndLabelEditState.RejectText;
-    //}
-
-    public Tree.EditControlOption OnEditOptionSelectedCallback(Tree tree, Node node, int columnID, int selectedOptionID, string selectedOptionText, Tree.ControlType type)
+    public Tree.BeginLabelEditState OnBeginLabelEditCallback(Tree tree, Node node, int columnID)
     {
-        Tree.EditControlOption OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
-        try
+        Tree.BeginLabelEditState a = Tree.BeginLabelEditState.Disallow;
+        if (node == trannode)
         {
-            if (node == trannode)
+            if(columnID ==3 || columnID ==4)
             {
-                if (columnID == 4 || columnID == 3)
-                {
-                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
-                   
-                }
+            a = Tree.BeginLabelEditState.Allow;
             }
         }
-        catch (Exception ex)
-        {
-            //---- Enter the exception handling code here. -----
-        }
-        return OnEditOptionSelected;
-
+       
+        return a;
     }
+
+    public Tree.EndLabelEditState OnEndLabelEditCallback(Tree tree, Node node, int columnID, string editedText)
+    {
+        double editdouble = Double.Parse(editedText);
+        DataContainer editcontainer = node.GetNodeData();
+        NXOpen.TaggedObject edittag = editcontainer.GetTaggedObject("Data");
+        NXOpen.Annotations.Dimension editpmi = (NXOpen.Annotations.Dimension)edittag;
+        count ct = new count();
+        if (columnID == 3)
+        {
+
+            ct.settolup(editpmi, editdouble);
+        }
+        else if (columnID == 4)
+        {
+            ct.settoldown(editpmi, editdouble);
+        }
+        return Tree.EndLabelEditState.AcceptText;
+    }
+
+    //public Tree.EditControlOption OnEditOptionSelectedCallback(Tree tree, Node node, int columnID, int selectedOptionID, string selectedOptionText, Tree.ControlType type)
+    //{
+    //    Tree.EditControlOption OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
+    //    try
+    //    {
+    //        if (node == trannode)
+    //        {
+    //            if (columnID == 4 || columnID == 3)
+    //            {
+    //                OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
+                   
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        //---- Enter the exception handling code here. -----
+    //    }
+    //    return OnEditOptionSelected;
+
+    //}
 
    
-    public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
-    {
-        try
-        {
-            if (node == trannode)
-            {
-                if (columnID == 3)
-                {
-                    string[] opt = new string[] { "jerry", "william", "ho" };
-                    tree.SetEditOptions(opt, 2);
-                }
-                else if (columnID == 4)
-                {
-                    string[] opt = new string[] { "jane", "star", "li" };
-                    tree.SetEditOptions(opt, 2);
-                }
+    //public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
+    //{
+    //    try
+    //    {
+    //        if (node == trannode)
+    //        {
+    //            if (columnID == 3)
+    //            {
+    //                string[] opt = new string[] { "jerry", "william", "ho" };
+    //                tree.SetEditOptions(opt, 2);
+    //            }
+    //            else if (columnID == 4)
+    //            {
+    //                string[] opt = new string[] { "jane", "star", "li" };
+    //                tree.SetEditOptions(opt, 2);
+    //            }
 
-            }
-            else 
-            {
-                string[] opt = {"","",""};
-                tree.SetEditOptions(opt, 0);
+    //        }
+    //        else 
+    //        {
+    //            string[] opt = {"","",""};
+    //            tree.SetEditOptions(opt, 0);
 
 
-            }
-        }
-        catch (Exception ex)
-        {
-            //---- Enter the exception handling code here. -----
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        //---- Enter the exception handling code here. -----
 
-        }
-        //return tree.ControlType.ListBox; // Or tree.ControlType.ComboBox
+    //    }
+    //    //return tree.ControlType.ListBox; // Or tree.ControlType.ComboBox
        
-        //return tree.ControlType.ListBox;
-        return NXOpen.BlockStyler.Tree.ControlType.ComboBox;
-    }
+    //    //return tree.ControlType.ListBox;
+    //    return NXOpen.BlockStyler.Tree.ControlType.ComboBox;
+    //}
     public void OnMenuCallback(Tree tree, Node node, int columnID)
     {
         try
         {
             TreeListMenu menu = tree.CreateMenu();
-            if(node.DisplayText.Contains("组成环"))
+            if (node.DisplayText.Contains("组成环"))
             {
                 menu.AddMenuItem(1, "设为补偿环");
             }
@@ -1251,10 +1274,15 @@ public class inpart
             if (menuItemID == 1)
             {
                 trannode = node;
-                tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
 
+                tree_control0.SetOnBeginLabelEditHandler(new NXOpen.BlockStyler.Tree.OnBeginLabelEditCallback(OnBeginLabelEditCallback));
+
+                //tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
+
+                //tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
             }
-              else if (menuItemID ==2)
+
+            else if (menuItemID ==2)
                 {
                int m = theUI.NXMessageBox.Show("删除可疑尺寸链", NXMessageBox.DialogType.Question, "确定删除该可疑尺寸链以及其所有组成环？");
                   if(m == 1)
