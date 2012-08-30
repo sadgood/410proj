@@ -22,13 +22,13 @@ public class count
         double aclsmin = 0;//所有增环最小尺寸减去所有减环最大尺寸
         foreach (NXOpen.Annotations.Dimension zenghuan in zeng)
         {
-            zengmax = getspec(zenghuan)[0] + getspec(zenghuan)[1];
-            zengmin = getspec(zenghuan)[0] + getspec(zenghuan)[2];
+            zengmax = getspec(zenghuan)[0] + getspec(zenghuan)[1] + zengmax;
+            zengmin = getspec(zenghuan)[0] + getspec(zenghuan)[2] + zengmin;
         }
         foreach (NXOpen.Annotations.Dimension jianhuan in jian)
         {
-            jianmax = getspec(jianhuan)[0] + getspec(jianhuan)[1];
-            jianmin = getspec(jianhuan)[0] + getspec(jianhuan)[2];
+            jianmax = getspec(jianhuan)[0] + getspec(jianhuan)[1] + jianmax;
+            jianmin = getspec(jianhuan)[0] + getspec(jianhuan)[2] + jianmin;
         }
 
         //clsmax = getspec(fengbi)[0] + getspec(fengbi)[1];
