@@ -25,6 +25,7 @@ using NXOpen.BlockStyler;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 //------------------------------------------------------------------------------
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
@@ -87,6 +88,7 @@ public class allpro
     public Node trannode = null;//这个node用来在menu和combox这两个回调中转换，从而达到只有被menu调用的node才会被combox回调
     public List<NXOpen.Annotations.Dimension[]> finaloneinpro = new List<NXOpen.Annotations.Dimension[]>();//校核的时候存放和要校核的尺寸成环的其他所有尺寸的list
     public ArrayList partpool = new ArrayList();//存放除过workpart（或者displaypart）之外的所有要校核的part
+    public ArrayList nodepool = new ArrayList();//存放和封闭环有关的所有的node包括封闭环自己的信息。
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
     //------------------------------------------------------------------------------
@@ -273,22 +275,101 @@ public class allpro
         int errorCode = 0;
         try
         {
-            //Part dispart = null;
-            //ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
-            //string path = nativeFolderBrowser0.GetProperties().GetString("Path");
-            //prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
-            //string workpath = dispart.FullPath;
-            //foreach (string loadpath in prtnameary)
-            //{
-            //    if (loadpath != workpath)
-            //    {
-            //        //PartLoadStatus loadcondition;
-            //        PartSaveStatus savecondition;
-            //        Part thetempart;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
-            //        //thetempart = theSession.Parts.Open(loadpath, out loadcondition);
-            //        thetempart = theSession.Parts.save
-            //    }
-            //}
+            NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+            XmlDocument xd = new XmlDocument();
+            string a = theoridim.Tag.ToString();
+            string path = "/root/pmi" + a;
+            xd.Load("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+            XmlNode dimnode = xd.SelectSingleNode(path);
+            XmlNode root = xd.SelectSingleNode("/root");
+            if (dimnode == null)
+            {
+                XmlElement pmi = xd.CreateElement("pmi");
+                xd.CreateAttribute("name");
+                pmi.SetAttribute("name", a);
+                XmlElement jiaoherenyuan = xd.CreateElement("校核人员");
+                xd.CreateAttribute("姓名");
+                jiaoherenyuan.SetAttribute("姓名", trannode.ParentNode.GetColumnDisplayText(7));
+                xd.CreateAttribute("修改后该PMI最大极限尺寸");
+                jiaoherenyuan.SetAttribute("修改后该PMI最大极限尺寸", trannode.ParentNode.GetColumnDisplayText(3));
+                xd.CreateAttribute("修改后该PMI最小极限尺寸");
+                jiaoherenyuan.SetAttribute("修改后该PMI最小极限尺寸", trannode.ParentNode.GetColumnDisplayText(4));
+                XmlElement buchanghuan = xd.CreateElement("补偿环信息");
+                xd.CreateAttribute("名义值");
+                buchanghuan.SetAttribute("名义值", trannode.GetColumnDisplayText(2));
+                xd.CreateAttribute("上公差", trannode.GetColumnDisplayText(3));
+                buchanghuan.SetAttribute("上公差", trannode.GetColumnDisplayText(3));
+                xd.CreateAttribute("下公差");
+                buchanghuan.SetAttribute("下公差", trannode.GetColumnDisplayText(4));
+                xd.CreateAttribute("增减环");
+                buchanghuan.SetAttribute("所属部件", trannode.GetColumnDisplayText(6));
+                jiaoherenyuan.AppendChild(buchanghuan);
+
+                Node[] nodeary = (Node[])getallnodes(trannode).ToArray(typeof(Node));//把动态数组转化成数组
+                for (int i = 0; i < nodeary.Length; i++)
+                {
+                    XmlElement elsezucheng = xd.CreateElement("组成环" + (i + 1).ToString());
+                    xd.CreateAttribute("名义值", nodeary[i].GetColumnDisplayText(2));
+                    elsezucheng.SetAttribute("名义值", nodeary[i].GetColumnDisplayText(2));
+                    xd.CreateAttribute("上公差", nodeary[i].GetColumnDisplayText(3));
+                    elsezucheng.SetAttribute("上公差", nodeary[i].GetColumnDisplayText(3));
+                    xd.CreateAttribute("下公差", nodeary[i].GetColumnDisplayText(4));
+                    elsezucheng.SetAttribute("下公差", nodeary[i].GetColumnDisplayText(4));
+                    xd.CreateAttribute("增减环", nodeary[i].GetColumnDisplayText(5));
+                    elsezucheng.SetAttribute("增减环", nodeary[i].GetColumnDisplayText(5));
+                    xd.CreateAttribute("所在部件", nodeary[i].GetColumnDisplayText(6));
+                    elsezucheng.SetAttribute("所在部件", nodeary[i].GetColumnDisplayText(6));
+                    jiaoherenyuan.AppendChild(elsezucheng);
+                }
+                pmi.AppendChild(jiaoherenyuan);
+                root.AppendChild(pmi);
+                xd.Save("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+
+            }
+            else
+            {
+                //XmlElement pmi = xd.CreateElement("pmi");
+                //xd.CreateAttribute("name");
+                //pmi.SetAttribute("name", a);
+                XmlElement jiaoherenyuan = xd.CreateElement("校核人员");
+                xd.CreateAttribute("姓名");
+                jiaoherenyuan.SetAttribute("姓名", trannode.ParentNode.GetColumnDisplayText(7));
+                xd.CreateAttribute("修改后该PMI最大极限尺寸");
+                jiaoherenyuan.SetAttribute("修改后该PMI最大极限尺寸", trannode.ParentNode.GetColumnDisplayText(3));
+                xd.CreateAttribute("修改后该PMI最小极限尺寸");
+                jiaoherenyuan.SetAttribute("修改后该PMI最小极限尺寸", trannode.ParentNode.GetColumnDisplayText(4));
+                XmlElement buchanghuan = xd.CreateElement("补偿环信息");
+                xd.CreateAttribute("名义值");
+                buchanghuan.SetAttribute("名义值", trannode.GetColumnDisplayText(2));
+                xd.CreateAttribute("上公差", trannode.GetColumnDisplayText(3));
+                buchanghuan.SetAttribute("上公差", trannode.GetColumnDisplayText(3));
+                xd.CreateAttribute("下公差");
+                buchanghuan.SetAttribute("下公差", trannode.GetColumnDisplayText(4));
+                xd.CreateAttribute("增减环");
+                buchanghuan.SetAttribute("所属部件", trannode.GetColumnDisplayText(6));
+                jiaoherenyuan.AppendChild(buchanghuan);
+                Node[] nodeary = (Node[])getallnodes(trannode).ToArray(typeof(Node));//把动态数组转化成数组
+                for (int i = 0; i < nodeary.Length; i++)
+                {
+                    XmlElement elsezucheng = xd.CreateElement("组成环" + (i + 1).ToString());
+                    xd.CreateAttribute("名义值", nodeary[i].GetColumnDisplayText(2));
+                    elsezucheng.SetAttribute("名义值", nodeary[i].GetColumnDisplayText(2));
+                    xd.CreateAttribute("上公差", nodeary[i].GetColumnDisplayText(3));
+                    elsezucheng.SetAttribute("上公差", nodeary[i].GetColumnDisplayText(3));
+                    xd.CreateAttribute("下公差", nodeary[i].GetColumnDisplayText(4));
+                    elsezucheng.SetAttribute("下公差", nodeary[i].GetColumnDisplayText(4));
+                    xd.CreateAttribute("增减环", nodeary[i].GetColumnDisplayText(5));
+                    elsezucheng.SetAttribute("增减环", nodeary[i].GetColumnDisplayText(5));
+                    xd.CreateAttribute("所在部件", nodeary[i].GetColumnDisplayText(6));
+                    elsezucheng.SetAttribute("所在部件", nodeary[i].GetColumnDisplayText(6));
+                    jiaoherenyuan.AppendChild(elsezucheng);
+                }
+                //pmi.AppendChild(jiaoherenyuan);
+                dimnode.AppendChild(jiaoherenyuan);
+                //root.AppendChild(pmi);
+                xd.Save("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+            
+            }
             foreach (NXOpen.Part clsprt in partpool)
             {
                 clsprt.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
@@ -346,7 +427,40 @@ public class allpro
         {
             if(block == selection0)
             {
-            }
+                theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
+                NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+                string finalstr = null;
+                theoridim.SetAttribute("temp", "temp");
+                NXObject.AttributeInformation[] attrinfo = null;
+                int m;//用来记录对话框的状态，1的时候是确定。
+                attrinfo = theoridim.GetAttributeTitlesByType(NXObject.AttributeType.Any);
+                        bool reslt;
+                        string mm = null;
+                        foreach (NXObject.AttributeInformation inf in attrinfo)
+                        {
+
+                            mm = inf.Title;
+                            finalstr = finalstr + mm.ToString();
+
+                        }
+                        if (finalstr.Contains("校核记录"))
+                        {
+                           m = theUI.NXMessageBox.Show("已有校核记录", NXMessageBox.DialogType.Question, "该尺寸已经有校核记录是否查看？");
+                           if (m == 1)
+                           {
+                               button0.GetProperties().SetLogical("Enable",false);
+                               //foreach();
+                               //要在这里插入保镖信息
+                           }
+
+                        }
+                        
+
+                        reslt = false;
+                        theoridim.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
+                    }
+                   
+       
             else if(block == nativeFolderBrowser0)
             {
             }
@@ -372,6 +486,7 @@ public class allpro
 
                 theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
                 NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+               
                 xformone = creataxis(theoridim);//需要校核的尺寸所生成的轴
                 hideit((NXObject)xformone);//隐藏需要校核的尺寸所生成的轴
                 finalx = theoridim.GetRealAttribute("X");
@@ -1107,6 +1222,8 @@ public class allpro
         Tree.EditControlOption OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
         try
         {
+            NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+           
             if (node == trannode)
             {
                 double editdouble = Double.Parse(selectedOptionText);
@@ -1114,24 +1231,46 @@ public class allpro
                 NXOpen.TaggedObject edittag = editcontainer.GetTaggedObject("Data");
                 NXOpen.Annotations.Dimension editpmi = (NXOpen.Annotations.Dimension)edittag;
                 count ct = new count();
+
                 if (columnID == 3)
                 {
 
                     ct.settolup(editpmi, editdouble);
-                   
+                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
                 }
                 else if (columnID == 4)
                 {
                     ct.settoldown(editpmi, editdouble);
+                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
                 }
-                OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
-            }
-            else
-            {
-                theUI.NXMessageBox.Show("无法修改", NXMessageBox.DialogType.Error, "无法对该节点的值进行修改");
-                OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
-            }
+                else
+                { 
+                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject; }
 
+                nodepool = getallnodes(node);
+
+            }
+            else if (node == trannode.ParentNode)
+            { 
+            
+             if (columnID == 7)
+                {
+                    theoridim.SetAttribute("校核记录","已通过校核");//在这里插入校核人员名称
+                    if (!File.Exists("<?xml version=\"1.0\" encoding=\"utf-8\"?>"))
+                    {
+                        creatxml();
+                    }
+                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
+                  
+
+                }
+         
+            }
+            //foreach (Node realnode in nodepool)
+            //theoridim.set
+            //}
+            //theoridim.SetAttribute("补偿环名义尺寸/上差/下差",trannode.GetColumnDisplayText(2)+"/"+trannode.GetColumnDisplayText(3)+"/"+trannode.GetColumnDisplayText(4) );
+            //theoridim.SetAttribute("最大极限/最小极限", trannode.ParentNode.GetColumnDisplayText(3) + "/" + trannode.ParentNode.GetColumnDisplayText(4));
         }
         catch (Exception ex)
         {
@@ -1140,8 +1279,53 @@ public class allpro
         return OnEditOptionSelected;
 
     }
-
-
+    public void creatxml()
+    {
+   
+      StreamWriter sw = new StreamWriter("E:\\gitest\\410proj\\prt\\pmicheck.xml",false);
+      string a = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"; //转义字符
+      string b = "<root>";
+            string c = "</root>";
+            sw.WriteLine(a);
+            sw.WriteLine(b);
+            sw.WriteLine(c);
+      sw.Close();
+  
+    }
+    public ArrayList getallnodes(Node node)//这个方法得到除过补偿环外的所有组成环
+    {
+         ArrayList allnodes = new ArrayList();
+         Node prtnode = trannode.ParentNode;
+        Node cdnode = prtnode.FirstChildNode;
+        if(cdnode != node)
+        {
+            allnodes.Add(cdnode);
+        }
+        for(int i =0;i<10;i++)
+        {
+            if (cdnode != null)
+        {
+               
+            cdnode = cdnode.NextSiblingNode;
+            if (cdnode != node)
+            {
+                allnodes.Add(cdnode);
+            } 
+        }
+            else if (cdnode == null)
+            break;
+    }
+        Node[] nodeary = (Node[])allnodes.ToArray(typeof(Node));//把动态数组转化成数组
+        for (int i = 0; i < nodeary.Length;i++ )
+        {
+            if (nodeary[i] == null)
+            {
+                //nodeary[i].
+                allnodes.Remove(nodeary[i]);
+            }
+        }
+        return allnodes;
+    }
     public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
     {
         try
@@ -1159,13 +1343,9 @@ public class allpro
                     string[] opt = new string[] {null};
                     tree.SetEditOptions(opt, 0);
                 }
-
+                tree.InsertColumn(7,"校核人员",100);
             }
-            else
-            {
-                theUI.NXMessageBox.Show("无法修改", NXMessageBox.DialogType.Error, "无法对该节点的值进行修改");
 
-            }
         }
         catch (Exception ex)
         {
