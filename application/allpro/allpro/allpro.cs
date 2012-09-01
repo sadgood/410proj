@@ -89,6 +89,8 @@ public class allpro
     public List<NXOpen.Annotations.Dimension[]> finaloneinpro = new List<NXOpen.Annotations.Dimension[]>();//校核的时候存放和要校核的尺寸成环的其他所有尺寸的list
     public ArrayList partpool = new ArrayList();//存放除过workpart（或者displaypart）之外的所有要校核的part
     public ArrayList nodepool = new ArrayList();//存放和封闭环有关的所有的node包括封闭环自己的信息。
+    public NXOpen.Annotations.Dimension[] zengshuzu = null;
+    public NXOpen.Annotations.Dimension[] jianshuzu = null;
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
     //------------------------------------------------------------------------------
@@ -277,8 +279,9 @@ public class allpro
         {
             NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
             XmlDocument xd = new XmlDocument();
-            string a = theoridim.Tag.ToString();
-            string path = "/root/pmi" + a;
+            string aa = theoridim.JournalIdentifier;
+            string a = aa.Replace(" ", "");//这个replace函数的作用比较重要
+            string path = "/root/pmi[" + "@name=" + "'" + a + "'" + "]";
             xd.Load("E:\\gitest\\410proj\\prt\\pmicheck.xml");
             XmlNode dimnode = xd.SelectSingleNode(path);
             XmlNode root = xd.SelectSingleNode("/root");
@@ -592,8 +595,8 @@ public class allpro
                 count ct = new count();
                 ArrayList zengzu = new ArrayList();
                 ArrayList jianzu = new ArrayList();
-                NXOpen.Annotations.Dimension[] zengshuzu = null;
-                NXOpen.Annotations.Dimension[] jianshuzu = null;
+                //NXOpen.Annotations.Dimension[] zengshuzu = null;
+                //NXOpen.Annotations.Dimension[] jianshuzu = null;
                 NXOpen.BlockStyler.Node finalnode = null;
                 #region
                 foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
@@ -759,8 +762,8 @@ public class allpro
                     count ct = new count();
                     ArrayList zengzu = new ArrayList();
                     ArrayList jianzu = new ArrayList();
-                    NXOpen.Annotations.Dimension[] zengshuzu = null;
-                    NXOpen.Annotations.Dimension[] jianshuzu = null;
+                    //NXOpen.Annotations.Dimension[] zengshuzu = null;
+                    //NXOpen.Annotations.Dimension[] jianshuzu = null;
                     NXOpen.BlockStyler.Node finalnode = null;
                     foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                     {
@@ -1256,7 +1259,7 @@ public class allpro
              if (columnID == 7)
                 {
                     theoridim.SetAttribute("校核记录","已通过校核");//在这里插入校核人员名称
-                    if (!File.Exists("<?xml version=\"1.0\" encoding=\"utf-8\"?>"))
+                    if (!File.Exists("E:\\gitest\\410proj\\prt\\pmicheck.xml"))
                     {
                         creatxml();
                     }
@@ -1266,6 +1269,12 @@ public class allpro
                 }
          
             }
+            count ct1 = new count();
+            double a = 0;
+            double b = 0;
+            ct1.countcircle(zengshuzu,jianshuzu, out a, out b);
+            trannode.ParentNode.SetColumnDisplayText(3, a.ToString());
+            trannode.ParentNode.SetColumnDisplayText(4, b.ToString());
             //foreach (Node realnode in nodepool)
             //theoridim.set
             //}
@@ -1279,6 +1288,42 @@ public class allpro
         return OnEditOptionSelected;
 
     }
+    //public ArrayList getzengjianhuan(out NXOpen.Annotations.Dimension[] zenghuan, out NXOpen.Annotations.Dimension[] jianhuan)//这个方法得到除过补偿环外的所有组成环
+    //{
+    //    ArrayList allnodes = new ArrayList();
+    //    ArrayList zengary = new ArrayList();
+    //    ArrayList jianary = new ArrayList();
+    //    Node prtnode = trannode.ParentNode;
+    //    Node cdnode = prtnode.FirstChildNode;
+    //    if (cdnode != node)
+    //    {
+    //        allnodes.Add(cdnode);
+    //    }
+    //    for (int i = 0; i < 10; i++)
+    //    {
+    //        if (cdnode != null)
+    //        {
+
+    //            cdnode = cdnode.NextSiblingNode;
+    //            if (cdnode != node)
+    //            {
+    //                allnodes.Add(cdnode);
+    //            }
+    //        }
+    //        else if (cdnode == null)
+    //            break;
+    //    }
+    //    Node[] nodeary = (Node[])allnodes.ToArray(typeof(Node));//把动态数组转化成数组
+    //    for (int i = 0; i < nodeary.Length; i++)
+    //    {
+    //        if (nodeary[i] == null)
+    //        {
+    //            //nodeary[i].
+    //            allnodes.Remove(nodeary[i]);
+    //        }
+    //    }
+    //    return allnodes;
+    //}
     public void creatxml()
     {
    
