@@ -1,0 +1,11 @@
+NX 7.5.0.32
+Macro File: C:\sel.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by ZWL on Sun Aug 29 10:58:42 2011
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.305704 1
+Display Parameters 1.000000 13.012795 7.327559 -1.000000 -0.563104 1.000000 0.563104
+*****************
+RESET
+MENU, 0, UG_SEL_SELECT_ALL UG_GATEWAY_MAIN_MENUBAR ! <Ctrl A> 

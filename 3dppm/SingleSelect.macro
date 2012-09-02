@@ -1,0 +1,12 @@
+NX 7.5.0.32
+Macro File: C:\sw.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by ZWL on Sun Aug 29 15:29:16 2010
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.305704 1
+Display Parameters 1.000000 12.706939 7.327559 -1.000000 -0.576658 1.000000 0.576658
+*****************
+RESET
+CURSOR_EVENT 1001 3,1,100 ! single_pt, mb1/0+0, U_Sel_sngl (P+:0+0)
+CPOS 298.81087880236,130.2950390625,02,000

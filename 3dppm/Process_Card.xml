@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SYS_3DPPM copyright="nwpu/1002/3DPPM" version="2.0">
+  <Gongyi GUID="">
+    <Information gongyi_jianhao="" gongyi_jianming="新建工艺" gongyi_xinghao="" gongyi_banci="" gongyi_danwei="" gongyi_cailiao="" gongyi_texingfuhao="" gongyi_suoyinhao="" gongyi_genggaidanhao="" />
+    <Model filename="" />
+    <FuModels>
+    </FuModels>
+    <YLTs>
+    </YLTs>
+  </Gongyi>
+</SYS_3DPPM>

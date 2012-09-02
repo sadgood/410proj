@@ -1,0 +1,46 @@
+VERSION 120
+EDIT UG_GATEWAY_MAIN_MENUBAR
+
+BEFORE UG_HELP
+	CASCADE_BUTTON 3DPPMS
+	LABEL 3DPPM
+END_OF_BEFORE
+
+MENU 3DPPMS
+
+	BUTTON 3DPPM_3DPPM
+	LABEL 三维机加工艺设计系统
+	BITMAP 3dppm_3dppm.bmp
+	ACTIONS TDPPM.dll
+
+	BUTTON 3DPPM_RevolveTrim
+	LABEL 回转修剪工具
+	BITMAP 3dppm_huizhuanxiujian.bmp
+	ACTIONS TDPPM.dll
+
+	BUTTON 3DPPM_MachinedSurface
+	LABEL 加工面标注
+	BITMAP 3dppm_jiagongmian.bmp
+	ACTIONS TDPPM.dll
+
+	BUTTON 3DPPM_AddTolerance
+	LABEL 公差标注
+	BITMAP 3dppm_gongcha.bmp
+	ACTIONS TDPPM.dll
+
+	BUTTON 3DPPM_CAPPAssistant
+	LABEL CAPP助手
+	BITMAP 3dppm_capp.bmp
+	ACTIONS TDPPM.dll
+
+	BUTTON 3DPPM_Help
+	LABEL 帮助文档
+	BITMAP 3dppm_help.bmp
+	ACTIONS TDPPM.dll
+
+	BUTTON 3DPPM_About
+	LABEL 关于3DPPM
+	BITMAP 3dppm_about.bmp
+	ACTIONS TDPPM.dll
+
+END_OF_MENU

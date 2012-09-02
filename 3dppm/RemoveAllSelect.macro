@@ -1,0 +1,11 @@
+NX 7.5.0.32
+Macro File: C:\Esc.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by ZWL on Thu Aug 26 11:23:32 2011
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.305704 1
+Display Parameters 1.000000 13.596703 7.327559 -1.000000 -0.538922 1.000000 0.538922
+*****************
+RESET
+SUB_SELECT 3

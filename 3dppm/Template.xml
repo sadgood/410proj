@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Template>
+  <Gongxu GUID="" Type="普通工序">
+    <Information
+      gongxu_gongxuhao=""
+      gongxu_gongxumingcheng="新建工序"
+      gongxu_shebei=""
+      gongxu_jiamoju=""
+      gongxu_jizhun=""
+      gongxu_yingdu=""
+      gongxu_jiagongzhunbei=""/>
+    <Model  filename=""/>
+  </Gongxu>
+  
+  <Gongbu GUID="">
+    <Information 
+      gongbu_gongbuhao=""
+      gongbu_gongbuneirong="新建工步"
+      gongbu_renju=""
+      gongbu_liangju=""
+      gongbu_beizhu=""/>
+  </Gongbu>
+
+  <Zigongbu>
+    <Information
+      zigongbu_name=""
+      zigongbu_liangju=""
+      zigongbu_renju=""
+      zigongbu_beizhu=""/>
+  </Zigongbu>
+  <FuModel description="" filename=""/>
+  <YLT name="" description="" filename=""/>
+</Template>
