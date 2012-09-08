@@ -22,4 +22,15 @@ ACTIONS inpart.dll
 BUTTON crojiaohe
 LABEL 全工艺三维尺寸链校核
 ACTIONS allpro.dll
+BUTTON fcfsetting
+LABEL 形位公差标注
+ACTIONS fcfsetting.dll
+
+BUTTON ano
+LABEL 三维注释工具
+ACTIONS ano.dll
+
+BUTTON facecolor
+LABEL 加工面标注工具
+ACTIONS facecolor.dll
 END_OF_MENU

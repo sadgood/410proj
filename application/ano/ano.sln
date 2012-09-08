@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ano", "ano\ano.csproj", "{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}"
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ugraf", "D:\Program Files\UGS\NX 7.5\UGII\ugraf.exe", "{638A3F0A-13D9-4830-99B2-D067D57D859C}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = D:\Program Files (x86)\UGS\NX 7.5\UGII\ugraf.exe
+		RemoteMachine = YIBO-PC
+		StartingDirectory = D:\Program Files (x86)\UGS\NX 7.5\UGII
+		Environment = 默认值
+		LaunchingEngine = 5fff7536-0c87-462d-8fd2-7971d948e6dc
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AD6A682B-7A2B-4039-B0DF-1180D9B6B31D}.Release|x86.ActiveCfg = Release|Any CPU
+		{638A3F0A-13D9-4830-99B2-D067D57D859C}.Debug|Any CPU.ActiveCfg = Debug
+		{638A3F0A-13D9-4830-99B2-D067D57D859C}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{638A3F0A-13D9-4830-99B2-D067D57D859C}.Debug|x86.ActiveCfg = Debug
+		{638A3F0A-13D9-4830-99B2-D067D57D859C}.Release|Any CPU.ActiveCfg = Debug
+		{638A3F0A-13D9-4830-99B2-D067D57D859C}.Release|Mixed Platforms.ActiveCfg = Debug
+		{638A3F0A-13D9-4830-99B2-D067D57D859C}.Release|x86.ActiveCfg = Debug
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

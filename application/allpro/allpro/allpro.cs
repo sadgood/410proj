@@ -26,7 +26,8 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
-//------------------------------------------------------------------------------
+using Microsoft.Office.Interop.Excel;
+
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
 public class allpro
@@ -261,7 +262,7 @@ public class allpro
             tree_control0.InsertColumn(4, "实际下公差/最小下公差", 200);
             tree_control0.InsertColumn(5, "增/减环", 100);
             tree_control0.InsertColumn(6,"所在部件",100);
-            //tree_control0.InsertColumn(7,"具体细节",100);
+      
         }
         catch (Exception ex)
         {
@@ -431,6 +432,7 @@ public class allpro
             if(block == selection0)
             {
                 theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
+                
                 NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
                 string finalstr = null;
                 theoridim.SetAttribute("temp", "temp");
@@ -451,9 +453,11 @@ public class allpro
                            m = theUI.NXMessageBox.Show("已有校核记录", NXMessageBox.DialogType.Question, "该尺寸已经有校核记录是否查看？");
                            if (m == 1)
                            {
-                               button0.GetProperties().SetLogical("Enable",false);
+                              
+                               //button0.GetProperties().SetLogical("Enable",false);
                                //foreach();
                                //要在这里插入保镖信息
+
                            }
 
                         }
@@ -488,6 +492,11 @@ public class allpro
 
 
                 theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
+                if (theoripmi == null)
+                {
+                    theUI.NXMessageBox.Show("未选择封闭环", NXMessageBox.DialogType.Error, "请先选择需要校核的尺寸");
+                
+                }
                 NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
                
                 xformone = creataxis(theoridim);//需要校核的尺寸所生成的轴
@@ -848,7 +857,122 @@ public class allpro
         }
         return 0;
     }
-    
+
+    public void Exclefunction(string path)
+    {
+        try
+        {
+
+            string excelOpenFileName = "D:\\尺寸链校核.xls";
+
+            if (File.Exists(excelOpenFileName))
+            {
+                File.Delete(excelOpenFileName);
+
+            }
+
+            Microsoft.Office.Interop.Excel.Application excelApplication = new ApplicationClass();
+            excelApplication.Application.Workbooks.Add(true);
+            Microsoft.Office.Interop.Excel.Workbook excelWorkBook = (Microsoft.Office.Interop.Excel.Workbook)excelApplication.ActiveWorkbook;
+            Microsoft.Office.Interop.Excel.Worksheet excelWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelWorkBook.ActiveSheet;
+
+            excelWorkBook.SaveAs(excelOpenFileName, 56, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            //56是属性值
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
+            XmlNode node = doc.SelectSingleNode("/root");
+
+            int m = doc.SelectSingleNode("/root").ChildNodes.Count;
+            string[] note = { "PMI 名称", "校核人员姓名", "修改后该PMI最大极限尺寸", "修改后该PMI最小极限尺寸", "补偿环信息名义值", "补偿环信息上公差", " 补偿环信息下公差", "补偿环信息所属部件", "组成环名义值", "组成环上公差", "组成环下公差", "增减环", "组成环所在部件" };
+            List<string> kk = new List<string>();
+            kk.AddRange(note);
+            excelWorkSheet.Cells.ColumnWidth = 20;
+            for (int ii = 1; ii < kk.Count + 1; ii++)
+            {
+                Microsoft.Office.Interop.Excel.Range excelRange0 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[1, ii];//cell的具体值
+                excelRange0.Value2 = kk[ii - 1].ToString();
+
+                excelRange0 = null;
+            }
+            int n = 0;
+            int j = 2;
+            int num = 1;
+            for (int i = 1; i < m + 1; i++)
+            {
+
+                XmlNode nodepmi = doc.SelectSingleNode("/root/pmi[" + i + "]");
+                j = j + n;
+                n = doc.SelectSingleNode("/root/pmi[" + i + "]").ChildNodes.Count;
+                Microsoft.Office.Interop.Excel.Range excelRange0 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[j, 1];//cell的具体值
+                excelRange0.Value2 = nodepmi.Attributes["name"].Value.ToString();
+                excelRange0 = null;
+                for (int k = 1; k < n + 1; k++)
+                {
+                    num = num + 1;
+                    XmlNode node2 = doc.SelectSingleNode("/root/pmi[" + i + "]/校核人员[" + k + "]");
+                    XmlNode node3 = doc.SelectSingleNode("/root/pmi[" + i + "]/校核人员[" + k + "]/补偿环信息");
+                    XmlNode node4 = doc.SelectSingleNode("/root/pmi[" + i + "]/校核人员[" + k + "]/组成环1");
+                    Microsoft.Office.Interop.Excel.Range excelRange01 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 2];//cell的具体值
+                    excelRange01.Value2 = node2.Attributes["姓名"].Value.ToString();
+                    excelRange01 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange02 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 3];//cell的具体值
+                    excelRange02.Value2 = node2.Attributes["修改后该PMI最大极限尺寸"].Value.ToString();
+                    excelRange02 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange03 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 4];//cell的具体值
+                    excelRange03.Value2 = node2.Attributes["修改后该PMI最小极限尺寸"].Value.ToString();
+                    excelRange03 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange04 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 5];//cell的具体值
+                    excelRange04.Value2 = node3.Attributes["名义值"].Value.ToString();
+                    excelRange04 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange05 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 6];//cell的具体值
+                    excelRange05.Value2 = node3.Attributes["上公差"].Value.ToString();
+                    excelRange05 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange06 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 7];//cell的具体值
+                    excelRange06.Value2 = node3.Attributes["下公差"].Value.ToString();
+                    excelRange06 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange07 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 8];//cell的具体值
+                    excelRange07.Value2 = node3.Attributes["所属部件"].Value.ToString();
+                    excelRange07 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange08 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 9];//cell的具体值
+                    excelRange08.Value2 = node4.Attributes["名义值"].Value.ToString();
+                    excelRange08 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange09 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 10];//cell的具体值
+                    excelRange09.Value2 = node4.Attributes["上公差"].Value.ToString();
+                    excelRange09 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange10 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 11];//cell的具体值
+                    excelRange10.Value2 = node4.Attributes["下公差"].Value.ToString();
+                    excelRange10 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange11 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 12];//cell的具体值
+                    excelRange11.Value2 = node4.Attributes["增减环"].Value.ToString();
+                    excelRange11 = null;
+                    Microsoft.Office.Interop.Excel.Range excelRange12 = (Microsoft.Office.Interop.Excel.Range)excelWorkSheet.Cells[num, 13];//cell的具体值
+                    excelRange12.Value2 = node4.Attributes["所在部件"].Value.ToString();
+                    excelRange12 = null;
+
+                }
+
+
+            }
+
+
+            excelWorkSheet.Name = "( ⊙ o ⊙ )啊！";
+
+
+            excelWorkBook.Save();
+            excelWorkBook.Close();
+            excelApplication.Quit();
+            StopProcess("Excel");
+        }
+        catch (Exception ex)
+        {
+            NXOpen.UI.GetUI().NXMessageBox.Show("s", NXMessageBox.DialogType.Error, ex.ToString());
+        }
+
+
+
+
+    }
     //------------------------------------------------------------------------------
     //Callback Name: ok_cb
     //------------------------------------------------------------------------------
@@ -1251,7 +1375,12 @@ public class allpro
                     OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject; }
 
                 nodepool = getallnodes(node);
-
+                //////可能要在这里加入一些代码
+                double p = 0;
+                double q = 0;
+                ct.countcircle(zengshuzu, jianshuzu, out p, out q);
+                node.ParentNode.SetColumnDisplayText(3, p.ToString());
+                node.ParentNode.SetColumnDisplayText(4, q.ToString());
             }
             else if (node == trannode.ParentNode)
             { 
