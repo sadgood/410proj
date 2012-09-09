@@ -27,7 +27,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using Microsoft.Office.Interop.Excel;
+using System;
+using NXOpen;
+using NXOpen.BlockStyler;
+using NXOpen.UF;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
+using System.IO;
+using System.Diagnostics;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
 public class allpro
@@ -374,6 +385,8 @@ public class allpro
                 xd.Save("E:\\gitest\\410proj\\prt\\pmicheck.xml");
             
             }
+            form1 theform1 = new form1();
+            theform1.Close();
             foreach (NXOpen.Part clsprt in partpool)
             {
                 clsprt.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
@@ -425,7 +438,7 @@ public class allpro
             return default(T);
         }
     }
-    public int update_cb( NXOpen.BlockStyler.UIBlock block)
+    public int  update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
         {
@@ -453,11 +466,13 @@ public class allpro
                            m = theUI.NXMessageBox.Show("已有校核记录", NXMessageBox.DialogType.Question, "该尺寸已经有校核记录是否查看？");
                            if (m == 1)
                            {
-                              
+                               Exclefunction("E:\\gitest\\410proj\\prt\\pmicheck.xml");
                                //button0.GetProperties().SetLogical("Enable",false);
                                //foreach();
                                //要在这里插入保镖信息
-
+                               //File.Open("E:\\pmi.xls");
+                               File.Open("E:\\pmi.xls", System.IO.FileMode.OpenOrCreate);
+                               StopProcess("Excel");
                            }
 
                         }
@@ -780,14 +795,15 @@ public class allpro
                         zengzu.Clear();
                         finalnode = tree_control0.CreateNode("成环尺寸链");
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
-                        NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("组成环");//这个和下面的都是从下面的foreach语句中提取出来的，因为要在里面加上最大公差和最小公差
+                        NXOpen.BlockStyler.Node finalchild = null;
                         double[] final = { 0, 0, 0 };
+                       
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {
-                           
+                            finalchild = tree_control0.CreateNode("组成环");
                             DataContainer nodeData = finalchild.GetNodeData();
                             int p = 0;
-                          
+
                             nodeData.AddTaggedObject("Data", sda);
                             nodeData.Dispose();
                             tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
@@ -811,8 +827,8 @@ public class allpro
                             }
                             final = ct.getspec(sda);
                             finalchild.SetColumnDisplayText(2, final[0].ToString());
-                            //finalchild.SetColumnDisplayText(3, final[1].ToString());
-                            //finalchild.SetColumnDisplayText(4, final[2].ToString());
+                            finalchild.SetColumnDisplayText(3, final[1].ToString());
+                            finalchild.SetColumnDisplayText(4, final[2].ToString());
                             Part sdapart = (Part)sda.OwningPart;
                             FileInfo sdafile = new FileInfo(sdapart.FullPath);
                             string prtname = sdafile.Name;
@@ -848,6 +864,12 @@ public class allpro
 
 
                 }
+                form1 theform1 = new form1(theoridim, zengshuzu, jianshuzu);
+                //theform1.ShowDialog();
+                theform1.Show();
+
+
+
                 #endregion
             }
         }
@@ -862,8 +884,9 @@ public class allpro
     {
         try
         {
-
-            string excelOpenFileName = "D:\\尺寸链校核.xls";
+            StopProcess("Excel");
+            //string excelOpenFileName = "E:\\gitest410proj\\prt\\pmi.xls";
+            string excelOpenFileName = "E:\\pmi.xls";
 
             if (File.Exists(excelOpenFileName))
             {
@@ -973,6 +996,37 @@ public class allpro
 
 
     }
+    public static void StopProcess(string processName)
+    {
+        try
+        {
+            Process[] ps = System.Diagnostics.Process.GetProcessesByName(processName);
+            foreach (Process p in ps)
+            {
+                p.Kill();
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+    }
+    //public static T Tag2NXObject<T>(Tag tag)
+    //{
+    //    try
+    //    {
+    //        object to = NXOpen.Utilities.NXObjectManager.Get(tag);
+    //        return (T)to;
+    //    }
+    //    catch (System.Exception ex)
+    //    {
+    //        UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+    //        return default(T);
+    //    }
+    //}
     //------------------------------------------------------------------------------
     //Callback Name: ok_cb
     //------------------------------------------------------------------------------
@@ -990,7 +1044,7 @@ public class allpro
         }
         return errorCode;
     }
-    public NXObject shank(Point point1, Point point2)
+    public NXObject shank(NXOpen.Point point1, NXOpen.Point point2)
     {
         Part workPart = theSession.Parts.Work;
         NXObject shanker;
@@ -1001,8 +1055,8 @@ public class allpro
         abuilder.Type = NXOpen.Features.DatumAxisBuilder.Types.TwoPoints;
         abuilder.IsAssociative = true;
         Xform nullXform = null;
-        Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
-        Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
+       NXOpen.Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
+       NXOpen.Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
         abuilder.Point1 = pt1;
         abuilder.Point2 = pt2;
         shanker = abuilder.Commit();
@@ -1034,8 +1088,8 @@ public class allpro
         endpt.X = endx;
         endpt.Y = endy;
         endpt.Z = endz;
-        Point realstart = workPart.Points.CreatePoint(stpt);//得到这个PMI矢量的起点
-        Point realend = workPart.Points.CreatePoint(endpt);//得到这个PMI矢量的终点
+        NXOpen.Point realstart = workPart.Points.CreatePoint(stpt);//得到这个PMI矢量的起点
+        NXOpen.Point realend = workPart.Points.CreatePoint(endpt);//得到这个PMI矢量的终点
         NXOpen.Features.DatumAxisFeature fiansis = (NXOpen.Features.DatumAxisFeature)shank(realstart, realend);
         // fiansis.DatumAxis;
         DatumAxis fian = fiansis.DatumAxis;
