@@ -4,27 +4,16 @@ AFTER UG_HELP
 CASCADE_BUTTON jerryhe
 LABEL 测试
 END_OF_BEFORE
+
 MENU jerryhe
-BUTTON gongxujieduan
-LABEL 工序阶段划分
-ACTIONS gongxujieduan.dll
-SEPARATOR
-CASCADE_BUTTON PMI
-LABEL PMI三维尺寸链校核
-END_OF_MENU
-MENU PMI
-BUTTON gongyi
-LABEL 工艺人员PMI矢量标注
-ACTIONS pmibiaozhu.dll
-BUTTON jiaohe
-LABEL 本工序三维尺寸链校核
-ACTIONS inpart.dll
+
+BUTTON fcfsetting
+LABEL PMI综合标注
+ACTIONS finalconbine.dll
+
 BUTTON crojiaohe
 LABEL 全工艺三维尺寸链校核
 ACTIONS allpro.dll
-BUTTON fcfsetting
-LABEL 形位公差标注
-ACTIONS fcfsetting.dll
 
 BUTTON ano
 LABEL 三维注释工具
@@ -33,4 +22,9 @@ ACTIONS ano.dll
 BUTTON facecolor
 LABEL 加工面标注工具
 ACTIONS facecolor.dll
+
+
+BUTTON bjjz
+	LABEL 部件家族快速工艺
+	ACTIONS bjjz.dll
 END_OF_MENU

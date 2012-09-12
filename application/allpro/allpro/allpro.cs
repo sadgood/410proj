@@ -46,6 +46,7 @@ public class allpro
     //class members
     private static Session theSession = null;
     private static UI theUI = null;
+    public static UFSession theuf = null;
     public static allpro theallpro;
     private string theDialogName;
     private NXOpen.BlockStyler.BlockDialog theDialog;
@@ -55,6 +56,7 @@ public class allpro
     private NXOpen.BlockStyler.UIBlock selectPart0;// Block type: Select Part
     private NXOpen.BlockStyler.Tree tree_control0;// Block type: Tree Control
     private NXOpen.BlockStyler.UIBlock button0;// Block type: Button
+    private NXOpen.BlockStyler.UIBlock toggle01;// Block type: Toggle
     public static readonly int              SnapPointTypesEnabled_UserDefined = (1 << 0);
     public static readonly int                 SnapPointTypesEnabled_Inferred = (1 << 1);
     public static readonly int           SnapPointTypesEnabled_ScreenPosition = (1 << 2);
@@ -122,6 +124,7 @@ public class allpro
             theDialog.AddFocusNotifyHandler(new NXOpen.BlockStyler.BlockDialog.FocusNotify(focusNotify_cb));
             theDialog.AddKeyboardFocusNotifyHandler(new NXOpen.BlockStyler.BlockDialog.KeyboardFocusNotify(keyboardFocusNotify_cb));
             theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
+            theDialog.AddFilterHandler(new NXOpen.BlockStyler.BlockDialog.Filter(filter_cb));
         }
         catch (Exception ex)
         {
@@ -235,7 +238,7 @@ public class allpro
             tree_control0.SetOnMenuHandler(new NXOpen.BlockStyler.Tree.OnMenuCallback(OnMenuCallback)); ;
             tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback)); ;
             tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
-            
+            toggle01 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("toggle01");
             
             
             
@@ -273,7 +276,8 @@ public class allpro
             tree_control0.InsertColumn(4, "实际下公差/最小下公差", 200);
             tree_control0.InsertColumn(5, "增/减环", 100);
             tree_control0.InsertColumn(6,"所在部件",100);
-      
+            toggle01.GetProperties().SetLogical("Value", false);
+            toggle0.GetProperties().SetLogical("Enable",true);
         }
         catch (Exception ex)
         {
@@ -289,7 +293,12 @@ public class allpro
         int errorCode = 0;
         try
         {
+             Part thework = theSession.Parts.Work;
             NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+
+            /////////
+            if(tree_control0.NumberOfColumns == 7)
+            {
             XmlDocument xd = new XmlDocument();
             string aa = theoridim.JournalIdentifier;
             string a = aa.Replace(" ", "");//这个replace函数的作用比较重要
@@ -385,15 +394,21 @@ public class allpro
                 xd.Save("E:\\gitest\\410proj\\prt\\pmicheck.xml");
             
             }
+            }
             form1 theform1 = new form1();
             theform1.Close();
+            
             foreach (NXOpen.Part clsprt in partpool)
             {
-                clsprt.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
+                if(clsprt != thework )
+                { 
+                    clsprt.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
+                }
+               
             
             }
-            NXOpen.Part workpart = theSession.Parts.Work;
-            workpart.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
+            //NXOpen.Part workpart = theSession.Parts.Work;
+            //workpart.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.True);
         }
         catch (Exception ex)
         {
@@ -461,6 +476,13 @@ public class allpro
                             finalstr = finalstr + mm.ToString();
 
                         }
+                if(!finalstr.Contains("START"))
+                {
+                    theUI.NXMessageBox.Show("BlockStyler",NXOpen.NXMessageBox.DialogType.Warning,"该尺寸未赋矢量信息，无法进行尺寸链校核");
+                    return 1;
+                }
+                else
+                {
                         if (finalstr.Contains("校核记录"))
                         {
                            m = theUI.NXMessageBox.Show("已有校核记录", NXMessageBox.DialogType.Question, "该尺寸已经有校核记录是否查看？");
@@ -471,8 +493,9 @@ public class allpro
                                //foreach();
                                //要在这里插入保镖信息
                                //File.Open("E:\\pmi.xls");
-                               File.Open("E:\\pmi.xls", System.IO.FileMode.OpenOrCreate);
-                               StopProcess("Excel");
+                              // File.Open("E:\\pmi.xls", System.IO.FileMode.OpenOrCreate);
+                               //StopProcess("Excel");
+                               System.Diagnostics.Process.Start("E:\\pmi.xls");
                            }
 
                         }
@@ -482,7 +505,7 @@ public class allpro
                         theoridim.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
                     }
                    
-       
+        }
             else if(block == nativeFolderBrowser0)
             {
             }
@@ -499,18 +522,41 @@ public class allpro
                     nativeFolderBrowser0.GetProperties().SetLogical("Enable", true);
                 }
             }
-            else if(block == selectPart0)
+            else if(block == toggle01)
             {
+                if (toggle01.GetProperties().GetLogical("Value"))
+                {
+                    toggle0.GetProperties().SetLogical("Enable", false);
+                    selectPart0.GetProperties().SetLogical("Enable", false);
+                    nativeFolderBrowser0.GetProperties().SetLogical("Enable", false);
+                }
+                else if (!toggle01.GetProperties().GetLogical("Value"))
+                {
+                    toggle0.GetProperties().SetLogical("Enable", true);
+                    selectPart0.GetProperties().SetLogical("Enable", false);
+                    nativeFolderBrowser0.GetProperties().SetLogical("Enable", true);
+                }
             }
             else if(block == button0)
             {
 
-
+              
+                   NXOpen.TaggedObject[] thept = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
                 theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
-                if (theoripmi == null)
+                if (theoripmi.Length == 0)
                 {
                     theUI.NXMessageBox.Show("未选择封闭环", NXMessageBox.DialogType.Error, "请先选择需要校核的尺寸");
-                
+                    return 1;
+                }
+                if(!toggle01.GetProperties().GetLogical("Value") )//undone
+
+                {
+                    string path = nativeFolderBrowser0.GetProperties().GetString("Path");
+                    if ((path == "") && thept.Length == 0)
+                    {
+                        theUI.NXMessageBox.Show("未选择校核尺寸类型", NXMessageBox.DialogType.Error, "请选择校核尺寸类型");
+                        return 1;
+                    }
                 }
                 NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
                
@@ -519,208 +565,428 @@ public class allpro
                 finalx = theoridim.GetRealAttribute("X");
                 finaly = theoridim.GetRealAttribute("Y");
                 finalz = theoridim.GetRealAttribute("Z");
-                Part thework = theSession.Parts.Display;//当前工作部件的路径 
-                if (!selectPart0.GetProperties().GetLogical("Enable"))
+                Part thework = theSession.Parts.Work;//当前工作部件的路径 
+                if (!toggle01.GetProperties().GetLogical("Value"))
                 {
+
+                    if (!selectPart0.GetProperties().GetLogical("Enable"))
+                    {
+                        #region
+                        ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
+                        string path = nativeFolderBrowser0.GetProperties().GetString("Path");
+
+                        prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
+
+                        string workpath = thework.FullPath;
+
+                        foreach (NXOpen.Annotations.Dimension workdim in thework.Dimensions)
+                        {
+
+                            dimary.Add(workdim);//如果以后出错，可能这里我把displaypart当成了workpart
+
+                        }
+                        theuf = UFSession.GetUFSession();
+                        Part thetempart = null;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
+                        foreach (string loadpath in prtnameary)
+                        {
+                            if (loadpath != workpath)
+                            {
+                                if (theuf.Part.IsLoaded(loadpath) != 0)//0为未打开
+                                {
+                                    Tag tag = theuf.Part.AskPartTag(loadpath);
+                                    if (tag == 0)
+                                    {
+                                        throw new Exception("无法载入" + loadpath);
+                                        //return null;
+                                    }
+                                    else
+                                    {
+                                        thetempart = Tag2NXObject<NXOpen.Part>(tag);
+                                        partpool.Add(thetempart);
+                                        //partpool.Add(Tag2NXObject<NXOpen.Part>(tag));
+
+                                    }
+                                }
+                                else
+                                {
+                                    PartLoadStatus loadcondition;
+                                    //Part thetempart;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
+
+                                    thetempart = theSession.Parts.Open(loadpath, out loadcondition);
+                                    //NXOpen.PartCollection.//一定要解决这个问题
+                                    partpool.Add(thetempart);
+                                }
+                                if (thetempart.Dimensions.ToArray().Length != 0)
+                                {
+                                    foreach (NXOpen.Annotations.Dimension eachdim in thetempart.Dimensions.ToArray())
+                                    {
+                                        dimary.Add(eachdim);
+                                        FileInfo prtname = new FileInfo(loadpath);
+                                        string realprtname = prtname.Name;
+                                        eachdim.SetAttribute("所属部件", realprtname);
+                                    }
+                                }
+                            }
+                        }
+                        List<int[]> nene;
+                        foreach (NXOpen.Annotations.Dimension a in dimary)
+                        {
+                            string finalstr = null;
+                            a.SetAttribute("temp", "temp");
+                            if (a != theoridim)//如果遍历的尺寸不等于需要校核的尺寸，则把他加入到thedown中，起名字太难了。
+                            {
+                                NXObject.AttributeInformation[] attrinfo = null;
+                                attrinfo = a.GetAttributeTitlesByType(NXObject.AttributeType.Any);
+                                bool reslt;
+                                string mm = null;
+                                foreach (NXObject.AttributeInformation inf in attrinfo)
+                                {
+
+                                    mm = inf.Title;
+                                    finalstr = finalstr + mm.ToString();
+
+                                }
+                                if (finalstr.Contains("XYZ"))
+                                {
+                                    thedown.Add(a);
+                                }
+
+                                reslt = false;
+                            }
+                            a.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
+                        }
+                        left = (NXOpen.Annotations.Dimension[])thedown.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
+                        int[] arr = new int[left.Length];//下面这个for循环定义了一个索引数组，里面存放的是left这个数组的索引。一一对应
+                        for (int i = 0; i < arr.Length; i++)
+                        {
+                            arr[i] = i;
+                        }
+                        if (left.Length == 0 || left.Length == 1)
+                        {
+                            theUI.NXMessageBox.Show("该工序内尺寸太少", NXOpen.NXMessageBox.DialogType.Warning, "该工序内尺寸小于2，无法进行尺寸链校核");
+                            return 1;
+
+                        }
+                        for (int t = 2; t <= left.Length; t++)//该循环从2开始，因为一个尺寸连最起码有三个，它也有可能达到left数组的长度。
+                        {
+
+                            nene = Algorithms.PermutationAndCombination<int>.GetCombination(arr, t);//nene是每一次循环得到的结果，如果直接用nene参与下一步计算，以前的循环结果就作废了
+                            foreach (int[] ne in nene)
+                            {
+                                lst_Combination.Add(ne);
+                            }
+
+                        }
+
+                        foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
+                        {
+                            theday.Clear();
+                            for (int j = 0; j < a.Length; j++)//下面这个for循环从索引得到对应的dimension数组。
+                            {
+
+                                theday.Add(left[a[j]]);//这一步有问题。。。。。妈的。------这里一个小错误就让我调试了一早上
+                                // thefinalori[j] = left[j];//得到索引所表示的数组
+
+                            }
+                            thefinalori = (NXOpen.Annotations.Dimension[])theday.ToArray(typeof(NXOpen.Annotations.Dimension));
+                            if (checknow(thefinalori))//如果成环的话。。。。almost there
+                            {
+                                finaloneinpro.Add(thefinalori);//这个list存放的是所有和需校核尺寸成环的尺寸链，记住其里面的每个元素是一个尺寸数组
+
+                            };
+
+                        }
+                        count ct = new count();
+                        ArrayList zengzu = new ArrayList();
+                        ArrayList jianzu = new ArrayList();
+                        NXOpen.BlockStyler.Node finalnode = null;
+                        #region
+                        foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
+                        {
+                            jianzu.Clear();
+                            zengzu.Clear();
+                            finalnode = tree_control0.CreateNode("成环尺寸链");
+                            tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
+                            NXOpen.BlockStyler.Node finalchild = null;
+                            double[] final = { 0, 0, 0 };
+                            #region
+                            foreach (NXOpen.Annotations.Dimension sda in ori)
+                            {
+                                finalchild = tree_control0.CreateNode("组成环");
+                                DataContainer nodeData = finalchild.GetNodeData();
+                                int p = 0;
+
+                                nodeData.AddTaggedObject("Data", sda);
+                                nodeData.Dispose();
+                                tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
+                                p = cirdect(sda);
+                                if (p == -1)
+                                {
+
+                                    finalchild.SetColumnDisplayText(5, "增环");
+                                    //jianzu.Add(sda);
+                                    zengzu.Add(sda);
+                                }
+                                if (p == 1)
+                                {
+                                    finalchild.SetColumnDisplayText(5, "减环");
+                                    //zengzu.Add(sda);
+                                    jianzu.Add(sda);
+                                }
+                                if (p == 0)
+                                {
+                                    finalchild.SetColumnDisplayText(5, "对封闭环无贡献");
+                                }
+                                final = ct.getspec(sda);
+                                finalchild.SetColumnDisplayText(2, final[0].ToString());
+                                finalchild.SetColumnDisplayText(3, final[1].ToString());
+                                finalchild.SetColumnDisplayText(4, final[2].ToString());
+                                Part sdapart = (Part)sda.OwningPart;
+                                FileInfo sdafile = new FileInfo(sdapart.FullPath);
+                                string prtname = sdafile.Name;
+                                finalchild.SetColumnDisplayText(6, prtname);
+                            }
+                            #endregion
+                            zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+                            jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+                            double a = 0;
+                            double b = 0;
+
+                            if (ct.countcircle(zengshuzu, jianshuzu, out a, out b))
+                            {
+                                //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
+                                //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                                //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                                finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
+                                finalnode.ForegroundColor = 60;//红色表示未通过尺寸链校核
+                                finalnode.SetColumnDisplayText(3, a.ToString());
+                                finalnode.SetColumnDisplayText(4, b.ToString());
+                            }
+                            else
+                            {
+                                finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
+                                finalnode.ForegroundColor = 198;
+                                //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                                //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                                finalnode.SetColumnDisplayText(3, a.ToString());
+                                finalnode.SetColumnDisplayText(4, b.ToString());
+                            }
+
+                        }
+
+
+                        count thect = new count();
+                        double aa = 0;
+                        double bb = 0;
+                        //thect.countcircle(theoridim, zengshuzu, jianshuzu, out aa, out bb);
+                        if (zengshuzu == null && jianshuzu == null)
+                        {
+                            theUI.NXMessageBox.Show("未找到结果", NXOpen.NXMessageBox.DialogType.Warning, "未查找到与此尺寸成环的尺寸");
+                            return 1;
+                        }
+                        else
+                        {
+                            thect.countcircle(zengshuzu, jianshuzu, out aa, out bb);
+                            form1 theform1 = new form1(zengshuzu, jianshuzu, theoridim, aa, bb);
+                            //theform1.ShowDialog();
+                            theform1.Show();
+                        }
+                        #endregion
+                    }
+                        #endregion
                     #region
-                ArrayList prtnameary = new ArrayList();//存放所有在工艺文件夹下的prt的全路径
-                string path = nativeFolderBrowser0.GetProperties().GetString("Path");
-                prtnameary = getpartlist(path);//得到所有在工艺文件夹下的prt的全路径
-
-                string workpath = thework.FullPath;
-
-                foreach (NXOpen.Annotations.Dimension workdim in thework.Dimensions)
-                {
-                    
-                        dimary.Add(workdim);//如果以后出错，可能这里我把displaypart当成了workpart
-                    
-                }
-                foreach (string loadpath in prtnameary)
-                {
-                    if (loadpath != workpath)
-                    {
-                        PartLoadStatus loadcondition;
-                        Part thetempart;//这个存放每个暂时打开的prt文件，然后收集其中的PMI尺寸
-                        thetempart = theSession.Parts.Open(loadpath, out loadcondition);
-                        //NXOpen.PartCollection.//一定要解决这个问题
-                        partpool.Add(thetempart);
-                        foreach (NXOpen.Annotations.Dimension eachdim in thetempart.Dimensions.ToArray())
-                        {
-                            dimary.Add(eachdim);
-                            FileInfo prtname = new FileInfo(loadpath);
-                            string realprtname = prtname.Name;
-                            eachdim.SetAttribute("所属部件", realprtname);
-                        }
-
-                    }
-                }
-                List<int[]> nene;
-                foreach (NXOpen.Annotations.Dimension a in dimary)
-                {
-                    string finalstr = null;
-                    a.SetAttribute("temp", "temp");
-                    if (a != theoridim)//如果遍历的尺寸不等于需要校核的尺寸，则把他加入到thedown中，起名字太难了。
-                    {
-                        NXObject.AttributeInformation[] attrinfo = null;
-                        attrinfo = a.GetAttributeTitlesByType(NXObject.AttributeType.Any);
-                        bool reslt;
-                        string mm = null;
-                        foreach (NXObject.AttributeInformation inf in attrinfo)
-                        {
-
-                            mm = inf.Title;
-                            finalstr = finalstr + mm.ToString();
-
-                        }
-                        if (finalstr.Contains("XYZ"))
-                        {
-                            thedown.Add(a);
-                        }
-
-                        reslt = false;
-                    }
-                    a.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
-                }
-                left = (NXOpen.Annotations.Dimension[])thedown.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
-                int[] arr = new int[left.Length];//下面这个for循环定义了一个索引数组，里面存放的是left这个数组的索引。一一对应
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    arr[i] = i;
-                }
-                for (int t = 2; t <= left.Length; t++)//该循环从2开始，因为一个尺寸连最起码有三个，它也有可能达到left数组的长度。
-                {
-
-                    nene = Algorithms.PermutationAndCombination<int>.GetCombination(arr, t);//nene是每一次循环得到的结果，如果直接用nene参与下一步计算，以前的循环结果就作废了
-                    foreach (int[] ne in nene)
-                    {
-                        lst_Combination.Add(ne);
-                    }
-
-                }
-
-                foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
-                {
-                    theday.Clear();
-                    for (int j = 0; j < a.Length; j++)//下面这个for循环从索引得到对应的dimension数组。
-                    {
-
-                        theday.Add(left[a[j]]);//这一步有问题。。。。。妈的。------这里一个小错误就让我调试了一早上
-                        // thefinalori[j] = left[j];//得到索引所表示的数组
-
-                    }
-                    thefinalori = (NXOpen.Annotations.Dimension[])theday.ToArray(typeof(NXOpen.Annotations.Dimension));
-                    if (checknow(thefinalori))//如果成环的话。。。。almost there
-                    {
-                        finaloneinpro.Add(thefinalori);//这个list存放的是所有和需校核尺寸成环的尺寸链，记住其里面的每个元素是一个尺寸数组
-
-                    };
-
-                }
-                count ct = new count();
-                ArrayList zengzu = new ArrayList();
-                ArrayList jianzu = new ArrayList();
-                //NXOpen.Annotations.Dimension[] zengshuzu = null;
-                //NXOpen.Annotations.Dimension[] jianshuzu = null;
-                NXOpen.BlockStyler.Node finalnode = null;
-                #region
-                foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
-                {
-                    jianzu.Clear();
-                    zengzu.Clear();
-                    finalnode = tree_control0.CreateNode("成环尺寸链");
-                    tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
-                    NXOpen.BlockStyler.Node finalchild = null;
-                    double[] final = { 0, 0, 0 };
-                    #region
-                    foreach (NXOpen.Annotations.Dimension sda in ori)
-                    {
-                        finalchild = tree_control0.CreateNode("组成环");
-                        DataContainer nodeData = finalchild.GetNodeData();
-                        int p = 0;
-                       
-                        nodeData.AddTaggedObject("Data", sda);
-                        nodeData.Dispose();
-                        tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
-                        p = cirdect(sda);
-                        if (p == -1)
-                        {
-
-                            finalchild.SetColumnDisplayText(5, "增环");
-                            //jianzu.Add(sda);
-                            zengzu.Add(sda);
-                        }
-                        if (p == 1)
-                        {
-                            finalchild.SetColumnDisplayText(5, "减环");
-                            //zengzu.Add(sda);
-                            jianzu.Add(sda);
-                        }
-                        if (p == 0)
-                        {
-                            finalchild.SetColumnDisplayText(5, "对封闭环无贡献");
-                        }
-                        final = ct.getspec(sda);
-                        finalchild.SetColumnDisplayText(2, final[0].ToString());
-                        finalchild.SetColumnDisplayText(3, final[1].ToString());
-                        finalchild.SetColumnDisplayText(4, final[2].ToString());
-                        Part sdapart = (Part)sda.OwningPart;
-                        FileInfo sdafile = new FileInfo(sdapart.FullPath);
-                        string prtname = sdafile.Name;
-                        finalchild.SetColumnDisplayText(6, prtname);
-                    }
-                    #endregion
-                    zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
-                    jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
-                    double a = 0;
-                    double b = 0;
-
-                    if (ct.countcircle(zengshuzu, jianshuzu,out a, out b))
-                    {
-                        //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
-                        //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
-                        //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                        finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
-                        finalnode.ForegroundColor = 60;//红色表示未通过尺寸链校核
-                        finalnode.SetColumnDisplayText(3,a.ToString());
-                        finalnode.SetColumnDisplayText(4,b.ToString());
-                    }
                     else
                     {
-                        finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
-                        finalnode.ForegroundColor = 198;
-                        //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
-                        //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                        finalnode.SetColumnDisplayText(3,a.ToString());
-                        finalnode.SetColumnDisplayText(4,b.ToString());
-                    }
 
-                }
-                #endregion
-                }
-                    #endregion 
-                #region
-                else
-                {
-                    
-                NXOpen.TaggedObject[] partcol = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
-                //NXOpen.Part[] realpart = null;
-                ArrayList realpart = new ArrayList();
-                     //NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
-                    for(int i = 0;i< partcol.Length;i++)
-                    {
-                         //realpart[i] = Tag2NXObject<NXOpen.Part>(partcol[i].Tag);//将他们转换成part数组
-                        realpart.Add(Tag2NXObject<NXOpen.Part>(partcol[i].Tag));
-                    }
-                    foreach (NXOpen.Part eachpart in realpart)
-                    {
-                        foreach (NXOpen.Annotations.Dimension eachdim in eachpart.Dimensions.ToArray())
+                        NXOpen.TaggedObject[] partcol = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
+                        //NXOpen.Part[] realpart = null;
+                        ArrayList realpart = new ArrayList();
+                        //NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
+                        for (int i = 0; i < partcol.Length; i++)
                         {
-                           
-                                dimary.Add(eachdim);
-                            
+                            //realpart[i] = Tag2NXObject<NXOpen.Part>(partcol[i].Tag);//将他们转换成part数组
+                            realpart.Add(Tag2NXObject<NXOpen.Part>(partcol[i].Tag));
                         }
-                    
+                        foreach (NXOpen.Part eachpart in realpart)
+                        {
+                            foreach (NXOpen.Annotations.Dimension eachdim in eachpart.Dimensions.ToArray())
+                            {
+
+                                dimary.Add(eachdim);
+
+                            }
+
+                        }
+                        foreach (NXOpen.Annotations.Dimension a in dimary)
+                        {
+                            string finalstr = null;
+                            a.SetAttribute("temp", "temp");
+                            if (a != theoridim)//如果遍历的尺寸不等于需要校核的尺寸，则把他加入到thedown中，起名字太难了。
+                            {
+                                NXObject.AttributeInformation[] attrinfo = null;
+                                attrinfo = a.GetAttributeTitlesByType(NXObject.AttributeType.Any);
+                                bool reslt;
+                                string mm = null;
+                                foreach (NXObject.AttributeInformation inf in attrinfo)
+                                {
+
+                                    mm = inf.Title;
+                                    finalstr = finalstr + mm.ToString();
+
+                                }
+                                if (finalstr.Contains("XYZ"))
+                                {
+                                    thedown.Add(a);
+                                }
+
+                                reslt = false;
+                            }
+                            a.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
+                        }
+                        List<int[]> nene;
+                        left = (NXOpen.Annotations.Dimension[])thedown.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
+                        int[] arr = new int[left.Length];//下面这个for循环定义了一个索引数组，里面存放的是left这个数组的索引。一一对应
+                        for (int i = 0; i < arr.Length; i++)
+                        {
+                            arr[i] = i;
+                        }
+                        if (left.Length == 0 || left.Length == 1)
+                        {
+                            theUI.NXMessageBox.Show("该工序内尺寸太少", NXOpen.NXMessageBox.DialogType.Warning, "该工序内尺寸小于2，无法进行尺寸链校核");
+                            return 1;
+
+                        }
+                        for (int t = 2; t <= left.Length; t++)//该循环从2开始，因为一个尺寸连最起码有三个，它也有可能达到left数组的长度。
+                        {
+
+                            nene = Algorithms.PermutationAndCombination<int>.GetCombination(arr, t);//nene是每一次循环得到的结果，如果直接用nene参与下一步计算，以前的循环结果就作废了
+                            foreach (int[] ne in nene)
+                            {
+                                lst_Combination.Add(ne);
+                            }
+
+                        }
+
+                        foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
+                        {
+                            theday.Clear();
+                            for (int j = 0; j < a.Length; j++)//下面这个for循环从索引得到对应的dimension数组。
+                            {
+
+                                theday.Add(left[a[j]]);//这一步有问题。。。。。妈的。------这里一个小错误就让我调试了一早上
+                                // thefinalori[j] = left[j];//得到索引所表示的数组
+
+                            }
+                            thefinalori = (NXOpen.Annotations.Dimension[])theday.ToArray(typeof(NXOpen.Annotations.Dimension));
+                            if (checknow(thefinalori))//如果成环的话。。。。almost there
+                            {
+                                finaloneinpro.Add(thefinalori);//这个list存放的是所有和需校核尺寸成环的尺寸链，记住其里面的每个元素是一个尺寸数组
+
+                            };
+
+                        }
+                        count ct = new count();
+                        ArrayList zengzu = new ArrayList();
+                        ArrayList jianzu = new ArrayList();
+                        //NXOpen.Annotations.Dimension[] zengshuzu = null;
+                        //NXOpen.Annotations.Dimension[] jianshuzu = null;
+                        NXOpen.BlockStyler.Node finalnode = null;
+                        foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
+                        {
+                            jianzu.Clear();
+                            zengzu.Clear();
+                            finalnode = tree_control0.CreateNode("成环尺寸链");
+                            tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
+                            NXOpen.BlockStyler.Node finalchild = null;
+                            double[] final = { 0, 0, 0 };
+
+                            foreach (NXOpen.Annotations.Dimension sda in ori)
+                            {
+                                finalchild = tree_control0.CreateNode("组成环");
+                                DataContainer nodeData = finalchild.GetNodeData();
+                                int p = 0;
+
+                                nodeData.AddTaggedObject("Data", sda);
+                                nodeData.Dispose();
+                                tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
+                                p = cirdect(sda);
+                                if (p == -1)
+                                {
+
+                                    finalchild.SetColumnDisplayText(5, "增环");
+                                    //jianzu.Add(sda);
+                                    zengzu.Add(sda);
+                                }
+                                if (p == 1)
+                                {
+                                    finalchild.SetColumnDisplayText(5, "减环");
+                                    //zengzu.Add(sda);
+                                    jianzu.Add(sda);
+                                }
+                                if (p == 0)
+                                {
+                                    finalchild.SetColumnDisplayText(5, "对封闭环无贡献");
+                                }
+                                final = ct.getspec(sda);
+                                finalchild.SetColumnDisplayText(2, final[0].ToString());
+                                finalchild.SetColumnDisplayText(3, final[1].ToString());
+                                finalchild.SetColumnDisplayText(4, final[2].ToString());
+                                Part sdapart = (Part)sda.OwningPart;
+                                FileInfo sdafile = new FileInfo(sdapart.FullPath);
+                                string prtname = sdafile.Name;
+                                finalchild.SetColumnDisplayText(6, prtname);
+                            }
+                            zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+                            jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+                            double a = 0;
+                            double b = 0;
+                            if (ct.countcircle(zengshuzu, jianshuzu, out a, out b))
+                            {
+                                finalnode.SetColumnDisplayText(1, "符合尺寸链规则");
+                                finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
+                                //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                                //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                                finalnode.SetColumnDisplayText(3, a.ToString());
+                                finalnode.SetColumnDisplayText(4, b.ToString());
+                            }
+                            else
+                            {
+                                finalnode.SetColumnDisplayText(1, "不符合尺寸链规则");
+                                finalnode.ForegroundColor = 198;
+                                //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
+                                //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
+                                finalnode.SetColumnDisplayText(3, a.ToString());
+                                finalnode.SetColumnDisplayText(4, b.ToString());
+
+                            }
+
+                        }
+                        count thect = new count();
+                        double aa = 0;
+                        double bb = 0;
+                        //thect.countcircle(theoridim, zengshuzu, jianshuzu, out aa, out bb);
+                        if (zengshuzu == null && jianshuzu == null)
+                        {
+                            theUI.NXMessageBox.Show("未找到结果", NXOpen.NXMessageBox.DialogType.Warning, "未查找到与此尺寸成环的尺寸");
+                            return 1;
+                        }
+                        else
+                        {
+                            thect.countcircle(zengshuzu, jianshuzu, out aa, out bb);
+                            form1 theform1 = new form1(zengshuzu, jianshuzu, theoridim, aa, bb);
+                            //theform1.ShowDialog();
+                            theform1.Show();
+                        }
+
                     }
+                }
+                else if(toggle01.GetProperties().GetLogical("Value"))
+                {
+                    NXOpen.Annotations.Dimension[] dimary = null;
+                    List<int[]> nene;
+                    //下面这段得到一个数组，这个数组里面有除过要校核的尺寸之外所有的尺寸。-------下面这个是在整个工序内进行判断
+                    dimary = theSession.Parts.Work.Dimensions.ToArray();
+
                     foreach (NXOpen.Annotations.Dimension a in dimary)
                     {
                         string finalstr = null;
@@ -747,8 +1013,14 @@ public class allpro
                         }
                         a.DeleteAttributeByTypeAndTitle(NXObject.AttributeType.Any, "temp");
                     }
-                    List<int[]> nene;
+
                     left = (NXOpen.Annotations.Dimension[])thedown.ToArray(typeof(NXOpen.Annotations.Dimension));//把动态数组转化成数组
+                    if (left.Length == 0 || left.Length == 1)
+                    {
+                        theUI.NXMessageBox.Show("该工序内尺寸太少", NXOpen.NXMessageBox.DialogType.Warning, "该工序内尺寸小于2，无法进行尺寸链校核");
+                        return 1;
+                    
+                    }
                     int[] arr = new int[left.Length];//下面这个for循环定义了一个索引数组，里面存放的是left这个数组的索引。一一对应
                     for (int i = 0; i < arr.Length; i++)
                     {
@@ -786,8 +1058,8 @@ public class allpro
                     count ct = new count();
                     ArrayList zengzu = new ArrayList();
                     ArrayList jianzu = new ArrayList();
-                    //NXOpen.Annotations.Dimension[] zengshuzu = null;
-                    //NXOpen.Annotations.Dimension[] jianshuzu = null;
+                    NXOpen.Annotations.Dimension[] zengshuzu = null;
+                    NXOpen.Annotations.Dimension[] jianshuzu = null;
                     NXOpen.BlockStyler.Node finalnode = null;
                     foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                     {
@@ -795,15 +1067,12 @@ public class allpro
                         zengzu.Clear();
                         finalnode = tree_control0.CreateNode("成环尺寸链");
                         tree_control0.InsertNode(finalnode, null, null, Tree.NodeInsertOption.Last);
-                        NXOpen.BlockStyler.Node finalchild = null;
-                        double[] final = { 0, 0, 0 };
-                       
                         foreach (NXOpen.Annotations.Dimension sda in ori)
                         {
-                            finalchild = tree_control0.CreateNode("组成环");
+                            NXOpen.BlockStyler.Node finalchild = tree_control0.CreateNode("组成环");
                             DataContainer nodeData = finalchild.GetNodeData();
                             int p = 0;
-
+                            double[] final = { 0, 0, 0 };
                             nodeData.AddTaggedObject("Data", sda);
                             nodeData.Dispose();
                             tree_control0.InsertNode(finalchild, finalnode, null, Tree.NodeInsertOption.Last);
@@ -829,16 +1098,12 @@ public class allpro
                             finalchild.SetColumnDisplayText(2, final[0].ToString());
                             finalchild.SetColumnDisplayText(3, final[1].ToString());
                             finalchild.SetColumnDisplayText(4, final[2].ToString());
-                            Part sdapart = (Part)sda.OwningPart;
-                            FileInfo sdafile = new FileInfo(sdapart.FullPath);
-                            string prtname = sdafile.Name;
-                            finalchild.SetColumnDisplayText(6, prtname);
                         }
                         zengshuzu = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                         jianshuzu = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
                         double a = 0;
                         double b = 0;
-                        if (ct.countcircle(zengshuzu, jianshuzu,out a,out b))
+                        if (ct.countcircle(theoridim,zengshuzu, jianshuzu, out a, out b))
                         {
                             //tree_control0.InsertColumn(1, "尺寸链", 100);//一定有注意不同的回调函数的问题
 
@@ -846,8 +1111,8 @@ public class allpro
                             finalnode.ForegroundColor = 60;//绿色部分表示符合尺寸链规则
                             //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
                             //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
-                            finalnode.SetColumnDisplayText(3,a.ToString());
-                            finalnode.SetColumnDisplayText(4,b.ToString());
+                            finalnode.SetColumnDisplayText(3, a.ToString());
+                            finalnode.SetColumnDisplayText(4, b.ToString());
                         }
                         else
                         {
@@ -855,20 +1120,20 @@ public class allpro
                             finalnode.ForegroundColor = 198;
                             //finalchild.SetColumnDisplayText(4, final[2].ToString() + "/" + b.ToString());
                             //finalchild.SetColumnDisplayText(3, final[1].ToString() + "/" + a.ToString());
-                            finalnode.SetColumnDisplayText(3,a.ToString());
-                            finalnode.SetColumnDisplayText(4,b.ToString());
+                            finalnode.SetColumnDisplayText(3, a.ToString());
+                            finalnode.SetColumnDisplayText(4, b.ToString());
 
                         }
 
+                        
                     }
-
-
+                    if (zengshuzu == null && jianshuzu == null)
+                    {
+                        theUI.NXMessageBox.Show("未找到结果", NXOpen.NXMessageBox.DialogType.Warning, "未查找到与此尺寸成环的尺寸");
+                        return 1;
+                    }
                 }
-                form1 theform1 = new form1(theoridim, zengshuzu, jianshuzu);
-                //theform1.ShowDialog();
-                theform1.Show();
-
-
+              
 
                 #endregion
             }
@@ -979,7 +1244,7 @@ public class allpro
             }
 
 
-            excelWorkSheet.Name = "( ⊙ o ⊙ )啊！";
+            excelWorkSheet.Name = "报表";
 
 
             excelWorkBook.Save();
@@ -1398,15 +1663,86 @@ public class allpro
         }
 
     }
+    public ArrayList getallnodes(Node node)//这个方法得到除过补偿环外的所有组成环,这个写了10个for循环，如果node太多可能不行。
+    {
+        ArrayList allnodes = new ArrayList();
+        Node prtnode = trannode.ParentNode;
+        Node cdnode = prtnode.FirstChildNode;
+        if (cdnode != node)
+        {
+            allnodes.Add(cdnode);
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            if (cdnode != null)
+            {
+
+                cdnode = cdnode.NextSiblingNode;
+                if (cdnode != node)
+                {
+                    allnodes.Add(cdnode);
+                }
+            }
+            else if (cdnode == null)
+                break;
+        }
+        Node[] nodeary = (Node[])allnodes.ToArray(typeof(Node));//把动态数组转化成数组
+        for (int i = 0; i < nodeary.Length; i++)
+        {
+            if (nodeary[i] == null)
+            {
+                //nodeary[i].
+                allnodes.Remove(nodeary[i]);
+            }
+        }
+        return allnodes;
+    }
+    public void zengandjian(Node node,out NXOpen.Annotations.Dimension[] zeng,out NXOpen.Annotations.Dimension[] jian)
+    {
+        ArrayList allnodes = new ArrayList();
+        ArrayList zengzu = new ArrayList();
+        ArrayList jianzu = new ArrayList();
+        zeng = null;
+        jian = null;
+       allnodes = getallnodes(node);
+       allnodes.Add(node);
+       foreach (Node a in allnodes)
+       {
+           if (a.GetColumnDisplayText(5).Contains("增环"))
+           {
+               DataContainer nodedim = a.GetNodeData();
+               NXOpen.TaggedObject dimtag = nodedim.GetTaggedObject("Data");
+               NXOpen.Annotations.Dimension editpmi = (NXOpen.Annotations.Dimension)dimtag;
+               zengzu.Add(editpmi);
+           }
+           else if (a.GetColumnDisplayText(5).Contains("减环"))
+           {
+               DataContainer nodedim = a.GetNodeData();
+               NXOpen.TaggedObject dimtag = nodedim.GetTaggedObject("Data");
+               NXOpen.Annotations.Dimension editpmi = (NXOpen.Annotations.Dimension)dimtag;
+               jianzu.Add(editpmi);
+           
+           }
+    
+       }
+       zeng = (NXOpen.Annotations.Dimension[])zengzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+       jian = (NXOpen.Annotations.Dimension[])jianzu.ToArray(typeof(NXOpen.Annotations.Dimension));
+
+    }
     public Tree.EditControlOption OnEditOptionSelectedCallback(Tree tree, Node node, int columnID, int selectedOptionID, string selectedOptionText, Tree.ControlType type)
     {
         Tree.EditControlOption OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
         try
         {
+            NXOpen.Annotations.Dimension[] zeng = null;
+            NXOpen.Annotations.Dimension[] jian = null;
             NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
-           
+            zengandjian(node,out zeng,out jian);
+            nodepool = getallnodes(node);
             if (node == trannode)
             {
+                double p = 0;
+                double q = 0;
                 double editdouble = Double.Parse(selectedOptionText);
                 DataContainer editcontainer = node.GetNodeData();
                 NXOpen.TaggedObject edittag = editcontainer.GetTaggedObject("Data");
@@ -1415,49 +1751,115 @@ public class allpro
 
                 if (columnID == 3)
                 {
-
                     ct.settolup(editpmi, editdouble);
+
+                    if (toggle01.GetProperties().GetLogical("Value"))
+                    {
+                        if (ct.countcircle(theoridim, zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 60;
+                            node.ParentNode.SetColumnDisplayText(1, "通过尺寸链校核");
+
+                        }
+                        else if (!ct.countcircle(theoridim, zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 198;
+                            node.ParentNode.SetColumnDisplayText(1, "未通过尺寸链校核");
+                        }
+
+                        node.ParentNode.SetColumnDisplayText(3, p.ToString());
+                        node.ParentNode.SetColumnDisplayText(4, q.ToString());
+                    }
+                    else if (!toggle01.GetProperties().GetLogical("Value"))
+                    {
+                        if (ct.countcircle(zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 60;
+                            node.ParentNode.SetColumnDisplayText(1, "通过尺寸链校核");
+
+                        }
+                        else if (!ct.countcircle(zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 198;
+                            node.ParentNode.SetColumnDisplayText(1, "未通过尺寸链校核");
+                        }
+
+                        node.ParentNode.SetColumnDisplayText(3, p.ToString());
+                        node.ParentNode.SetColumnDisplayText(4, q.ToString());
+                    }
                     OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
                 }
                 else if (columnID == 4)
                 {
                     ct.settoldown(editpmi, editdouble);
+                    if (toggle01.GetProperties().GetLogical("Value"))
+                    {
+                        if (ct.countcircle(theoridim, zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 60;
+                            node.ParentNode.SetColumnDisplayText(1, "通过尺寸链校核");
+
+                        }
+                        else if (!ct.countcircle(theoridim, zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 198;
+                            node.ParentNode.SetColumnDisplayText(1, "未通过尺寸链校核");
+                        }
+
+                        node.ParentNode.SetColumnDisplayText(3, p.ToString());
+                        node.ParentNode.SetColumnDisplayText(4, q.ToString());
+                    }
+                    else if (!toggle01.GetProperties().GetLogical("Value"))
+                    {
+                        if (ct.countcircle(zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 60;
+                            node.ParentNode.SetColumnDisplayText(1, "通过尺寸链校核");
+
+                        }
+                        else if (!ct.countcircle(zeng, jian, out p, out q))
+                        {
+                            node.ParentNode.ForegroundColor = 198;
+                            node.ParentNode.SetColumnDisplayText(1, "未通过尺寸链校核");
+                        }
+
+                        node.ParentNode.SetColumnDisplayText(3, p.ToString());
+                        node.ParentNode.SetColumnDisplayText(4, q.ToString());
+                    }
                     OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
                 }
                 else
-                { 
-                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject; }
+                {
+                    OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Reject;
+                }
 
-                nodepool = getallnodes(node);
+             
                 //////可能要在这里加入一些代码
-                double p = 0;
-                double q = 0;
-                ct.countcircle(zengshuzu, jianshuzu, out p, out q);
-                node.ParentNode.SetColumnDisplayText(3, p.ToString());
-                node.ParentNode.SetColumnDisplayText(4, q.ToString());
+             
+             
             }
             else if (node == trannode.ParentNode)
-            { 
-            
-             if (columnID == 7)
+            {
+
+                if (columnID == 7)
                 {
-                    theoridim.SetAttribute("校核记录","已通过校核");//在这里插入校核人员名称
+                    theoridim.SetAttribute("校核记录", "已通过校核");//在这里插入校核人员名称
                     if (!File.Exists("E:\\gitest\\410proj\\prt\\pmicheck.xml"))
                     {
                         creatxml();
                     }
                     OnEditOptionSelected = NXOpen.BlockStyler.Tree.EditControlOption.Accept;
-                  
+
 
                 }
-         
+
             }
-            count ct1 = new count();
-            double a = 0;
-            double b = 0;
-            ct1.countcircle(zengshuzu,jianshuzu, out a, out b);
-            trannode.ParentNode.SetColumnDisplayText(3, a.ToString());
-            trannode.ParentNode.SetColumnDisplayText(4, b.ToString());
+            //count ct1 = new count();
+            //double a = 0;
+            //double b = 0;
+            //ct1.countcircle(zengshuzu,jianshuzu, out a, out b);
+            //trannode.ParentNode.SetColumnDisplayText(3, a.ToString());
+            //trannode.ParentNode.SetColumnDisplayText(4, b.ToString());
             //foreach (Node realnode in nodepool)
             //theoridim.set
             //}
@@ -1520,39 +1922,22 @@ public class allpro
       sw.Close();
   
     }
-    public ArrayList getallnodes(Node node)//这个方法得到除过补偿环外的所有组成环
+  
+    public int filter_cb(NXOpen.BlockStyler.UIBlock block, NXOpen.TaggedObject selectedObject)
     {
-         ArrayList allnodes = new ArrayList();
-         Node prtnode = trannode.ParentNode;
-        Node cdnode = prtnode.FirstChildNode;
-        if(cdnode != node)
+        if (block == selection0)
         {
-            allnodes.Add(cdnode);
-        }
-        for(int i =0;i<10;i++)
-        {
-            if (cdnode != null)
-        {
-               
-            cdnode = cdnode.NextSiblingNode;
-            if (cdnode != node)
+            try
             {
-                allnodes.Add(cdnode);
-            } 
-        }
-            else if (cdnode == null)
-            break;
-    }
-        Node[] nodeary = (Node[])allnodes.ToArray(typeof(Node));//把动态数组转化成数组
-        for (int i = 0; i < nodeary.Length;i++ )
-        {
-            if (nodeary[i] == null)
+                NXOpen.Annotations.Dimension d = (NXOpen.Annotations.Dimension)selectedObject;
+            }
+            catch
             {
-                //nodeary[i].
-                allnodes.Remove(nodeary[i]);
+                return (NXOpen.UF.UFConstants.UF_UI_SEL_REJECT);
             }
         }
-        return allnodes;
+
+        return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
     }
     public Tree.ControlType AskEditControlCallback(Tree tree, Node node, int columnID)
     {

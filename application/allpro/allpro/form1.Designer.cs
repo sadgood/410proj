@@ -29,18 +29,21 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(49, 22);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(572, 253);
+            this.panel1.Size = new System.Drawing.Size(640, 319);
             this.panel1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(697, 104);
+            this.button1.Location = new System.Drawing.Point(524, 286);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(116, 30);
             this.button1.TabIndex = 1;
@@ -52,12 +55,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 319);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(640, 319);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.Name = "form1";
-            this.Text = "form1";
+            this.Text = "尺寸链可视化图表";
             this.Load += new System.EventHandler(this.form1_Load);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
