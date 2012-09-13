@@ -125,6 +125,11 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock g;
     public string hb = "HB5800.xml";
     public string folderpath = "3dppmplugin\\";
+    private NXOpen.BlockStyler.UIBlock mstring0;// Block type: Specify Point
+    private NXOpen.BlockStyler.UIBlock menum0;// Block type: Group
+    NXOpen.ModelingView[] aaa = null;//所有的视图
+    string[] strvalue;
+    public string viewname = null;
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -381,6 +386,9 @@ public class finalconbine
             rouname = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("rouname");
             astring0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("astring0");
             g = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("g");
+            menum0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("menum0");
+            mstring0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("mstring0");
+
         }
         catch (Exception ex)
         {
@@ -412,6 +420,7 @@ public class finalconbine
 
             jtogglejy.GetProperties().SetLogical("Value", false);
                 jcrospt.GetProperties().SetLogical("Enable",false);
+                refreshenum();
             //---- Enter your callback code here -----
         }
         catch (Exception ex)
@@ -768,6 +777,23 @@ public class finalconbine
         zdoubledown.GetProperties().SetDouble("Value", lower);
         return 1;
     }
+    public void refreshenum()
+    {
+        Part workPart = theSession.Parts.Work;
+        ModelingViewCollection a = workPart.ModelingViews;
+        aaa = a.ToArray();
+        strvalue = new string[aaa.Length + 1];
+        int i;
+        for (i = 0; i < aaa.Length; i++)
+        {
+            //enum0.GetProperties().SetEnum("Value", i);
+            strvalue[i] = aaa[i].Name;
+
+        }
+        strvalue[i] = "添加新视图";
+        menum0.GetProperties().SetEnumMembers("Value", strvalue);
+
+    }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -889,8 +915,36 @@ public class finalconbine
                 FindTol(dim);
             //---------Enter your code here-----------
             }
-            else if(block == separator04)
+            else if (block == mstring0)
             {
+                Part workPart = theSession.Parts.Work;
+                viewname = mstring0.GetProperties().GetString("Value");
+                workPart.Views.SaveAs(workPart.ModelingViews.WorkView, viewname, true, false);
+                refreshenum();
+              
+                //---------Enter your code here-----------
+            }
+            else if(block == menum0)
+            {
+                Part workPart = theSession.Parts.Work;
+                Layout layout1 = (Layout)workPart.Layouts.FindObject("L1");//此处写死了。。。。。TAG ERROR
+                int sel = menum0.GetProperties().GetEnum("Value");
+                string addnewstr = menum0.GetProperties().GetEnumAsString("Value");
+                if (addnewstr != "添加新视图")
+                {
+                    layout1.ReplaceView(workPart.ModelingViews.WorkView, aaa[sel], true);
+                }
+                else
+                {
+                    mstring0.GetProperties().SetLogical("Show", true);
+
+                    //string newviewname = null;
+                    ////add.Show_add();
+                    //add theadd = new add();
+                    //theadd.Show();
+                    //newviewname = theaddnew.string0.GetProperties().GetString("Value");
+
+                }
             //---------Enter your code here-----------
             }
             else if(block == jplcpt)
