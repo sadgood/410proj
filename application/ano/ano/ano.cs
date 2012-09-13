@@ -74,6 +74,10 @@ public class ano
     NXOpen.ModelingView[] aaa = null;//所有的视图
     string[] strvalue;
     public string viewname = null;
+    public string udsxml = "UserDefinedSymbol.xml";
+    public string folderpath = "3dppmplugin\\";
+    public string sbf = "3dppm_uds.sbf";
+    public string cappass = "CAPP助手.exe";
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -226,7 +230,22 @@ public class ano
         }
         return 0;
     }
-    
+
+    public static string NXPath
+    {
+        get
+        {
+            string ugraf = Process.GetCurrentProcess().MainModule.FileName;
+            return ugraf.Substring(0, ugraf.Length - 14);
+        }
+    }
+    public static string ApplicationPath
+    {
+        get
+        {
+            return System.AppDomain.CurrentDomain.BaseDirectory;
+        }
+    }
     //------------------------------------------------------------------------------
     //This method shows the dialog on the screen
     //------------------------------------------------------------------------------
@@ -295,7 +314,7 @@ public class ano
     //------------------------------------------------------------------------------
     private void SetSBF()
     {
-        string sbf_file = "E:\\gitest\\096\\096\\3dppm\\3dppm_uds.sbf";
+        string sbf_file = ApplicationPath + folderpath + sbf;
         if (!isFileExist(sbf_file))
         {
             theUI.NXMessageBox.Show("未能加载", NXMessageBox.DialogType.Error, "未能加载Sbf文件");
@@ -326,7 +345,7 @@ public class ano
             }
             iflabel.GetProperties().SetLogical("Value", false);
             selection01.GetProperties().SetLogical("Enable", false);
-            OpenFile("E:\\gitest\\410proj\\3dppm\\CAPP助手.exe");
+            OpenFile(ApplicationPath + folderpath + cappass);//undone
            // SetSBF();
            //Part workPart = theSession.Parts.Work;
            //     ModelingViewCollection a = workPart.ModelingViews;
@@ -483,6 +502,12 @@ public class ano
                 if (ifcro.GetProperties().GetLogical("Value") == true)
                 {
                     guanlian = cro.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                    if(guanlian.Length == 0)
+                    {
+                        theUI.NXMessageBox.Show("未选择关联对象",NXMessageBox.DialogType.Warning,"请选择关联对象");
+
+                        return 1;
+                    }
                     guanlianobj = Tag2NXObject<DisplayableObject>(guanlian[0].Tag);//这个是关联对象
                 }
 
@@ -500,7 +525,13 @@ public class ano
                 if (iflabel.GetProperties().GetLogical("Value") == true)
                 {              
                     zhiyin = selection01.GetProperties().GetTaggedObjectVector("SelectedObjects");
-            
+                    if (zhiyin.Length == 0)
+                    {
+                        theUI.NXMessageBox.Show("未选择Label放置点", NXMessageBox.DialogType.Warning, "请选择Label放置点");
+                        return 1;
+
+
+                    }
                     zhiyinobj = Tag2NXObject<NXObject>(zhiyin[0].Tag);//指引线
                 }
              NXOpen.TaggedObject[] placept = null;
@@ -547,7 +578,7 @@ public class ano
             thenotefun.Xmlforcapp(strvalue,diction[0]);
 
             StopProcess("CAPP助手");
-            OpenFile("E:\\gitest\\410proj\\3dppm\\CAPP助手.exe");
+            OpenFile(ApplicationPath + folderpath + cappass);
             //switch (strvalue)
             //{
             //    case "加工前准备":

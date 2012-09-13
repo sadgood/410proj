@@ -191,6 +191,99 @@ using NXOpen.UF;
             pmiFeatureControlFrameBuilder1.Destroy();
 
         }
+
+        public void SurfaceFinishFunction(string a, string d, object StandardType, object FinishType, Point3d point1, Face obj, NXOpen.Point point)
+        {
+
+            NXOpen.Annotations.SurfaceFinish nullAnnotations_SurfaceFinish = null;
+            NXOpen.Annotations.SurfaceFinishBuilder surfaceFinishBuilder1;
+            surfaceFinishBuilder1 = workPart.PmiManager.PmiAttributes.CreateSurfaceFinishBuilder(nullAnnotations_SurfaceFinish);
+
+            surfaceFinishBuilder1.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.MidCenter;
+
+            surfaceFinishBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
+
+            surfaceFinishBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
+
+            surfaceFinishBuilder1.Origin.SetInferRelativeToGeometry(true);
+            surfaceFinishBuilder1.Origin.SetInferRelativeToGeometry(true);
+
+            NXOpen.Annotations.LeaderData leaderData1;
+            leaderData1 = workPart.Annotations.CreateLeaderData();
+
+            leaderData1.Arrowhead = NXOpen.Annotations.LeaderData.ArrowheadType.FilledArrow;
+
+            surfaceFinishBuilder1.Leader.Leaders.Append(leaderData1);
+
+            leaderData1.StubSide = NXOpen.Annotations.LeaderSide.Inferred;
+
+            surfaceFinishBuilder1.Title = "Surface Finish";
+
+            surfaceFinishBuilder1.A1 = a;// "Ra 0.025";//粗糙度
+
+            surfaceFinishBuilder1.F1 = "";
+
+            surfaceFinishBuilder1.Angle = 0.0;
+
+            surfaceFinishBuilder1.D = d;// "=";//放置符号
+
+            surfaceFinishBuilder1.Standard = (NXOpen.Annotations.SurfaceFinishBuilder.StandardType)StandardType;//.Iso;//标准
+
+            surfaceFinishBuilder1.Finish = (NXOpen.Annotations.SurfaceFinishBuilder.FinishType)FinishType;//.MaterialRemovalRequired;//材料移除
+
+            surfaceFinishBuilder1.Origin.SetInferRelativeToGeometry(true);
+
+            surfaceFinishBuilder1.Origin.SetInferRelativeToGeometry(true);
+
+
+            NXOpen.Annotations.Annotation.AssociativeOriginData assocOrigin1;
+            assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.Drag;
+            NXOpen.View nullView = null;
+            assocOrigin1.View = nullView;
+            assocOrigin1.ViewOfGeometry = nullView;
+            NXOpen.Point nullPoint = null;
+            assocOrigin1.PointOnGeometry = nullPoint;
+            assocOrigin1.VertAnnotation = null;
+            assocOrigin1.VertAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
+            assocOrigin1.HorizAnnotation = null;
+            assocOrigin1.HorizAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
+            assocOrigin1.AlignedAnnotation = null;
+            assocOrigin1.DimensionLine = 0;
+            assocOrigin1.AssociatedView = nullView;
+            assocOrigin1.AssociatedPoint = nullPoint;
+            assocOrigin1.OffsetAnnotation = null;
+            assocOrigin1.OffsetAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
+            assocOrigin1.XOffsetFactor = 0.0;
+            assocOrigin1.YOffsetFactor = 0.0;
+            assocOrigin1.StackAlignmentPosition = NXOpen.Annotations.StackAlignmentPosition.Above;
+            surfaceFinishBuilder1.Origin.SetAssociativeOrigin(assocOrigin1);
+
+            //Point p=null;
+            //try
+            //{
+            //    p.SetCoordinates(point1);
+            //}
+            //catch (Exception ex)
+            //{
+            //    UI.GetUI().NXMessageBox.Show("error",NXMessageBox.DialogType.Error,ex.ToString());
+            //}
+            surfaceFinishBuilder1.Origin.Origin.SetValue(null, workPart.ModelingViews.WorkView, point1);
+            if (point!=null)
+            {
+                Point3d point2 = point.Coordinates;//折线点            
+                leaderData1.Leader.SetValue(point, workPart.ModelingViews.WorkView, point2);//折线
+            }
+            surfaceFinishBuilder1.Origin.SetInferRelativeToGeometry(true);
+
+            bool added1;
+            added1 = surfaceFinishBuilder1.AssociatedObjects.Objects.Add(obj);//关联对象
+
+            NXObject nXObject1;
+            nXObject1 = surfaceFinishBuilder1.Commit();
+
+            surfaceFinishBuilder1.Destroy();
+
+        }
        
     }
 

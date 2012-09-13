@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="gb2312" standalone="yes"?>
+<!--可以按结构扩展，但是不要有重name的Type-->
+<CAPPAssistant>
+  <Type name="加工前准备">
+    <Item text="加工找正端面" remark="" />
+    <Item text="加工前找正端面" remark="" />
+    <Item text="内径跳动不大于0.4" remark="" />
+    <Item text="加工前先压紧&lt;%D&gt;" remark="" />
+    <Item text="找正内孔&lt;%B&gt;" remark="" />
+    <Item text="压紧&lt;%A&gt;" remark="" />
+    <Item text="松开&lt;%C&gt;" remark="" />
+    <Item text="找正后提交检验员检查" remark="" />
+    <Item remark="" text="xyz" />
+  </Type>
+  <Type name="工作内容">
+    <Item text="工作内容" remark="" />
+    <Item text="按工艺图样车加工表面" remark="" />
+    <Item text="保证尺寸" remark="" />
+    <Item text="尖角倒圆R0.2～R0.3" remark="" />
+    <Item text="在X处用振动笔标刻零件号、零件顺序号、熔炼号、锭节号、字高5" remark="" />
+    <Item text="填写流水卡片，并盖检验印" remark="" />
+    <Item text="I类检验，按X进行" remark="" />
+    <Item text="倒钝锐边" remark="" />
+    <Item text="将检验结果填入流水卡片" remark="" />
+    <Item text="抛光辐板表面，尺寸&lt;%23&gt;向轮盘中心范围内粗糙度0.5" remark="" />
+    <Item text="按工艺打点、钻、铰&lt;O&gt;5&lt;C0.5&gt;&lt;T+0.1!-0.2&gt;&lt;C&gt;孔" remark="" />
+    <Item text="去除孔边毛刺" remark="" />
+  </Type>
+  <Type name="技术条件">
+    <Item text="技术条件" remark="" />
+    <Item text="未注圆角R5" remark="" />
+    <Item text="括号内为零件尺寸，双点划线为零件的轮廓形状" remark="" />
+    <Item text="标刻：锻件号或代号、材料牌号、炉号、锭节号、热处理炉次" remark="" />
+    <Item text="未注垂直尺寸公差" remark="" />
+    <Item text="将检验结果填入质量证明单" remark="" />
+    <Item text="&lt;%12&gt;一次装夹加工保证" remark="" />
+    <Item text="&lt;%12&gt;由数控程序保证，每批首件送检" remark="" />
+    <Item text="&lt;%12&gt;加工找正保证" remark="" />
+    <Item text="辐板沿周向跳动不大于0.02" remark="" />
+    <Item text="圆弧与直线平面转接要光滑平整" remark="" />
+    <Item text="辐板壁厚尺寸沿周向变化不大于0.07" remark="" />
+    <Item text="未注公差的鼓筒内表面对基准&lt;%A&gt;&lt;%B&gt;跳动不大于0.05" remark="" />
+    <Item remark="" text="adc" />
+  </Type>
+  <Type name="附注">
+    <Item text="附注" remark="" />
+    <Item text="加工前将零件号、熔炉号、锭节号记录在流水卡片上" remark="" />
+    <Item text="零件在周转过程不得有碰、划伤" remark="" />
+    <Item text="加工前找正夹具配合表面跳动不大于0.01" remark="" />
+    <Item text="将尺寸&lt;%23&gt;的实际测量值记录在流水卡片上，并提交检验员100%检查" remark="" />
+    <Item text="压紧表面&lt;%B&gt;时垫铜皮保护" remark="" />
+    <Item text="加工时浇注充足的冷却液，不允许赤手接触零件" remark="" />
+    <Item text="加工零件前先加工调整机床试件" remark="" />
+  </Type>
+  <Type name="特种工艺术语">
+    <Item text="锻件表面缺陷深度" remark="" />
+    <Item text="清除氧化皮" remark="" />
+    <Item text="按车间工艺规程进行消除应力热处理" remark="" />
+    <Item text="按车间工艺规程进行固熔处理" remark="" />
+    <Item text="X射线检查，按X进行，不允许有任何高密度夹杂" remark="" />
+    <Item text="按17车间工艺规程进行腐蚀检查" remark="" />
+    <Item text="腐蚀检查按X进行" remark="" />
+    <Item text="腐蚀后在X处用振动笔标工序合格印，字高3-5" remark="" />
+    <Item text="按无损见车工艺规程超声波检查表面" remark="" />
+  </Type>
+  <Type name="检验工序">
+    <Item text="检查尺寸" remark="" />
+    <Item text="外观检查" remark="" />
+    <Item text="检查X工序检验印" remark="" />
+    <Item text="检查零件本工序是否与流水卡片、工艺规程（零件序号和图号）相符" remark="" />
+    <Item text="目视检查零件是否有碰、划伤" remark="" />
+    <Item text="清理零件及夹具表面" remark="" />
+    <Item text="检查所有测具是否在校准合格周期内" remark="" />
+    <Item text="检查前一工序" remark="" />
+    <Item text="是否按要求完成加工内容：有无未处理的超差情况" remark="" />
+    <Item text="如果前一工序未完成或有超差未处理时，本工序不能进行" remark="" />
+    <Item text="将零件擦拭干净，保证零件无污染。" remark="" />
+    <Item text="将零件放到无污染和杂物的、干净的零件周转箱内" remark="" />
+    <Item text="记录如何不符合情况。" remark="" />
+    <Item text="保证流水卡片上记录的是正确的。" remark="" />
+    <Item text="保证零件和流水卡片文物相符" remark="" />
+    <Item text="加工后提交检验员检验" remark="" />
+    <Item text="检验合格后工人、检验员在流水卡上签字" remark="" />
+  </Type>
+  <Type name="常用符号">
+    <Item text="&lt;%1&gt;" remark="尺寸" />
+    <Item text="&lt;%A&gt;" remark="基准" />
+    <Item text="&lt;%J1&gt;" remark="形位" />
+    <Item text="&lt;O&gt; " remark="直径" />
+    <Item text="&lt;$s&gt;" remark="度数" />
+    <Item text="&lt;$t&gt;" remark="正负号" />
+    <Item text="&lt;C0.5&gt;&lt;T+0.1!-0.2&gt;&lt;C&gt;" remark="公差" />
+    <Item text="&lt;R3!5&gt;" remark="分数" />
+  </Type>
+  <Type name="—M—F—C—">
+    <Item text="我是华丽的分割线！" remark="" />
+  </Type>
+  <Type name="[加工前准备]">
+    <Item text="加工找正端面" remark="" />
+    <Item text="加工前找正端面" remark="" />
+    <Item text="内径跳动不大于0.4" remark="" />
+    <Item text="加工前先压紧[D]" remark="" />
+    <Item text="找正内孔[B];" remark="" />
+    <Item text="压紧[A]" remark="" />
+    <Item text="松开[C]" remark="" />
+    <Item text="找正后提交检验员检查" remark="" />
+  </Type>
+  <Type name="[工作内容]">
+    <Item text="工作内容" remark="" />
+    <Item text="按工艺图样车加工表面" remark="" />
+    <Item text="保证尺寸" remark="" />
+    <Item text="尖角倒圆R0.2～R0.3" remark="" />
+    <Item text="在X处用振动笔标刻零件号、零件顺序号、熔炼号、锭节号、字高5" remark="" />
+    <Item text="填写流水卡片，并盖检验印" remark="" />
+    <Item text="I类检验，按X进行" remark="" />
+    <Item text="倒钝锐边" remark="" />
+    <Item text="将检验结果填入流水卡片" remark="" />
+    <Item text="抛光辐板表面，尺寸[23];向轮盘中心范围内粗糙度0.5" remark="" />
+    <Item text="按工艺打点、钻、铰&lt;O&gt;5[公差+0.2!-0.1]孔" remark="" />
+    <Item text="去除孔边毛刺" remark="" />
+  </Type>
+  <Type name="[技术条件]">
+    <Item text="技术条件" remark="" />
+    <Item text="未注圆角R5" remark="" />
+    <Item text="括号内为零件尺寸，双点划线为零件的轮廓形状" remark="" />
+    <Item text="标刻：锻件号或代号、材料牌号、炉号、锭节号、热处理炉次" remark="" />
+    <Item text="未注垂直尺寸公差" remark="" />
+    <Item text="将检验结果填入质量证明单" remark="" />
+    <Item text="[12]一次装夹加工保证" remark="" />
+    <Item text="[12]由数控程序保证，每批首件送检" remark="" />
+    <Item text="[12]加工找正保证" remark="" />
+    <Item text="辐板沿周向跳动不大于0.02" remark="" />
+    <Item text="圆弧与直线平面转接要光滑平整" remark="" />
+    <Item text="辐板壁厚尺寸沿周向变化不大于0.07" remark="" />
+    <Item text="未注公差的鼓筒内表面对基准[A][B]跳动不大于0.05" remark="" />
+  </Type>
+  <Type name="[附注]">
+    <Item text="附注" remark="" />
+    <Item text="加工前将零件号、熔炉号、锭节号记录在流水卡片上" remark="" />
+    <Item text="零件在周转过程不得有碰、划伤" remark="" />
+    <Item text="加工前找正夹具配合表面跳动不大于0.01" remark="" />
+    <Item text="将尺寸[23]的实际测量值记录在流水卡片上，并提交检验员100%检查" remark="" />
+    <Item text="压紧表面[B]时垫铜皮保护" remark="" />
+    <Item text="加工时浇注充足的冷却液，不允许赤手接触零件" remark="" />
+    <Item text="加工零件前先加工调整机床试件" remark="" />
+  </Type>
+  <Type name="[特种工艺术语]">
+    <Item text="锻件表面缺陷深度" remark="" />
+    <Item text="清除氧化皮" remark="" />
+    <Item text="按车间工艺规程进行消除应力热处理" remark="" />
+    <Item text="按车间工艺规程进行固熔处理" remark="" />
+    <Item text="X射线检查，按X进行，不允许有任何高密度夹杂" remark="" />
+    <Item text="按17车间工艺规程进行腐蚀检查" remark="" />
+    <Item text="腐蚀检查按X进行" remark="" />
+    <Item text="腐蚀后在X处用振动笔标工序合格印，字高3-5" remark="" />
+    <Item text="按无损见车工艺规程超声波检查表面" remark="" />
+  </Type>
+  <Type name="[检验工序]">
+    <Item text="检查尺寸" remark="" />
+    <Item text="外观检查" remark="" />
+    <Item text="检查X工序检验印" remark="" />
+    <Item text="检查零件本工序是否与流水卡片、工艺规程（零件序号和图号）相符" remark="" />
+    <Item text="目视检查零件是否有碰、划伤" remark="" />
+    <Item text="清理零件及夹具表面" remark="" />
+    <Item text="检查所有测具是否在校准合格周期内" remark="" />
+    <Item text="检查前一工序" remark="" />
+    <Item text="是否按要求完成加工内容：有无未处理的超差情况" remark="" />
+    <Item text="如果前一工序未完成或有超差未处理时，本工序不能进行" remark="" />
+    <Item text="将零件擦拭干净，保证零件无污染。" remark="" />
+    <Item text="将零件放到无污染和杂物的、干净的零件周转箱内" remark="" />
+    <Item text="记录如何不符合情况。" remark="" />
+    <Item text="保证流水卡片上记录的是正确的。" remark="" />
+    <Item text="保证零件和流水卡片文物相符" remark="" />
+    <Item text="加工后提交检验员检验" remark="" />
+    <Item text="检验合格后工人、检验员在流水卡上签字" remark="" />
+  </Type>
+  <Type name="[常用符号]">
+    <Item text="[1]" remark="" />
+    <Item text="[A]" remark="" />
+    <Item text="[J1]" remark="" />
+    <Item text="[直径]" remark="" />
+    <Item text="[度数]" remark="" />
+    <Item text="[正负号]" remark="" />
+    <Item text="[公差+0.1!-0.2]" remark="" />
+    <Item text="[分数3!5]" remark="" />
+  </Type>
+</CAPPAssistant>

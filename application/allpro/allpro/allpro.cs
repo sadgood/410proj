@@ -105,6 +105,9 @@ public class allpro
     public ArrayList nodepool = new ArrayList();//存放和封闭环有关的所有的node包括封闭环自己的信息。
     public NXOpen.Annotations.Dimension[] zengshuzu = null;
     public NXOpen.Annotations.Dimension[] jianshuzu = null;
+    public string folderpath = "3dppmplugin\\";
+    public string pmicheckpath = "pmicheck.xml";
+    public string pmixlspath = "pmi.xls";
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
     //------------------------------------------------------------------------------
@@ -269,6 +272,7 @@ public class allpro
     {
         try
         {
+           
             selectPart0.GetProperties().SetLogical("Enable", false);
             tree_control0.InsertColumn(1, "尺寸链", 130);//一定有注意不同的回调函数的问题
             tree_control0.InsertColumn(2, "名义尺", 100);
@@ -303,7 +307,8 @@ public class allpro
             string aa = theoridim.JournalIdentifier;
             string a = aa.Replace(" ", "");//这个replace函数的作用比较重要
             string path = "/root/pmi[" + "@name=" + "'" + a + "'" + "]";
-            xd.Load("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+            xd.Load(ApplicationPath + folderpath + pmicheckpath);//guts
+            //xd.Load("E:\\gitest\\410proj\\prt\\pmicheck.xml");
             XmlNode dimnode = xd.SelectSingleNode(path);
             XmlNode root = xd.SelectSingleNode("/root");
             if (dimnode == null)
@@ -347,7 +352,7 @@ public class allpro
                 }
                 pmi.AppendChild(jiaoherenyuan);
                 root.AppendChild(pmi);
-                xd.Save("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+                xd.Save(ApplicationPath + folderpath + pmicheckpath);
 
             }
             else
@@ -391,7 +396,7 @@ public class allpro
                 //pmi.AppendChild(jiaoherenyuan);
                 dimnode.AppendChild(jiaoherenyuan);
                 //root.AppendChild(pmi);
-                xd.Save("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+                xd.Save(ApplicationPath + folderpath + pmicheckpath);
             
             }
             }
@@ -488,14 +493,14 @@ public class allpro
                            m = theUI.NXMessageBox.Show("已有校核记录", NXMessageBox.DialogType.Question, "该尺寸已经有校核记录是否查看？");
                            if (m == 1)
                            {
-                               Exclefunction("E:\\gitest\\410proj\\prt\\pmicheck.xml");
+                               Exclefunction(ApplicationPath + folderpath + pmicheckpath);
                                //button0.GetProperties().SetLogical("Enable",false);
                                //foreach();
                                //要在这里插入保镖信息
                                //File.Open("E:\\pmi.xls");
                               // File.Open("E:\\pmi.xls", System.IO.FileMode.OpenOrCreate);
                                //StopProcess("Excel");
-                               System.Diagnostics.Process.Start("E:\\pmi.xls");
+                               System.Diagnostics.Process.Start(ApplicationPath + folderpath + pmixlspath);//guts
                            }
 
                         }
@@ -554,7 +559,7 @@ public class allpro
                     string path = nativeFolderBrowser0.GetProperties().GetString("Path");
                     if ((path == "") && thept.Length == 0)
                     {
-                        theUI.NXMessageBox.Show("未选择校核尺寸类型", NXMessageBox.DialogType.Error, "请选择校核尺寸类型");
+                        theUI.NXMessageBox.Show("未选择校核尺寸类型", NXMessageBox.DialogType.Error, "请点选“校核设计尺寸”，或进行工序间尺寸链校核");
                         return 1;
                     }
                 }
@@ -1151,7 +1156,8 @@ public class allpro
         {
             StopProcess("Excel");
             //string excelOpenFileName = "E:\\gitest410proj\\prt\\pmi.xls";
-            string excelOpenFileName = "E:\\pmi.xls";
+            string excelOpenFileName = ApplicationPath + folderpath + pmixlspath;
+
 
             if (File.Exists(excelOpenFileName))
             {
@@ -1751,8 +1757,9 @@ public class allpro
 
                 if (columnID == 3)
                 {
-                    ct.settolup(editpmi, editdouble);
-
+                    //ct.settolup(editpmi, editdouble);
+                    double[] m = ct.getspec(editpmi);
+                    ct.SetDimensionTolerance(editpmi, editdouble, m[2]);
                     if (toggle01.GetProperties().GetLogical("Value"))
                     {
                         if (ct.countcircle(theoridim, zeng, jian, out p, out q))
@@ -1791,7 +1798,9 @@ public class allpro
                 }
                 else if (columnID == 4)
                 {
-                    ct.settoldown(editpmi, editdouble);
+                    //ct.settoldown(editpmi, editdouble);
+                    double[] m = ct.getspec(editpmi);
+                    ct.SetDimensionTolerance(editpmi, m[1], editdouble);
                     if (toggle01.GetProperties().GetLogical("Value"))
                     {
                         if (ct.countcircle(theoridim, zeng, jian, out p, out q))
@@ -1840,11 +1849,11 @@ public class allpro
             }
             else if (node == trannode.ParentNode)
             {
-
+                //string excelOpenFileName = ApplicationPath + folderpath + pmicheckpath;
                 if (columnID == 7)
                 {
                     theoridim.SetAttribute("校核记录", "已通过校核");//在这里插入校核人员名称
-                    if (!File.Exists("E:\\gitest\\410proj\\prt\\pmicheck.xml"))
+                    if (!File.Exists(ApplicationPath + folderpath + pmicheckpath))//pathproblem
                     {
                         creatxml();
                     }
@@ -1911,8 +1920,8 @@ public class allpro
     //}
     public void creatxml()
     {
-   
-      StreamWriter sw = new StreamWriter("E:\\gitest\\410proj\\prt\\pmicheck.xml",false);
+
+        StreamWriter sw = new StreamWriter(ApplicationPath + folderpath + pmicheckpath, false);
       string a = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"; //转义字符
       string b = "<root>";
             string c = "</root>";
@@ -1922,7 +1931,22 @@ public class allpro
       sw.Close();
   
     }
-  
+    public static string NXPath
+    {
+        get
+        {
+            string ugraf = Process.GetCurrentProcess().MainModule.FileName;
+            return ugraf.Substring(0, ugraf.Length - 14);
+        }
+    }
+    public static string ApplicationPath
+    {
+        get
+        {
+            return System.AppDomain.CurrentDomain.BaseDirectory;
+        }
+    }
+   
     public int filter_cb(NXOpen.BlockStyler.UIBlock block, NXOpen.TaggedObject selectedObject)
     {
         if (block == selection0)

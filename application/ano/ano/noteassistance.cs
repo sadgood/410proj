@@ -111,8 +111,10 @@ using NXOpen.Annotations;
 
       public void Xmlforcapp(string value,string Innertext)
           {
+       string folderpath = "3dppmplugin\\";
+          string  cappxml = "CAPP.xml";
               XmlDocument doc = new XmlDocument();
-              doc.Load("F:\\ano\\application\\CAPP.xml");
+              doc.Load(ano.ApplicationPath + folderpath + cappxml);
              
               int m = doc.SelectSingleNode("/CAPPAssistant").ChildNodes.Count;
 
@@ -130,7 +132,7 @@ using NXOpen.Annotations;
                           xe.SetAttribute("remark","");
                           xe.SetAttribute("text",Innertext);
                           node.AppendChild(xe);
-                          doc.Save("F:\\ano\\application\\CAPP.xml");                   
+                          doc.Save(ano.ApplicationPath + folderpath + cappxml);                   
                       }
 
 
