@@ -46,7 +46,7 @@ using NXOpen.UF;
         {
             InitializeComponent();
         }
-        public Pen thepen = new Pen(Color.Black);
+        public Pen thepen = new Pen(Color.Black,2);
         public int q = 0;
         pubfun thepubfun = new pubfun();
 
@@ -171,7 +171,7 @@ using NXOpen.UF;
                 zenghuaninfo = thepubfun.getspec(dim);
                 pt2 = new System.Drawing.Point(Convert.ToInt32((zenghuaninfo[0] + m)), 100);
                 Graphics drawfb = panel1.CreateGraphics();
-                drawfb.DrawLine(new Pen(Color.Green), pt1, pt2);
+                drawfb.DrawLine(new Pen(Color.Green,2), pt1, pt2);
                 drawduanxian(pt1, pt2);
                 m = Convert.ToInt32((zenghuaninfo[0] + m));
                 drawdim(dim, pt1, pt2);
@@ -194,7 +194,7 @@ using NXOpen.UF;
                 pt2.Y = pt1.Y;
                 pt2.X = pt1.X + Convert.ToInt32(jianhuaninfo[0]);
                 Graphics drawfb = panel1.CreateGraphics();
-                drawfb.DrawLine(new Pen(Color.Red), pt1, pt2);
+                drawfb.DrawLine(new Pen(Color.Red,2), pt1, pt2);
                 drawduanxian(pt1, pt2);
                 m = Convert.ToInt32((jianhuaninfo[0] + q)) + m;
                 drawdim(dim, pt1, pt2);
@@ -212,9 +212,9 @@ using NXOpen.UF;
             Font drawFont = new Font("Arial", 8);
             System.Drawing.Point titleLocation = new System.Drawing.Point(6, 6);
             g.DrawString("尺寸链校核", drawFont, Brush_tilte, titleLocation);
-            Pen pg = new Pen(Color.Green, 2);
+            Pen pg = new Pen(Color.Green,2);
             g.DrawLine(pg, 520, 10, 538, 10);
-            Pen pr = new Pen(Color.Red, 2);
+            Pen pr = new Pen(Color.Red,2);
             g.DrawLine(pr, 520, 22, 538, 22);
             System.Drawing.Point LineLocation1 = new System.Drawing.Point(550, 5);
             g.DrawString("增环", drawFont, Brush_front, LineLocation1);
