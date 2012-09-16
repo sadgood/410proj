@@ -593,9 +593,9 @@ public class finalconbine
         abuilder.IsAssociative = true;
         Xform nullXform = null;
         Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
-        Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
-        abuilder.Point1 = pt1;
-        abuilder.Point2 = pt2;
+        //Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
+        abuilder.Point1 = point1;
+        abuilder.Point2 = point2;
         shanker = abuilder.Commit();
         abuilder.Destroy();
 
