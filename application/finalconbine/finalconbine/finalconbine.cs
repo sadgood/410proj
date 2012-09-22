@@ -130,6 +130,9 @@ public class finalconbine
     NXOpen.ModelingView[] aaa = null;//所有的视图
     string[] strvalue;
     public string viewname = null;
+    private NXOpen.BlockStyler.UIBlock obutton0;// Block type: Button
+    private NXOpen.BlockStyler.Tree tree_control0;// Block type: Tree Control
+    private NXOpen.BlockStyler.UIBlock tabPage3;// Block type: Group
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -388,6 +391,9 @@ public class finalconbine
             g = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("g");
             menum0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("menum0");
             mstring0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("mstring0");
+            tabPage3 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("tabPage3");
+            obutton0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("obutton0");
+            tree_control0 = (NXOpen.BlockStyler.Tree)theDialog.TopBlock.FindBlock("tree_control0");
 
         }
         catch (Exception ex)
@@ -420,6 +426,18 @@ public class finalconbine
 
             jtogglejy.GetProperties().SetLogical("Value", false);
                 jcrospt.GetProperties().SetLogical("Enable",false);
+                obutton0.GetProperties().SetString("Label", "查询尺寸标注");
+                tree_control0.GetProperties().SetLogical("Show", true);
+
+
+                tree_control0.InsertColumn(1, "编号", 130);//一定有注意不同的回调函数的问题
+                tree_control0.InsertColumn(2, "名义尺", 100);
+                tree_control0.InsertColumn(3, "上公差", 100);
+                tree_control0.InsertColumn(4, "下公差", 100);
+                tree_control0.InsertColumn(5, "打标号", 50);
+            
+
+
                 refreshenum();
             //---- Enter your callback code here -----
         }
@@ -794,6 +812,7 @@ public class finalconbine
         menum0.GetProperties().SetEnumMembers("Value", strvalue);
 
     }
+  
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -840,9 +859,44 @@ public class finalconbine
                 SetDimensionTolerance(d, upper, lower);
             //---------Enter your code here-----------
             }
-            else if(block == zpoint02)
-            {
-            //---------Enter your code here-----------
+            else if (block == obutton0)//tag now
+            {// obutton0.GetProperties().SetString("Label", "打标号");
+                pubfun thepub = new pubfun();
+                if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
+                {
+                NXOpen.Annotations.Dimension[] alldim = null;
+                Part workPart = theSession.Parts.Work;
+                alldim = workPart.Dimensions.ToArray();
+             
+                if(alldim == null)
+                {
+                    theUI.NXMessageBox.Show("本工序无PMI", NXMessageBox.DialogType.Warning, "本工序无PMI尺寸");
+                    return 1;
+                }
+                Node dimnode = null;
+              dimnode = tree_control0.CreateNode("尺寸集合");
+                tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
+                Node cddimnode = null;
+                double[] final = { 0, 0, 0 };
+                for (int i = 0; i < alldim.Length; i++)
+                {
+                     cddimnode = tree_control0.CreateNode((i + 1).ToString());
+                     DataContainer dimdata = cddimnode.GetNodeData();
+                     dimdata.AddTaggedObject("Data",alldim[i]);
+                     dimdata.Dispose();
+                     tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                     //final = the.getspec(sda);
+                     final = thepub.getspec(alldim[i]);
+                     cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                     cddimnode.SetColumnDisplayText(3, final[1].ToString());
+                     cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                }
+                obutton0.GetProperties().SetString("Label", "打标号");
+                }
+                else if (obutton0.GetProperties().GetString("Label") == "打标号")
+                {
+                
+                }
             }
             else if(block == zbutton0)
             {
