@@ -133,6 +133,8 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock obutton0;// Block type: Button
     private NXOpen.BlockStyler.Tree tree_control0;// Block type: Tree Control
     private NXOpen.BlockStyler.UIBlock tabPage3;// Block type: Group
+    public Node dimnode = null;//根节点
+    Node cddimnode = null;//子节点
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -394,7 +396,47 @@ public class finalconbine
             tabPage3 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("tabPage3");
             obutton0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("obutton0");
             tree_control0 = (NXOpen.BlockStyler.Tree)theDialog.TopBlock.FindBlock("tree_control0");
+           tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
+            //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
+            //tree_control0.SetOnInsertColumnHandler(new NXOpen.BlockStyler.Tree.OnInsertColumnCallback(OnInsertColumnCallback));
+
+            //tree_control0.SetOnInsertNodeHandler(new NXOpen.BlockStyler.Tree.OnInsertNodeCallback(OnInsertNodecallback));
+
+            //tree_control0.SetOnDeleteNodeHandler(new NXOpen.BlockStyler.Tree.OnDeleteNodeCallback(OnDeleteNodecallback));
+
+            //tree_control0.SetOnPreSelectHandler(new NXOpen.BlockStyler.Tree.OnPreSelectCallback(OnPreSelectcallback));
+
+            //tree_control0.SetOnSelectHandler(new NXOpen.BlockStyler.Tree.OnSelectCallback(OnSelectcallback));
+
+            //tree_control0.SetOnStateChangeHandler(new NXOpen.BlockStyler.Tree.OnStateChangeCallback(OnStateChangecallback));
+
+            //tree_control0.SetToolTipTextHandler(new NXOpen.BlockStyler.Tree.ToolTipTextCallback(ToolTipTextcallback));
+
+           //tree_control0.SetColumnSortHandler(new NXOpen.BlockStyler.Tree.ColumnSortCallback(ColumnSortCallback));
+
+            //tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
+
+            //tree_control0.SetOnBeginLabelEditHandler(new NXOpen.BlockStyler.Tree.OnBeginLabelEditCallback(OnBeginLabelEditCallback));
+
+            //tree_control0.SetOnEndLabelEditHandler(new NXOpen.BlockStyler.Tree.OnEndLabelEditCallback(OnEndLabelEditCallback));
+
+            //tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
+
+            //tree_control0.SetAskEditControlHandler(new NXOpen.BlockStyler.Tree.AskEditControlCallback(AskEditControlCallback));
+
+           tree_control0.SetOnMenuHandler(new NXOpen.BlockStyler.Tree.OnMenuCallback(OnMenuCallback)); ;
+
+           tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback)); ;
+
+           //tree_control0.setisdropallowedhandler(new nxopen.blockstyler.tree.isdropallowedcallback(isdropallowedcallback)); ;
+
+           //tree_control0.SetIsDragAllowedHandler(new NXOpen.BlockStyler.Tree.IsDragAllowedCallback(IsDragAllowedCallback)); ;
+           tree_control0.SetIsDropAllowedHandler(new NXOpen.BlockStyler.Tree.IsDropAllowedCallback(IsDropAllowedCallback)); ;
+           tree_control0.SetOnDropHandler(new NXOpen.BlockStyler.Tree.OnDropCallback(OnDropCallback)); ;
+
+            //tree_control0.SetOnDropMenuHandler(new NXOpen.BlockStyler.Tree.OnDropMenuCallback(OnDropMenuCallback));
+            
         }
         catch (Exception ex)
         {
@@ -873,10 +915,10 @@ public class finalconbine
                     theUI.NXMessageBox.Show("本工序无PMI", NXMessageBox.DialogType.Warning, "本工序无PMI尺寸");
                     return 1;
                 }
-                Node dimnode = null;
+                
               dimnode = tree_control0.CreateNode("尺寸集合");
                 tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
-                Node cddimnode = null;
+               
                 double[] final = { 0, 0, 0 };
                 for (int i = 0; i < alldim.Length; i++)
                 {
@@ -890,6 +932,7 @@ public class finalconbine
                      cddimnode.SetColumnDisplayText(2, final[0].ToString());
                      cddimnode.SetColumnDisplayText(3, final[1].ToString());
                      cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                     cddimnode.SetState(2);//set the checked one 
                 }
                 obutton0.GetProperties().SetString("Label", "打标号");
                 }
@@ -1616,5 +1659,134 @@ public class finalconbine
             theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
         }
     }
-    
+    public string StateIconNameCallback(Tree tree, Node node, int state)
+    {
+         string stateIcon = "hole";
+   try
+   {
+       if (state == 3)
+       {
+           stateIcon = "checked";
+           theUI.NXMessageBox.Show("fuck", NXMessageBox.DialogType.Warning, "oh ,shit");
+       }
+       else if (state == 4)
+           stateIcon = "boss";
+       else if (state == 5)
+           stateIcon = "revolve";
+   }
+   catch (Exception ex)
+   {
+      //---- Enter your exception handling code here -----
+   }
+   return stateIcon;
+
+    }
+    public Node.DropType IsDropAllowedCallback(Tree tree, Node node, int columnID, Node targetNode, int targetColumnID)
+    {
+        if (node == dimnode || targetNode == dimnode)
+        {
+            return Node.DropType.None;
+        }
+        else {
+            if (node.GetState() == 2 && targetNode.GetState() == 2)
+            {
+                return Node.DropType.Before;
+            }
+            else
+            {
+
+                return Node.DropType.None;
+
+            }
+        }
+       
+  }
+
+    public bool OnDropCallback(Tree tree, Node[] node, int columnID, Node targetNode, int targetColumnID, Node.DropType dropType, int dropMenuItemId)
+    {
+        Node tempnode = null;
+        tempnode = tree_control0.CreateNode("node");
+        if(targetNode == dimnode.FirstChildNode)
+        {
+            theUI.NXMessageBox.Show("无法放置", NXMessageBox.DialogType.Warning, "无法将节点放置于此");
+            return false;
+        }
+        tree_control0.InsertNode(tempnode, dimnode, targetNode.PreviousNode, Tree.NodeInsertOption.Last);
+        tempnode.SetState(2);
+        tempnode.SetColumnDisplayText(1,node[0].GetColumnDisplayText(1));
+         tempnode.SetColumnDisplayText(2,node[0].GetColumnDisplayText(2));
+         tempnode.SetColumnDisplayText(3,node[0].GetColumnDisplayText(3));
+         DataContainer tempcontainer = tempnode.GetNodeData();
+        tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)node[0].GetNodeData().GetTaggedObject("Data"));
+        tempcontainer.Dispose();
+        tree_control0.DeleteNode(node[0]);
+        return true;
+    }
+    public void OnMenuCallback(Tree tree, Node node, int columnID)
+    {
+        
+        try
+        {
+            TreeListMenu menu = tree.CreateMenu();
+            if (node == dimnode)
+            {
+             
+            }
+            else if (node.ParentNode == dimnode && node != dimnode)
+            {
+                int state = node.GetState();
+                if (state == 1)
+                {
+                    menu.AddMenuItem(2, "打标");
+                }
+                else if (state == 2)
+                {
+                    menu.AddMenuItem(1, "不打标");
+                }
+            }
+            tree.SetMenu(menu);
+            menu.Dispose();
+        }
+        catch (Exception ex)
+        {
+            //---- Enter the exception handling code here. -----
+        }
+    }
+   
+    public void OnMenuSelectionCallback(Tree tree, Node node, int menuItemID)
+    {
+        if (menuItemID == 1)
+        {
+            Node tempnode = null;
+            tempnode = tree_control0.CreateNode("node");
+            tree_control0.InsertNode(tempnode, dimnode, null, Tree.NodeInsertOption.Last);
+            tempnode.SetState(1);
+            tempnode.SetColumnDisplayText(1, node.GetColumnDisplayText(1));
+            tempnode.SetColumnDisplayText(2, node.GetColumnDisplayText(2));
+            tempnode.SetColumnDisplayText(3, node.GetColumnDisplayText(3));
+            DataContainer tempcontainer = tempnode.GetNodeData();
+            tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)node.GetNodeData().GetTaggedObject("Data"));
+            tempcontainer.Dispose();
+            tree_control0.DeleteNode(node);
+        }
+        else if (menuItemID == 2)
+        {
+            nd2nd(node, dimnode.FirstChildNode, 2);
+        
+        }
+    }
+    public void nd2nd(Node odnd, Node newnd,int  state)//将odnd放在newnd后面
+    {
+        Node tempnode = null;
+        tempnode = tree_control0.CreateNode("node");
+        tree_control0.InsertNode(tempnode, dimnode,newnd, Tree.NodeInsertOption.Last);
+        tempnode.SetState(state);
+        tempnode.SetColumnDisplayText(1, odnd.GetColumnDisplayText(1));
+        tempnode.SetColumnDisplayText(2, odnd.GetColumnDisplayText(2));
+        tempnode.SetColumnDisplayText(3, odnd.GetColumnDisplayText(3));
+        DataContainer tempcontainer = tempnode.GetNodeData();
+        tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)odnd.GetNodeData().GetTaggedObject("Data"));
+        tempcontainer.Dispose();
+        tree_control0.DeleteNode(odnd);
+    }
 }
