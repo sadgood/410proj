@@ -41,6 +41,7 @@ using NXOpen.UF;
 using System.Xml;
 using System.Reflection;
 using System.Diagnostics;
+using System.Collections;
 //------------------------------------------------------------------------------
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
@@ -938,7 +939,15 @@ public class finalconbine
                 }
                 else if (obutton0.GetProperties().GetString("Label") == "打标号")
                 {
-                
+                    
+                  
+                  Node[] nodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
+                  for (int i = 0; i < nodeary.Length; i++ )
+                  {
+
+
+                  }
+
                 }
             }
             else if(block == zbutton0)
@@ -1690,7 +1699,8 @@ public class finalconbine
         else {
             if (node.GetState() == 2 && targetNode.GetState() == 2)
             {
-                return Node.DropType.Before;
+                //return Node.DropType.Before;
+                return Node.DropType.After;
             }
             else
             {
@@ -1706,12 +1716,7 @@ public class finalconbine
     {
         Node tempnode = null;
         tempnode = tree_control0.CreateNode("node");
-        if(targetNode == dimnode.FirstChildNode)
-        {
-            theUI.NXMessageBox.Show("无法放置", NXMessageBox.DialogType.Warning, "无法将节点放置于此");
-            return false;
-        }
-        tree_control0.InsertNode(tempnode, dimnode, targetNode.PreviousNode, Tree.NodeInsertOption.Last);
+        tree_control0.InsertNode(tempnode, dimnode, targetNode, Tree.NodeInsertOption.Last);
         tempnode.SetState(2);
         tempnode.SetColumnDisplayText(1,node[0].GetColumnDisplayText(1));
          tempnode.SetColumnDisplayText(2,node[0].GetColumnDisplayText(2));
@@ -1772,8 +1777,35 @@ public class finalconbine
         else if (menuItemID == 2)
         {
             nd2nd(node, dimnode.FirstChildNode, 2);
+      
+        }
+    }
+    public ArrayList getcdnd(Node parentnode)//得到一个父节点下面所有的子节点
+    {
+        ArrayList allnodes = new ArrayList();
+        Node nd = parentnode.FirstChildNode;
+        if (nd == null)
+        {
+        return null;
         
         }
+        allnodes.Add(nd);
+        while (nd != null)
+        {
+            nd = nd.NextNode;
+            if (nd == null)
+            {
+
+                return allnodes;
+            }
+            else
+            {
+                allnodes.Add(nd);
+            }
+        }
+
+        return allnodes;
+    
     }
     public void nd2nd(Node odnd, Node newnd,int  state)//将odnd放在newnd后面
     {
@@ -1788,5 +1820,30 @@ public class finalconbine
         tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)odnd.GetNodeData().GetTaggedObject("Data"));
         tempcontainer.Dispose();
         tree_control0.DeleteNode(odnd);
+    }
+    public ArrayList ndwithstate(ArrayList nodes)//get nodes with state 2
+    {
+        ArrayList statednode = new ArrayList();
+        ArrayList unstatenode = new ArrayList(); //node with unchecked symbol in the first col
+    foreach(Node singlenode in nodes)
+    {
+        int state = singlenode.GetState();
+        if (state == 2)
+        {
+            statednode.Add(singlenode);
+
+        }
+        else
+        { 
+        
+        }
+
+    
+    
+    }
+
+    return statednode;
+    
+    
     }
 }
