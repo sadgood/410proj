@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8689A536-D6F9-4575-8A3E-C66C02029F19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TDPPM</RootNamespace>
+    <AssemblyName>TDPPM</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\application\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ManagedLoader, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\ManagedLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpen, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpen.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NXOpen.UF, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpen.UF.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NXOpen.Utilities, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpen.Utilities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NXOpenUI, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpenUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\addProcedure.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\SetHardness.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\preview2.png" />
+    <None Include="Resources\preview1.png" />
+    <None Include="Resources\fillall.png" />
+    <None Include="Resources\fillone.png" />
+    <None Include="Resources\refresh3.png" />
+    <None Include="Resources\refresh2.png" />
+    <None Include="Resources\clear.png" />
+    <None Include="Resources\modeling.png" />
+    <None Include="Resources\drafting.png" />
+    <None Include="Resources\welcome.bmp" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\open.png" />
+    <None Include="Resources\create.png" />
+    <None Include="Resources\expand.png" />
+    <None Include="Resources\editProcedureModel1.png" />
+    <None Include="Resources\ok.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\upWards.png" />
+    <None Include="Resources\downWards.png" />
+    <None Include="Resources\deleteWorkStep.png" />
+    <None Include="Resources\deleteProcedure.png" />
+    <None Include="Resources\addWorkStep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fun\Compress.cs" />
+    <Compile Include="UI\AddTolerance.cs" />
+    <Compile Include="UI\AttributeEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AttributeEdit.Designer.cs">
+      <DependentUpon>AttributeEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CAPPAssistant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CAPPAssistant.Designer.cs">
+      <DependentUpon>CAPPAssistant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CreateSheet.cs" />
+    <Compile Include="Fun\DLD.cs" />
+    <Compile Include="UI\LabelEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\LabelEditPanel.Designer.cs">
+      <DependentUpon>LabelEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MachinedSurface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MachinedSurface.Designer.cs">
+      <DependentUpon>MachinedSurface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainDlg.Designer.cs">
+      <DependentUpon>MainDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fun\MultiMap.cs" />
+    <Compile Include="Fun\NXFun.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModelEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ModelEditPanel.Designer.cs">
+      <DependentUpon>ModelEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProcessEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ProcessEditPanel.Designer.cs">
+      <DependentUpon>ProcessEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RevolveTrim.cs" />
+    <Compile Include="Fun\XML3DPPM.cs" />
+    <Compile Include="UI\ChartEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ChartEditPanel.Designer.cs">
+      <DependentUpon>ChartEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SheetEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SheetEditPanel.Designer.cs">
+      <DependentUpon>SheetEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WavePreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WavePreview.Designer.cs">
+      <DependentUpon>WavePreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaveRelation\CordClass.cs" />
+    <Compile Include="WaveRelation\CtlGlobalClass.cs" />
+    <Compile Include="WaveRelation\GlobalClass.cs" />
+    <Compile Include="WaveRelation\ModelClass.cs" />
+    <Compile Include="WaveRelation\TempClass.cs" />
+    <Compile Include="WaveRelation\WaveRelationClass.cs" />
+    <Compile Include="WaveRelation\WaveRelationCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WaveRelation\WaveRelationCtl.designer.cs">
+      <DependentUpon>WaveRelationCtl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\AttributeEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AttributeEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CAPPAssistant.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CAPPAssistant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LabelEditPanel.resx">
+      <DependentUpon>LabelEditPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MachinedSurface.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MachinedSurface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChartEditPanel.resx">
+      <DependentUpon>ChartEditPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModelEditPanel.resx">
+      <DependentUpon>ModelEditPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProcessEditPanel.resx">
+      <DependentUpon>ProcessEditPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SheetEditPanel.resx">
+      <DependentUpon>SheetEditPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WavePreview.resx">
+      <DependentUpon>WavePreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaveRelation\WaveRelationCtl.resx">
+      <DependentUpon>WaveRelationCtl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

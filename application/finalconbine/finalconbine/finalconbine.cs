@@ -855,7 +855,14 @@ public class finalconbine
         menum0.GetProperties().SetEnumMembers("Value", strvalue);
 
     }
-  
+    public NXOpen.Annotations.Dimension node2dim(Node node)
+    { 
+        NXOpen.Annotations.Dimension thedim = null;
+        thedim = (NXOpen.Annotations.Dimension)node.GetNodeData().GetTaggedObject("Data");
+        return thedim;
+    
+    
+    }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -944,7 +951,7 @@ public class finalconbine
                   Node[] nodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
                   for (int i = 0; i < nodeary.Length; i++ )
                   {
-
+                      makeano(node2dim(nodeary[i]), "fuck");
 
                   }
 
@@ -1846,4 +1853,20 @@ public class finalconbine
     
     
     }
+    public void makeano(NXOpen.Annotations.Dimension dim ,string ano)
+    {
+
+        Part workPart = theSession.Parts.Work;
+        //NXOpen.Annotations.PmiParallelDimension pmiParallelDimension1 = (NXOpen.Annotations.PmiParallelDimension)workPart.FindObject("HANDLE R-10646");
+       
+        NXOpen.Annotations.AppendedText appendedText1;
+        appendedText1 = workPart.Annotations.NewAppendedText();
+        string[] lines4 = new string[1];
+        lines4[0] = ano;
+        appendedText1.SetAfterText(lines4);
+        dim.SetAppendedText(appendedText1);
+        appendedText1.Dispose();
+        dim.LeaderOrientation = NXOpen.Annotations.LeaderOrientation.FromLeft;
+    }
+ 
 }

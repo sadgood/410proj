@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="gb2312" standalone="yes"?>
+ <SYS_3DPPM version="1.0" copyright="nwpu/1002/3DPPM">
+    <SheetTemplet>
+      <ST name="A3-3DPPM-gongxutubiao" chinese="A3工序图表（图文）" isShow="1" filepath="Templet\A3-3DPPM-gongxutubiao.prt" width="420" height="297" type="A3">
+        <Item name="单位" x0="36.10302734" x1="57.10302734" y0="275.6450195" y1="266.6450195" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="11.10302734" x1="36.10302734" y0="275.6450195" y1="267.6450195" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="110.1030273" x1="161.6030273" y0="275.1450195" y1="266.6450195" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="161.6030273" x1="213.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="213.1030273" x1="252.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="252.1030273" x1="281.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="281.1030273" x1="334.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="特性符号" x0="334.1030273" x1="349.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="349.1030273" x1="379.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="388.7" x1="393.7" y0="281.9" y1="277.7" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0=" 388.600000000 " x1="393.60000000000" y0="272.60000000000" y1="268.90000000000" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="设备" x0="49.24754593" x1="129.1030273" y0="266.6450195" y1="256.6450195" text="xml@gongxu@gongxu_shebei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="夹模具" x0="146.4676362" x1="223.1030273" y0="266.6450195" y1="256.6450195" text="xml@gongxu@gongxu_jiamoju" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="基准" x0="49.24754593" x1="223.1030273" y0="256.6450195" y1="246.6450195" text="xml@gongxu@gongxu_jizhun" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="项目" x0="223.1030273" x1="235.1030273" y0="253.6450195" y1="246.6450195" text="def@A3-3DPPM-gongxutubiao_xiangmu" font="chinesef_fs" size="3.5" multiline="21" />
+        <Item name="工作内容" x0="235.1030273" x1="319.1030273" y0="253.6450195" y1="246.6450195" text="def@A3-3DPPM-gongxutubiao_gongzuoneirong" font="chinesef_fs" size="3.5" multiline="21" />
+        <Item name="刃具" x0="319.1030273" x1="347.1030273" y0="253.6450195" y1="246.6450195" text="def@A3-3DPPM-gongxutubiao_renju" font="chinesef_fs" size="3.5" multiline="21" />
+        <Item name="量具" x0="347.1030273" x1="375.1030273" y0="253.6450195" y1="246.6450195" text="def@A3-3DPPM-gongxutubiao_liangju" font="chinesef_fs" size="3.5" multiline="21" />
+        <Item name="备注" x0="375.1030273" x1="403.1030273" y0="253.6450195" y1="246.6450195" text="def@A3-3DPPM-gongxutubiao_beizhu" font="chinesef_fs" size="3.5" multiline="21" />
+        <Item name="会签人1" x0="11.10302" x1="36.10302" y0="62.15773" y1="55.15773" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签部门1" x0="11.10302" x1="36.10302" y0="55.15773" y1="48.15773" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签时间1" x0="11.10302" x1="36.10302" y0="48.15773" y1="41.15773" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签人2" x0="11.10302" x1="36.10302" y0="34.15773" y1="27.15773" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签部门2" x0="11.10302" x1="36.10302" y0="27.6450195" y1="20.6450195" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签时间2" x0="11.10302" x1="36.10302" y0="20.6450195" y1="13.6450195" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+ 	<Item name="编制人" x0="233.103027344" x1="269.096655071" y0="25.645019531" y1="19.645019531" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="编制时间" x0="233.103027344" x1="269.096655071" y0="19.645019531" y1="13.645019531" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+   	<Item name="校对人" x0="279.096655071" x1="313.920687676" y0="25.645019531" y1="19.645019531" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+	<Item name="校对时间" x0="279.096655071" x1="313.920687676" y0="19.645019531" y1="13.645019531" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="审核人" x0="323.920687676" x1="357.487971704" y0="25.645019531" y1="19.645019531" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="审核时间" x0="323.920687676" x1="357.487971704" y0="19.645019531" y1="13.645019531" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="批准人" x0="367.487971704" x1="403.103027344" y0="25.645019531" y1="19.645019531" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="批准时间" x0="367.487971704" x1="403.103027344" y0="19.645019531" y1="13.645019531" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+ 	<Item name="质量会签人" x0="378.603027344" x1="403.103027344" y0="37.645019531" y1="31.645019531" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+ 	<Item name="质量会签时间" x0="378.603027344" x1="403.103027344" y0="31.645019531" y1="25.645019531" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+       </ST>
+      <ST name="A3-3DPPM-gongxutubiao-add" chinese="A3工序图表（图文）（附页）" isShow="0" filepath="Templet\A3-3DPPM-gongxutubiao-add.prt" type="A3" width="420" height="297">
+        <Item name="单位" x0="36.10302734" x1="57.10302734" y0="275.6450195" y1="266.6450195" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="11.10302734" x1="36.10302734" y0="275.6450195" y1="267.6450195" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="110.1030273" x1="161.6030273" y0="275.1450195" y1="266.6450195" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="161.6030273" x1="213.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="213.1030273" x1="252.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="252.1030273" x1="281.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="281.1030273" x1="334.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="特性符号" x0="334.1030273" x1="349.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="349.1030273" x1="379.1030273" y0="275.1450195" y1="266.6450195" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="388.7" x1="393.7" y0="281.9" y1="277.7" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0=" 388.600000000 " x1="393.60000000000" y0="272.60000000000" y1="268.90000000000" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="设备" x0="49.24754593" x1="129.1030273" y0="266.6450195" y1="256.6450195" text="xml@gongxu@gongxu_shebei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="夹模具" x0="146.4676362" x1="223.1030273" y0="266.6450195" y1="256.6450195" text="xml@gongxu@gongxu_jiamoju" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="基准" x0="49.24754593" x1="223.1030273" y0="256.6450195" y1="246.6450195" text="xml@gongxu@gongxu_jizhun" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="项目" x0="223.1030273" x1="235.1030273" y0="253.6450195" y1="246.6450195" text="def@A3-3DPPM-gongxutubiao_xiangmu" font="chinesef_fs" size="3.5" multiline="21" />
+         <Item name="会签人1" x0="11.10302" x1="36.10302" y0="62.15773" y1="55.15773" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签部门1" x0="11.10302" x1="36.10302" y0="55.15773" y1="48.15773" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签时间1" x0="11.10302" x1="36.10302" y0="48.15773" y1="41.15773" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签人2" x0="11.10302" x1="36.10302" y0="34.15773" y1="27.15773" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签部门2" x0="11.10302" x1="36.10302" y0="27.6450195" y1="20.6450195" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="会签时间2" x0="11.10302" x1="36.10302" y0="20.6450195" y1="13.6450195" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+ 	<Item name="编制人" x0="233.103027344" x1="269.096655071" y0="25.645019531" y1="19.645019531" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="编制时间" x0="233.103027344" x1="269.096655071" y0="19.645019531" y1="13.645019531" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+   	<Item name="校对人" x0="279.096655071" x1="313.920687676" y0="25.645019531" y1="19.645019531" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+	<Item name="校对时间" x0="279.096655071" x1="313.920687676" y0="19.645019531" y1="13.645019531" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="审核人" x0="323.920687676" x1="357.487971704" y0="25.645019531" y1="19.645019531" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="审核时间" x0="323.920687676" x1="357.487971704" y0="19.645019531" y1="13.645019531" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="批准人" x0="367.487971704" x1="403.103027344" y0="25.645019531" y1="19.645019531" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+  	<Item name="批准时间" x0="367.487971704" x1="403.103027344" y0="19.645019531" y1="13.645019531" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+ 	<Item name="质量会签人" x0="378.603027344" x1="403.103027344" y0="37.645019531" y1="31.645019531" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+ 	<Item name="质量会签时间" x0="378.603027344" x1="403.103027344" y0="31.645019531" y1="25.645019531" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+      </ST>
+      <ST name="A3-3DPPM-fengmian" chinese="A3封面" isShow="1" filepath="Templet\A3-3DPPM-fengmian.prt" width="420" height="297" type="A3">
+        <Item name="单位" x0="36" x1="57.13552167" y0="289.9" y1="279.9" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="版次" x0="399.6" x1="412.6" y0="289.9" y1="279.9" text="xml@gongyi@gongyi_banci" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="密别" x0="399.6" x1="412.6" y0="279.9" y1="269.9" text="xml@gongyi@gongyi_mibie" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="标检" x0="2.135521673" x1="27.13552167" y0="40.2" y1="32.2" text="xml@gongyi@gongyi_biaojian" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="型号" x0="198.3355217" x1="237.1355217" y0="179.4" y1="173.9" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="件号" x0="144.7355217" x1="204.0355217" y0="149.7" y1="144.2" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="件名" x0="269.3355217" x1="332.2355217" y0="149.7" y1="144.2" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="总页数" x0="218.000000000" x1="229.500000000" y0="128.000000000  " y1=" 121.500000000 " text="fun@GetTotalPages" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="存图号" x0="379.2524551" x1="412.6" y0="17.2" y1="7.2" text="xml@gongyi@gongyi_cuntuhao" font="chinesef_fs" size="5" multiline="1" />
+      </ST>
+      <ST name="A3-3DPPM-jianyantu" chinese="A3检验图表（仅图）" isShow="1" filepath="Templet\A3-3DPPM-jianyantu.prt" type="A3" width="420" height="297">
+        <Item name="单位" x0="38.88898348" x1="59.88898348" y0="274.2347246" y1="265.2347246" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="13.88898348" x1="38.88898348" y0="274.2347246" y1="266.2347246" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="112.8889835" x1="162.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="162.8889835" x1="212.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="212.8889835" x1="257.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="257.8889835" x1="288.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="288.8889835" x1="344.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="特性符号" x0="344.8889835" x1="359.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="359.8889835" x1="384.8889835" y0="273.7347246" y1="265.2347246" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="393.3" x1="398.3" y0="280.5" y1="276.3" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="393.3" x1="398.3" y0="271.6" y1="267.4" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+  <Item name="会签人1" x0="13.888983484" x1="38.888983484" y0="61.234724609" y1="54.234724609" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="13.888983484" x1="38.888983484" y0="54.234724609" y1="47.234724609" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="13.888983484" x1="38.888983484" y0="47.234724609" y1="40.234724609" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="13.888983484" x1="38.888983484" y0="33.234724609" y1="26.234724609" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="13.888983484" x1="38.888983484" y0="26.234724609" y1="19.234724609" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="13.888983484" x1="38.888983484" y0="19.234724609" y1="12.234724609" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="235.888983484" x1="269.365346916" y0="24.234724609" y1="18.234724609" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="235.888983484" x1="269.365346916" y0="18.234724609" y1="12.234724609" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="279.365346916" x1="312.751390986" y0="24.234724609" y1="18.234724609" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="279.365346916" x1="312.751390986" y0="18.234724609" y1="12.234724609" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="322.751390986" x1="359.959994005" y0="24.234724609" y1="18.234724609" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="322.751390986" x1="359.959994005" y0="18.234724609" y1="12.234724609" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="369.959994005" x1="405.888983484" y0="24.234724609" y1="18.234724609" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="369.959994005" x1="405.888983484" y0="18.234724609" y1="12.234724609" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="199.888983484" x1="225.888983484" y0="24.234724609" y1="18.234724609" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="199.888983484" x1="225.888983484" y0="18.234724609" y1="12.234724609" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+     </ST>
+      <ST name="A3-3DPPM-jianyantubiao" chinese="A3检验图表（图文）" isShow="1" filepath="Templet\A3-3DPPM-jianyantubiao.prt" type="A3" width="420" height="297">
+        <Item name="单位" x0="36.58860896" x1="57.58860896" y0="275.5519518" y1="266.5519518" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="11.58860896" x1="36.58860896" y0="275.5519518" y1="267.5519518" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="110.588609" x1="160.588609" y0="275.0519518" y1="266.5519518" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="160.588609" x1="210.588609" y0="275.0519518" y1="266.5519518" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="210.588609" x1="255.588609" y0="275.0519518" y1="266.5519518" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="255.588609" x1="286.588609" y0="275.0519518" y1="266.5519518" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="286.588609" x1="342.588609" y0="275.0519518" y1="266.5519518" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="特性符号" x0="342.588609" x1="357.588609" y0="275.0519518" y1="266.5519518" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="357.588609" x1="382.588609" y0="275.0519518" y1="266.5519518" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="391" x1="396" y0="280.9" y1="276.7" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="391" x1="396" y0="272.9" y1="268.7" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="零件交付热处理状态" x0="64.58840511" x1="131.1904178" y0="266.5519518" y1="253.5519518" text="def@A4-3DPPM-jianyantubiao_jiaofu" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="零件装机热处理状态" x0="160.588609" x1="223.588609" y0="266.5519518" y1="253.5519518" text="def@A4-3DPPM-jianyantubiao_zhuangji" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="项目" x0="223.588609" x1="235.588609" y0="253.5519518" y1="246.5519518" text="def@A4-3DPPM-jianyantubiao_xiangmu" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="检验内容" x0="235.588609" x1="347.588609" y0="253.5519518" y1="246.5519518" text="def@A4-3DPPM-jianyantubiao_jianyanneirong" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="量具" x0="347.588609" x1="375.588609" y0="253.5519518" y1="246.5519518" text="def@A4-3DPPM-jianyantubiao_liangju" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="备注" x0="375.588609" x1="403.588609" y0="253.5519518" y1="246.5519518" text="def@A4-3DPPM-jianyantubiao_beizhu" font="chinesef_fs" size="3.5" multiline="30" />
+     <Item name="会签人1" x0="11.60302" x1="36.60302" y0="62.15773" y1="55.15773" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="11.60302" x1="36.60302" y0="55.15773" y1="48.15773" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="11.60302" x1="36.60302" y0="48.15773" y1="41.15773" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="11.60302" x1="36.60302" y0="34.15773" y1="27.15773" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="11.60302" x1="36.60302" y0="27.6450195" y1="20.6450195" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="11.60302" x1="36.60302" y0="20.6450195" y1="13.6450195" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="233.603027344" x1="269.596655071" y0="26.045019531" y1="20.045019531" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="233.603027344" x1="269.596655071" y0="20.045019531" y1="14.045019531" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="279.596655071" x1="314.420687676" y0="26.045019531" y1="20.045019531" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="279.596655071" x1="314.420687676" y0="20.045019531" y1="14.045019531" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="324.420687676" x1="357.987971704" y0="26.045019531" y1="20.045019531" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="324.420687676" x1="357.987971704" y0="20.045019531" y1="14.045019531" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="367.987971704" x1="403.603027344" y0="26.045019531" y1="20.045019531" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="367.987971704" x1="403.603027344" y0="20.045019531" y1="14.045019531" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="379.103027344" x1="403.603027344" y0="38.045019531" y1="32.045019531" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="379.103027344" x1="403.603027344" y0="32.045019531" y1="26.045019531" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+    </ST>
+      <ST name="A3-3DPPM-maoliaotubiao" chinese="A3毛料图表（图文）" isShow="1" filepath="Templet\A3-3DPPM-maoliaotubiao.prt" width="420" height="297" type="A3">
+        <Item name="单位" x0="37" x1="58" y0="275" y1="266" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="12" x1="37" y0="275" y1="267" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="121" x1="197.30000000000" y0="274.5" y1="266.00000000000" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="197.30000000000" x1="273.6" y0="274.50000000000" y1="266" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="273.6" x1="350" y0="274.5" y1="266" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="350" x1="380" y0="274" y1="266" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="389.900000000 " x1="395.60000000000" y0="280.000000000" y1="276.40000000000" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="390.400000000" x1="395.40000000000" y0="272.100000000 " y1="268.500000000  " text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+     <Item name="会签人1" x0="12" x1="37" y0="62" y1="55" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="12" x1="37" y0="55" y1="48" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="12" x1="37" y0="48" y1="41" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="12" x1="37" y0="34" y1="27" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="12" x1="37" y0="27" y1="20" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="12" x1="37" y0="20" y1="13" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="234" x1="270.119570542" y0="25" y1="19" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="234" x1="270.119570542" y0="19" y1="13" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="280" x1="314.420687676" y0="25" y1="19" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="280" x1="314.420687676" y0="19" y1="13" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="325.281207834" x1="358.292290969" y0="25" y1="19" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="325.281207834" x1="358.292290969" y0="19" y1="13" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="368.292290969" x1="404.000000000" y0="25" y1="19" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="368.292290969" x1="404.000000000" y0="19" y1="13" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+   </ST>
+      <ST name="A4-3DPPM-fengmian" chinese="A4封面" isShow="1" filepath="Templet\A4-3DPPM-fengmian.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="37" x1="55.00626475" y0="289.9999793" y1="279.9999793" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="版次" x0="188.0000082" x1="203.0000082" y0="289.9999793" y1="279.9999793" text="xml@gongyi@gongyi_banci" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="密别" x0="188.0000082" x1="203.0000082" y0="279.9999793" y1="269.9999793" text="xml@gongyi@gongyi_mibie" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="型号" x0="105.8062648" x1="140.5062648" y0="208.82002" y1="200.9999793" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="件号" x0="65.80626475" x1="116.5062648" y0="187.6999793" y1="180.6999793" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="件名" x0="129.3746124" x1="180.7062648" y0="187.6999793" y1="180.6999793" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="总页数" x0="112.913250039" x1="123.913250039 " y0="161.500000000" y1="155.454249576  " text="fun@GetTotalPages" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="存图号" x0="161.5" x1="203.0000082" y0="17.00000544" y1="7.00000544" text="xml@gongyi@gongyi_cuntuhao" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="标检人" x0="2.006264751" x1="27.00626475" y0="40.00000544" y1="32.00000544" text="xml@gongyi@normalizer" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="标检时间" x0="2.006264751" x1="27.00626475" y0="40.00000544" y1="32.00000544" text="xml@gongyi@normalizer_date" font="chinesef_fs" size="5" multiline="1" />
+      </ST>
+      <ST name="A4-3DPPM-gongxutubiao" chinese="A4工序图表（图文）" isShow="1" filepath="Templet\A4-3DPPM-gongxutubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.10967548" x1="46.10967548" y0="275.0171274" y1="268.0171274" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.109675481" x1="31.10967548" y0="275.0171274" y1="267.0171274" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.10967548" x1="118.6096755" y0="275.5171274" y1="268.0171274" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.6096755" x1="154.1096755" y0="275.5171274" y1="268.0171274" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="154.1096755" x1="168.1096755" y0="275.5171274" y1="268.0171274" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.1096755" x1="184.1096755" y0="275.5171274" y1="268.0171274" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.2" x1="195.3" y0="280.7520848" y1="277.3" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.2" x1="195.3" y0="273.2541444" y1="269.5541444" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="47.58939438" x1="96.10967548" y0="268.0171274" y1="261.0171274" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="111.9341807" x1="136.1096755" y0="268.0171274" y1="261.0171274" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="154.1096755" x1="201.1096755" y0="268.0171274" y1="261.0171274" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="设备" x0="47.58939438" x1="136.1096755" y0="261.0171274" y1="254.0171274" text="xml@gongxu@gongxu_shebei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="夹模具" x0="154.1096755" x1="201.1096755" y0="261.0171274" y1="254.0171274" text="xml@gongxu@gongxu_jiamoju" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="基准" x0="47.58939438" x1="136.1096755" y0="254.0171274" y1="247.0171274" text="xml@gongxu@gongxu_jizhun" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="项目" x0="31.10967548" x1="43.10967548" y0="115.0171274" y1="108.0171274" text="def@A4-3DPPM-gongxutubiao_xiangmu" font="chinesef_fs" size="3.5" multiline="10" />
+        <Item name="工作内容" x0="43.10967548" x1="117.1096755" y0="115.0171274" y1="108.0171274" text="def@A4-3DPPM-gongxutubiao_gongzuoneirong" font="chinesef_fs" size="3.5" multiline="10" />
+        <Item name="刃具" x0="117.1096755" x1="145.1096755" y0="115.0171274" y1="108.0171274" text="def@A4-3DPPM-gongxutubiao_renju" font="chinesef_fs" size="3.5" multiline="10" />
+        <Item name="量具" x0="145.1096755" x1="173.1096755" y0="115.0171274" y1="108.0171274" text="def@A4-3DPPM-gongxutubiao_liangju" font="chinesef_fs" size="3.5" multiline="10" />
+        <Item name="备注" x0="173.1096755" x1="201.1096755" y0="115.0171274" y1="108.0171274" text="def@A4-3DPPM-gongxutubiao_beizhu" font="chinesef_fs" size="3.5" multiline="10" />
+   <Item name="会签人1" x0="6.1" x1="31.1" y0="64" y1="57" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6.1" x1="31.1" y0="57" y1="50" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6.1" x1="31.1" y0="50" y1="43" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6.1" x1="31.1" y0="36" y1="29" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6.1" x1="31.1" y0="29" y1="22" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6.1" x1="31.1" y0="22" y1="15" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.1" x1="73.1" y0="27" y1="21" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.1" x1="73.1" y0="21" y1="15" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83.1" x1="116.6" y0="27" y1="21" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83.1" x1="116.6" y0="21" y1="15" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="126.6" x1="156.96" y0="27" y1="21" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="126.6" x1="156.96" y0="21" y1="15" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.8" x1="201.1" y0="27" y1="21" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.8" x1="201.1" y0="21" y1="15" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.6" x1="201.1" y0="39" y1="33" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.6" x1="201.1" y0="33" y1="27" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+        </ST>
+      <ST name="A4-3DPPM-gongxutubiao-add" chinese="A4工序图表（图文）（附页）" isShow="0" filepath="Templet\A4-3DPPM-gongxutubiao-add.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.10967548" x1="46.10967548" y0="275.0171274" y1="268.0171274" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.109675481" x1="31.10967548" y0="275.0171274" y1="267.0171274" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.10967548" x1="118.6096755" y0="275.5171274" y1="268.0171274" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.6096755" x1="154.1096755" y0="275.5171274" y1="268.0171274" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="154.1096755" x1="168.1096755" y0="275.5171274" y1="268.0171274" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.1096755" x1="184.1096755" y0="275.5171274" y1="268.0171274" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.2" x1="195.3" y0="280.7520848" y1="277.3" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.2" x1="195.3" y0="273.2541444" y1="269.5541444" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="47.58939438" x1="96.10967548" y0="268.0171274" y1="261.0171274" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="111.9341807" x1="136.1096755" y0="268.0171274" y1="261.0171274" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="154.1096755" x1="201.1096755" y0="268.0171274" y1="261.0171274" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="设备" x0="47.58939438" x1="136.1096755" y0="261.0171274" y1="254.0171274" text="xml@gongxu@gongxu_shebei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="夹模具" x0="154.1096755" x1="201.1096755" y0="261.0171274" y1="254.0171274" text="xml@gongxu@gongxu_jiamoju" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="基准" x0="47.58939438" x1="136.1096755" y0="254.0171274" y1="247.0171274" text="xml@gongxu@gongxu_jizhun" font="chinesef_fs" size="3.5" multiline="1" />
+   <Item name="会签人1" x0="6.1" x1="31.1" y0="64" y1="57" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6.1" x1="31.1" y0="57" y1="50" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6.1" x1="31.1" y0="50" y1="43" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6.1" x1="31.1" y0="36" y1="29" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6.1" x1="31.1" y0="29" y1="22" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6.1" x1="31.1" y0="22" y1="15" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.1" x1="73.1" y0="27" y1="21" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.1" x1="73.1" y0="21" y1="15" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83.1" x1="116.6" y0="27" y1="21" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83.1" x1="116.6" y0="21" y1="15" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="126.6" x1="156.96" y0="27" y1="21" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="126.6" x1="156.96" y0="21" y1="15" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.8" x1="201.1" y0="27" y1="21" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.8" x1="201.1" y0="21" y1="15" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.6" x1="201.1" y0="39" y1="33" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.6" x1="201.1" y0="33" y1="27" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+      </ST>
+      <ST name="A4-3DPPM-gongxubiao" chinese="A4工序图表（仅表）" isShow="1" filepath="Templet\A4-3DPPM-gongxubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.1462401" x1="46.1462401" y0="272.0077232" y1="265.0077232" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.146240104" x1="31.1462401" y0="272.0077232" y1="264.0077232" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.1462401" x1="118.6462401" y0="272.5077232" y1="265.0077232" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.6462401" x1="154.1462401" y0="272.5077232" y1="265.0077232" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="154.1462401" x1="168.1462401" y0="272.0077232" y1="265.0077232" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.1462401" x1="184.1462401" y0="272.5077232" y1="265.0077232" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="191.7" x1="195.6" y0="278.1985384" y1="274" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="191.7" x1="195.6" y0="270.3259672" y1="266.1259672" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="46.95011737" x1="96.1462401" y0="265.0077232" y1="258.0077232" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="110.0900057" x1="136.1462401" y0="265.0077232" y1="258.0077232" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="154.1462401" x1="201.1462401" y0="265.0077232" y1="258.0077232" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="设备" x0="46.95011737" x1="136.1462401" y0="258.0077232" y1="251.0077232" text="xml@gongxu@gongxu_shebei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="夹模具" x0="154.1462401" x1="201.1462401" y0="258.0077232" y1="251.0077232" text="xml@gongxu@gongxu_jiamoju" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="基准" x0="46.95011737" x1="136.1462401" y0="251.0077232" y1="244.0077232" text="xml@gongxu@gongxu_jizhun" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="项目" x0="31.1462401" x1="43.1462401" y0="231.0077232" y1="224.0077232" text="def@A4-3DPPM-gongxubiao_xiangmu" font="chinesef_fs" size="3.5" multiline="16" />
+        <Item name="工作内容" x0="43.1462401" x1="117.1462401" y0="231.0077232" y1="224.0077232" text="def@A4-3DPPM-gongxubiao_gongzuoneirong" font="chinesef_fs" size="3.5" multiline="16" />
+        <Item name="刃具" x0="117.1462401" x1="145.1462401" y0="231.0077232" y1="224.0077232" text="def@A4-3DPPM-gongxubiao_renju" font="chinesef_fs" size="3.5" multiline="16" />
+        <Item name="量具" x0="145.1462401" x1="173.1462401" y0="231.0077232" y1="224.0077232" text="def@A4-3DPPM-gongxubiao_liangju" font="chinesef_fs" size="3.5" multiline="16" />
+        <Item name="备注" x0="173.1462401" x1="201.1462401" y0="231.0077232" y1="224.0077232" text="def@A4-3DPPM-gongxubiao_beizhu" font="chinesef_fs" size="3.5" multiline="16" />
+    <Item name="会签人1" x0="6.1" x1="31.1" y0="61" y1="54" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6.1" x1="31.1" y0="54" y1="47" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6.1" x1="31.1" y0="47" y1="40" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6.1" x1="31.1" y0="33" y1="26" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6.1" x1="31.1" y0="26" y1="19" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6.1" x1="31.1" y0="19" y1="12" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.1" x1="73.1" y0="24" y1="18" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.1" x1="73.1" y0="18" y1="12" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83.1" x1="116.6" y0="24" y1="18" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83.1" x1="116.6" y0="18" y1="12" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="126.6" x1="156.96" y0="24" y1="18" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="126.6" x1="156.96" y0="18" y1="12" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.8" x1="201.1" y0="24" y1="18" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.8" x1="201.1" y0="18" y1="12" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.6" x1="201.1" y0="36" y1="30" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.6" x1="201.1" y0="30" y1="24" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+        </ST>
+      <ST name="A4-3DPPM-gongxubiao-add" chinese="A4工序图表（仅表）（附页）" isShow="0" filepath="Templet\A4-3DPPM-gongxubiao-add.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.1462401" x1="46.1462401" y0="272.0077232" y1="265.0077232" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.146240104" x1="31.1462401" y0="272.0077232" y1="264.0077232" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.1462401" x1="118.6462401" y0="272.5077232" y1="265.0077232" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.6462401" x1="154.1462401" y0="272.5077232" y1="265.0077232" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="154.1462401" x1="168.1462401" y0="272.0077232" y1="265.0077232" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.1462401" x1="184.1462401" y0="272.5077232" y1="265.0077232" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="191.7" x1="195.6" y0="278.1985384" y1="274" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="191.7" x1="195.6" y0="270.3259672" y1="266.1259672" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="46.95011737" x1="96.1462401" y0="265.0077232" y1="258.0077232" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="110.0900057" x1="136.1462401" y0="265.0077232" y1="258.0077232" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="154.1462401" x1="201.1462401" y0="265.0077232" y1="258.0077232" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="设备" x0="46.95011737" x1="136.1462401" y0="258.0077232" y1="251.0077232" text="xml@gongxu@gongxu_shebei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="夹模具" x0="154.1462401" x1="201.1462401" y0="258.0077232" y1="251.0077232" text="xml@gongxu@gongxu_jiamoju" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="基准" x0="46.95011737" x1="136.1462401" y0="251.0077232" y1="244.0077232" text="xml@gongxu@gongxu_jizhun" font="chinesef_fs" size="3.5" multiline="1" />
+    <Item name="会签人1" x0="6.1" x1="31.1" y0="61" y1="54" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6.1" x1="31.1" y0="54" y1="47" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6.1" x1="31.1" y0="47" y1="40" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6.1" x1="31.1" y0="33" y1="26" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6.1" x1="31.1" y0="26" y1="19" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6.1" x1="31.1" y0="19" y1="12" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.1" x1="73.1" y0="24" y1="18" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.1" x1="73.1" y0="18" y1="12" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83.1" x1="116.6" y0="24" y1="18" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83.1" x1="116.6" y0="18" y1="12" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="126.6" x1="156.96" y0="24" y1="18" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="126.6" x1="156.96" y0="18" y1="12" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.8" x1="201.1" y0="24" y1="18" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.8" x1="201.1" y0="18" y1="12" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.6" x1="201.1" y0="36" y1="30" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.6" x1="201.1" y0="30" y1="24" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+     </ST>
+      <ST name="A4-3DPPM-gongyichengxu" chinese="A4工艺程序图表" isShow="1" filepath="Templet\A4-3DPPM-gongyichengxu.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="30.07146019" x1="45.07146019" y0="273.1235262" y1="266.1235262" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="5.071460186" x1="30.07146019" y0="273.1235262" y1="265.1235262" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="94.07146019" x1="138.5714602" y0="273.6235262" y1="266.1235262" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="138.5714602" x1="183.0714602" y0="273.6235262" y1="266.1235262" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.4" x1="194.3439531" y0="279" y1="274.8" text="fun@GetGYCXCur" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.4" x1="194.3439531" y0="271.6697105" y1="267.4697105" text="fun@GetGYCXAll" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="30.07146019" x1="42.07146019" y0="253.1235262" y1="246.1235262" text="def@A4-3DPPM-gongyichengxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="工序号" x0="42.07146019" x1="54.07146019" y0="253.1235262" y1="246.1235262" text="def@A4-3DPPM-gongyichengxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="工序名称" x0="54.07146019" x1="124.0714602" y0="253.1235262" y1="246.1235262" text="def@A4-3DPPM-gongyichengxu_gongxumingcheng" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="设备" x0="124.0714602" x1="169.0714602" y0="253.1235262" y1="246.1235262" text="def@A4-3DPPM-gongyichengxu_shebei" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="备注" x0="169.0714602" x1="200.0714602" y0="253.1235262" y1="246.1235262" text="def@A4-3DPPM-gongyichengxu_beizhu" font="chinesef_fs" size="3.5" multiline="30" />
+    <Item name="编制人" x0="40" x1="72" y0="25.1" y1="19.1" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="40" x1="72" y0="19.1" y1="13.1" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="82" x1="113.34" y0="25.1" y1="19.1" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="82" x1="113.34" y0="19.1" y1="13.1" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="123.34" x1="156.27" y0="25.1" y1="19.1" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="123.34" x1="156.27" y0="19.1" y1="13.1" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.27" x1="200.07" y0="25.1" y1="19.1" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.27" x1="200.07" y0="19.1" y1="13.1" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+    </ST>
+      <ST name="A4-3DPPM-gongyichengxu-add" chinese="A4工艺程序图表（附页）" isShow="0" filepath="Templet\A4-3DPPM-gongyichengxu-add.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="30.07146019" x1="45.07146019" y0="273.1235262" y1="266.1235262" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="5.071460186" x1="30.07146019" y0="273.1235262" y1="265.1235262" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="94.07146019" x1="138.5714602" y0="273.6235262" y1="266.1235262" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="138.5714602" x1="183.0714602" y0="273.6235262" y1="266.1235262" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.4" x1="194.3439531" y0="279" y1="274.8" text="fun@GetGYCXCur" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.4" x1="194.3439531" y0="271.6697105" y1="267.4697105" text="fun@GetGYCXAll" font="chinesef_fs" size="3.5" multiline="1" />
+     <Item name="编制人" x0="40" x1="72" y0="25.1" y1="19.1" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="40" x1="72" y0="19.1" y1="13.1" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="82" x1="113.34" y0="25.1" y1="19.1" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="82" x1="113.34" y0="19.1" y1="13.1" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="123.34" x1="156.27" y0="25.1" y1="19.1" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="123.34" x1="156.27" y0="19.1" y1="13.1" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.27" x1="200.07" y0="25.1" y1="19.1" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.27" x1="200.07" y0="19.1" y1="13.1" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+  </ST>
+      <ST name="A4-3DPPM-jijianbiao" chinese="A4集件图表" isShow="1" filepath="Templet\A4-3DPPM-jijianbiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.02054808" x1="46.02054808" y0="272.013398" y1="265.013398" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.020548084" x1="31.02054808" y0="272.013398" y1="264.013398" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.02054808" x1="125.5205481" y0="272.513398" y1="265.013398" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="125.5205481" x1="168.0205481" y0="272.513398" y1="265.013398" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.0205481" x1="184.0205481" y0="272.513398" y1="265.013398" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.6" x1="195.6" y0="278.4" y1="274.2" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.6" x1="195.6" y0="270.8486457" y1="266.6486457" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="序号" x0="31.02054808" x1="41.02054808" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_xuhao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="特性符号" x0="41.02054808" x1="53.02054808" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_texingfuhao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="件号" x0="53.02054808" x1="93.02054808" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_jianhao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="件名" x0="93.02054808" x1="139.0205481" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_jianming" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="材料" x0="139.0205481" x1="169.0205481" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_cailiao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="数量" x0="169.0205481" x1="179.0205481" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_shuliang" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="备注" x0="179.0205481" x1="201.0205481" y0="252.013398" y1="245.013398" text="def@A4-3DPPM-jijianbiao_beizhu" font="chinesef_fs" size="3.5" multiline="30" />
+     <Item name="会签人1" x0="6" x1="31" y0="61" y1="54" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6" x1="31" y0="54" y1="47" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6" x1="31" y0="47" y1="40" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6" x1="31" y0="33" y1="26" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6" x1="31" y0="26" y1="19" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6" x1="31" y0="19" y1="12" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41" x1="73" y0="24" y1="18" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41" x1="73" y0="18" y1="12" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83" x1="114.28" y0="24" y1="18" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83" x1="114.28" y0="18" y1="12" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="124.28" x1="157.21" y0="24" y1="18" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="124.28" x1="157.21" y0="18" y1="12" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="167.21" x1="201.02" y0="24" y1="18" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="167.21" x1="201.02" y0="18" y1="12" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+  </ST>
+      <ST name="A4-3DPPM-gongyizhuangbei" chinese="A4工艺装备统计表" isShow="1" filepath="Templet\A4-3DPPM-gongyizhuangbei.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="29.25472488" x1="44.25472488" y0="274.0364" y1="267.0364" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="4.254724879" x1="29.25472488" y0="274.0364" y1="266.0364" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="93.25472488" x1="137.7547249" y0="274.5364" y1="267.0364" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="137.7547249" x1="182.2547249" y0="274.5364" y1="267.0364" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="188.9307555" x1="193.9184302" y0="281.1" y1="276.9" text="fun@GetGYZBCur" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="188.9184302" x1="193.9184302" y0="273.3" y1="269.1" text="fun@GetGYZBAll" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="29.25472488" x1="39.25472488" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_gongxuhao" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="夹模具" x0="39.25472488" x1="69.25472488" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_jiamoju" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="批次" x0="69.25472488" x1="75.25472488" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_pici0" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="重用工序" x0="75.25472488" x1="93.25472488" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_chongyonggongxu0" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="刃具" x0="93.25472488" x1="123.2547249" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_renju" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="批次" x0="123.2547249" x1="129.2547249" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_pici1" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="重用工序" x0="129.2547249" x1="146.2547249" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_chongyonggongxu1" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="量具" x0="146.2547249" x1="176.2547249" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_liangju" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="批次" x0="176.2547249" x1="182.254724879" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_pici2" font="chinesef_fs" size="3.5" multiline="30" />
+        <Item name="重用工序" x0="182.254724879" x1="199.254724879" y0="254.0364" y1="247.0364" text="def@A4-3DPPM-gongyizhuangbei_chongyonggongxu2" font="chinesef_fs" size="3.5" multiline="30" />
+       <Item name="编制人" x0="39.254724878982472" x1="72.2613203533827" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="编制时间" x0="39.254724878982472" x1="72.2613203533827" y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="校对人" x0="83.063560885623986" x1="113.15399169294008" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="校对时间" x0="83.063560885623986" x1="113.15399169294008"  y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="审核人" x0="123.15399169294002" x1="155.17930308815264" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="审核时间"  x0="123.15399169294002" x1="155.17930308815264" y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="批准人" x0="165.17930308815269" x1="199.25472487898244" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="批准时间"  x0="165.17930308815269" x1="199.25472487898244"   y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1"/>
+  </ST>
+      <ST name="A4-3DPPM-gongyizhuangbei-add" chinese="A4工艺装备统计表（附页）" isShow="0" filepath="Templet\A4-3DPPM-gongyizhuangbei-add.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="29.25472488" x1="44.25472488" y0="274.0364" y1="267.0364" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="4.254724879" x1="29.25472488" y0="274.0364" y1="266.0364" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="93.25472488" x1="137.7547249" y0="274.5364" y1="267.0364" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="137.7547249" x1="182.2547249" y0="274.5364" y1="267.0364" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="188.9307555" x1="193.9184302" y0="281.1" y1="276.9" text="fun@GetGYZBCur" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="188.9184302" x1="193.9184302" y0="273.3" y1="269.1" text="fun@GetGYZBAll" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="39.254724878982472" x1="72.2613203533827" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="编制时间" x0="39.254724878982472" x1="72.2613203533827" y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="校对人" x0="83.063560885623986" x1="113.15399169294008" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="校对时间" x0="83.063560885623986" x1="113.15399169294008"  y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="审核人" x0="123.15399169294002" x1="155.17930308815264" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="审核时间"  x0="123.15399169294002" x1="155.17930308815264" y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="批准人" x0="165.17930308815269" x1="199.25472487898244" y0="26.036399961292318" y1="20.036399961292346" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1"/>
+      <Item name="批准时间"  x0="165.17930308815269" x1="199.25472487898244"   y0="20.036399961292346" y1="14.036399961292346" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1"/>
+   </ST>
+      <ST name="A4-3DPPM-tubiao" chinese="A4____图表（仅图）" isShow="1" filepath="Templet\A4-3DPPM-tubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="30.94436864" x1="45.94436864" y0="276.9814296" y1="269.9814296" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="5.944368639" x1="30.94436864" y0="276.9814296" y1="268.9814296" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="82.94436864" x1="118.4443686" y0="277.4814296" y1="269.9814296" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.4443686" x1="153.9443686" y0="277.4814296" y1="269.9814296" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="153.9443686" x1="167.9443686" y0="276.9814296" y1="269.9814296" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="167.9443686" x1="183.9443686" y0="277.4814296" y1="269.9814296" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.3" x1="195.3" y0="283.6" y1="279.4" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.3" x1="195.3" y0="275.6" y1="271.4" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="44.98782211" x1="95.94436864" y0="269.9814296" y1="262.9814296" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="110.0483449" x1="135.9443686" y0="269.9814296" y1="262.9814296" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="154.973858" x1="200.9443686" y0="269.9814296" y1="262.9814296" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+      <Item name="会签人1" x0="5.9443686385911381" x1="30.944368638591129" y0="65.981429618523165" y1="58.981429618523165" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="5.9443686385911381" x1="30.944368638591129" y0="58.981429618523165" y1="51.981429618523165" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="5.9443686385911381" x1="30.944368638591129" y0="51.981429618523165" y1="44.981429618523165" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="5.9443686385911381" x1="30.944368638591129" y0="37.981429618523165" y1="30.981429618523165" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="5.9443686385911381" x1="30.944368638591129" y0="30.981429618523165" y1="23.981429618523165" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="5.9443686385911381" x1="30.944368638591129" y0="23.981429618523165" y1="16.981429618523165" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="40.944368638591143" x1="74.549383440560021" y0="28.981429618523151" y1="22.981429618523137" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="40.944368638591143" x1="74.549383440560021" y0="22.981429618523151" y1="16.981429618523137" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="84.549383440560135" x1="116.08771587418637" y0="28.981429618523151" y1="22.981429618523137" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="84.549383440560135" x1="116.08771587418637" y0="22.981429618523151" y1="16.981429618523137" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="126.08771587418637" x1="157.43103266258396" y0="28.981429618523151" y1="22.981429618523137" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="126.08771587418637" x1="157.43103266258396" y0="22.981429618523151" y1="16.981429618523137" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="167.43103266258396" x1="200.94436863859079" y0="28.981429618523151" y1="22.981429618523137" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="167.43103266258396" x1="200.94436863859079" y0="22.981429618523151" y1="16.981429618523137" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.4443686385909" x1="200.94436863859079" y0="40.981429618523151" y1="34.981429618523151" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.4443686385909" x1="200.94436863859079" y0="34.981429618523151" y1="28.981429618523151" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+   </ST>
+      <ST name="A4-3DPPM-jianyantubiao" chinese="A4检验图表（图表）" isShow="1" filepath="Templet\A4-3DPPM-jianyantubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="30.65020046" x1="45.65020046" y0="271.6548178" y1="264.6548178" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="5.650200456" x1="30.65020046" y0="271.6548178" y1="263.6548178" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="82.65020046" x1="118.1502005" y0="272.1548178" y1="264.6548178" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.1502005" x1="153.6502005" y0="272.1548178" y1="264.6548178" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="153.6502005" x1="167.6502005" y0="271.6548178" y1="264.6548178" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="167.6502005" x1="183.6502005" y0="272.1548178" y1="264.6548178" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="189.9" x1="194.9" y0="277.7" y1="273.5" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="189.9" x1="194.9" y0="269.8" y1="265.6" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="42.95015569" x1="95.65020046" y0="264.6548178" y1="257.6548178" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="107.8774958" x1="135.6502005" y0="264.6548178" y1="257.6548178" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="153.7777907" x1="200.6502005" y0="264.6548178" y1="257.6548178" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="零件交付热处理状态" x0="67.95981228" x1="107.8774958" y0="257.6548178" y1="250.6548178" text="def@A4-3DPPM-jianyantubiao_jiaofu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="零件装机热处理状态" x0="145.291683" x1="200.6502005" y0="257.6548178" y1="250.6548178" text="def@A4-3DPPM-jianyantubiao_zhuangji" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="项目" x0="30.65020046" x1="42.65020046" y0="118.7037502" y1="111.7037502" text="def@A4-3DPPM-jianyantubiao_xiangmu" font="chinesef_fs" size="3.5" multiline="11" />
+        <Item name="检验内容" x0="42.65020046" x1="144.6502005" y0="118.7037502" y1="111.7037502" text="def@A4-3DPPM-jianyantubiao_jianyanneirong" font="chinesef_fs" size="3.5" multiline="11" />
+        <Item name="量具" x0="144.6502005" x1="172.6502005" y0="118.7037502" y1="111.7037502" text="def@A4-3DPPM-jianyantubiao_liangju" font="chinesef_fs" size="3.5" multiline="11" />
+    <Item name="会签人1" x0="5.9443686385911381" x1="30.944368638591129" y0="60.65" y1="53.65" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="5.9443686385911381" x1="30.944368638591129" y0="53.65" y1="46.65" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="5.9443686385911381" x1="30.944368638591129" y0="46.65" y1="39.65" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="5.9443686385911381" x1="30.944368638591129" y0="32.65" y1="25.65" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="5.9443686385911381" x1="30.944368638591129" y0="25.65" y1="18.65" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="5.9443686385911381" x1="30.944368638591129" y0="18.65" y1="11.65" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.031199300003891" x1="73.031199300003891" y0="23.65" y1="17.65" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.031199300003891" x1="73.031199300003891" y0="17.65" y1="11.65" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83.031199300003891" x1="115.14019884865263" y0="23.65" y1="17.65" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83.031199300003891" x1="115.14019884865263" y0="17.65" y1="11.65" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="125.14019884865263" x1="157.49300838882061" y0="23.65" y1="17.65" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="125.14019884865263" x1="157.49300838882061" y0="17.65" y1="11.65" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="167.49300838882061" x1="201.03119930000389" y0="23.65" y1="17.65" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="167.49300838882061" x1="201.03119930000389" y0="17.65" y1="11.65" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.531199300004" x1="201.03119930000389" y0="35.65" y1="29.65" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.531199300004" x1="201.03119930000389" y0="29.65" y1="23.65" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+      </ST>
+      <ST name="A4-3DPPM-jianyanbiao" chinese="A4检验图表（仅表）" isShow="1" filepath="Templet\A4-3DPPM-jianyanbiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.0311993" x1="46.0311993" y0="271.9645841" y1="264.9645841" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.0311993" x1="31.0311993" y0="271.9645841" y1="263.9645841" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.0311993" x1="118.5311993" y0="272.4645841" y1="264.9645841" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="118.5311993" x1="154.0311993" y0="272.4645841" y1="264.9645841" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="特性符号" x0="154.0311993" x1="168.0311993" y0="271.9645841" y1="264.9645841" text="xml@gongxu@gongxu_texingfuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.0311993" x1="184.0311993" y0="272.4645841" y1="264.9645841" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.3" x1="195.3" y0="278.5" y1="274.3" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.3" x1="195.3" y0="270.6" y1="266.4" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="46.0311993" x1="96.0311993" y0="264.9645841" y1="257.9645841" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="109.6335244" x1="136.0311993" y0="264.9645841" y1="257.9645841" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序名称" x0="154.0311993" x1="201.0311993" y0="264.9645841" y1="257.9645841" text="xml@gongxu@gongxu_gongxumingcheng" font="chinesef_fs" size="5" multiline="1" />
+        <Item name="项目" x0="31.0311993" x1="43.0311993" y0="244.9645841" y1="237.9645841" text="def@A4-3DPPM-jianyanbiao_xiangmu" font="chinesef_fs" size="3.5" multiline="17" />
+        <Item name="检验内容" x0="43.0311993" x1="145.0311993" y0="244.9645841" y1="237.9645841" text="def@A4-3DPPM-jianyanbiao_jianyanneirong" font="chinesef_fs" size="3.5" multiline="17" />
+        <Item name="量具" x0="145.0311993" x1="173.0311993" y0="244.9645841" y1="237.9645841" text="def@A4-3DPPM-jianyanbiao_liangju" font="chinesef_fs" size="3.5" multiline="17" />
+     <Item name="会签人1" x0="6.0311993000038946" x1="31.031199300003898" y0="60.964584065592824" y1="53.964584065592824" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6.0311993000038946" x1="31.031199300003898" y0="53.964584065592824" y1="46.964584065592824" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6.0311993000038946" x1="31.031199300003898" y0="46.964584065592824" y1="39.964584065592824" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6.0311993000038946" x1="31.031199300003898" y0="32.964584065592824" y1="25.964584065592824" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6.0311993000038946" x1="31.031199300003898" y0="25.964584065592824" y1="18.964584065592824" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6.0311993000038946" x1="31.031199300003898" y0="18.964584065592824" y1="11.964584065592824" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.031199300003891" x1="73.031199300003891" y0="23.964584065592788" y1="17.964584065592788" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.031199300003891" x1="73.031199300003891" y0="17.964584065592788" y1="11.964584065592788" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="83.031199300003891" x1="115.14019884865263" y0="23.964584065592788" y1="17.964584065592788" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="83.031199300003891" x1="115.14019884865263" y0="17.964584065592788" y1="11.964584065592788" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="125.14019884865263" x1="157.49300838882061" y0="23.964584065592788" y1="17.964584065592788" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="125.14019884865263" x1="157.49300838882061" y0="17.964584065592788" y1="11.964584065592788" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="167.49300838882061" x1="201.03119930000389" y0="23.964584065592788" y1="17.964584065592788" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="167.49300838882061" x1="201.03119930000389" y0="17.964584065592788" y1="11.964584065592788" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签人" x0="176.531199300004" x1="201.03119930000389" y0="35.964584065592788" y1="29.964584065592788" text="xml@gongyi@checker" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="质量会签时间" x0="176.531199300004" x1="201.03119930000389" y0="29.964584065592788" y1="23.964584065592788" text="xml@gongyi@checker_date" font="chinesef_fs" size="3.5" multiline="1" />
+     </ST>
+      <ST name="A4-3DPPM-maoliaotubiao" chinese="A4毛料图表" isShow="1" filepath="Templet\A4-3DPPM-maoliaotubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="31.01685676" x1="46.01685676" y0="271.9369543" y1="264.9369543" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="6.016856755" x1="31.01685676" y0="271.9369543" y1="263.9369543" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="83.01685676" x1="128.0168568" y0="272.4369543" y1="264.9369543" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="128.0168568" x1="168.0168568" y0="272.4369543" y1="264.9369543" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="168.0168568" x1="184.0168568" y0="272.4369543" y1="264.9369543" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="190.5" x1="195.5" y0="278.4" y1="274.2" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="190.800000000" x1="195.30000000000" y0=" 270.500000000" y1="266.90000000000" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="材料" x0="47.0000000" x1=" 116.016856755  " y0="264.936954253" y1=" 257.436954253" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+    <Item name="会签人1" x0="6.0168567546604557" x1="31.0168567546604592" y0="60.936954252597282" y1="53.936954252597282" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="6.0168567546604557" x1="31.0168567546604592" y0="53.936954252597282" y1="46.936954252597282" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="6.0168567546604557" x1="31.0168567546604592" y0="46.936954252597282" y1="39.936954252597282" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="6.0168567546604557" x1="31.0168567546604592" y0="32.936954252597282" y1="25.936954252597282" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="6.0168567546604557" x1="31.0168567546604592" y0="25.936954252597282" y1="18.936954252597282" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="6.0168567546604557" x1="31.0168567546604592" y0="18.936954252597282" y1="11.936954252597282" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="41.016856754660459" x1="74.231840266172398" y0="23.936954252597275" y1="17.936954252597246" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="41.016856754660459" x1="74.231840266172398" y0="17.936954252597246" y1="11.936954252597246" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="84.231840266172398" x1="113.93186345580766" y0="23.936954252597275" y1="17.936954252597275" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="84.231840266172398" x1="113.93186345580766" y0="17.936954252597275" y1="11.936954252597275" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="123.93186345580772" x1="156.90987021156099" y0="23.936954252597275" y1="17.936954252597275" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="123.93186345580772" x1="156.90987021156099" y0="17.936954252597275" y1="11.936954252597275" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="166.90987021156104" x1="201.01685675466007" y0="23.936954252597275" y1="17.936954252597275" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="166.90987021156104" x1="201.01685675466007" y0="17.936954252597275" y1="11.936954252597275" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+    </ST>
+      <ST name="A4-3DPPM-bangliaotubiao" chinese="A4毛料图表（棒料）" isShow="1" filepath="Templet\A4-3DPPM-bangliaotubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="30.86514648" x1="45.865146481" y0="275.367465267" y1="268.367465267" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="5.865146481" x1="30.865146481" y0="275.367465267" y1="267.367465267" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="82.865146481" x1="127.865146481" y0="275.867465267" y1="268.367465267" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="127.865146481" x1="167.865146481" y0="275.8674653" y1="268.367465267" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="167.865146481" x1="183.865146481" y0="275.867465267" y1="268.367465267" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="183.865146481" x1="200.865146481" y0="283.367465267" y1="275.367465267" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="183.865146481" x1="200.865146481" y0="275.367465267" y1="268.367465267" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="牌号" x0="51.94694797" x1="94.86514648" y0="268.3674653" y1="260.8674653" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="51.94694797" x1="94.86514648" y0="260.8674653" y1="253.3674653" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+     <Item name="会签人1" x0="5.86" x1="30.86" y0="64.63" y1="57.63" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="5.86" x1="30.86" y0="57.63" y1="50.63" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="5.86" x1="30.86" y0="50.63" y1="43.63" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="5.86" x1="30.86" y0="36.36" y1="29.36" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="5.86" x1="30.86" y0="29.36" y1="22.36" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="5.86" x1="30.86" y0="22.36" y1="15.36" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="40.865146481316415" x1="74.260806252378359" y0="27.367465266877915" y1="21.367465266877915" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="40.865146481316415" x1="74.260806252378359" y0="21.367465266877915" y1="15.3674652668779" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="84.26" x1="115.86" y0="27.367465266877915" y1="21.367465266877915" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="84.26" x1="115.86" y0="21.367465266877915" y1="15.3674652668779" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="121.29743127380969" x1="154.69944776181427" y0="27.367465266877915" y1="21.367465266877915" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="121.29743127380969" x1="154.69944776181427" y0="21.367465266877915" y1="15.3674652668779" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="167.10134923545689" x1="200.86514648131612" y0="27.367465266877915" y1="21.367465266877915" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="167.10134923545689" x1="200.86514648131612" y0="21.367465266877915" y1="15.3674652668779" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+     </ST>
+      <ST name="A4-3DPPM-bancaitubiao" chinese="A4毛料图表（板材）" isShow="1" filepath="Templet\A4-3DPPM-bancaitubiao.prt" width="420" height="297" type="A4">
+        <Item name="单位" x0="29.27681398" x1="44.27681398" y0="271.7226458" y1="264.7226458" text="xml@gongyi@gongyi_danwei" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="型号" x0="4.276813975" x1="29.27681398" y0="271.7226458" y1="263.7226458" text="xml@gongyi@gongyi_xinghao" font="chinesef_fs" size="3.5" multiline="4" />
+        <Item name="件号" x0="81.27681398" x1="123.776814" y0="272.2226458" y1="264.7226458" text="xml@gongyi@gongyi_jianhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="件名" x0="123.776814" x1="166.276814" y0="272.2226458" y1="264.7226458" text="xml@gongyi@gongyi_jianming" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="工序号" x0="166.276814" x1="182.276814" y0="272.2226458" y1="264.7226458" text="xml@gongxu@gongxu_gongxuhao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="第几页" x0="182.276814" x1="199.276814" y0="279.7226458" y1="271.7226458" text="fun@GetCurrentPage" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="共几页" x0="182.276814" x1="199.276814" y0="271.7226458" y1="264.7226458" text="fun@GetProcedurePages" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="牌号" x0="51.48138545" x1="93.27681398" y0="264.7226458" y1="257.2226458" text="xml@gongyi@gongyi_cailiao" font="chinesef_fs" size="3.5" multiline="1" />
+        <Item name="硬度" x0="51.48138545" x1="93.27681398" y0="257.2226458" y1="249.7226458" text="xml@gongxu@gongxu_yingdu" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人1" x0="4.27" x1="29.27" y0="60.72" y1="53.72" text="xml@gongxu@signer1" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门1" x0="4.27" x1="29.27" y0="53.72" y1="46.72" text="xml@gongxu@signer1_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间1" x0="4.27" x1="29.27" y0="46.72" y1="39.72" text="xml@gongxu@signer1_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签人2" x0="4.27" x1="29.27" y0="32.72" y1="25.72" text="xml@gongxu@signer2" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签部门2" x0="4.27" x1="29.27" y0="25.72" y1="18.72" text="xml@gongxu@signer2_dept" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="会签时间2" x0="4.27" x1="29.27" y0="18.72" y1="11.72" text="xml@gongxu@signer2_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制人" x0="39.276813974515818" x1="69.649583024576927" y0="23.42516871808874" y1="17.42516871808874" text="xml@gongyi@author" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="编制时间" x0="39.276813974515818" x1="69.649583024576927" y0="17.42516871808874" y1="11.42516871808874" text="xml@gongyi@author_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对人" x0="80.131698672203569" x1="111.29743127380969" y0="23.42516871808874" y1="17.42516871808874" text="xml@gongyi@collater" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="校对时间" x0="80.131698672203569" x1="111.29743127380969" y0="17.42516871808874" y1="11.42516871808874" text="xml@gongyi@collater_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核人" x0="121.29743127380969" x1="154.69944776181427" y0="23.42516871808874" y1="17.42516871808874" text="xml@gongyi@auditor" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="审核时间" x0="121.29743127380969" x1="154.69944776181427" y0="17.42516871808874" y1="11.42516871808874" text="xml@gongyi@auditor_date" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准人" x0="164.24601857422903" x1="199.27681397451551" y0="23.42516871808874" y1="17.42516871808874" text="xml@gongyi@confirmer" font="chinesef_fs" size="3.5" multiline="1" />
+      <Item name="批准时间" x0="164.24601857422903" x1="199.27681397451551" y0="17.42516871808874" y1="11.42516871808874" text="xml@gongyi@confirmer_date" font="chinesef_fs" size="3.5" multiline="1" />
+     </ST>
+    </SheetTemplet>
+ </SYS_3DPPM>

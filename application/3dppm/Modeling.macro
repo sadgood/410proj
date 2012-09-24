@@ -1,0 +1,11 @@
+NX 7.5.0.32
+Macro File: f:\My document\desktop\modeling.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by ZWL on Sat Nov 12 10:30:34 2011
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.305704 1
+Display Parameters 1.000000 13.068406 7.868799 -1.000000 -0.602124 1.000000 0.602124
+*****************
+RESET
+MENU, 0, UG_APP_MODELING UG_GATEWAY_MAIN_MENUBAR ! <MB/Toolbar>
