@@ -863,6 +863,65 @@ public class finalconbine
     
     
     }
+    public static NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
+    {
+        try
+        {
+            //¼ÆËã¿í¸ß±È
+            double DimensionSize = ((NXOpen.Annotations.Annotation)(anno)).GetLetteringPreferences().GetDimensionText().Size;
+            double AspectRatio = 1;
+            switch (num.Length)
+            {
+                case 0:
+                    AspectRatio = 1;
+                    break;
+                case 1:
+                    AspectRatio = 0.7;
+                    break;
+                case 2:
+                    AspectRatio = 0.6;
+                    break;
+                case 3:
+                    AspectRatio = 0.4;
+                    break;
+                default:
+                    AspectRatio = 1.2 / num.Length;
+                    break;
+            }
+            Session theSession = Session.GetSession();
+            Part workPart = theSession.Parts.Work;
+            Part displayPart = theSession.Parts.Display;
+            NXOpen.Annotations.BalloonNote nullAnnotations_BalloonNote = null;
+            NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
+            balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(nullAnnotations_BalloonNote);
+            balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
+            balloonNoteBuilder1.Style.LetteringStyle.HorizontalTextJustification = NXOpen.Annotations.TextJustification.Right;
+            balloonNoteBuilder1.Style.LetteringStyle.StackVerticalAlignment = NXOpen.Annotations.StackVerticalAlignment.Left;;
+            balloonNoteBuilder1.Style.LetteringStyle.StackHorizontalAlignment = NXOpen.Annotations.StackHorizontalAlignment.Top;
+            balloonNoteBuilder1.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.TopRight;
+            balloonNoteBuilder1.Title = "Balloon Note";
+            balloonNoteBuilder1.Category = "User Defined";
+            balloonNoteBuilder1.Identifier = "User Defined";
+            balloonNoteBuilder1.Revision = "-";
+            balloonNoteBuilder1.BalloonText = num;
+            balloonNoteBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
+            balloonNoteBuilder1.Style.LetteringStyle.GeneralTextFont = workPart.Fonts.AddFont("cadds4");
+            balloonNoteBuilder1.Style.LetteringStyle.GeneralTextAspectRatio = AspectRatio;
+            balloonNoteBuilder1.Style.LetteringStyle.GeneralTextSize = DimensionSize;
+            balloonNoteBuilder1.Scale = 0.6;
+      
+            NXObject nXObject1;
+            nXObject1 = balloonNoteBuilder1.Commit();
+           ((NXOpen.Annotations.BalloonNote)nXObject1).InsertIntoStack(anno, NXOpen.Annotations.StackAlignmentPosition.Right);
+            balloonNoteBuilder1.Destroy();
+            return (NXOpen.Annotations.BalloonNote)nXObject1;
+        }
+        catch (System.Exception ex)
+        {
+            UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+            return null;
+        }
+    }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -951,8 +1010,8 @@ public class finalconbine
                   Node[] nodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
                   for (int i = 0; i < nodeary.Length; i++ )
                   {
-                      makeano(node2dim(nodeary[i]), "fuck");
-
+                 //public  NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
+                      AddBalloonNote((NXOpen.Annotations.Annotation)node2dim(nodeary[i]), i.ToString());
                   }
 
                 }
@@ -1857,8 +1916,6 @@ public class finalconbine
     {
 
         Part workPart = theSession.Parts.Work;
-        //NXOpen.Annotations.PmiParallelDimension pmiParallelDimension1 = (NXOpen.Annotations.PmiParallelDimension)workPart.FindObject("HANDLE R-10646");
-       
         NXOpen.Annotations.AppendedText appendedText1;
         appendedText1 = workPart.Annotations.NewAppendedText();
         string[] lines4 = new string[1];
