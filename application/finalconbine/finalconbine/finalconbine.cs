@@ -134,8 +134,10 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock obutton0;// Block type: Button
     private NXOpen.BlockStyler.Tree tree_control0;// Block type: Tree Control
     private NXOpen.BlockStyler.UIBlock tabPage3;// Block type: Group
-    public Node dimnode = null;//根节点
-    Node cddimnode = null;//子节点
+    public Node dimnode = null;//尺寸公差根节点
+    Node cddimnode = null;//尺寸公差子节点
+    public Node fcfnode = null;//行位公差根节点
+    Node cdfcfnode = null;//行位公差子节点
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -855,10 +857,10 @@ public class finalconbine
         menum0.GetProperties().SetEnumMembers("Value", strvalue);
 
     }
-    public NXOpen.Annotations.Dimension node2dim(Node node)
+    public NXOpen.Annotations.Annotation node2dim(Node node)
     { 
-        NXOpen.Annotations.Dimension thedim = null;
-        thedim = (NXOpen.Annotations.Dimension)node.GetNodeData().GetTaggedObject("Data");
+        NXOpen.Annotations.Annotation thedim = null;
+        thedim = (NXOpen.Annotations.Annotation)node.GetNodeData().GetTaggedObject("Data");
         return thedim;
     
     
@@ -928,12 +930,7 @@ public class finalconbine
         {
             if(block == zselection0)
             {
-                //TaggedObject[] obs = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
-                //if (obs.Length == 0)
-                //{
-                //    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择尺寸");
-                //    return 1;
-                //}
+               
                 FindTol();
             //---------Enter your code here-----------
             }
@@ -973,47 +970,76 @@ public class finalconbine
                 pubfun thepub = new pubfun();
                 if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
                 {
-                NXOpen.Annotations.Dimension[] alldim = null;
-                Part workPart = theSession.Parts.Work;
-                alldim = workPart.Dimensions.ToArray();
-             
-                if(alldim == null)
-                {
-                    theUI.NXMessageBox.Show("本工序无PMI", NXMessageBox.DialogType.Warning, "本工序无PMI尺寸");
-                    return 1;
+                    NXOpen.Annotations.Dimension[] alldim = null;
+                    NXOpen.Annotations.Fcf[] allfcf = null;
+                    Part workPart = theSession.Parts.Work;
+                    alldim = workPart.Dimensions.ToArray();
+                    allfcf = workPart.Annotations.Fcfs.ToArray();
+                    if (alldim == null && allfcf == null)
+                    {
+                        theUI.NXMessageBox.Show("本工序无PMI", NXMessageBox.DialogType.Warning, "本工序无PMI,无法打标号");
+                        return 1;
+                    }
+
+
+
+                   
+
+                 
+                    if (alldim != null)
+                    {
+                        dimnode = tree_control0.CreateNode("尺寸公差");
+                        tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
+                        double[] final = { 0, 0, 0 };
+                        for (int i = 0; i < alldim.Length; i++)
+                        {
+                            cddimnode = tree_control0.CreateNode((i + 1).ToString());
+                            DataContainer dimdata = cddimnode.GetNodeData();
+                            dimdata.AddTaggedObject("Data", alldim[i]);
+                            dimdata.Dispose();
+                            tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                            //final = the.getspec(sda);
+                            final = thepub.getspec(alldim[i]);
+                            cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                            cddimnode.SetColumnDisplayText(3, final[1].ToString());
+                            cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                            cddimnode.SetState(2);//set the checked one 
+                        }
+                    }
+                    if (allfcf != null)
+                    {
+                        fcfnode = tree_control0.CreateNode("形位公差");
+                        tree_control0.InsertNode(fcfnode, null, null, Tree.NodeInsertOption.AlwaysLast);
+                        for (int m = 0; m < allfcf.Length; m++)
+                        {
+                            cdfcfnode = tree_control0.CreateNode((m + 1).ToString());
+                            DataContainer fcfdata = cdfcfnode.GetNodeData();
+                            fcfdata.AddTaggedObject("Data", allfcf[m]);
+                            fcfdata.Dispose();
+                            tree_control0.InsertNode(cdfcfnode, fcfnode, null, Tree.NodeInsertOption.Last);
+                            cdfcfnode.SetState(2);
+                        }
+                 
+                    }
+                    obutton0.GetProperties().SetString("Label", "打标号");
                 }
-                
-              dimnode = tree_control0.CreateNode("尺寸集合");
-                tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
-               
-                double[] final = { 0, 0, 0 };
-                for (int i = 0; i < alldim.Length; i++)
-                {
-                     cddimnode = tree_control0.CreateNode((i + 1).ToString());
-                     DataContainer dimdata = cddimnode.GetNodeData();
-                     dimdata.AddTaggedObject("Data",alldim[i]);
-                     dimdata.Dispose();
-                     tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                     //final = the.getspec(sda);
-                     final = thepub.getspec(alldim[i]);
-                     cddimnode.SetColumnDisplayText(2, final[0].ToString());
-                     cddimnode.SetColumnDisplayText(3, final[1].ToString());
-                     cddimnode.SetColumnDisplayText(4, final[2].ToString());
-                     cddimnode.SetState(2);//set the checked one 
-                }
-                obutton0.GetProperties().SetString("Label", "打标号");
-                }
+
                 else if (obutton0.GetProperties().GetString("Label") == "打标号")
                 {
-                    
-                  
-                  Node[] nodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
-                  for (int i = 0; i < nodeary.Length; i++ )
-                  {
-                 //public  NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
-                      AddBalloonNote((NXOpen.Annotations.Annotation)node2dim(nodeary[i]), i.ToString());
-                  }
 
+
+                    Node[] dimnodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
+                    Node[] fcfnodeary = (Node[])ndwithstate(getcdnd(fcfnode)).ToArray(typeof(Node));
+                    for (int m = 0; m < fcfnodeary.Length; m++)
+                    {
+                        //public  NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
+                        AddBalloonNote(node2dim(fcfnodeary[m]), (m + 1).ToString());
+                    }
+                    for (int i = 0; i < dimnodeary.Length; i++)
+                    {
+                        //public  NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
+                        AddBalloonNote(node2dim(dimnodeary[i]), (i + 1).ToString());
+                    }
                 }
             }
             else if(block == zbutton0)
@@ -1758,40 +1784,74 @@ public class finalconbine
     }
     public Node.DropType IsDropAllowedCallback(Tree tree, Node node, int columnID, Node targetNode, int targetColumnID)
     {
-        if (node == dimnode || targetNode == dimnode)
+    
+        if((node.ParentNode == dimnode && node != dimnode) && (targetNode.ParentNode == dimnode && targetNode != dimnode))
         {
-            return Node.DropType.None;
-        }
-        else {
-            if (node.GetState() == 2 && targetNode.GetState() == 2)
+            if (node.GetState() ==  2 && targetNode.GetState() == 2)
             {
-                //return Node.DropType.Before;
+
                 return Node.DropType.After;
             }
-            else
+        }
+      else  if((node.ParentNode == fcfnode && node != fcfnode) && (targetNode.ParentNode == fcfnode && targetNode != fcfnode))
+        {
+
+            if (node.GetState() == 2 && targetNode.GetState() == 2)
             {
 
-                return Node.DropType.None;
-
+                return Node.DropType.After;
             }
+        
         }
-       
-  }
+        else
+        {
+            return Node.DropType.None;
 
-    public bool OnDropCallback(Tree tree, Node[] node, int columnID, Node targetNode, int targetColumnID, Node.DropType dropType, int dropMenuItemId)
+      }
+        return Node.DropType.None;
+        }
+
+
+    public void nd2nd(Node odnd, Node newnd,Node topnode, int state)//将odnd放在newnd后面
     {
         Node tempnode = null;
         tempnode = tree_control0.CreateNode("node");
-        tree_control0.InsertNode(tempnode, dimnode, targetNode, Tree.NodeInsertOption.Last);
-        tempnode.SetState(2);
-        tempnode.SetColumnDisplayText(1,node[0].GetColumnDisplayText(1));
-         tempnode.SetColumnDisplayText(2,node[0].GetColumnDisplayText(2));
-         tempnode.SetColumnDisplayText(3,node[0].GetColumnDisplayText(3));
-         DataContainer tempcontainer = tempnode.GetNodeData();
-        tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)node[0].GetNodeData().GetTaggedObject("Data"));
+        tree_control0.InsertNode(tempnode, topnode, newnd, Tree.NodeInsertOption.Last);
+        tempnode.SetState(state);
+        tempnode.SetColumnDisplayText(1, odnd.GetColumnDisplayText(1));
+        tempnode.SetColumnDisplayText(2, odnd.GetColumnDisplayText(2));
+        tempnode.SetColumnDisplayText(3, odnd.GetColumnDisplayText(3));
+        DataContainer tempcontainer = tempnode.GetNodeData();
+        tempcontainer.AddTaggedObject("Data", odnd.GetNodeData().GetTaggedObject("Data"));
         tempcontainer.Dispose();
-        tree_control0.DeleteNode(node[0]);
+        tree_control0.DeleteNode(odnd);
+    }
+    public bool OnDropCallback(Tree tree, Node[] node, int columnID, Node targetNode, int targetColumnID, Node.DropType dropType, int dropMenuItemId)
+    {
+        if (node[0].ParentNode == dimnode)
+        {
+            nd2nd(node[0], targetNode, dimnode, 2);
+            return true;
+        }
+        else if (node[0].ParentNode == fcfnode)
+        {
+            nd2nd(node[0], targetNode, fcfnode, 2);
+            return true;
+        }
+        return false;
+        //Node tempnode = null;
+        //tempnode = tree_control0.CreateNode("node");
+        //tree_control0.InsertNode(tempnode, dimnode, targetNode, Tree.NodeInsertOption.Last);
+        //tempnode.SetState(2);
+        //tempnode.SetColumnDisplayText(1,node[0].GetColumnDisplayText(1));
+        // tempnode.SetColumnDisplayText(2,node[0].GetColumnDisplayText(2));
+        // tempnode.SetColumnDisplayText(3,node[0].GetColumnDisplayText(3));
+        // DataContainer tempcontainer = tempnode.GetNodeData();
+        //tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)node[0].GetNodeData().GetTaggedObject("Data"));
+        //tempcontainer.Dispose();
+        //tree_control0.DeleteNode(node[0]);
         return true;
+
     }
     public void OnMenuCallback(Tree tree, Node node, int columnID)
     {
@@ -1815,6 +1875,19 @@ public class finalconbine
                     menu.AddMenuItem(1, "不打标");
                 }
             }
+            else if (node.ParentNode == fcfnode && node != fcfnode)
+            {
+                int state = node.GetState();
+                if (state == 1)
+                {
+                    menu.AddMenuItem(3, "打标");
+                }
+                else if (state == 2)
+                {
+                    menu.AddMenuItem(4, "不打标");
+                }
+            
+            }
             tree.SetMenu(menu);
             menu.Dispose();
         }
@@ -1828,22 +1901,35 @@ public class finalconbine
     {
         if (menuItemID == 1)
         {
-            Node tempnode = null;
-            tempnode = tree_control0.CreateNode("node");
-            tree_control0.InsertNode(tempnode, dimnode, null, Tree.NodeInsertOption.Last);
-            tempnode.SetState(1);
-            tempnode.SetColumnDisplayText(1, node.GetColumnDisplayText(1));
-            tempnode.SetColumnDisplayText(2, node.GetColumnDisplayText(2));
-            tempnode.SetColumnDisplayText(3, node.GetColumnDisplayText(3));
-            DataContainer tempcontainer = tempnode.GetNodeData();
-            tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)node.GetNodeData().GetTaggedObject("Data"));
-            tempcontainer.Dispose();
-            tree_control0.DeleteNode(node);
+            //Node tempnode = null;
+            //tempnode = tree_control0.CreateNode("node");
+            //tree_control0.InsertNode(tempnode, dimnode, null, Tree.NodeInsertOption.Last);
+            //tempnode.SetState(1);
+            //tempnode.SetColumnDisplayText(1, node.GetColumnDisplayText(1));
+            //tempnode.SetColumnDisplayText(2, node.GetColumnDisplayText(2));
+            //tempnode.SetColumnDisplayText(3, node.GetColumnDisplayText(3));
+            //DataContainer tempcontainer = tempnode.GetNodeData();
+            //tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)node.GetNodeData().GetTaggedObject("Data"));
+            //tempcontainer.Dispose();
+            //tree_control0.DeleteNode(node);
+
+
+            nd2nd(node,null,dimnode,1);
         }
         else if (menuItemID == 2)
         {
-            nd2nd(node, dimnode.FirstChildNode, 2);
+            nd2nd(node, dimnode.FirstChildNode,dimnode,2);
       
+        }
+        else if(menuItemID == 3)
+        {
+         
+            nd2nd(node, fcfnode.FirstChildNode, fcfnode, 2);
+        }
+        else if(menuItemID ==4)
+        {
+            nd2nd(node, null, fcfnode, 1);
+        
         }
     }
     public ArrayList getcdnd(Node parentnode)//得到一个父节点下面所有的子节点
@@ -1873,20 +1959,7 @@ public class finalconbine
         return allnodes;
     
     }
-    public void nd2nd(Node odnd, Node newnd,int  state)//将odnd放在newnd后面
-    {
-        Node tempnode = null;
-        tempnode = tree_control0.CreateNode("node");
-        tree_control0.InsertNode(tempnode, dimnode,newnd, Tree.NodeInsertOption.Last);
-        tempnode.SetState(state);
-        tempnode.SetColumnDisplayText(1, odnd.GetColumnDisplayText(1));
-        tempnode.SetColumnDisplayText(2, odnd.GetColumnDisplayText(2));
-        tempnode.SetColumnDisplayText(3, odnd.GetColumnDisplayText(3));
-        DataContainer tempcontainer = tempnode.GetNodeData();
-        tempcontainer.AddTaggedObject("Data", (NXOpen.Annotations.Dimension)odnd.GetNodeData().GetTaggedObject("Data"));
-        tempcontainer.Dispose();
-        tree_control0.DeleteNode(odnd);
-    }
+  
     public ArrayList ndwithstate(ArrayList nodes)//get nodes with state 2
     {
         ArrayList statednode = new ArrayList();
