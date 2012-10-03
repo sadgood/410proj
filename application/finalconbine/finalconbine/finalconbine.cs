@@ -138,6 +138,8 @@ public class finalconbine
     Node cddimnode = null;//尺寸公差子节点
     public Node fcfnode = null;//行位公差根节点
     Node cdfcfnode = null;//行位公差子节点
+    string fcfguid = null;
+    string dimguid = null;
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -865,7 +867,7 @@ public class finalconbine
     
     
     }
-    public static NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
+    public static NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num,string label)
     {
         try
         {
@@ -914,8 +916,12 @@ public class finalconbine
       
             NXObject nXObject1;
             nXObject1 = balloonNoteBuilder1.Commit();
+            nXObject1.SetAttribute("GUID", label);
            ((NXOpen.Annotations.BalloonNote)nXObject1).InsertIntoStack(anno, NXOpen.Annotations.StackAlignmentPosition.Right);
             balloonNoteBuilder1.Destroy();
+          
+          
+          
             return (NXOpen.Annotations.BalloonNote)nXObject1;
         }
         catch (System.Exception ex)
@@ -983,16 +989,29 @@ public class finalconbine
 
 
 
-                   
 
-                 
+
+
                     if (alldim != null)
                     {
+
+
                         dimnode = tree_control0.CreateNode("尺寸公差");
                         tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
                         double[] final = { 0, 0, 0 };
                         for (int i = 0; i < alldim.Length; i++)
                         {
+
+                            try
+                            {
+                                dimguid = alldim[i].GetStringAttribute("GUID");
+                            }
+                            catch
+                            {
+                                dimguid = Guid.NewGuid().ToString();
+                            }
+                       
+                           alldim[i].SetAttribute("GUID", dimguid);
                             cddimnode = tree_control0.CreateNode((i + 1).ToString());
                             DataContainer dimdata = cddimnode.GetNodeData();
                             dimdata.AddTaggedObject("Data", alldim[i]);
@@ -1008,10 +1027,21 @@ public class finalconbine
                     }
                     if (allfcf != null)
                     {
+                     
                         fcfnode = tree_control0.CreateNode("形位公差");
                         tree_control0.InsertNode(fcfnode, null, null, Tree.NodeInsertOption.AlwaysLast);
                         for (int m = 0; m < allfcf.Length; m++)
                         {
+                            try
+                            {
+                               fcfguid = allfcf[m].GetStringAttribute("GUID");
+                            }
+                            catch
+                            {
+                                fcfguid = Guid.NewGuid().ToString();
+                            }
+                          
+                            allfcf[m].SetAttribute("GUID", fcfguid);
                             cdfcfnode = tree_control0.CreateNode((m + 1).ToString());
                             DataContainer fcfdata = cdfcfnode.GetNodeData();
                             fcfdata.AddTaggedObject("Data", allfcf[m]);
@@ -1019,7 +1049,7 @@ public class finalconbine
                             tree_control0.InsertNode(cdfcfnode, fcfnode, null, Tree.NodeInsertOption.Last);
                             cdfcfnode.SetState(2);
                         }
-                 
+
                     }
                     obutton0.GetProperties().SetString("Label", "打标号");
                 }
@@ -1028,21 +1058,63 @@ public class finalconbine
                 {
 
 
-                    Node[] dimnodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
-                    Node[] fcfnodeary = (Node[])ndwithstate(getcdnd(fcfnode)).ToArray(typeof(Node));
-                    for (int m = 0; m < fcfnodeary.Length; m++)
+                    if (fcfnode.FirstChildNode != null)
                     {
-                        //public  NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
-                        AddBalloonNote(node2dim(fcfnodeary[m]), (m + 1).ToString());
+                        Node[] fcfnodeary = (Node[])ndwithstate(getcdnd(fcfnode)).ToArray(typeof(Node));
+                        Node[] unfcfnodeary = (Node[])ndwithunstate(getcdnd(fcfnode)).ToArray(typeof(Node));
+                        for (int q = 0; q < unfcfnodeary.Length;q++ )
+                        {
+                            if(FindballonByAttr("GUID",node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")) != null)
+                            {
+                                delnxobj(FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")));
+                            }
+
+                        }
+                        for (int m = 0; m < fcfnodeary.Length; m++)
+                        {
+                            if (FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")) == null)
+                            {
+
+                                AddBalloonNote(node2dim(fcfnodeary[m]), (m + 1).ToString(), node2dim(fcfnodeary[m]).GetStringAttribute("GUID"));
+                            }
+                            else
+                            {
+                                EditBalloonNote(FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")), node2dim(fcfnodeary[m]), (m + 1).ToString());
+                            }
+                        }
                     }
-                    for (int i = 0; i < dimnodeary.Length; i++)
+                    if (dimnode.FirstChildNode != null)
                     {
-                        //public  NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num)
-                        AddBalloonNote(node2dim(dimnodeary[i]), (i + 1).ToString());
+                        Node[] undimnodeary = (Node[])ndwithunstate(getcdnd(dimnode)).ToArray(typeof(Node));
+                        for (int p = 0; p < undimnodeary.Length; p++)
+                        { 
+                        if(FindballonByAttr("GUID",node2dim(undimnodeary[p]).GetStringAttribute("GUID")) != null)
+                        {
+
+                            delnxobj(FindballonByAttr("GUID", node2dim(undimnodeary[p]).GetStringAttribute("GUID")));
+                        }
+                        
+                        }
+                        Node[] dimnodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
+
+                        for (int i = 0; i < dimnodeary.Length; i++)
+                        {
+                            if (FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")) == null)
+                            {
+                                AddBalloonNote(node2dim(dimnodeary[i]), (i + 1).ToString(), node2dim(dimnodeary[i]).GetStringAttribute("GUID"));
+                            }
+                            else
+                            {
+                                //EditBalloonNote(FindballonByAttr("GUID", (node2dim(dimnodeary[i]).GetStringAttribute("GUID")),node2dim(dimnodeary[i],(i + 1).ToString())
+                                EditBalloonNote(FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")), node2dim(dimnodeary[i]), (i + 1).ToString());
+
+
+                            }
+                        }
                     }
                 }
             }
-            else if(block == zbutton0)
+            else if (block == zbutton0)
             {
                 firstpt = zpoint01.GetProperties().GetTaggedObjectVector("SelectedObjects");
                 secpt = zpoint02.GetProperties().GetTaggedObjectVector("SelectedObjects");
@@ -1077,10 +1149,10 @@ public class finalconbine
                 hideit(axisreal1);
                 real3d = angle(axisreal1);
                 thepmi = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
-                if(thepmi.Length == 0)
+                if (thepmi.Length == 0)
                 {
                     theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择尺寸");
-                      return 1;
+                    return 1;
                 }
                 NXObject last = Tag2NXObject<NXObject>(thepmi[0].Tag);
                 NXOpen.Annotations.Dimension lastdimn = (NXOpen.Annotations.Dimension)last;
@@ -1100,18 +1172,18 @@ public class finalconbine
                 last.SetAttribute("END-X", endpt.X);
                 last.SetAttribute("END-Y", endpt.Y);
                 last.SetAttribute("END-Z", endpt.Z);
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == zenum0)
+            else if (block == zenum0)
             {
                 FindTol();
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == zdouble0)
+            else if (block == zdouble0)
             {
                 double dim = zdouble0.GetProperties().GetDouble("Value");
                 FindTol(dim);
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
             else if (block == mstring0)
             {
@@ -1119,10 +1191,10 @@ public class finalconbine
                 viewname = mstring0.GetProperties().GetString("Value");
                 workPart.Views.SaveAs(workPart.ModelingViews.WorkView, viewname, true, false);
                 refreshenum();
-              
+
                 //---------Enter your code here-----------
             }
-            else if(block == menum0)
+            else if (block == menum0)
             {
                 Part workPart = theSession.Parts.Work;
                 Layout layout1 = (Layout)workPart.Layouts.FindObject("L1");//此处写死了。。。。。TAG ERROR
@@ -1143,132 +1215,132 @@ public class finalconbine
                     //newviewname = theaddnew.string0.GetProperties().GetString("Value");
 
                 }
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == jplcpt)
+            else if (block == jplcpt)
             {
 
-               
+
 
                 string roughness = null;
-              
+
                 string jmatoffstr = null;//材料移除
-              roughness = rouname.GetProperties().GetString("Value");//粗糙度
-              string jstandenum = jstand.GetProperties().GetEnumAsString("Value");
-                
-                object StandardType=null;
+                roughness = rouname.GetProperties().GetString("Value");//粗糙度
+                string jstandenum = jstand.GetProperties().GetEnumAsString("Value");
+
+                object StandardType = null;
                 if (roughness == "")
                 {
                     theUI.NXMessageBox.Show("请输入粗糙度", NXMessageBox.DialogType.Warning, "未输入粗糙度");
                     return 1;
                 }
                 string mgh = astring0.GetProperties().GetString("Value");
-                if(mgh == "")
+                if (mgh == "")
                 {
 
                     theUI.NXMessageBox.Show("请输入位置符号", NXMessageBox.DialogType.Warning, "未输入位置符号");
                     return 1;
 
                 }
-              switch (jstandenum)
-              { 
-                  case "ANSI":
-                  StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Ansi;
-                  break;
-                  case "ISO 1992":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Iso;
-                      break;
+                switch (jstandenum)
+                {
+                    case "ANSI":
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Ansi;
+                        break;
+                    case "ISO 1992":
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Iso;
+                        break;
                     case "JIS":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Jis;
-                      break;
-                   case "DIN":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Din;
-                      break;
-                   case "ISO 2002":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Iso2002;
-                      break;
-                   case "DIN 2002":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Din2002;
-                      break;
-                   case "GB":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Gb;
-                      break;
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Jis;
+                        break;
+                    case "DIN":
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Din;
+                        break;
+                    case "ISO 2002":
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Iso2002;
+                        break;
+                    case "DIN 2002":
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Din2002;
+                        break;
+                    case "GB":
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Gb;
+                        break;
                     case "ESKD":
-                   StandardType =NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Eskd;
-                   break;
-              }
-                      string jmatoffenum = jmatoff.GetProperties().GetEnumAsString("Value");
-                object  FinishType=null;
-                      switch (jmatoffenum)
-              { 
-                          case "打开":
-                          FinishType=NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Basic;
-                              break;
-                           case "打开,修饰符":
-                          FinishType=NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Modifier;
-                              break;
-                               case "需要移除材料":
-                          FinishType=NXOpen.Annotations.SurfaceFinishBuilder.FinishType.MaterialRemovalRequired;
-                              break;
-                               case "修饰符，需要移除材料":
-                          FinishType=NXOpen.Annotations.SurfaceFinishBuilder.FinishType.ModifierMaterialRemovalRequired;
-                              break;
-                               case "禁止移除材料":
-                          FinishType=NXOpen.Annotations.SurfaceFinishBuilder.FinishType.MaterialRemovalProhibited;
-                              break;
-                               case "修饰符，禁止移除材料":
-                          FinishType=NXOpen.Annotations.SurfaceFinishBuilder.FinishType.ModifierMaterialRemovalProhibited;
-                              break;
-                 
-              
-              }
-                     TaggedObject[] fnfaceobj = g.GetProperties().GetTaggedObjectVector("SelectedObjects");//关联对象
+                        StandardType = NXOpen.Annotations.SurfaceFinishBuilder.StandardType.Eskd;
+                        break;
+                }
+                string jmatoffenum = jmatoff.GetProperties().GetEnumAsString("Value");
+                object FinishType = null;
+                switch (jmatoffenum)
+                {
+                    case "打开":
+                        FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Basic;
+                        break;
+                    case "打开,修饰符":
+                        FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Modifier;
+                        break;
+                    case "需要移除材料":
+                        FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.MaterialRemovalRequired;
+                        break;
+                    case "修饰符，需要移除材料":
+                        FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.ModifierMaterialRemovalRequired;
+                        break;
+                    case "禁止移除材料":
+                        FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.MaterialRemovalProhibited;
+                        break;
+                    case "修饰符，禁止移除材料":
+                        FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.ModifierMaterialRemovalProhibited;
+                        break;
+
+
+                }
+                TaggedObject[] fnfaceobj = g.GetProperties().GetTaggedObjectVector("SelectedObjects");//关联对象
 
 
 
-                     if (fnfaceobj.Length == 0)//tag undone
-                     {
-                         theUI.NXMessageBox.Show("请选择关联对象", NXMessageBox.DialogType.Warning, "未选择关联对象");
-                         return 1;
-                     }
-                  Face   fnface = (Face)fnfaceobj[0];
-                 NXOpen.Point jcrosptobj=null;
-                      if (jtogglejy.GetProperties().GetLogical("Value"))
-                      {
-                          TaggedObject[] jcrosptobjobj = null;
-                          jcrosptobjobj = jcrospt.GetProperties().GetTaggedObjectVector("SelectedObjects");//折线位置
-                          if (jcrosptobjobj.Length == 0)
-                          {
-                              theUI.NXMessageBox.Show("请选择折线位置", NXMessageBox.DialogType.Warning, "未选择折线位置");
-                              return 1;
-                          }
-                          jcrosptobj = (Point)jcrosptobjobj[0];
-                      }
-                     
-                    // TaggedObject[] jintobjobj = jintobj.GetProperties().GetTaggedObjectVector("SelectedObjects");//关联对象
+                if (fnfaceobj.Length == 0)//tag undone
+                {
+                    theUI.NXMessageBox.Show("请选择关联对象", NXMessageBox.DialogType.Warning, "未选择关联对象");
+                    return 1;
+                }
+                Face fnface = (Face)fnfaceobj[0];
+                NXOpen.Point jcrosptobj = null;
+                if (jtogglejy.GetProperties().GetLogical("Value"))
+                {
+                    TaggedObject[] jcrosptobjobj = null;
+                    jcrosptobjobj = jcrospt.GetProperties().GetTaggedObjectVector("SelectedObjects");//折线位置
+                    if (jcrosptobjobj.Length == 0)
+                    {
+                        theUI.NXMessageBox.Show("请选择折线位置", NXMessageBox.DialogType.Warning, "未选择折线位置");
+                        return 1;
+                    }
+                    jcrosptobj = (Point)jcrosptobjobj[0];
+                }
+
+                // TaggedObject[] jintobjobj = jintobj.GetProperties().GetTaggedObjectVector("SelectedObjects");//关联对象
                 //DisplayableObject obj=(DisplayableObject)jintobjobj[0];
-                     NXOpen.Point jplcptobj = (NXOpen.Point)jplcpt.GetProperties().GetTaggedObjectVector("SelectedObjects")[0];
-                Point3d point=jplcptobj.Coordinates;
+                NXOpen.Point jplcptobj = (NXOpen.Point)jplcpt.GetProperties().GetTaggedObjectVector("SelectedObjects")[0];
+                Point3d point = jplcptobj.Coordinates;
 
                 thepubfunfcf.SurfaceFinishFunction(roughness, mgh, StandardType, FinishType, point, fnface, jcrosptobj);
-              
+
 
             }
-            else if(block == jtogglejy)
+            else if (block == jtogglejy)
             {
                 if (jtogglejy.GetProperties().GetLogical("Value"))
                 {
                     jcrospt.GetProperties().SetLogical("Enable", true);
-                
+
                 }
                 else if (!jtogglejy.GetProperties().GetLogical("Value"))
                 {
-                
-                jcrospt.GetProperties().SetLogical("Enable",false);
+
+                    jcrospt.GetProperties().SetLogical("Enable", false);
                 }
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == zenum01)
+            else if (block == zenum01)
             {
                 string table = zenum01.GetProperties().GetEnumAsString("Value");
                 if (table == "表1")
@@ -1281,57 +1353,57 @@ public class finalconbine
                     zlabel0.GetProperties().SetLogical("Show", false);
                     zlabel01.GetProperties().SetLogical("Show", true);
                 }
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == zlabel0)
+            else if (block == zlabel0)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == zlabel01)
+            else if (block == zlabel01)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == list_box0)
+            else if (block == list_box0)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == tolatt)
+            else if (block == tolatt)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == framstyle)
+            else if (block == framstyle)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == double0)
+            else if (block == double0)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == valuestyle)
+            else if (block == valuestyle)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == matrstyle)
+            else if (block == matrstyle)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == mainbase)
+            else if (block == mainbase)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == maiinbasemat)
+            else if (block == maiinbasemat)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == separator0)
+            else if (block == separator0)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == separator01)
+            else if (block == separator01)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == ifotherbase)
+            else if (block == ifotherbase)
             {
                 int m = ifotherbase.GetProperties().GetEnum("Value");
                 if (m == 0)
@@ -1356,41 +1428,41 @@ public class finalconbine
                     secrefbasemat.GetProperties().SetLogical("Enable", true);
 
                 }
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == separator02)
+            else if (block == separator02)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == firstrefbase)
+            else if (block == firstrefbase)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == firstrefbasemat)
+            else if (block == firstrefbasemat)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == separator03)
+            else if (block == separator03)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == secrefbase)
+            else if (block == secrefbase)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == secrefbasemat)
+            else if (block == secrefbasemat)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == double02)
+            else if (block == double02)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == double01)
+            else if (block == double01)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == toggle0)
+            else if (block == toggle0)
             {
                 if (toggle0.GetProperties().GetLogical("Value"))
                 {
@@ -1400,24 +1472,24 @@ public class finalconbine
                 {
                     selection01.GetProperties().SetLogical("Enable", false);
                 }
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == selection01)
+            else if (block == selection01)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == postion)
+            else if (block == postion)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == selection0)
+            else if (block == selection0)
             {
-            //---------Enter your code here-----------
+                //---------Enter your code here-----------
             }
-            else if(block == point0)
+            else if (block == point0)
             {
                 plcpoint = point0.GetProperties().GetTaggedObjectVector("SelectedObjects");
-              
+
                 theplcpoint = Tag2NXObject<Point>(plcpoint[0].Tag);
                 Point3d pt3d = theplcpoint.Coordinates;//这个就是放置点
                 string attvalue = tolatt.GetProperties().GetEnumAsString("Value");
@@ -1502,7 +1574,7 @@ public class finalconbine
                 {
                     matcondition = null;
                 }
-                    string baseattstr = mainbase.GetProperties().GetEnumAsString("Value");//基准类型A----H
+                string baseattstr = mainbase.GetProperties().GetEnumAsString("Value");//基准类型A----H
                 if (baseattstr == "无")
                 {
                     baseattstr = null;
@@ -1546,8 +1618,8 @@ public class finalconbine
                 }
                 else if (firstbasematstr == "无")
                 {
-                
-                firstbasematobj = null;
+
+                    firstbasematobj = null;
                 }
                 string secbasestr = secrefbase.GetProperties().GetEnumAsString("Value");//第二参考基准（第三）
                 if (secbasestr == "无")
@@ -1573,14 +1645,14 @@ public class finalconbine
                 else if (secbasematstr == "无")
                 {
                     secbasematobj = null;
-                
+
                 }
                 double tolvalue = double0.GetProperties().GetDouble("Value");//这个是公差值
                 double zoom = double01.GetProperties().GetDouble("Value");//这个是放大缩小的因子
                 if (tolvalue == 0.0)
                 {
                     theUI.NXMessageBox.Show("公差值为0", NXMessageBox.DialogType.Warning, "公差值不能为0");
-                return 1;
+                    return 1;
                 }
 
                 int pp = framstyle.GetProperties().GetEnum("Value");
@@ -1594,18 +1666,18 @@ public class finalconbine
                     kuang = NXOpen.Annotations.FeatureControlFrameBuilder.FcfFrameStyle.CompositeFrame;
                 }
                 //int qq = postion.GetProperties().GetEnum("Value");
-                object LeaderType=null;
-               // if (qq == 0)//折线形式是选择点
-               // {
-                    LeaderType = NXOpen.Annotations.LeaderData.LeaderType.Plain;
+                object LeaderType = null;
+                // if (qq == 0)//折线形式是选择点
+                // {
+                LeaderType = NXOpen.Annotations.LeaderData.LeaderType.Plain;
                 //    Selection.MaskTriple[] msktripe = null;
                 //    msktripe[0].Type = NXOpen.UF.UFConstants.UF_point_type;
                 //    selection0.GetProperties().SetSelectionFilter("SelectionFilter", Selection.SelectionAction.ClearAndEnableSpecific, msktripe);
                 //    //NXOpen.TaggedObject tagobj = selection0.GetProperties().GetTaggedObject("SelectedObjects");
-              //  }
-               // else if (qq == 1)//折现形式是选择线
+                //  }
+                // else if (qq == 1)//折现形式是选择线
                 //{
-                  //  LeaderType=NXOpen.Annotations.LeaderData.LeaderType.Flag;
+                //  LeaderType=NXOpen.Annotations.LeaderData.LeaderType.Flag;
                 //    Selection.MaskTriple[] msktripe = null;
                 //    msktripe[0].Type = NXOpen.UF.UFConstants.UF_solid_type;
                 //    msktripe[0].Subtype = NXOpen.UF.UFConstants.UF_all_subtype;
@@ -1615,9 +1687,9 @@ public class finalconbine
                 //}
                 DisplayableObject zhexiandian = null;
                 NXOpen.TaggedObject[] tagobj00 = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
-                if(tagobj00.Length == 0)
+                if (tagobj00.Length == 0)
                 {
-                    theUI.NXMessageBox.Show("未选择折线角点",NXMessageBox.DialogType.Warning,"请先选择折线角点");
+                    theUI.NXMessageBox.Show("未选择折线角点", NXMessageBox.DialogType.Warning, "请先选择折线角点");
                     return 1;
                 }
                 zhexiandian = Tag2NXObject<DisplayableObject>(tagobj00[0].Tag);
@@ -1647,13 +1719,13 @@ public class finalconbine
                     secbasestr = null;
                     secbasematobj = null;
                 }
-              double conlength = double02.GetProperties().GetDouble("Value");//这是短线长度。
+                double conlength = double02.GetProperties().GetDouble("Value");//这是短线长度。
                 //Selection.MaskTriple msktrp;
-             //msktrp.Subtype = 
-             //selection0.GetProperties().SetSelectionFilter("SelectionFilter",Selection.SelectionAction.ClearAndEnableSpecific,
-              //thefun.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, matcondition, mainbasematobj, firstbasematobj, 
-                
-                thepubfunfcf.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, matcondition, mainbasematobj, firstbasematobj, secbasematobj, kuang, zoom, conlength, pt3d, zhexiandian, guanlian,LeaderType);
+                //msktrp.Subtype = 
+                //selection0.GetProperties().SetSelectionFilter("SelectionFilter",Selection.SelectionAction.ClearAndEnableSpecific,
+                //thefun.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, matcondition, mainbasematobj, firstbasematobj, 
+
+                thepubfunfcf.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, matcondition, mainbasematobj, firstbasematobj, secbasematobj, kuang, zoom, conlength, pt3d, zhexiandian, guanlian, LeaderType);
             }
         }
         catch (Exception ex)
@@ -1662,7 +1734,37 @@ public class finalconbine
         }
         return 0;
     }
-    
+    public static string GetStringAttr(NXObject obj, string title)
+    {
+        try
+        {
+            string attr = obj.GetStringAttribute(title);
+            return attr;
+        }
+        catch/* (System.Exception ex)*/
+        {
+            return "";
+        }
+    }
+    public static NXOpen.Annotations.BalloonNote FindballonByAttr(string attr_name, string attr_value)
+    {
+
+                Part a = theSession.Parts.Work;
+                NXOpen.Annotations.PmiAttribute[] bns = Session.GetSession().Parts.Work.PmiManager.PmiAttributes.ToArray();
+                foreach (NXOpen.Annotations.PmiAttribute bn in bns)
+                {
+                    string aa = GetStringAttr(bn, attr_name);
+                    if (aa == attr_value)
+                    {
+                        return (NXOpen.Annotations.BalloonNote)bn;
+                    }
+                }
+
+                return null;
+
+
+
+    }
     //------------------------------------------------------------------------------
     //Callback Name: ok_cb
     //------------------------------------------------------------------------------
@@ -1945,9 +2047,8 @@ public class finalconbine
         while (nd != null)
         {
             nd = nd.NextNode;
-            if (nd == null)
+            if (nd == null || nd.ParentNode != parentnode)
             {
-
                 return allnodes;
             }
             else
@@ -1959,7 +2060,33 @@ public class finalconbine
         return allnodes;
     
     }
-  
+
+    public ArrayList ndwithunstate(ArrayList nodes)//get nodes with state 2
+    {
+        ArrayList statednode = new ArrayList();
+        ArrayList unstatenode = new ArrayList(); //node with unchecked symbol in the first col
+        foreach (Node singlenode in nodes)
+        {
+            int state = singlenode.GetState();
+            if (state == 1)
+            {
+                unstatenode.Add(singlenode);
+
+            }
+            else
+            {
+
+            }
+
+
+
+        }
+
+        return unstatenode;
+
+
+    }
+
     public ArrayList ndwithstate(ArrayList nodes)//get nodes with state 2
     {
         ArrayList statednode = new ArrayList();
@@ -1998,5 +2125,64 @@ public class finalconbine
         appendedText1.Dispose();
         dim.LeaderOrientation = NXOpen.Annotations.LeaderOrientation.FromLeft;
     }
- 
+    public static void EditBalloonNote(NXOpen.Annotations.BalloonNote balloonnote, NXOpen.Annotations.Annotation ano,string num)
+    {
+        //计算宽高比
+        double DimensionSize = ano.GetLetteringPreferences().GetDimensionText().Size;
+        double AspectRatio = 1;
+        switch (num.Length)
+        {
+            case 0:
+                AspectRatio = 1;
+                break;
+            case 1:
+                AspectRatio = 0.7;
+                break;
+            case 2:
+                AspectRatio = 0.6;
+                break;
+            case 3:
+                AspectRatio = 0.4;
+                break;
+            default:
+                AspectRatio = 1.2 / num.Length;
+                break;
+        }
+        Session theSession = Session.GetSession();
+        Part workPart = theSession.Parts.Work;
+        Part displayPart = theSession.Parts.Display;
+        NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
+        balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(balloonnote);
+        balloonNoteBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.UserDefined;
+        balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
+        String[] text1 = new String[1];
+        text1[0] = "";
+        balloonNoteBuilder1.SetText(text1);
+        balloonNoteBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.UserDefined;
+        balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
+        NXOpen.Annotations.LeaderData leaderData1;
+        leaderData1 = workPart.Annotations.CreateLeaderData();
+        leaderData1.Arrowhead = NXOpen.Annotations.LeaderData.ArrowheadType.FilledArrow;
+        balloonNoteBuilder1.Leader.Leaders.Append(leaderData1);
+        leaderData1.StubSide = NXOpen.Annotations.LeaderSide.Inferred;
+        balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
+        balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
+        balloonNoteBuilder1.BalloonText = num;
+        balloonNoteBuilder1.Style.LetteringStyle.GeneralTextAspectRatio = AspectRatio;
+        balloonNoteBuilder1.Style.LetteringStyle.GeneralTextSize = DimensionSize;
+        NXObject nXObject1;
+        nXObject1 = balloonNoteBuilder1.Commit();
+        balloonNoteBuilder1.Destroy();
+    }
+    public void delnxobj(NXObject nxobj)
+    {
+        theSession.UpdateManager.ClearErrorList();
+        NXOpen.Session.UndoMarkId markId1;
+        markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "删除");
+        NXObject[] objects1 = new NXObject[1];
+        objects1[0] = nxobj;
+        int nErrs1;
+        nErrs1 = theSession.UpdateManager.AddToDeleteList(objects1);
+        theSession.UpdateManager.DoUpdate(markId1);
+    }
 }
