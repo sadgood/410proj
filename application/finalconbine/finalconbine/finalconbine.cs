@@ -972,7 +972,7 @@ public class finalconbine
             //---------Enter your code here-----------
             }
             else if (block == obutton0)//tag now
-            {// obutton0.GetProperties().SetString("Label", "打标号");
+            {
                 pubfun thepub = new pubfun();
                 if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
                 {
@@ -1012,6 +1012,7 @@ public class finalconbine
                             }
                        
                            alldim[i].SetAttribute("GUID", dimguid);
+
                             cddimnode = tree_control0.CreateNode((i + 1).ToString());
                             DataContainer dimdata = cddimnode.GetNodeData();
                             dimdata.AddTaggedObject("Data", alldim[i]);
@@ -1928,16 +1929,30 @@ public class finalconbine
         tempcontainer.Dispose();
         tree_control0.DeleteNode(odnd);
     }
+    public void labelnode(Node parent)
+    {
+    //ArrayList nodes = getcdnd(parent); 
+          Node[] nodeary = (Node[])getcdnd(parent).ToArray(typeof(Node));
+          for (int i = 0; i < nodeary.Length; i++)
+          {
+              nodeary[i].SetColumnDisplayText(1, (i + 1).ToString());
+          
+          
+          }
+    
+    }
     public bool OnDropCallback(Tree tree, Node[] node, int columnID, Node targetNode, int targetColumnID, Node.DropType dropType, int dropMenuItemId)
     {
         if (node[0].ParentNode == dimnode)
         {
             nd2nd(node[0], targetNode, dimnode, 2);
+            labelnode(dimnode);
             return true;
         }
         else if (node[0].ParentNode == fcfnode)
         {
             nd2nd(node[0], targetNode, fcfnode, 2);
+            labelnode(fcfnode);
             return true;
         }
         return false;
@@ -2017,21 +2032,23 @@ public class finalconbine
 
 
             nd2nd(node,null,dimnode,1);
+            labelnode(dimnode);
         }
         else if (menuItemID == 2)
         {
             nd2nd(node, dimnode.FirstChildNode,dimnode,2);
-      
+            labelnode(dimnode);
         }
         else if(menuItemID == 3)
         {
          
             nd2nd(node, fcfnode.FirstChildNode, fcfnode, 2);
+            labelnode(fcfnode);
         }
         else if(menuItemID ==4)
         {
             nd2nd(node, null, fcfnode, 1);
-        
+            labelnode(fcfnode);
         }
     }
     public ArrayList getcdnd(Node parentnode)//得到一个父节点下面所有的子节点
