@@ -42,6 +42,7 @@ using System.Xml;
 using System.Reflection;
 using System.Diagnostics;
 using System.Collections;
+using System.Collections.Generic;
 //------------------------------------------------------------------------------
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
@@ -995,7 +996,8 @@ public class finalconbine
                     if (alldim.Length != 0)
                     {
 
-
+                        ArrayList stateone = new ArrayList();
+                        ArrayList unstateone = new ArrayList();
                         dimnode = tree_control0.CreateNode("尺寸公差");
                         tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
                         double[] final = { 0, 0, 0 };
@@ -1005,30 +1007,59 @@ public class finalconbine
                             try
                             {
                                 dimguid = alldim[i].GetStringAttribute("GUID");
+                                if (FindballonByAttr("GUID", alldim[i].GetStringAttribute("GUID")) != null)
+                                {
+                                   //stateone.Add(FindballonByAttr("GUID", alldim[i].GetStringAttribute("GUID")));
+                                    stateone.Add(alldim[i]);
+                                }
+
                             }
                             catch
                             {
                                 dimguid = Guid.NewGuid().ToString();
+                                unstateone.Add(alldim[i]);
+                                alldim[i].SetAttribute("GUID", dimguid);
                             }
-                       
-                           alldim[i].SetAttribute("GUID", dimguid);
-
-                            cddimnode = tree_control0.CreateNode((i + 1).ToString());
-                            DataContainer dimdata = cddimnode.GetNodeData();
-                            dimdata.AddTaggedObject("Data", alldim[i]);
-                            dimdata.Dispose();
-                            tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                            //final = the.getspec(sda);
-                            final = thepub.getspec(alldim[i]);
-                            cddimnode.SetColumnDisplayText(2, final[0].ToString());
-                            cddimnode.SetColumnDisplayText(3, final[1].ToString());
-                            cddimnode.SetColumnDisplayText(4, final[2].ToString());
-                            cddimnode.SetState(2);//set the checked one 
+                         
+                            //cddimnode = tree_control0.CreateNode((i + 1).ToString());
+                            //DataContainer dimdata = cddimnode.GetNodeData();
+                            //dimdata.AddTaggedObject("Data", alldim[i]);
+                            //dimdata.Dispose();
+                            //tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                            //final = thepub.getspec(alldim[i]);
+                            //cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                            //cddimnode.SetColumnDisplayText(3, final[1].ToString());
+                            //cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                            //cddimnode.SetState(2);//set the checked one 
                         }
+                        MultiMap<int, NXOpen.Annotations.BalloonNote> ballonmap = new MultiMap<int, NXOpen.Annotations.BalloonNote>();
+                        ballonmap.Clear();
+                        foreach (NXOpen.Annotations.Annotation b in stateone)
+                        {
+                            NXOpen.Annotations.BalloonNote bal = FindballonByAttr("GUID", b.GetStringAttribute("GUID"));
+                            int a = Convert.ToInt16(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bal).BalloonText);
+                            ballonmap.Add(a, bal);
+
+                        }
+                        List<NXOpen.Annotations.BalloonNote> ballonlist = new List<NXOpen.Annotations.BalloonNote>();
+                        foreach (int k in ballonmap.Keys)
+                        {
+                            foreach (NXOpen.Annotations.BalloonNote bb in ballonmap[k])
+                            {
+                                ballonlist.Add(bb);
+
+                            }
+
+                        }
+                        
+
+
+
                     }
                     if (allfcf.Length != 0)
                     {
-                     
+                        ArrayList fstateone = new ArrayList();
+                        ArrayList funstateone = new ArrayList();
                         fcfnode = tree_control0.CreateNode("形位公差");
                         tree_control0.InsertNode(fcfnode, null, null, Tree.NodeInsertOption.AlwaysLast);
                         for (int m = 0; m < allfcf.Length; m++)
@@ -1036,13 +1067,21 @@ public class finalconbine
                             try
                             {
                                fcfguid = allfcf[m].GetStringAttribute("GUID");
+                               if (FindballonByAttr("GUID",allfcf[m].GetStringAttribute("GUID")) != null)
+                               {
+                                   //stateone.Add(FindballonByAttr("GUID", alldim[i].GetStringAttribute("GUID")));
+                                   fstateone.Add(alldim[m]);
+                               }
+                                
                             }
                             catch
                             {
                                 fcfguid = Guid.NewGuid().ToString();
+                                funstateone.Add(allfcf[m]);
+                                allfcf[m].SetAttribute("GUID", fcfguid);
                             }
                           
-                            allfcf[m].SetAttribute("GUID", fcfguid);
+                          
                             cdfcfnode = tree_control0.CreateNode((m + 1).ToString());
                             DataContainer fcfdata = cdfcfnode.GetNodeData();
                             fcfdata.AddTaggedObject("Data", allfcf[m]);
@@ -1058,58 +1097,64 @@ public class finalconbine
                 else if (obutton0.GetProperties().GetString("Label") == "打标号")
                 {
 
-
-                    if (fcfnode.FirstChildNode != null)
+                    if (fcfnode != null)
                     {
-                        Node[] fcfnodeary = (Node[])ndwithstate(getcdnd(fcfnode)).ToArray(typeof(Node));
-                        Node[] unfcfnodeary = (Node[])ndwithunstate(getcdnd(fcfnode)).ToArray(typeof(Node));
-                        for (int q = 0; q < unfcfnodeary.Length;q++ )
+                        if (fcfnode.FirstChildNode != null)
                         {
-                            if(FindballonByAttr("GUID",node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")) != null)
+                            Node[] fcfnodeary = (Node[])ndwithstate(getcdnd(fcfnode)).ToArray(typeof(Node));
+                            Node[] unfcfnodeary = (Node[])ndwithunstate(getcdnd(fcfnode)).ToArray(typeof(Node));
+                            for (int q = 0; q < unfcfnodeary.Length; q++)
                             {
-                                delnxobj(FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")));
+                                if (FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")) != null)
+                                {
+                                    delnxobj(FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")));
+                                   
+                                }
+                                node2dim(unfcfnodeary[q]).DeleteAttributeByTypeAndTitle(NXObject.AttributeType.String, "GUID");
                             }
-
-                        }
-                        for (int m = 0; m < fcfnodeary.Length; m++)
-                        {
-                            if (FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")) == null)
+                            for (int m = 0; m < fcfnodeary.Length; m++)
                             {
+                                if (FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")) == null)
+                                {
 
-                                AddBalloonNote(node2dim(fcfnodeary[m]), (m + 1).ToString(), node2dim(fcfnodeary[m]).GetStringAttribute("GUID"));
-                            }
-                            else
-                            {
-                                EditBalloonNote(FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")), node2dim(fcfnodeary[m]), (m + 1).ToString());
+                                    AddBalloonNote(node2dim(fcfnodeary[m]), (m + 1).ToString(), node2dim(fcfnodeary[m]).GetStringAttribute("GUID"));
+                                }
+                                else
+                                {
+                                    EditBalloonNote(FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")), node2dim(fcfnodeary[m]), (m + 1).ToString());
+                                }
                             }
                         }
                     }
-                    if (dimnode.FirstChildNode != null)
+                    if (dimnode != null)
                     {
-                        Node[] undimnodeary = (Node[])ndwithunstate(getcdnd(dimnode)).ToArray(typeof(Node));
-                        for (int p = 0; p < undimnodeary.Length; p++)
-                        { 
-                        if(FindballonByAttr("GUID",node2dim(undimnodeary[p]).GetStringAttribute("GUID")) != null)
+                        if (dimnode.FirstChildNode != null)
                         {
-
-                            delnxobj(FindballonByAttr("GUID", node2dim(undimnodeary[p]).GetStringAttribute("GUID")));
-                        }
-                        
-                        }
-                        Node[] dimnodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
-
-                        for (int i = 0; i < dimnodeary.Length; i++)
-                        {
-                            if (FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")) == null)
+                            Node[] undimnodeary = (Node[])ndwithunstate(getcdnd(dimnode)).ToArray(typeof(Node));
+                            for (int p = 0; p < undimnodeary.Length; p++)
                             {
-                                AddBalloonNote(node2dim(dimnodeary[i]), (i + 1).ToString(), node2dim(dimnodeary[i]).GetStringAttribute("GUID"));
+                                if (FindballonByAttr("GUID", node2dim(undimnodeary[p]).GetStringAttribute("GUID")) != null)
+                                {
+
+                                    delnxobj(FindballonByAttr("GUID", node2dim(undimnodeary[p]).GetStringAttribute("GUID")));
+                                }
+                                node2dim(undimnodeary[p]).DeleteAttributeByTypeAndTitle(NXObject.AttributeType.String, "GUID");
                             }
-                            else
+                            Node[] dimnodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
+
+                            for (int i = 0; i < dimnodeary.Length; i++)
                             {
-                                //EditBalloonNote(FindballonByAttr("GUID", (node2dim(dimnodeary[i]).GetStringAttribute("GUID")),node2dim(dimnodeary[i],(i + 1).ToString())
-                                EditBalloonNote(FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")), node2dim(dimnodeary[i]), (i + 1).ToString());
+                                if (FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")) == null)
+                                {
+                                    AddBalloonNote(node2dim(dimnodeary[i]), (i + 1).ToString(), node2dim(dimnodeary[i]).GetStringAttribute("GUID"));
+                                }
+                                else
+                                {
+                                    //EditBalloonNote(FindballonByAttr("GUID", (node2dim(dimnodeary[i]).GetStringAttribute("GUID")),node2dim(dimnodeary[i],(i + 1).ToString())
+                                    EditBalloonNote(FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")), node2dim(dimnodeary[i]), (i + 1).ToString());
 
 
+                                }
                             }
                         }
                     }
@@ -2202,4 +2247,5 @@ public class finalconbine
         nErrs1 = theSession.UpdateManager.AddToDeleteList(objects1);
         theSession.UpdateManager.DoUpdate(markId1);
     }
+ 
 }
