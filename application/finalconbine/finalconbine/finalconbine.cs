@@ -992,7 +992,7 @@ public class finalconbine
 
 
 
-                    if (alldim != null)
+                    if (alldim.Length != 0)
                     {
 
 
@@ -1026,7 +1026,7 @@ public class finalconbine
                             cddimnode.SetState(2);//set the checked one 
                         }
                     }
-                    if (allfcf != null)
+                    if (allfcf.Length != 0)
                     {
                      
                         fcfnode = tree_control0.CreateNode("ÐÎÎ»¹«²î");
