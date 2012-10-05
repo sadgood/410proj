@@ -1005,9 +1005,9 @@ public class finalconbine
                         for (int i = 0; i < alldim.Length; i++)
                         {
 
-                            try
+                            try 
                             {
-                                dimguid = alldim[i].GetStringAttribute("GUID");
+                                 alldim[i].GetStringAttribute("GUID");
                                 if (FindballonByAttr("GUID", alldim[i].GetStringAttribute("GUID")) != null)
                                 {
                        
@@ -1026,7 +1026,6 @@ public class finalconbine
                                 alldim[i].SetAttribute("GUID", dimguid);
                             }
                          
-                           
                         }
                         if(stateone.Count != 0)
                         {
@@ -1230,6 +1229,7 @@ public class finalconbine
                                 if (FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")) != null)
                                 {
                                     //delnxobj(FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")));
+                                    DeleteBalloonNoteByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID"));
                                     dellist.Add(FindballonByAttr("GUID", node2dim(unfcfnodeary[q]).GetStringAttribute("GUID")));
                                    
                                 }
@@ -1259,6 +1259,7 @@ public class finalconbine
                                 NXOpen.Annotations.BalloonNote aaaa = FindballonByAttr("GUID", node2dim(undimnodeary[p]).GetStringAttribute("GUID"));
                                 if (aaaa != null)
                                 {
+                                    DeleteBalloonNoteByAttr("GUID", node2dim(undimnodeary[p]).GetStringAttribute("GUID"));
                                     dellist.Add(aaaa);
 
                                
@@ -1284,11 +1285,14 @@ public class finalconbine
                             }
                         }
                     }
-                    foreach (NXOpen.Annotations.BalloonNote b in dellist)
-                    {
-                        delnxobj((NXObject)b);
-                    }
-                    
+                    //NXObject[] obs2del = (NXObject[])dellist.ToArray(typeof(NXObject));
+                    //foreach (NXOpen.Annotations.BalloonNote b in dellist)
+                    //{
+
+                    //    b.Highlight();
+                    //    //DeleteObject(b);
+                    //}
+                    //DeleteObject(obs2del);
                 }
             }
             else if (block == zbutton0)
@@ -2216,13 +2220,36 @@ public class finalconbine
         }
         else if (menuItemID == 2)
         {
-            nd2nd(node, dimnode.FirstChildNode,dimnode,2);
+
+            Node tempnode = null;
+            tempnode = tree_control0.CreateNode("node");
+            tree_control0.InsertNode(tempnode, dimnode, null, Tree.NodeInsertOption.AlwaysFirst);
+            tempnode.SetState(2);
+            tempnode.SetColumnDisplayText(1, node.GetColumnDisplayText(1));
+            tempnode.SetColumnDisplayText(2, node.GetColumnDisplayText(2));
+            tempnode.SetColumnDisplayText(3, node.GetColumnDisplayText(3));
+            DataContainer tempcontainer = tempnode.GetNodeData();
+            tempcontainer.AddTaggedObject("Data", node.GetNodeData().GetTaggedObject("Data"));
+            tempcontainer.Dispose();
+            tree_control0.DeleteNode(node);
+
+            //nd2nd(node, dimnode.FirstChildNode,dimnode,2);
             labelnode(dimnode);
         }
         else if(menuItemID == 3)
         {
-         
-            nd2nd(node, fcfnode.FirstChildNode, fcfnode, 2);
+            Node tempnode = null;
+            tempnode = tree_control0.CreateNode("node");
+            tree_control0.InsertNode(tempnode, fcfnode, null, Tree.NodeInsertOption.AlwaysFirst);
+            tempnode.SetState(2);
+            tempnode.SetColumnDisplayText(1, node.GetColumnDisplayText(1));
+            tempnode.SetColumnDisplayText(2, node.GetColumnDisplayText(2));
+            tempnode.SetColumnDisplayText(3, node.GetColumnDisplayText(3));
+            DataContainer tempcontainer = tempnode.GetNodeData();
+            tempcontainer.AddTaggedObject("Data", node.GetNodeData().GetTaggedObject("Data"));
+            tempcontainer.Dispose();
+            tree_control0.DeleteNode(node);
+            //nd2nd(node, fcfnode.FirstChildNode, fcfnode, 2);
             labelnode(fcfnode);
         }
         else if(menuItemID ==4)
@@ -2389,16 +2416,24 @@ public class finalconbine
         nXObject1 = balloonNoteBuilder1.Commit();
         balloonNoteBuilder1.Destroy();
     }
-    public void delnxobj(NXObject nxobj)
+    public static int DeleteObject(NXObject ob)
     {
+        Session theSession = Session.GetSession();
+        bool notifyOnDelete1;
+        notifyOnDelete1 = theSession.Preferences.Modeling.NotifyOnDelete;
         theSession.UpdateManager.ClearErrorList();
         NXOpen.Session.UndoMarkId markId1;
-        markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "É¾³ý");
+        markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
         NXObject[] objects1 = new NXObject[1];
-        objects1[0] = nxobj;
+        objects1[0] = ob;
         int nErrs1;
         nErrs1 = theSession.UpdateManager.AddToDeleteList(objects1);
-        theSession.UpdateManager.DoUpdate(markId1);
+        bool notifyOnDelete2;
+        notifyOnDelete2 = theSession.Preferences.Modeling.NotifyOnDelete;
+        int nErrs2;
+        nErrs2 = theSession.UpdateManager.DoUpdate(markId1);
+        theSession.DeleteUndoMark(markId1, "Delete");
+        return 0;
     }
 
     public NXOpen.Annotations.Annotation getanobybal(NXOpen.Annotations.BalloonNote bal)
@@ -2448,5 +2483,23 @@ public class finalconbine
         return null;
 
 
+    }
+    public static void DeleteBalloonNoteByAttr(string attr_name, string attr_value)
+    {
+        try
+        {
+            NXOpen.Annotations.PmiAttribute[] pac = Session.GetSession().Parts.Work.PmiManager.PmiAttributes.ToArray();
+            foreach (NXOpen.Annotations.PmiAttribute pa in pac)
+            {
+                if (GetStringAttr(pa, attr_name) == attr_value)
+                {
+                    DeleteObject(pa);
+                }
+            }
+        }
+        catch (System.Exception ex)
+        {
+            UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+        }
     }
 }
