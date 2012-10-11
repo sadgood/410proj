@@ -1079,5 +1079,10 @@ namespace TDPPM
                 }
             }
         }
+
+        private void gongxu_gongxumingcheng_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

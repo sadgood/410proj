@@ -197,26 +197,26 @@
             this.cmsEditGongxuModel,
             this.cmsDelGongxuModel});
             this.cmsGongxu.Name = "gxModelContextMenu";
-            this.cmsGongxu.Size = new System.Drawing.Size(143, 70);
+            this.cmsGongxu.Size = new System.Drawing.Size(149, 70);
             // 
             // cmsAddGongxuModel
             // 
             this.cmsAddGongxuModel.Name = "cmsAddGongxuModel";
-            this.cmsAddGongxuModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsAddGongxuModel.Size = new System.Drawing.Size(148, 22);
             this.cmsAddGongxuModel.Text = "添加工序模型";
             this.cmsAddGongxuModel.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
             // cmsEditGongxuModel
             // 
             this.cmsEditGongxuModel.Name = "cmsEditGongxuModel";
-            this.cmsEditGongxuModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsEditGongxuModel.Size = new System.Drawing.Size(148, 22);
             this.cmsEditGongxuModel.Text = "编辑工序模型";
             this.cmsEditGongxuModel.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
             // cmsDelGongxuModel
             // 
             this.cmsDelGongxuModel.Name = "cmsDelGongxuModel";
-            this.cmsDelGongxuModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsDelGongxuModel.Size = new System.Drawing.Size(148, 22);
             this.cmsDelGongxuModel.Text = "删除工序模型";
             this.cmsDelGongxuModel.Click += new System.EventHandler(this.cmsDelModel_Click);
             // 
@@ -227,26 +227,26 @@
             this.cmsEditGongyiModel,
             this.cmsDelGongyiModel});
             this.cmsGongyi.Name = "gyContextMenu";
-            this.cmsGongyi.Size = new System.Drawing.Size(143, 70);
+            this.cmsGongyi.Size = new System.Drawing.Size(149, 70);
             // 
             // cmsAddGongyiModel
             // 
             this.cmsAddGongyiModel.Name = "cmsAddGongyiModel";
-            this.cmsAddGongyiModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsAddGongyiModel.Size = new System.Drawing.Size(148, 22);
             this.cmsAddGongyiModel.Text = "添加设计模型";
             this.cmsAddGongyiModel.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
             // cmsEditGongyiModel
             // 
             this.cmsEditGongyiModel.Name = "cmsEditGongyiModel";
-            this.cmsEditGongyiModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsEditGongyiModel.Size = new System.Drawing.Size(148, 22);
             this.cmsEditGongyiModel.Text = "编辑设计模型";
             this.cmsEditGongyiModel.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
             // cmsDelGongyiModel
             // 
             this.cmsDelGongyiModel.Name = "cmsDelGongyiModel";
-            this.cmsDelGongyiModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsDelGongyiModel.Size = new System.Drawing.Size(148, 22);
             this.cmsDelGongyiModel.Text = "删除设计模型";
             this.cmsDelGongyiModel.Click += new System.EventHandler(this.cmsDelModel_Click);
             // 
@@ -255,12 +255,12 @@
             this.cmsWaveEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmsBreakWave});
             this.cmsWaveEdit.Name = "brokenWaveContextMenu";
-            this.cmsWaveEdit.Size = new System.Drawing.Size(155, 26);
+            this.cmsWaveEdit.Size = new System.Drawing.Size(169, 26);
             // 
             // cmsBreakWave
             // 
             this.cmsBreakWave.Name = "cmsBreakWave";
-            this.cmsBreakWave.Size = new System.Drawing.Size(154, 22);
+            this.cmsBreakWave.Size = new System.Drawing.Size(168, 22);
             this.cmsBreakWave.Text = "断开该Wave链接";
             this.cmsBreakWave.Click += new System.EventHandler(this.cmsBreakWave_Click);
             // 
@@ -269,12 +269,12 @@
             this.cmsYLTs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmsAddYLT});
             this.cmsYLTs.Name = "yltsContextMenu";
-            this.cmsYLTs.Size = new System.Drawing.Size(131, 26);
+            this.cmsYLTs.Size = new System.Drawing.Size(137, 26);
             // 
             // cmsAddYLT
             // 
             this.cmsAddYLT.Name = "cmsAddYLT";
-            this.cmsAddYLT.Size = new System.Drawing.Size(130, 22);
+            this.cmsAddYLT.Size = new System.Drawing.Size(136, 22);
             this.cmsAddYLT.Text = "添加余量图";
             this.cmsAddYLT.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
@@ -283,12 +283,12 @@
             this.cmsFuModels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmsAddFuModel});
             this.cmsFuModels.Name = "fuModelsContextMenu";
-            this.cmsFuModels.Size = new System.Drawing.Size(143, 26);
+            this.cmsFuModels.Size = new System.Drawing.Size(149, 26);
             // 
             // cmsAddFuModel
             // 
             this.cmsAddFuModel.Name = "cmsAddFuModel";
-            this.cmsAddFuModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsAddFuModel.Size = new System.Drawing.Size(148, 22);
             this.cmsAddFuModel.Text = "添加辅助模型";
             this.cmsAddFuModel.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
@@ -298,19 +298,19 @@
             this.cmsEditYLT,
             this.cmsDelYLT});
             this.cmsYLT.Name = "yltContextMenu";
-            this.cmsYLT.Size = new System.Drawing.Size(131, 48);
+            this.cmsYLT.Size = new System.Drawing.Size(137, 48);
             // 
             // cmsEditYLT
             // 
             this.cmsEditYLT.Name = "cmsEditYLT";
-            this.cmsEditYLT.Size = new System.Drawing.Size(130, 22);
+            this.cmsEditYLT.Size = new System.Drawing.Size(136, 22);
             this.cmsEditYLT.Text = "编辑余量图";
             this.cmsEditYLT.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
             // cmsDelYLT
             // 
             this.cmsDelYLT.Name = "cmsDelYLT";
-            this.cmsDelYLT.Size = new System.Drawing.Size(130, 22);
+            this.cmsDelYLT.Size = new System.Drawing.Size(136, 22);
             this.cmsDelYLT.Text = "删除余量图";
             this.cmsDelYLT.Click += new System.EventHandler(this.cmsDelModel_Click);
             // 
@@ -320,19 +320,19 @@
             this.cmsEditFuModel,
             this.cmsDelFuModel});
             this.cmsFuModel.Name = "fuModelContextMenu";
-            this.cmsFuModel.Size = new System.Drawing.Size(143, 48);
+            this.cmsFuModel.Size = new System.Drawing.Size(149, 48);
             // 
             // cmsEditFuModel
             // 
             this.cmsEditFuModel.Name = "cmsEditFuModel";
-            this.cmsEditFuModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsEditFuModel.Size = new System.Drawing.Size(148, 22);
             this.cmsEditFuModel.Text = "编辑辅助模型";
             this.cmsEditFuModel.Click += new System.EventHandler(this.cmsAddModel_Click);
             // 
             // cmsDelFuModel
             // 
             this.cmsDelFuModel.Name = "cmsDelFuModel";
-            this.cmsDelFuModel.Size = new System.Drawing.Size(142, 22);
+            this.cmsDelFuModel.Size = new System.Drawing.Size(148, 22);
             this.cmsDelFuModel.Text = "删除辅助模型";
             this.cmsDelFuModel.Click += new System.EventHandler(this.cmsDelModel_Click);
             // 
@@ -402,7 +402,7 @@
             this.tsrbtnModel.Image = ((System.Drawing.Image)(resources.GetObject("tsrbtnModel.Image")));
             this.tsrbtnModel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnModel.Name = "tsrbtnModel";
-            this.tsrbtnModel.Size = new System.Drawing.Size(29, 22);
+            this.tsrbtnModel.Size = new System.Drawing.Size(32, 22);
             this.tsrbtnModel.Text = "模型";
             // 
             // tsrbtnModelAdd
@@ -1111,7 +1111,7 @@
             this.tsrbtnWaveFresh.Image = global::TDPPM.Properties.Resources.refresh;
             this.tsrbtnWaveFresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnWaveFresh.Name = "tsrbtnWaveFresh";
-            this.tsrbtnWaveFresh.Size = new System.Drawing.Size(49, 22);
+            this.tsrbtnWaveFresh.Size = new System.Drawing.Size(52, 22);
             this.tsrbtnWaveFresh.Text = "刷新";
             this.tsrbtnWaveFresh.Click += new System.EventHandler(this.tsrbtnWaveFresh_Click);
             // 
@@ -1129,7 +1129,7 @@
             this.tsrbtnWaveFreshMode.Image = ((System.Drawing.Image)(resources.GetObject("tsrbtnWaveFreshMode.Image")));
             this.tsrbtnWaveFreshMode.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnWaveFreshMode.Name = "tsrbtnWaveFreshMode";
-            this.tsrbtnWaveFreshMode.Size = new System.Drawing.Size(66, 22);
+            this.tsrbtnWaveFreshMode.Size = new System.Drawing.Size(69, 22);
             this.tsrbtnWaveFreshMode.Text = "刷新模式";
             this.tsrbtnWaveFreshMode.ToolTipText = "刷新模式";
             // 
@@ -1137,7 +1137,7 @@
             // 
             this.tsrbtnFreshModeAuto.CheckOnClick = true;
             this.tsrbtnFreshModeAuto.Name = "tsrbtnFreshModeAuto";
-            this.tsrbtnFreshModeAuto.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnFreshModeAuto.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnFreshModeAuto.Text = "自动";
             this.tsrbtnFreshModeAuto.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1145,7 +1145,7 @@
             // 
             this.tsrbtnFreshModeManual.CheckOnClick = true;
             this.tsrbtnFreshModeManual.Name = "tsrbtnFreshModeManual";
-            this.tsrbtnFreshModeManual.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnFreshModeManual.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnFreshModeManual.Text = "手动";
             this.tsrbtnFreshModeManual.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1158,14 +1158,14 @@
             this.tsrbtnShowLevel.Image = ((System.Drawing.Image)(resources.GetObject("tsrbtnShowLevel.Image")));
             this.tsrbtnShowLevel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnShowLevel.Name = "tsrbtnShowLevel";
-            this.tsrbtnShowLevel.Size = new System.Drawing.Size(66, 22);
+            this.tsrbtnShowLevel.Size = new System.Drawing.Size(69, 22);
             this.tsrbtnShowLevel.Text = "显示级别";
             // 
             // tsrbtnShowLevelAll
             // 
             this.tsrbtnShowLevelAll.CheckOnClick = true;
             this.tsrbtnShowLevelAll.Name = "tsrbtnShowLevelAll";
-            this.tsrbtnShowLevelAll.Size = new System.Drawing.Size(178, 22);
+            this.tsrbtnShowLevelAll.Size = new System.Drawing.Size(184, 22);
             this.tsrbtnShowLevelAll.Text = "所有模型";
             this.tsrbtnShowLevelAll.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1173,7 +1173,7 @@
             // 
             this.tsrbtnShowLevelSingle.CheckOnClick = true;
             this.tsrbtnShowLevelSingle.Name = "tsrbtnShowLevelSingle";
-            this.tsrbtnShowLevelSingle.Size = new System.Drawing.Size(178, 22);
+            this.tsrbtnShowLevelSingle.Size = new System.Drawing.Size(184, 22);
             this.tsrbtnShowLevelSingle.Text = "单个模型（上下级）";
             this.tsrbtnShowLevelSingle.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1186,20 +1186,20 @@
             this.tsrbtnShowNameType.Image = ((System.Drawing.Image)(resources.GetObject("tsrbtnShowNameType.Image")));
             this.tsrbtnShowNameType.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnShowNameType.Name = "tsrbtnShowNameType";
-            this.tsrbtnShowNameType.Size = new System.Drawing.Size(66, 22);
+            this.tsrbtnShowNameType.Size = new System.Drawing.Size(69, 22);
             this.tsrbtnShowNameType.Text = "显示名称";
             // 
             // tsrbtnModelName
             // 
             this.tsrbtnModelName.Name = "tsrbtnModelName";
-            this.tsrbtnModelName.Size = new System.Drawing.Size(118, 22);
+            this.tsrbtnModelName.Size = new System.Drawing.Size(124, 22);
             this.tsrbtnModelName.Text = "模型名称";
             this.tsrbtnModelName.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
             // tsrbtnModelDescription
             // 
             this.tsrbtnModelDescription.Name = "tsrbtnModelDescription";
-            this.tsrbtnModelDescription.Size = new System.Drawing.Size(118, 22);
+            this.tsrbtnModelDescription.Size = new System.Drawing.Size(124, 22);
             this.tsrbtnModelDescription.Text = "模型描述";
             this.tsrbtnModelDescription.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1212,7 +1212,7 @@
             this.tsrbtnGeoType.Image = ((System.Drawing.Image)(resources.GetObject("tsrbtnGeoType.Image")));
             this.tsrbtnGeoType.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnGeoType.Name = "tsrbtnGeoType";
-            this.tsrbtnGeoType.Size = new System.Drawing.Size(66, 22);
+            this.tsrbtnGeoType.Size = new System.Drawing.Size(69, 22);
             this.tsrbtnGeoType.Text = "几何类型";
             // 
             // tsrbtnGeoTypeAll
@@ -1225,14 +1225,14 @@
             this.tsrbtnGeoTypeAllSketch,
             this.tsrbtnGeoTypeAllDatum});
             this.tsrbtnGeoTypeAll.Name = "tsrbtnGeoTypeAll";
-            this.tsrbtnGeoTypeAll.Size = new System.Drawing.Size(118, 22);
+            this.tsrbtnGeoTypeAll.Size = new System.Drawing.Size(124, 22);
             this.tsrbtnGeoTypeAll.Text = "所有模型";
             // 
             // tsrbtnGeoTypeAllPoint
             // 
             this.tsrbtnGeoTypeAllPoint.CheckOnClick = true;
             this.tsrbtnGeoTypeAllPoint.Name = "tsrbtnGeoTypeAllPoint";
-            this.tsrbtnGeoTypeAllPoint.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoTypeAllPoint.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoTypeAllPoint.Text = "点";
             this.tsrbtnGeoTypeAllPoint.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1240,7 +1240,7 @@
             // 
             this.tsrbtnGeoTypeAllLine.CheckOnClick = true;
             this.tsrbtnGeoTypeAllLine.Name = "tsrbtnGeoTypeAllLine";
-            this.tsrbtnGeoTypeAllLine.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoTypeAllLine.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoTypeAllLine.Text = "线";
             this.tsrbtnGeoTypeAllLine.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1248,7 +1248,7 @@
             // 
             this.tsrbtnGeoTypeAllFace.CheckOnClick = true;
             this.tsrbtnGeoTypeAllFace.Name = "tsrbtnGeoTypeAllFace";
-            this.tsrbtnGeoTypeAllFace.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoTypeAllFace.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoTypeAllFace.Text = "面";
             this.tsrbtnGeoTypeAllFace.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1256,7 +1256,7 @@
             // 
             this.tsrbtnGeoTypeAllBody.CheckOnClick = true;
             this.tsrbtnGeoTypeAllBody.Name = "tsrbtnGeoTypeAllBody";
-            this.tsrbtnGeoTypeAllBody.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoTypeAllBody.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoTypeAllBody.Text = "体";
             this.tsrbtnGeoTypeAllBody.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1264,7 +1264,7 @@
             // 
             this.tsrbtnGeoTypeAllSketch.CheckOnClick = true;
             this.tsrbtnGeoTypeAllSketch.Name = "tsrbtnGeoTypeAllSketch";
-            this.tsrbtnGeoTypeAllSketch.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoTypeAllSketch.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoTypeAllSketch.Text = "草图";
             this.tsrbtnGeoTypeAllSketch.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1272,7 +1272,7 @@
             // 
             this.tsrbtnGeoTypeAllDatum.CheckOnClick = true;
             this.tsrbtnGeoTypeAllDatum.Name = "tsrbtnGeoTypeAllDatum";
-            this.tsrbtnGeoTypeAllDatum.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoTypeAllDatum.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoTypeAllDatum.Text = "基准";
             this.tsrbtnGeoTypeAllDatum.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1286,14 +1286,14 @@
             this.tsrbtnGeoSingleSketch,
             this.tsrbtnGeoSingleDatum});
             this.tsrbtnGeoSingle.Name = "tsrbtnGeoSingle";
-            this.tsrbtnGeoSingle.Size = new System.Drawing.Size(118, 22);
+            this.tsrbtnGeoSingle.Size = new System.Drawing.Size(124, 22);
             this.tsrbtnGeoSingle.Text = "单个模型";
             // 
             // tsrbtnGeoSinglePoint
             // 
             this.tsrbtnGeoSinglePoint.CheckOnClick = true;
             this.tsrbtnGeoSinglePoint.Name = "tsrbtnGeoSinglePoint";
-            this.tsrbtnGeoSinglePoint.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoSinglePoint.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoSinglePoint.Text = "点";
             this.tsrbtnGeoSinglePoint.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1301,7 +1301,7 @@
             // 
             this.tsrbtnGeoSingleLine.CheckOnClick = true;
             this.tsrbtnGeoSingleLine.Name = "tsrbtnGeoSingleLine";
-            this.tsrbtnGeoSingleLine.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoSingleLine.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoSingleLine.Text = "线";
             this.tsrbtnGeoSingleLine.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1309,7 +1309,7 @@
             // 
             this.tsrbtnGeoSingleFace.CheckOnClick = true;
             this.tsrbtnGeoSingleFace.Name = "tsrbtnGeoSingleFace";
-            this.tsrbtnGeoSingleFace.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoSingleFace.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoSingleFace.Text = "面";
             this.tsrbtnGeoSingleFace.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1317,7 +1317,7 @@
             // 
             this.tsrbtnGeoSingleBody.CheckOnClick = true;
             this.tsrbtnGeoSingleBody.Name = "tsrbtnGeoSingleBody";
-            this.tsrbtnGeoSingleBody.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoSingleBody.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoSingleBody.Text = "体";
             this.tsrbtnGeoSingleBody.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1325,7 +1325,7 @@
             // 
             this.tsrbtnGeoSingleSketch.CheckOnClick = true;
             this.tsrbtnGeoSingleSketch.Name = "tsrbtnGeoSingleSketch";
-            this.tsrbtnGeoSingleSketch.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoSingleSketch.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoSingleSketch.Text = "草图";
             this.tsrbtnGeoSingleSketch.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
@@ -1333,7 +1333,7 @@
             // 
             this.tsrbtnGeoSingleDatum.CheckOnClick = true;
             this.tsrbtnGeoSingleDatum.Name = "tsrbtnGeoSingleDatum";
-            this.tsrbtnGeoSingleDatum.Size = new System.Drawing.Size(94, 22);
+            this.tsrbtnGeoSingleDatum.Size = new System.Drawing.Size(100, 22);
             this.tsrbtnGeoSingleDatum.Text = "基准";
             this.tsrbtnGeoSingleDatum.Click += new System.EventHandler(this.tsrbtnWaveView_Click);
             // 
