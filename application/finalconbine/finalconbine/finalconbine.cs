@@ -661,7 +661,7 @@ public class finalconbine
         abuilder.Type = NXOpen.Features.DatumAxisBuilder.Types.TwoPoints;
         abuilder.IsAssociative = true;
         Xform nullXform = null;
-        Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
+        //Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
         //Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
         abuilder.Point1 = point1;
         abuilder.Point2 = point2;
