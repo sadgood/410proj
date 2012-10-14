@@ -486,6 +486,9 @@ public class finalconbine
             
 
 
+
+
+
                 refreshenum();
             //---- Enter your callback code here -----
         }
@@ -868,6 +871,25 @@ public class finalconbine
     
     
     }
+    public static int[] BubbleSort(int[] Array)
+        { 
+         
+        for (int i = 0; i < Array.Length; i++)
+        {
+            for (int j = i+1; j < Array.Length; j++)
+            {
+                if (Array[i] > Array[j])
+                {
+                    int temp=Array[i];
+                    Array[i]=Array[j];
+                    Array[j] = temp;
+                }
+            }
+        }
+        return Array;
+    }
+        
+    
     public static NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num,string label)
     {
         try
@@ -931,6 +953,7 @@ public class finalconbine
             return null;
         }
     }
+   
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -1010,7 +1033,6 @@ public class finalconbine
                                  alldim[i].GetStringAttribute("GUID");
                                 if (FindballonByAttr("GUID", alldim[i].GetStringAttribute("GUID")) != null)
                                 {
-                       
                                     stateone.Add(alldim[i]);
                                 }
                                 else if (FindballonByAttr("GUID", alldim[i].GetStringAttribute("GUID")) == null)
@@ -1029,58 +1051,115 @@ public class finalconbine
                         }
                         if(stateone.Count != 0)
                         {
-                        MultiMap<int, NXOpen.Annotations.BalloonNote> ballonmap = new MultiMap<int, NXOpen.Annotations.BalloonNote>();
-                        ballonmap.Clear();
-                        foreach (NXOpen.Annotations.Annotation b in stateone)
-                        {
-                            NXOpen.Annotations.BalloonNote bal = FindballonByAttr("GUID", b.GetStringAttribute("GUID"));
-                            int a = Convert.ToInt16(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bal).BalloonText);
-                            ballonmap.Add(a, bal);
+                            NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
+                            //NXOpen.Annotations.BalloonNote[] baltmp = (NXOpen.Annotations.BalloonNote[])stateone.ToArray(typeof(NXOpen.Annotations.BalloonNote));
+                            //ArrayList baltmp = new ArrayList();
+                            //ArrayList afterbal = new ArrayList();
+                            
+                            //foreach(NXOpen.Annotations.Annotation ano in stateone)
+                            //{
+                            //    baltmp.Add(FindballonByAttr("GUID", ano.GetStringAttribute("GUID")));
+                            
+                            //}
+                            //ArrayList indexnum = new ArrayList();
+                            //foreach (NXOpen.Annotations.BalloonNote bb in baltmp)
+                            //{
+                            //    balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb);
+                            //    int m = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
+                            //    NXObject nXObject1;
+                            //    nXObject1 = balloonNoteBuilder1.Commit();
+                            //    balloonNoteBuilder1.Destroy();
+                            //    indexnum.Add(m);
+                            //}
+                            //int[] indexary = (int[])indexnum.ToArray(typeof(int));
+                            //int[] afterary = BubbleSort(indexary);
+                            //foreach (int i in afterary)
+                            //{
+                            //    foreach (NXOpen.Annotations.BalloonNote b in baltmp)
+                            //    {
+                            //        int q = Convert.ToInt16(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(b).BalloonText);
+                            //        if (q == i)
+                            //        {
+                            //            afterbal.Add(b);
+                            //            //cddimnode = tree_control0.CreateNode(i.ToString());
+                            //            //DataContainer dimdata = cddimnode.GetNodeData();
+                            //            //dimdata.AddTaggedObject("Data", getanobybal(b));
+                            //            //dimdata.Dispose();
+                            //            //tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                            //            //final = thepub.getspec((NXOpen.Annotations.Dimension)getanobybal(b));
+                            //            //cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                            //            //cddimnode.SetColumnDisplayText(3, final[1].ToString());
+                            //            //cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                            //            //cddimnode.SetState(2);//set the checked one 
 
-                        }
-                        List<NXOpen.Annotations.BalloonNote> ballonlist = new List<NXOpen.Annotations.BalloonNote>();
-                        List<NXOpen.Annotations.Annotation> anolist = new List<NXOpen.Annotations.Annotation>();
+                            //        }
+                            //    }
 
-                        foreach (int k in ballonmap.Keys)
-                        {
-                            foreach (NXOpen.Annotations.BalloonNote bb in ballonmap[k])
+                            //}
+
+
+
+
+                            MultiMap<int, NXOpen.Annotations.BalloonNote> ballonmap = new MultiMap<int, NXOpen.Annotations.BalloonNote>();
+                            ballonmap.Clear();
+                            foreach (NXOpen.Annotations.Annotation b in stateone)
                             {
-                                NXOpen.Annotations.Dimension aaaaa = (NXOpen.Annotations.Dimension)getanobybal(bb);
-                                ballonlist.Add(bb);
-                                anolist.Add(getanobybal(bb));
-                                cddimnode = tree_control0.CreateNode(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb).BalloonText);
+                                NXOpen.Annotations.BalloonNote bal = FindballonByAttr("GUID", b.GetStringAttribute("GUID"));
+                                balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bal);
+                              
+                             
+                                int a = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
+                                balloonNoteBuilder1.Commit();
+                                balloonNoteBuilder1.Destroy();
+                                ballonmap.Add(a, bal);
 
-                                DataContainer dimdata = cddimnode.GetNodeData();
-                                dimdata.AddTaggedObject("Data", getanobybal(bb));
-                                dimdata.Dispose();
-                                tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                                final = thepub.getspec((NXOpen.Annotations.Dimension)getanobybal(bb));
-                                cddimnode.SetColumnDisplayText(2, final[0].ToString());
-                                cddimnode.SetColumnDisplayText(3, final[1].ToString());
-                                cddimnode.SetColumnDisplayText(4, final[2].ToString());
-                                cddimnode.SetState(2);//set the checked one 
+                            }
+                            List<NXOpen.Annotations.BalloonNote> ballonlist = new List<NXOpen.Annotations.BalloonNote>();
+                            List<NXOpen.Annotations.Annotation> anolist = new List<NXOpen.Annotations.Annotation>();
+
+                            foreach (int k in ballonmap.Keys)
+                            {
+                                foreach (NXOpen.Annotations.BalloonNote bb in ballonmap[k])
+                                {
+                                    NXOpen.Annotations.Dimension aaaaa = (NXOpen.Annotations.Dimension)getanobybal(bb);
+                                    ballonlist.Add(bb);
+                                    anolist.Add(getanobybal(bb));
+                                    balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb);
+                                    cddimnode = tree_control0.CreateNode(balloonNoteBuilder1.BalloonText);
+                                    balloonNoteBuilder1.Commit();
+                                    balloonNoteBuilder1.Destroy();
+
+                                    DataContainer dimdata = cddimnode.GetNodeData();
+                                    dimdata.AddTaggedObject("Data", getanobybal(bb));
+                                    dimdata.Dispose();
+                                    tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                                    final = thepub.getspec((NXOpen.Annotations.Dimension)getanobybal(bb));
+                                    cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                                    cddimnode.SetColumnDisplayText(3, final[1].ToString());
+                                    cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                                    cddimnode.SetState(2);//set the checked one 
+
+                                }
 
                             }
 
-                        }
-                       
-                        int m = Convert.ToInt16(cddimnode.GetColumnDisplayText(1));
-                        foreach(NXOpen.Annotations.Dimension dim in unstateone)
-                        {
-                            m = m + 1;
-                            cddimnode = tree_control0.CreateNode(m.ToString());
+                            int m = Convert.ToInt16(cddimnode.GetColumnDisplayText(1));
+                            foreach (NXOpen.Annotations.Dimension dim in unstateone)
+                            {
+                                m = m + 1;
+                                cddimnode = tree_control0.CreateNode(m.ToString());
 
-                            DataContainer dimdata = cddimnode.GetNodeData();
-                            dimdata.AddTaggedObject("Data", dim);
-                            dimdata.Dispose();
-                            tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                            final = thepub.getspec(dim);
-                            cddimnode.SetColumnDisplayText(2, final[0].ToString());
-                            cddimnode.SetColumnDisplayText(3, final[1].ToString());
-                            cddimnode.SetColumnDisplayText(4, final[2].ToString());
-                            cddimnode.SetState(1);//set the checked one 
-                        
-                        }
+                                DataContainer dimdata = cddimnode.GetNodeData();
+                                dimdata.AddTaggedObject("Data", dim);
+                                dimdata.Dispose();
+                                tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                                final = thepub.getspec(dim);
+                                cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                                cddimnode.SetColumnDisplayText(3, final[1].ToString());
+                                cddimnode.SetColumnDisplayText(4, final[2].ToString());
+                                cddimnode.SetState(1);//set the checked one 
+
+                            }
                         }
                         else if (stateone.Count == 0)
                         {
@@ -1138,12 +1217,17 @@ public class finalconbine
                         }
                             if (fstateone.Count != 0)
                             {
+                                NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
                                 MultiMap<int, NXOpen.Annotations.BalloonNote> fballonmap = new MultiMap<int, NXOpen.Annotations.BalloonNote>();
                                 fballonmap.Clear();
                                 foreach (NXOpen.Annotations.Annotation b in fstateone)
                                 {
                                     NXOpen.Annotations.BalloonNote bal = FindballonByAttr("GUID", b.GetStringAttribute("GUID"));
-                                    int a = Convert.ToInt16(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bal).BalloonText);
+                                    balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bal);
+                                    int a = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
+                                    balloonNoteBuilder1.Commit();
+                                    balloonNoteBuilder1.Destroy();
+
                                     fballonmap.Add(a, bal);
 
                                 }
@@ -1156,7 +1240,10 @@ public class finalconbine
                                     {
                                         fballonlist.Add(bb);
                                         fanolist.Add(getanobybal(bb));
-                                        cdfcfnode = tree_control0.CreateNode(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb).BalloonText);
+                                        balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb);
+                                        cdfcfnode = tree_control0.CreateNode(balloonNoteBuilder1.BalloonText);
+                                        balloonNoteBuilder1.Commit();
+                                        balloonNoteBuilder1.Destroy();
 
                                         DataContainer dimdata = cdfcfnode.GetNodeData();
                                         dimdata.AddTaggedObject("Data", getanobybal(bb));
@@ -2214,7 +2301,7 @@ public class finalconbine
             //tempcontainer.Dispose();
             //tree_control0.DeleteNode(node);
 
-
+          
             nd2nd(node,null,dimnode,1);
             labelnode(dimnode);
         }
@@ -2254,6 +2341,7 @@ public class finalconbine
         }
         else if(menuItemID ==4)
         {
+          
             nd2nd(node, null, fcfnode, 1);
             labelnode(fcfnode);
         }
