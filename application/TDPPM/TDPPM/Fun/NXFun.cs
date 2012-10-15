@@ -2147,7 +2147,16 @@ namespace TDPPM
             theSession.UpdateManager.ClearErrorList();
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
-            NXOpen.Annotations.Note[] notes = (NXOpen.Annotations.Note[])workPart.Notes.ToArray();//ori
+            //NXOpen.Annotations.Note[] notes = (NXOpen.Annotations.Note[])workPart.Notes.ToArray();//ori
+            List<NXOpen.Annotations.Note> notes = new List<NXOpen.Annotations.Note>(0);
+            foreach (object c in workPart.Notes)
+            {
+                if (c is NXOpen.Annotations.Note)
+                {
+                    notes.Add((NXOpen.Annotations.Note)c);
+                }
+            }
+
             List<NXOpen.Annotations.Annotation> noto2del = new List<NXOpen.Annotations.Annotation>();
             foreach (NXOpen.Annotations.Annotation note in notes)
            {
@@ -2280,10 +2289,18 @@ namespace TDPPM
             theSession.UpdateManager.ClearErrorList();
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
-            NXOpen.Annotations.Note[] notes = null;
-               notes = workPart.Notes.ToArray();
-            
-          
+            //NXOpen.Annotations.Note[] notes = null;
+            //   notes = workPart.Notes.ToArray();
+
+            List<NXOpen.Annotations.Note> notes = new List<NXOpen.Annotations.Note>(0);
+            foreach (object c in workPart.Notes)
+            {
+                if (c is NXOpen.Annotations.Note)
+                {
+                    notes.Add((NXOpen.Annotations.Note)c);
+                }
+            }
+
             List<NXOpen.Annotations.Note> noto2del = new List<NXOpen.Annotations.Note>();
             foreach (NXOpen.Annotations.Note note in notes)
             {
