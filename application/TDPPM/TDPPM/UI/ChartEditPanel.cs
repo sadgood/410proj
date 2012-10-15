@@ -245,7 +245,8 @@ namespace TDPPM
             }
             string prtName = SheetList.Find(delegate(S_Sheet s) { return s.guid == guid; }).prtName;
             //清空prt里SheetGuid为guid的note
-            NXFun.ClearNotesBySheetGuid(ToFullPath(prtName), guid);
+
+
         }
         //上移按钮
         private void tsrbtnMoveUp_Click(object sender, EventArgs e)

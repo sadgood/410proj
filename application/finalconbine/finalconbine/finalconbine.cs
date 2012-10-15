@@ -483,8 +483,6 @@ public class finalconbine
                 tree_control0.InsertColumn(3, "上公差", 100);
                 tree_control0.InsertColumn(4, "下公差", 100);
                 tree_control0.InsertColumn(5, "打标号", 50);
-            
-
 
 
 
@@ -1002,11 +1000,34 @@ public class finalconbine
                 {
                     NXOpen.Annotations.Dimension[] alldim = null;
                     NXOpen.Annotations.Fcf[] allfcf = null;
+                    NXOpen.Annotations.Dimension[] alldimori = null;
+                    NXOpen.Annotations.Fcf[] allfcfori = null;
+                    ArrayList alldimary = new ArrayList();
+                    ArrayList allfcfary = new ArrayList();
                     Part workPart = theSession.Parts.Work;
-                    alldim = workPart.Dimensions.ToArray();
-                    allfcf = workPart.Annotations.Fcfs.ToArray();
-                 
-                    if (alldim == null && allfcf == null)
+                    alldimori = workPart.Dimensions.ToArray();
+                    allfcfori = workPart.Annotations.Fcfs.ToArray();
+                    foreach (NXOpen.Annotations.Dimension dim in alldimori)
+                    {
+                        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;      
+                    if(!pm.IsInheritedPmi(dim))
+                    {
+                     alldimary.Add(dim);
+                    }
+                   
+                    }
+                    alldim = (NXOpen.Annotations.Dimension[])alldimary.ToArray(typeof(NXOpen.Annotations.Dimension));
+                    foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
+                    {
+                        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                        if (!pm.IsInheritedPmi(fcf))
+                        {
+                            allfcfary.Add(fcf);
+                        }
+                       
+                    }
+                    allfcf = (NXOpen.Annotations.Fcf[])allfcfary.ToArray(typeof(NXOpen.Annotations.Fcf));
+                    if (alldimary.Count == 0 && allfcfary.Count == 0)
                     {
                         theUI.NXMessageBox.Show("本工序无PMI", NXMessageBox.DialogType.Warning, "本工序无PMI,无法打标号");
                         return 1;
@@ -1017,7 +1038,7 @@ public class finalconbine
 
 
 
-                    if (alldim.Length != 0)
+                    if (alldimary.Count != 0)
                     {
 
                         ArrayList stateone = new ArrayList();
@@ -1185,7 +1206,7 @@ public class finalconbine
 
 
                     }
-                    if (allfcf.Length != 0)
+                    if (allfcfary.Count != 0)
                     {
                         ArrayList fstateone = new ArrayList();
                         ArrayList funstateone = new ArrayList();
@@ -2261,6 +2282,7 @@ public class finalconbine
                 else if (state == 2)
                 {
                     menu.AddMenuItem(1, "不打标");
+                    menu.AddMenuItem(15, "更改方向");
                 }
             }
             else if (node.ParentNode == fcfnode && node != fcfnode)
@@ -2273,6 +2295,7 @@ public class finalconbine
                 else if (state == 2)
                 {
                     menu.AddMenuItem(4, "不打标");
+                    menu.AddMenuItem(16, "更改方向");
                 }
             
             }
@@ -2361,6 +2384,55 @@ public class finalconbine
             foreach (Node a in allfcfs)
             {
                 a.SetState(2);
+            }
+        }
+        else if (menuItemID == 15)
+        {
+            Part displayPart = theSession.Parts.Display;
+            Part workPart = theSession.Parts.Work;
+            string a = node2dim(node).GetStringAttribute("GUID");
+            NXOpen.Annotations.BalloonNote b = FindballonByAttr("GUID", a);
+            if (b != null)
+            {
+                NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
+                balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(b);
+                double ang = balloonNoteBuilder1.Style.LetteringStyle.Angle;
+                if (ang == 0)
+                {
+                    balloonNoteBuilder1.Style.LetteringStyle.Angle = 90;
+                }
+                else if (ang >= 45)
+                {
+                    balloonNoteBuilder1.Style.LetteringStyle.Angle = 0;
+                }
+
+                balloonNoteBuilder1.Commit();
+                balloonNoteBuilder1.Destroy();
+            }
+        
+        }
+        else if(menuItemID == 16)
+        {
+            Part displayPart = theSession.Parts.Display;
+            Part workPart = theSession.Parts.Work;
+            string a = node2dim(node).GetStringAttribute("GUID");
+            NXOpen.Annotations.BalloonNote b = FindballonByAttr("GUID", a);
+            if (b != null)
+            {
+                NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
+                balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(b);
+                double ang = balloonNoteBuilder1.Style.LetteringStyle.Angle;
+                if(ang == 0)
+                {
+                    balloonNoteBuilder1.Style.LetteringStyle.Angle = 90;
+                }
+                else if (ang >= 45)
+                {
+                    balloonNoteBuilder1.Style.LetteringStyle.Angle = 0;
+                }
+               
+                balloonNoteBuilder1.Commit();
+                balloonNoteBuilder1.Destroy();
             }
         }
     }
@@ -2588,6 +2660,18 @@ public class finalconbine
         catch (System.Exception ex)
         {
             UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+        }
+    }
+    public static NXOpen.Annotations.Annotation GetInheritParent(NXOpen.Annotations.Annotation pmi)
+    {
+        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+        if (pm.IsInheritedPmi(pmi))
+        {
+            return pm.GetInheritParent(pmi);
+        }
+        else
+        {
+            return pmi;
         }
     }
 }

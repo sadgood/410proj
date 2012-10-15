@@ -59,26 +59,26 @@
     </Reference>
     <Reference Include="ManagedLoader, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\ManagedLoader.dll</HintPath>
+      <HintPath>D:\Program Files\UGS\NX 7.5\UGII\managed\ManagedLoader.dll</HintPath>
     </Reference>
     <Reference Include="NXOpen, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpen.dll</HintPath>
+      <HintPath>D:\Program Files\UGS\NX 7.5\UGII\managed\NXOpen.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NXOpen.UF, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpen.UF.dll</HintPath>
+      <HintPath>D:\Program Files\UGS\NX 7.5\UGII\managed\NXOpen.UF.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NXOpen.Utilities, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpen.Utilities.dll</HintPath>
+      <HintPath>D:\Program Files\UGS\NX 7.5\UGII\managed\NXOpen.Utilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NXOpenUI, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program Files\UGS\NX 7.5 x64\UGII\managed\NXOpenUI.dll</HintPath>
+      <HintPath>D:\Program Files\UGS\NX 7.5\UGII\managed\NXOpenUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

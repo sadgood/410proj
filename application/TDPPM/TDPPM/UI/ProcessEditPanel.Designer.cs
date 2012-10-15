@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessEditPanel));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.imgGongyiTree = new System.Windows.Forms.ImageList(this.components);
             this.cmsGongxu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsGongxuInsertUp = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,40 +164,40 @@
             this.cmsGongxuDelGongxu,
             this.cmsGongxuAddGongbu});
             this.cmsGongxu.Name = "gongxuContextMenu";
-            this.cmsGongxu.Size = new System.Drawing.Size(149, 114);
+            this.cmsGongxu.Size = new System.Drawing.Size(143, 114);
             // 
             // cmsGongxuInsertUp
             // 
             this.cmsGongxuInsertUp.Name = "cmsGongxuInsertUp";
-            this.cmsGongxuInsertUp.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongxuInsertUp.Size = new System.Drawing.Size(142, 22);
             this.cmsGongxuInsertUp.Text = "向上插入工序";
             this.cmsGongxuInsertUp.Click += new System.EventHandler(this.cmsGongxuInsertUp_Click);
             // 
             // cmsGongxuInsertDown
             // 
             this.cmsGongxuInsertDown.Name = "cmsGongxuInsertDown";
-            this.cmsGongxuInsertDown.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongxuInsertDown.Size = new System.Drawing.Size(142, 22);
             this.cmsGongxuInsertDown.Text = "向下插入工序";
             this.cmsGongxuInsertDown.Click += new System.EventHandler(this.cmsGongxuInsertDown_Click);
             // 
             // cmsGongxuEditGongxu
             // 
             this.cmsGongxuEditGongxu.Name = "cmsGongxuEditGongxu";
-            this.cmsGongxuEditGongxu.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongxuEditGongxu.Size = new System.Drawing.Size(142, 22);
             this.cmsGongxuEditGongxu.Text = "编辑工序";
             this.cmsGongxuEditGongxu.Click += new System.EventHandler(this.cmsGongxuEditGongxu_Click);
             // 
             // cmsGongxuDelGongxu
             // 
             this.cmsGongxuDelGongxu.Name = "cmsGongxuDelGongxu";
-            this.cmsGongxuDelGongxu.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongxuDelGongxu.Size = new System.Drawing.Size(142, 22);
             this.cmsGongxuDelGongxu.Text = "删除工序";
             this.cmsGongxuDelGongxu.Click += new System.EventHandler(this.cmsGongxuDelGongxu_Click);
             // 
             // cmsGongxuAddGongbu
             // 
             this.cmsGongxuAddGongbu.Name = "cmsGongxuAddGongbu";
-            this.cmsGongxuAddGongbu.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongxuAddGongbu.Size = new System.Drawing.Size(142, 22);
             this.cmsGongxuAddGongbu.Text = "添加工步";
             this.cmsGongxuAddGongbu.Click += new System.EventHandler(this.cmsGongxuAddGongbu_Click);
             // 
@@ -209,33 +209,33 @@
             this.cmsGongbuEditGongbu,
             this.cmsGongbuDelGongbu});
             this.cmsGongbu.Name = "gongbuContextMenu";
-            this.cmsGongbu.Size = new System.Drawing.Size(149, 92);
+            this.cmsGongbu.Size = new System.Drawing.Size(143, 92);
             // 
             // cmsGongbuInsertUp
             // 
             this.cmsGongbuInsertUp.Name = "cmsGongbuInsertUp";
-            this.cmsGongbuInsertUp.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongbuInsertUp.Size = new System.Drawing.Size(142, 22);
             this.cmsGongbuInsertUp.Text = "向上插入工步";
             this.cmsGongbuInsertUp.Click += new System.EventHandler(this.cmsGongbuInsertUp_Click);
             // 
             // cmsGongbuInsertDown
             // 
             this.cmsGongbuInsertDown.Name = "cmsGongbuInsertDown";
-            this.cmsGongbuInsertDown.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongbuInsertDown.Size = new System.Drawing.Size(142, 22);
             this.cmsGongbuInsertDown.Text = "向下插入工步";
             this.cmsGongbuInsertDown.Click += new System.EventHandler(this.cmsGongbuInsertDown_Click);
             // 
             // cmsGongbuEditGongbu
             // 
             this.cmsGongbuEditGongbu.Name = "cmsGongbuEditGongbu";
-            this.cmsGongbuEditGongbu.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongbuEditGongbu.Size = new System.Drawing.Size(142, 22);
             this.cmsGongbuEditGongbu.Text = "编辑工步";
             this.cmsGongbuEditGongbu.Click += new System.EventHandler(this.cmsGongbuEditGongbu_Click);
             // 
             // cmsGongbuDelGongbu
             // 
             this.cmsGongbuDelGongbu.Name = "cmsGongbuDelGongbu";
-            this.cmsGongbuDelGongbu.Size = new System.Drawing.Size(148, 22);
+            this.cmsGongbuDelGongbu.Size = new System.Drawing.Size(142, 22);
             this.cmsGongbuDelGongbu.Text = "删除工步";
             this.cmsGongbuDelGongbu.Click += new System.EventHandler(this.cmsGongbuDelGongbu_Click);
             // 
@@ -245,19 +245,19 @@
             this.cmsGongyiEditGongyi,
             this.cmsGongyiAddGongxu});
             this.cmsGongyi.Name = "gongyiContextMenu";
-            this.cmsGongyi.Size = new System.Drawing.Size(125, 48);
+            this.cmsGongyi.Size = new System.Drawing.Size(119, 48);
             // 
             // cmsGongyiEditGongyi
             // 
             this.cmsGongyiEditGongyi.Name = "cmsGongyiEditGongyi";
-            this.cmsGongyiEditGongyi.Size = new System.Drawing.Size(124, 22);
+            this.cmsGongyiEditGongyi.Size = new System.Drawing.Size(118, 22);
             this.cmsGongyiEditGongyi.Text = "编辑工艺";
             this.cmsGongyiEditGongyi.Click += new System.EventHandler(this.cmsGongyiEditGongyi_Click);
             // 
             // cmsGongyiAddGongxu
             // 
             this.cmsGongyiAddGongxu.Name = "cmsGongyiAddGongxu";
-            this.cmsGongyiAddGongxu.Size = new System.Drawing.Size(124, 22);
+            this.cmsGongyiAddGongxu.Size = new System.Drawing.Size(118, 22);
             this.cmsGongyiAddGongxu.Text = "添加工序";
             this.cmsGongyiAddGongxu.Click += new System.EventHandler(this.cmsGongyiAddGongxu_Click);
             // 
@@ -333,7 +333,7 @@
             this.tsrlblGongxu.Image = ((System.Drawing.Image)(resources.GetObject("tsrlblGongxu.Image")));
             this.tsrlblGongxu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrlblGongxu.Name = "tsrlblGongxu";
-            this.tsrlblGongxu.Size = new System.Drawing.Size(32, 22);
+            this.tsrlblGongxu.Size = new System.Drawing.Size(29, 22);
             this.tsrlblGongxu.Text = "工序";
             // 
             // tsrbtnAddGongxu
@@ -359,7 +359,7 @@
             // tsrlblGongbu
             // 
             this.tsrlblGongbu.Name = "tsrlblGongbu";
-            this.tsrlblGongbu.Size = new System.Drawing.Size(32, 22);
+            this.tsrlblGongbu.Size = new System.Drawing.Size(29, 22);
             this.tsrlblGongbu.Text = "工步";
             // 
             // tsrbtnAddGongbu
@@ -385,7 +385,7 @@
             // tsrlblMove
             // 
             this.tsrlblMove.Name = "tsrlblMove";
-            this.tsrlblMove.Size = new System.Drawing.Size(32, 22);
+            this.tsrlblMove.Size = new System.Drawing.Size(29, 22);
             this.tsrlblMove.Text = "移动";
             // 
             // tsrbtnMoveUp
@@ -597,7 +597,6 @@
             this.gongxu_gongxumingcheng.Name = "gongxu_gongxumingcheng";
             this.gongxu_gongxumingcheng.Size = new System.Drawing.Size(277, 21);
             this.gongxu_gongxumingcheng.TabIndex = 65;
-            this.gongxu_gongxumingcheng.TextChanged += new System.EventHandler(this.gongxu_gongxumingcheng_TextChanged);
             // 
             // gongxu_guanjiangongxu
             // 
@@ -1002,14 +1001,14 @@
             // 
             this.dgvZigongbu.AllowUserToResizeRows = false;
             this.dgvZigongbu.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvZigongbu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvZigongbu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvZigongbu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvZigongbu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -1017,25 +1016,25 @@
             this.Column3,
             this.Column4,
             this.Column5});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvZigongbu.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvZigongbu.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvZigongbu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvZigongbu.Location = new System.Drawing.Point(0, 0);
             this.dgvZigongbu.Name = "dgvZigongbu";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvZigongbu.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvZigongbu.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvZigongbu.RowHeadersWidth = 20;
             this.dgvZigongbu.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvZigongbu.RowTemplate.Height = 23;
@@ -1044,8 +1043,8 @@
             // 
             // Column1
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column1.HeaderText = "行";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -1090,7 +1089,7 @@
             this.tsrbtnOk.Image = global::TDPPM.Properties.Resources.ok;
             this.tsrbtnOk.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnOk.Name = "tsrbtnOk";
-            this.tsrbtnOk.Size = new System.Drawing.Size(52, 22);
+            this.tsrbtnOk.Size = new System.Drawing.Size(49, 22);
             this.tsrbtnOk.Text = "确定";
             this.tsrbtnOk.Click += new System.EventHandler(this.tsrbtnOk_Click);
             // 
@@ -1099,7 +1098,7 @@
             this.tsrbtnCancel.Image = global::TDPPM.Properties.Resources.cancel;
             this.tsrbtnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnCancel.Name = "tsrbtnCancel";
-            this.tsrbtnCancel.Size = new System.Drawing.Size(52, 22);
+            this.tsrbtnCancel.Size = new System.Drawing.Size(49, 22);
             this.tsrbtnCancel.Text = "取消";
             this.tsrbtnCancel.Click += new System.EventHandler(this.tsrbtnCancel_Click);
             // 
@@ -1108,7 +1107,7 @@
             this.tsrbtnEdit.Image = global::TDPPM.Properties.Resources.editProcedureModel1;
             this.tsrbtnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnEdit.Name = "tsrbtnEdit";
-            this.tsrbtnEdit.Size = new System.Drawing.Size(52, 22);
+            this.tsrbtnEdit.Size = new System.Drawing.Size(49, 22);
             this.tsrbtnEdit.Text = "编辑";
             this.tsrbtnEdit.Click += new System.EventHandler(this.tsrbtnEdit_Click);
             // 
@@ -1118,15 +1117,15 @@
             this.tsrbtnSetHardness.Image = global::TDPPM.Properties.Resources.SetHardness;
             this.tsrbtnSetHardness.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsrbtnSetHardness.Name = "tsrbtnSetHardness";
-            this.tsrbtnSetHardness.Size = new System.Drawing.Size(76, 22);
+            this.tsrbtnSetHardness.Size = new System.Drawing.Size(73, 22);
             this.tsrbtnSetHardness.Text = "设置硬度";
             this.tsrbtnSetHardness.Click += new System.EventHandler(this.tsrbtnSetHardness_Click);
             // 
             // dgvYingdu
             // 
             this.dgvYingdu.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.dgvYingdu.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.dgvYingdu.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvYingdu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvYingdu.BackgroundColor = System.Drawing.Color.White;
             this.dgvYingdu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;

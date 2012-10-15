@@ -2147,20 +2147,19 @@ namespace TDPPM
             theSession.UpdateManager.ClearErrorList();
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
-
-            NXOpen.Annotations.Note[] notes = workPart.Notes.ToArray();
-            List<NXOpen.Annotations.Note> noto2del = new List<NXOpen.Annotations.Note>();
-            foreach (NXOpen.Annotations.Note note in notes)
-            {
-                if (GetStringAttr(note, "SHEETGUID") == guid)
-                    noto2del.Add(note);
-            }
-            int nErrs1;
-            nErrs1 = theSession.UpdateManager.AddToDeleteList(List2Array(noto2del));
-            bool notifyOnDelete2;
-            notifyOnDelete2 = theSession.Preferences.Modeling.NotifyOnDelete;
-            int nErrs2;
-            nErrs2 = theSession.UpdateManager.DoUpdate(markId1);
+            NXOpen.Annotations.Note[] notes = (NXOpen.Annotations.Note[])workPart.Notes.ToArray();//ori
+            List<NXOpen.Annotations.Annotation> noto2del = new List<NXOpen.Annotations.Annotation>();
+            foreach (NXOpen.Annotations.Annotation note in notes)
+           {
+               if (GetStringAttr(note, "SHEETGUID") == guid)
+                   noto2del.Add(note);
+           }
+           int nErrs1;
+           nErrs1 = theSession.UpdateManager.AddToDeleteList(List2Array(noto2del));
+           bool notifyOnDelete2;
+           notifyOnDelete2 = theSession.Preferences.Modeling.NotifyOnDelete;
+           int nErrs2;
+           nErrs2 = theSession.UpdateManager.DoUpdate(markId1);
         }
         public static T[] List2Array<T>(List<T> list)
         {
@@ -2281,7 +2280,10 @@ namespace TDPPM
             theSession.UpdateManager.ClearErrorList();
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
-            NXOpen.Annotations.Note[] notes = workPart.Notes.ToArray();
+            NXOpen.Annotations.Note[] notes = null;
+               notes = workPart.Notes.ToArray();
+            
+          
             List<NXOpen.Annotations.Note> noto2del = new List<NXOpen.Annotations.Note>();
             foreach (NXOpen.Annotations.Note note in notes)
             {
@@ -2656,7 +2658,7 @@ namespace TDPPM
         {
             string message =
                         "三维机加工艺设计系统\n" +
-                        "V1.0";
+                        "V0.9.6 测试版";
             NXFun.MessageBox(message, "关于", 1);
         }
         public static void ShowJiagongmian()
