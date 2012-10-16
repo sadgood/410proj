@@ -140,10 +140,10 @@ public class ano
             theDialog.AddKeyboardFocusNotifyHandler(new NXOpen.BlockStyler.BlockDialog.KeyboardFocusNotify(keyboardFocusNotify_cb));
             theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
         }
-        catch (Exception ex)
+        catch 
         {
             //---- Enter your exception handling code here -----
-            throw ex;
+            theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "请先打开一个模型在使用本工具");
         }
     }
     //------------------------------- DIALOG LAUNCHING ---------------------------------
@@ -255,10 +255,10 @@ public class ano
         {
             theDialog.Show();
         }
-        catch (Exception ex)
+        catch 
         {
             //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+            //theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
         }
         return 0;
     }
@@ -360,8 +360,10 @@ public class ano
            //     }
            //     strvalue[i] = "添加新视图";
            //     enum0.GetProperties().SetEnumMembers("Value", strvalue);
+            //zhushiwenzi = realanno.GetProperties().GetStrings("Value");//这个是注释文字
+            //realanno.GetProperties().SetString("Value","");
             refreshenum();
-            //---- Enter your callback code here -----
+      
         }
         catch (Exception ex)
         {

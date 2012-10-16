@@ -121,6 +121,10 @@ public class finalconbine
     public static NXOpen.TaggedObject[] secpt;//第2个点
     public static NXOpen.TaggedObject[] thepmi;
     private NXOpen.BlockStyler.UIBlock astring0;// Block type: String
+    private NXOpen.BlockStyler.UIBlock china;// Block type: Integer
+    private NXOpen.BlockStyler.UIBlock japan;// Block type: Integer
+    private NXOpen.BlockStyler.UIBlock there;// Block type: Toggle
+    private NXOpen.BlockStyler.UIBlock here;// Block type: Selection
     public NXOpen.TaggedObject[] plcpoint;//放置点
     public Point theplcpoint = null;
     pubfun thepubfunfcf = new pubfun();
@@ -202,10 +206,10 @@ public class finalconbine
             theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
             theDialog.AddFilterHandler(new NXOpen.BlockStyler.BlockDialog.Filter(filter_cb));
         }
-        catch (Exception ex)
+        catch 
         {
             //---- Enter your exception handling code here -----
-            throw ex;
+            theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "请先打开一个模型在使用本工具");
         }
     }
     //------------------------------- DIALOG LAUNCHING ---------------------------------
@@ -302,10 +306,10 @@ public class finalconbine
         {
             theDialog.Show();
         }
-        catch (Exception ex)
+        catch 
         {
             //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+            //theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
         }
         return 0;
     }
@@ -402,6 +406,10 @@ public class finalconbine
             tabPage3 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("tabPage3");
             obutton0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("obutton0");
             tree_control0 = (NXOpen.BlockStyler.Tree)theDialog.TopBlock.FindBlock("tree_control0");
+            there = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("there");
+            here = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("here");
+            china = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("china");
+            japan = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("japan");
            tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
@@ -469,7 +477,7 @@ public class finalconbine
             secrefbase.GetProperties().SetLogical("Enable", false);
             secrefbasemat.GetProperties().SetLogical("Enable", false);
             toggle0.GetProperties().SetLogical("Value", false);
-            ztoggle01.GetProperties().SetLogical("Value",false);
+          
             //jtogglejy.GetProperties().GetLogical("Value")
 
             jtogglejy.GetProperties().SetLogical("Value", false);
@@ -483,11 +491,12 @@ public class finalconbine
                 tree_control0.InsertColumn(3, "上公差", 100);
                 tree_control0.InsertColumn(4, "下公差", 100);
                 tree_control0.InsertColumn(5, "打标号", 50);
-
-
-
+                //zselection0.GetProperties().SetTaggedObject("SelectedObjects", null);
+                there.GetProperties().SetLogical("Value", false);
+                here.GetProperties().SetLogical("Enable",false);
 
                 refreshenum();
+                ztoggle01.GetProperties().SetLogical("Value", false);
             //---- Enter your callback code here -----
         }
         catch (Exception ex)
@@ -962,6 +971,44 @@ public class finalconbine
                 FindTol();
             //---------Enter your code here-----------
             }
+           
+            else if(block == there )
+            {
+            if(there.GetProperties().GetLogical("Value"))
+            {
+            here.GetProperties().SetLogical("Enable",true);
+            }
+            else 
+            {
+                here.GetProperties().SetLogical("Enable", false);
+            }
+            obutton0.GetProperties().SetString("Label", "查询尺寸标注");
+                if(dimnode != null)
+                {
+            if (dimnode.FirstChildNode != null)
+              {
+                 foreach(Node nd in getcdnd(dimnode))
+                 {
+                     tree_control0.DeleteNode(nd);
+                 
+                 }
+                 tree_control0.DeleteNode(dimnode);
+              }
+                }
+                if(fcfnode != null)
+                {
+                if(fcfnode.FirstChildNode != null )
+                {
+                 foreach (Node nd in getcdnd(fcfnode))
+                 {
+                     tree_control0.DeleteNode(nd);
+
+                 }
+                 tree_control0.DeleteNode(fcfnode);
+                }
+                }
+            }
+                 
             else if(block == ztoggle01)
             {
                 if (ztoggle01.GetProperties().GetLogical("Value"))
@@ -996,6 +1043,7 @@ public class finalconbine
             else if (block == obutton0)//tag now
             {
                 pubfun thepub = new pubfun();
+                Part workPart = theSession.Parts.Work;
                 if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
                 {
                     NXOpen.Annotations.Dimension[] alldim = null;
@@ -1004,28 +1052,61 @@ public class finalconbine
                     NXOpen.Annotations.Fcf[] allfcfori = null;
                     ArrayList alldimary = new ArrayList();
                     ArrayList allfcfary = new ArrayList();
-                    Part workPart = theSession.Parts.Work;
-                    alldimori = workPart.Dimensions.ToArray();
-                    allfcfori = workPart.Annotations.Fcfs.ToArray();
-                    foreach (NXOpen.Annotations.Dimension dim in alldimori)
+                    if (here.GetProperties().GetLogical("Enable"))
                     {
-                        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;      
-                    if(!pm.IsInheritedPmi(dim))
-                    {
-                     alldimary.Add(dim);
-                    }
-                   
-                    }
-                    alldim = (NXOpen.Annotations.Dimension[])alldimary.ToArray(typeof(NXOpen.Annotations.Dimension));
-                    foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
-                    {
-                        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
-                        if (!pm.IsInheritedPmi(fcf))
+                        TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                        if (obs.Length == 0)
                         {
-                            allfcfary.Add(fcf);
+                            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择需要打标号的尺寸或形位公差");
+                            return 1;
+
+                        }
+                        else
+                        {
+                            foreach (TaggedObject ob in obs)
+                            {
+                                try
+                                {
+                                    alldimary.Add((NXOpen.Annotations.Dimension)ob);
+                                }
+                                catch
+                                {
+                                    allfcfary.Add((NXOpen.Annotations.Fcf)ob);
+                                }
+
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+
+                     
+                        alldimori = workPart.Dimensions.ToArray();
+                        allfcfori = workPart.Annotations.Fcfs.ToArray();
+                        foreach (NXOpen.Annotations.Dimension dim in alldimori)
+                        {
+                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                            if (!pm.IsInheritedPmi(dim))
+                            {
+                                alldimary.Add(dim);
+                            }
+
                         }
                        
+                        foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
+                        {
+                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                            if (!pm.IsInheritedPmi(fcf))
+                            {
+                                allfcfary.Add(fcf);
+                            }
+
+                        }
+                     
                     }
+                    alldim = (NXOpen.Annotations.Dimension[])alldimary.ToArray(typeof(NXOpen.Annotations.Dimension));
                     allfcf = (NXOpen.Annotations.Fcf[])allfcfary.ToArray(typeof(NXOpen.Annotations.Fcf));
                     if (alldimary.Count == 0 && allfcfary.Count == 0)
                     {
@@ -1343,16 +1424,19 @@ public class finalconbine
                                 }
                                 //node2dim(unfcfnodeary[q]).DeleteAttributeByTypeAndTitle(NXObject.AttributeType.String, "GUID");
                             }
+                            NXOpen.Annotations.BalloonNote thebal;
                             for (int m = 0; m < fcfnodeary.Length; m++)
                             {
                                 if (FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")) == null)
                                 {
 
-                                    AddBalloonNote(node2dim(fcfnodeary[m]), (m + 1).ToString(), node2dim(fcfnodeary[m]).GetStringAttribute("GUID"));
+                                    thebal = AddBalloonNote(node2dim(fcfnodeary[m]), fcfnodeary[m].GetColumnDisplayText(1), node2dim(fcfnodeary[m]).GetStringAttribute("GUID"));
+                                   thebal.SetViews(node2dim(fcfnodeary[m]).GetViews());
                                 }
                                 else
                                 {
-                                    EditBalloonNote(FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")), node2dim(fcfnodeary[m]), (m + 1).ToString());
+                                    EditBalloonNote(FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")), node2dim(fcfnodeary[m]), fcfnodeary[m].GetColumnDisplayText(1));
+                                    FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")).SetViews(node2dim(fcfnodeary[m]).GetViews());
                                 }
                             }
                         }
@@ -1376,18 +1460,19 @@ public class finalconbine
                                 //node2dim(undimnodeary[p]).DeleteAttributeByTypeAndTitle(NXObject.AttributeType.String, "GUID");
                             }
                             Node[] dimnodeary = (Node[])ndwithstate(getcdnd(dimnode)).ToArray(typeof(Node));
-
+                            NXOpen.Annotations.BalloonNote thebbal;
                             for (int i = 0; i < dimnodeary.Length; i++)
                             {
                                 if (FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")) == null)
                                 {
-                                    AddBalloonNote(node2dim(dimnodeary[i]), (i + 1).ToString(), node2dim(dimnodeary[i]).GetStringAttribute("GUID"));
+                                  thebbal =  AddBalloonNote(node2dim(dimnodeary[i]), dimnodeary[i].GetColumnDisplayText(1), node2dim(dimnodeary[i]).GetStringAttribute("GUID"));
+                                  thebbal.SetViews(node2dim(dimnodeary[i]).GetViews());
                                 }
                                 else
                                 {
                                     //EditBalloonNote(FindballonByAttr("GUID", (node2dim(dimnodeary[i]).GetStringAttribute("GUID")),node2dim(dimnodeary[i],(i + 1).ToString())
-                                    EditBalloonNote(FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")), node2dim(dimnodeary[i]), (i + 1).ToString());
-
+                                    EditBalloonNote(FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")), node2dim(dimnodeary[i]), dimnodeary[i].GetColumnDisplayText(1));
+                                    FindballonByAttr("GUID", node2dim(dimnodeary[i]).GetStringAttribute("GUID")).SetViews(node2dim(dimnodeary[i]).GetViews());
 
                                 }
                             }
@@ -2117,6 +2202,18 @@ public class finalconbine
             }
         
         }
+        else if (block == here)
+        {
+            try
+            {
+                NXOpen.Annotations.Annotation dd = (NXOpen.Annotations.Annotation)selectedObject;
+            }
+            catch
+            {
+                return (NXOpen.UF.UFConstants.UF_UI_SEL_REJECT);
+            }
+        
+        }
 
         return (NXOpen.UF.UFConstants.UF_UI_SEL_ACCEPT);
     }
@@ -2221,9 +2318,19 @@ public class finalconbine
     {
     //ArrayList nodes = getcdnd(parent); 
           Node[] nodeary = (Node[])getcdnd(parent).ToArray(typeof(Node));
+          int p = 1;
+        if (parent == dimnode)
+        {
+        p =  china.GetProperties().GetInteger("Value");
+        
+        }
+        else if(parent == fcfnode)
+        {
+            p = japan.GetProperties().GetInteger("Value");
+        }
           for (int i = 0; i < nodeary.Length; i++)
           {
-              nodeary[i].SetColumnDisplayText(1, (i + 1).ToString());
+              nodeary[i].SetColumnDisplayText(1, (p + i ).ToString());
           
           
           }

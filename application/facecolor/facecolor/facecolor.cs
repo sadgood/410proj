@@ -100,10 +100,9 @@ public class facecolor
             theDialog.AddKeyboardFocusNotifyHandler(new NXOpen.BlockStyler.BlockDialog.KeyboardFocusNotify(keyboardFocusNotify_cb));
             theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
         }
-        catch (Exception ex)
+        catch
         {
-            //---- Enter your exception handling code here -----
-            throw ex;
+            theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "请先打开一个模型在使用本工具");
         }
     }
     //------------------------------- DIALOG LAUNCHING ---------------------------------
@@ -200,10 +199,9 @@ public class facecolor
         {
             theDialog.Show();
         }
-        catch (Exception ex)
+        catch
         {
-            //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+          
         }
         return 0;
     }

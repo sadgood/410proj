@@ -129,9 +129,9 @@ public class allpro
             theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
             theDialog.AddFilterHandler(new NXOpen.BlockStyler.BlockDialog.Filter(filter_cb));
         }
-        catch (Exception ex)
+        catch
         {
-            throw ex;
+            theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "请先打开一个模型在使用本工具");
         }
     }
 //#if USER_EXIT_OR_MENU
@@ -182,9 +182,9 @@ public class allpro
         {
             theDialog.Show();
         }
-        catch (Exception ex)
+        catch 
         {
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+          
         }
         return 0;
     }
@@ -546,7 +546,7 @@ public class allpro
             {
 
               
-                   NXOpen.TaggedObject[] thept = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
+                NXOpen.TaggedObject[] thept = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
                 theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
                 if (theoripmi.Length == 0)
                 {
@@ -566,6 +566,11 @@ public class allpro
                 NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
                
                 xformone = creataxis(theoridim);//需要校核的尺寸所生成的轴
+                if(xformone == null)
+                {
+
+                    return 1;
+                }
                 hideit((NXObject)xformone);//隐藏需要校核的尺寸所生成的轴
                 finalx = theoridim.GetRealAttribute("X");
                 finaly = theoridim.GetRealAttribute("Y");
@@ -668,9 +673,8 @@ public class allpro
                         }
                         if (left.Length == 0 || left.Length == 1)
                         {
-                            theUI.NXMessageBox.Show("该工序内尺寸太少", NXOpen.NXMessageBox.DialogType.Warning, "该工序内尺寸小于2，无法进行尺寸链校核");
+                            theUI.NXMessageBox.Show("该工序内尺寸太少", NXOpen.NXMessageBox.DialogType.Warning, "该工序内矢量尺寸数量小于2，无须进行尺寸链校核");
                             return 1;
-
                         }
                         for (int t = 2; t <= left.Length; t++)//该循环从2开始，因为一个尺寸连最起码有三个，它也有可能达到left数组的长度。
                         {
@@ -1326,10 +1330,10 @@ public class allpro
         abuilder.Type = NXOpen.Features.DatumAxisBuilder.Types.TwoPoints;
         abuilder.IsAssociative = true;
         Xform nullXform = null;
-       NXOpen.Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
-       NXOpen.Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
-        abuilder.Point1 = pt1;
-        abuilder.Point2 = pt2;
+       //NXOpen.Point pt1 = workPart.Points.CreatePoint(point1, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
+       //NXOpen.Point pt2 = workPart.Points.CreatePoint(point2, nullXform, NXOpen.SmartObject.UpdateOption.WithinModeling);
+        abuilder.Point1 = point1;
+        abuilder.Point2 = point2;
         shanker = abuilder.Commit();
         abuilder.Destroy();
 
@@ -1345,12 +1349,21 @@ public class allpro
         double endx = 0;
         double endy = 0;
         double endz = 0;
-        startx = dimen.GetRealAttribute("START-X");
-        starty = dimen.GetRealAttribute("START-Y");
-        startz = dimen.GetRealAttribute("START-Z");
-        endx = dimen.GetRealAttribute("END-X");
-        endy = dimen.GetRealAttribute("END-Y");
-        endz = dimen.GetRealAttribute("END-Z");
+        try
+        {
+            startx = dimen.GetRealAttribute("START-X");
+            starty = dimen.GetRealAttribute("START-Y");
+            startz = dimen.GetRealAttribute("START-Z");
+            endx = dimen.GetRealAttribute("END-X");
+            endy = dimen.GetRealAttribute("END-Y");
+            endz = dimen.GetRealAttribute("END-Z");
+        }
+        catch
+        {
+            theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Warning, "尺寸矢量信息丢失");
+
+            return null;
+        }
         Point3d stpt;
         stpt.X = startx;
         stpt.Y = starty;

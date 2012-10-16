@@ -63,33 +63,33 @@ using NXOpen.Annotations;
             
             pmiNoteBuilder1.Text.TextBlock.SetText(zhushiwenzi);
 
-            NXOpen.Annotations.Annotation.AssociativeOriginData assocOrigin1;
-            assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.Drag;
-            NXOpen.View nullView = null;
-            assocOrigin1.View = nullView;
-            assocOrigin1.ViewOfGeometry = nullView;
-            NXOpen.Point nullPoint = null;
-            assocOrigin1.PointOnGeometry = nullPoint;
-            assocOrigin1.VertAnnotation = null;
-            assocOrigin1.VertAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
-            assocOrigin1.HorizAnnotation = null;
-            assocOrigin1.HorizAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
-            assocOrigin1.AlignedAnnotation = null;
-            assocOrigin1.DimensionLine = 0;
-            assocOrigin1.AssociatedView = nullView;
-            assocOrigin1.AssociatedPoint = nullPoint;
-            assocOrigin1.OffsetAnnotation = null;
-            assocOrigin1.OffsetAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
-            assocOrigin1.XOffsetFactor = 0.0;
-            assocOrigin1.YOffsetFactor = 0.0;
-            assocOrigin1.StackAlignmentPosition = NXOpen.Annotations.StackAlignmentPosition.Above;
-            pmiNoteBuilder1.Origin.SetAssociativeOrigin(assocOrigin1);
+            //NXOpen.Annotations.Annotation.AssociativeOriginData assocOrigin1;
+            //assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.Drag;
+            //NXOpen.View nullView = null;
+            //assocOrigin1.View = nullView;
+            //assocOrigin1.ViewOfGeometry = nullView;
+            //NXOpen.Point nullPoint = null;
+            //assocOrigin1.PointOnGeometry = nullPoint;
+            //assocOrigin1.VertAnnotation = null;
+            //assocOrigin1.VertAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
+            //assocOrigin1.HorizAnnotation = null;
+            //assocOrigin1.HorizAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
+            //assocOrigin1.AlignedAnnotation = null;
+            //assocOrigin1.DimensionLine = 0;
+            //assocOrigin1.AssociatedView = nullView;
+            //assocOrigin1.AssociatedPoint = nullPoint;
+            //assocOrigin1.OffsetAnnotation = null;
+            //assocOrigin1.OffsetAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
+            //assocOrigin1.XOffsetFactor = 0.0;
+            //assocOrigin1.YOffsetFactor = 0.0;
+            //assocOrigin1.StackAlignmentPosition = NXOpen.Annotations.StackAlignmentPosition.Above;
+            //pmiNoteBuilder1.Origin.SetAssociativeOrigin(assocOrigin1);
 
             bool added1;
            added1 = pmiNoteBuilder1.AssociatedObjects.Objects.Add(guanlian);
             
 
-                pmiNoteBuilder1.Origin.Origin.SetValue(null, nullView, placeptobj);
+                pmiNoteBuilder1.Origin.Origin.SetValue(null, null, placeptobj);
 
                 pmiNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
                 if (zhiyinobj != null)
