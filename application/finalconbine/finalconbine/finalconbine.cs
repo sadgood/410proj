@@ -497,6 +497,8 @@ public class finalconbine
 
                 refreshenum();
                 ztoggle01.GetProperties().SetLogical("Value", false);
+                china.GetProperties().SetLogical("Enable", false);
+                japan.GetProperties().SetLogical("Enable", false);
             //---- Enter your callback code here -----
         }
         catch (Exception ex)
@@ -971,7 +973,17 @@ public class finalconbine
                 FindTol();
             //---------Enter your code here-----------
             }
-           
+           else if(block == china)
+           {
+             int m = china.GetProperties().GetInteger("Value");
+             labelnode(dimnode);
+           }
+            else if(block == japan)
+            {
+                int m = japan.GetProperties().GetInteger("Value");
+                labelnode(fcfnode);
+            }
+                 
             else if(block == there )
             {
             if(there.GetProperties().GetLogical("Value"))
@@ -989,10 +1001,11 @@ public class finalconbine
               {
                  foreach(Node nd in getcdnd(dimnode))
                  {
-                     tree_control0.DeleteNode(nd);
+                     tree_control0.DeleteNode(nd);//undone
                  
                  }
                  tree_control0.DeleteNode(dimnode);
+                 dimnode = null;
               }
                 }
                 if(fcfnode != null)
@@ -1005,7 +1018,14 @@ public class finalconbine
 
                  }
                  tree_control0.DeleteNode(fcfnode);
+                 fcfnode = null;
                 }
+          
+                }
+                if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
+                {
+                china.GetProperties().SetLogical("Enable", false);
+                japan.GetProperties().SetLogical("Enable", false);
                 }
             }
                  
@@ -1052,6 +1072,7 @@ public class finalconbine
                     NXOpen.Annotations.Fcf[] allfcfori = null;
                     ArrayList alldimary = new ArrayList();
                     ArrayList allfcfary = new ArrayList();
+                    
                     if (here.GetProperties().GetLogical("Enable"))
                     {
                         TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
@@ -1401,12 +1422,18 @@ public class finalconbine
 
                     
                     obutton0.GetProperties().SetString("Label", "打标号");
+                    if (obutton0.GetProperties().GetString("Label") == "打标号")
+                    {
+                        china.GetProperties().SetLogical("Enable", true);
+                        japan.GetProperties().SetLogical("Enable", true);
+                    
+                    }
                 }
 
                 else if (obutton0.GetProperties().GetString("Label") == "打标号")
                 {
                     ArrayList dellist = new ArrayList();
-
+                    
                     if (fcfnode != null)
                     {
                         if (fcfnode.FirstChildNode != null)
