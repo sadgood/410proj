@@ -1636,13 +1636,13 @@ public class finalconbine
                     return 1;
                 }
                 string mgh = astring0.GetProperties().GetString("Value");
-                if (mgh == "")
-                {
+                //if (mgh == "")
+                //{
 
-                    theUI.NXMessageBox.Show("ÇëÊäÈëÎ»ÖÃ·ûºÅ", NXMessageBox.DialogType.Warning, "Î´ÊäÈëÎ»ÖÃ·ûºÅ");
-                    return 1;
+                //    theUI.NXMessageBox.Show("ÇëÊäÈëÎ»ÖÃ·ûºÅ", NXMessageBox.DialogType.Warning, "Î´ÊäÈëÎ»ÖÃ·ûºÅ");
+                //    return 1;
 
-                }
+                //}
                 switch (jstandenum)
                 {
                     case "ANSI":
