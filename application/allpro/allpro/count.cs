@@ -116,6 +116,126 @@ public class count
         //    return true;
         //}
     }
+    public static double GetDimensionValue(NXOpen.Annotations.Dimension dimension)
+    {
+        try
+        {
+            string[] mainTextLines;
+            string[] dualTextLines;
+            dimension.GetDimensionText(out mainTextLines, out dualTextLines);
+            if (mainTextLines.Length > 0)
+            {
+                //这里可能包含特殊字符，从中得到连续数字
+                string num = GetNumberFromString(mainTextLines[0]);
+                return System.Convert.ToDouble(num);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        catch/* (System.Exception ex)*/
+        {
+            throw new Exception("读取尺寸值失败，请手动指定尺寸值");
+        }
+
+    }
+    public static string GetNumberFromString(string str)
+    {
+        string num = "";
+        foreach (char a in str)
+        {
+            if (isNum(a))
+            {
+                if (a == ',')
+                {
+                    num += '.';
+                }
+                else
+                {
+                    num += a;
+                }
+            }
+        }
+        return num;
+
+    }
+    public static bool isNum(char a)
+    {
+        string num = "0123456789.,-";
+        string s = "" + a;
+        return num.Contains(s);
+    }
+    public static void GetTolerance(NXOpen.Annotations.Dimension dim, out double up, out double low)
+    {
+        //目前未考虑精度
+        try
+        {
+            up = 0;
+            low = 0;
+            Object tol = ReflectFun(dim, "GetTolerance");
+           
+             NXOpen.Annotations.LinearTolerance lint = (NXOpen.Annotations.LinearTolerance)tol;
+             NXOpen.Annotations.ToleranceType oldtype = lint.ToleranceType;
+            
+            // ReflectSetProperty(tol, "ToleranceType", NXOpen.Annotations.ToleranceType.BilateralTwoLines);
+
+        
+            //ReflectFun(dim, "SetTolerance", tol);
+            Type type = tol.GetType();
+            NXOpen.Annotations.Value v_up = new NXOpen.Annotations.Value();
+            NXOpen.Annotations.Value v_low = new NXOpen.Annotations.Value();
+            if (type.Name == "LinearTolerance")
+            {
+                if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.BilateralOneLine)
+                {
+                    //v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                    v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceMm");
+                    v_low = v_up;
+                    up = v_up.ItemValue;
+                    low = v_low.ItemValue*(-1);
+                    
+
+                }
+                else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.UnilateralBelow)
+                {
+                    up = 0;
+                    v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                    low = v_low.ItemValue;
+                }
+                else if(lint.ToleranceType == NXOpen.Annotations.ToleranceType.UnilateralAbove)
+                {
+                    low = 0;
+                    v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceMm");
+                    up = v_up.ItemValue;
+                }
+                else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.BilateralTwoLines)
+                {
+                    v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                    v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceMm");
+                    up = v_up.ItemValue;
+                    low = v_low.ItemValue;
+                }
+             
+            }
+            else
+            {
+                v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceDegrees");
+                v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceDegrees");
+            }
+
+
+
+            ReflectSetProperty(tol, "ToleranceType", oldtype);
+            ReflectFun(dim, "SetTolerance", tol);
+        }
+        catch (System.Exception ex)
+        {
+            UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Warning, ex.Message);
+            up = 0;
+            low = 0;
+        }
+    }
     public double[] getspec(NXOpen.Annotations.Dimension dim)//返回一个尺寸的名义值和上下公差，第一个值是名义值，第二个是上公差，第三个是下公差
     {
         string[] a;
@@ -124,10 +244,9 @@ public class count
         double low = 0;
         double up = 0;
         double[] final = { 0, 0, 0 };
-        dim.GetDimensionText(out a, out b);
-        maindim = double.Parse(a[0]);
-        up = dim.UpperMetricToleranceValue;
-        low = dim.LowerMetricToleranceValue;
+       
+        maindim = GetDimensionValue(dim);
+        GetTolerance(dim,out up,out low);
         final[0] = maindim;
         final[1] = up;
         final[2] = low;

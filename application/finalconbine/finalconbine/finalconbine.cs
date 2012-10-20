@@ -125,6 +125,7 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock japan;// Block type: Integer
     private NXOpen.BlockStyler.UIBlock there;// Block type: Toggle
     private NXOpen.BlockStyler.UIBlock here;// Block type: Selection
+    private NXOpen.BlockStyler.UIBlock yes;// Block type: Selection
     public NXOpen.TaggedObject[] plcpoint;//放置点
     public Point theplcpoint = null;
     pubfun thepubfunfcf = new pubfun();
@@ -410,6 +411,7 @@ public class finalconbine
             here = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("here");
             china = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("china");
             japan = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("japan");
+           yes = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("yes");
            tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
@@ -480,25 +482,42 @@ public class finalconbine
           
             //jtogglejy.GetProperties().GetLogical("Value")
 
-            jtogglejy.GetProperties().SetLogical("Value", false);
+                jtogglejy.GetProperties().SetLogical("Value", false);
                 jcrospt.GetProperties().SetLogical("Enable",false);
                 obutton0.GetProperties().SetString("Label", "查询尺寸标注");
                 tree_control0.GetProperties().SetLogical("Show", true);
-
-
                 tree_control0.InsertColumn(1, "编号", 130);//一定有注意不同的回调函数的问题
                 tree_control0.InsertColumn(2, "名义尺", 100);
                 tree_control0.InsertColumn(3, "上公差", 100);
                 tree_control0.InsertColumn(4, "下公差", 100);
-                tree_control0.InsertColumn(5, "打标号", 50);
-                //zselection0.GetProperties().SetTaggedObject("SelectedObjects", null);
                 there.GetProperties().SetLogical("Value", false);
                 here.GetProperties().SetLogical("Enable",false);
-
+                Session theSession = Session.GetSession();
+                Part workPart = theSession.Parts.Work;
+                Part displayPart = theSession.Parts.Display;
+                //NXOpen.Section[] sec = workPart.Sections.ToArray();
                 refreshenum();
+                //string name = workPart.ModelingViews.WorkView.Name;
+                string name = null;
+               
+           
+          
                 ztoggle01.GetProperties().SetLogical("Value", false);
                 china.GetProperties().SetLogical("Enable", false);
                 japan.GetProperties().SetLogical("Enable", false);
+                try
+                {
+                    name = workPart.ModelingViews.WorkView.Name;
+                    menum0.GetProperties().SetEnumAsString("Value", name);
+                }
+                catch
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前工作视图为轻量级剖视图，在此视图下本工具中视图切换工具无法正常使用，可将其他费轻量级剖视图设为工作视图后重新启用本工具");
+                    menum0.GetProperties().SetLogical("Enable", false);
+                    return;
+
+                }
+            
             //---- Enter your callback code here -----
         }
         catch (Exception ex)
@@ -858,9 +877,11 @@ public class finalconbine
     public void refreshenum()
     {
         Part workPart = theSession.Parts.Work;
-        ModelingViewCollection a = workPart.ModelingViews;
+       ModelingViewCollection a = workPart.ModelingViews;
+
         aaa = a.ToArray();
         strvalue = new string[aaa.Length + 1];
+      
         int i;
         for (i = 0; i < aaa.Length; i++)
         {
@@ -969,8 +990,22 @@ public class finalconbine
         {
             if(block == zselection0)
             {
-               
-                FindTol();
+                Session theSession = Session.GetSession();
+                Part workPart = theSession.Parts.Work;
+                Part displayPart = theSession.Parts.Display;
+                TaggedObject[] obs = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
+              NXOpen.Annotations.Dimension dim = (NXOpen.Annotations.Dimension)obs[0];
+              NXOpen.Builder tempbuilder = workPart.Annotations.CreateAssociateDimensionBuilder(dim);
+           //   int m = dim.NumberOfAssociativities;
+
+              
+           // NXOpen.Annotations.Associativity asa = dim.GetAssociativity(1);
+           // NXOpen.Annotations.Associativity asaa = dim.GetAssociativity(2);
+           // NXObject aa = asa.FirstObject;
+           //aa.f
+           // aa = asaa.FirstObject;
+              
+            FindTol();
             //---------Enter your code here-----------
             }
            else if(block == china)
@@ -1175,54 +1210,7 @@ public class finalconbine
                         if(stateone.Count != 0)
                         {
                             NXOpen.Annotations.BalloonNoteBuilder balloonNoteBuilder1;
-                            //NXOpen.Annotations.BalloonNote[] baltmp = (NXOpen.Annotations.BalloonNote[])stateone.ToArray(typeof(NXOpen.Annotations.BalloonNote));
-                            //ArrayList baltmp = new ArrayList();
-                            //ArrayList afterbal = new ArrayList();
-                            
-                            //foreach(NXOpen.Annotations.Annotation ano in stateone)
-                            //{
-                            //    baltmp.Add(FindballonByAttr("GUID", ano.GetStringAttribute("GUID")));
-                            
-                            //}
-                            //ArrayList indexnum = new ArrayList();
-                            //foreach (NXOpen.Annotations.BalloonNote bb in baltmp)
-                            //{
-                            //    balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb);
-                            //    int m = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
-                            //    NXObject nXObject1;
-                            //    nXObject1 = balloonNoteBuilder1.Commit();
-                            //    balloonNoteBuilder1.Destroy();
-                            //    indexnum.Add(m);
-                            //}
-                            //int[] indexary = (int[])indexnum.ToArray(typeof(int));
-                            //int[] afterary = BubbleSort(indexary);
-                            //foreach (int i in afterary)
-                            //{
-                            //    foreach (NXOpen.Annotations.BalloonNote b in baltmp)
-                            //    {
-                            //        int q = Convert.ToInt16(workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(b).BalloonText);
-                            //        if (q == i)
-                            //        {
-                            //            afterbal.Add(b);
-                            //            //cddimnode = tree_control0.CreateNode(i.ToString());
-                            //            //DataContainer dimdata = cddimnode.GetNodeData();
-                            //            //dimdata.AddTaggedObject("Data", getanobybal(b));
-                            //            //dimdata.Dispose();
-                            //            //tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                            //            //final = thepub.getspec((NXOpen.Annotations.Dimension)getanobybal(b));
-                            //            //cddimnode.SetColumnDisplayText(2, final[0].ToString());
-                            //            //cddimnode.SetColumnDisplayText(3, final[1].ToString());
-                            //            //cddimnode.SetColumnDisplayText(4, final[2].ToString());
-                            //            //cddimnode.SetState(2);//set the checked one 
-
-                            //        }
-                            //    }
-
-                            //}
-
-
-
-
+                           
                             MultiMap<int, NXOpen.Annotations.BalloonNote> ballonmap = new MultiMap<int, NXOpen.Annotations.BalloonNote>();
                             ballonmap.Clear();
                             foreach (NXOpen.Annotations.Annotation b in stateone)
@@ -1256,12 +1244,24 @@ public class finalconbine
                                     dimdata.AddTaggedObject("Data", getanobybal(bb));
                                     dimdata.Dispose();
                                     tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                                    final = thepub.getspec((NXOpen.Annotations.Dimension)getanobybal(bb));
+                                    try
+                                    {
+                                        final = thepub.getspec((NXOpen.Annotations.Dimension)getanobybal(bb));
+
+
+                                    }
+                                    catch
+                                    {
+                                        final[0] = 0;
+                                        final[1] = 0;
+                                        final[2] = 0;
+
+                                    }
+                                    //string pname = aaaaa.GetType().Name;
                                     cddimnode.SetColumnDisplayText(2, final[0].ToString());
                                     cddimnode.SetColumnDisplayText(3, final[1].ToString());
                                     cddimnode.SetColumnDisplayText(4, final[2].ToString());
                                     cddimnode.SetState(2);//set the checked one 
-
                                 }
 
                             }
@@ -1276,7 +1276,20 @@ public class finalconbine
                                 dimdata.AddTaggedObject("Data", dim);
                                 dimdata.Dispose();
                                 tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                                final = thepub.getspec(dim);
+                                //string pname = dim.GetType().Name;
+                                try
+                                {
+                                    final = thepub.getspec(dim);
+
+                                }
+                                catch
+                                {
+
+                                    final[0] = 0;
+                                    final[1] = 0;
+                                    final[2] = 0;
+
+                                }
                                 cddimnode.SetColumnDisplayText(2, final[0].ToString());
                                 cddimnode.SetColumnDisplayText(3, final[1].ToString());
                                 cddimnode.SetColumnDisplayText(4, final[2].ToString());
@@ -1286,9 +1299,11 @@ public class finalconbine
                         }
                         else if (stateone.Count == 0)
                         {
+                            ArrayList nodes = new ArrayList();
+                            Node nd = null;
                           NXOpen.Annotations.Dimension[]  left = (NXOpen.Annotations.Dimension[])unstateone.ToArray((typeof(NXOpen.Annotations.Dimension)));//把动态数组转化成数组
                           for (int i = 0; i < left.Length; i ++ )
-                          {
+                          {//tag-hereA4
                               
                               cddimnode = tree_control0.CreateNode((i+1).ToString());
 
@@ -1296,12 +1311,24 @@ public class finalconbine
                               dimdata.AddTaggedObject("Data", left[i]);
                               dimdata.Dispose();
                               tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
-                              final = thepub.getspec(left[i]);
-                              cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                             try
+                              {
+                                  final = thepub.getspec(left[i]);
+                              }
+                             catch
+                              {
+                                  final[0] = 0;
+                                  final[1] = 0;
+                                  final[2] = 0;
+
+                              }
+                              //string pname = left[i].GetType().Name;
+                             cddimnode.SetColumnDisplayText(2, final[0].ToString());
                               cddimnode.SetColumnDisplayText(3, final[1].ToString());
                               cddimnode.SetColumnDisplayText(4, final[2].ToString());
                               cddimnode.SetState(1);//set the checked one 
-
+                              nodes.Add(cddimnode);
+                              nd = cddimnode;
                           }
                         
                         }
@@ -1367,12 +1394,21 @@ public class finalconbine
                                         cdfcfnode = tree_control0.CreateNode(balloonNoteBuilder1.BalloonText);
                                         balloonNoteBuilder1.Commit();
                                         balloonNoteBuilder1.Destroy();
-
+                                        
                                         DataContainer dimdata = cdfcfnode.GetNodeData();
                                         dimdata.AddTaggedObject("Data", getanobybal(bb));
                                         dimdata.Dispose();
                                         tree_control0.InsertNode(cdfcfnode, fcfnode, null, Tree.NodeInsertOption.Last);
+                                        NXOpen.Annotations.PmiFeatureControlFrameBuilder pmiFeatureControlFrameBuilder1;
+                                        pmiFeatureControlFrameBuilder1 = workPart.Annotations.CreatePmiFeatureControlFrameBuilder( (NXOpen.Annotations.Fcf)getanobybal(bb));
+                                        TaggedObject taggedObject1;
+                                        taggedObject1 = pmiFeatureControlFrameBuilder1.FeatureControlFrameDataList.FindItem(0);
 
+                                        NXOpen.Annotations.FeatureControlFrameDataBuilder featureControlFrameDataBuilder1 = (NXOpen.Annotations.FeatureControlFrameDataBuilder)taggedObject1;
+                                        string vl = featureControlFrameDataBuilder1.ToleranceValue;
+                                        cdfcfnode.SetColumnDisplayText(2, vl);
+                                        pmiFeatureControlFrameBuilder1.Commit();
+                                        pmiFeatureControlFrameBuilder1.Destroy();
                                         cdfcfnode.SetState(2);//set the checked one 
 
                                     }
@@ -1406,7 +1442,16 @@ public class finalconbine
                                     dimdata.AddTaggedObject("Data", left[i]);
                                     dimdata.Dispose();
                                     tree_control0.InsertNode(cdfcfnode, fcfnode, null, Tree.NodeInsertOption.Last);
+                                    NXOpen.Annotations.PmiFeatureControlFrameBuilder pmiFeatureControlFrameBuilder1;
+                                    pmiFeatureControlFrameBuilder1 = workPart.Annotations.CreatePmiFeatureControlFrameBuilder((NXOpen.Annotations.Fcf)left[i]);
+                                    TaggedObject taggedObject1;
+                                    taggedObject1 = pmiFeatureControlFrameBuilder1.FeatureControlFrameDataList.FindItem(0);
 
+                                    NXOpen.Annotations.FeatureControlFrameDataBuilder featureControlFrameDataBuilder1 = (NXOpen.Annotations.FeatureControlFrameDataBuilder)taggedObject1;
+                                    string vl = featureControlFrameDataBuilder1.ToleranceValue;
+                                    cdfcfnode.SetColumnDisplayText(2, vl);
+                                    pmiFeatureControlFrameBuilder1.Commit();
+                                    pmiFeatureControlFrameBuilder1.Destroy();
                                     cdfcfnode.SetState(1);//set the checked one 
 
                                 }
@@ -1459,7 +1504,9 @@ public class finalconbine
 
                                     thebal = AddBalloonNote(node2dim(fcfnodeary[m]), fcfnodeary[m].GetColumnDisplayText(1), node2dim(fcfnodeary[m]).GetStringAttribute("GUID"));
                                    thebal.SetViews(node2dim(fcfnodeary[m]).GetViews());
+                                   NXOpen.View[] a = node2dim(fcfnodeary[m]).GetViews();
                                 }
+
                                 else
                                 {
                                     EditBalloonNote(FindballonByAttr("GUID", node2dim(fcfnodeary[m]).GetStringAttribute("GUID")), node2dim(fcfnodeary[m]), fcfnodeary[m].GetColumnDisplayText(1));
@@ -1494,6 +1541,7 @@ public class finalconbine
                                 {
                                   thebbal =  AddBalloonNote(node2dim(dimnodeary[i]), dimnodeary[i].GetColumnDisplayText(1), node2dim(dimnodeary[i]).GetStringAttribute("GUID"));
                                   thebbal.SetViews(node2dim(dimnodeary[i]).GetViews());
+                                  //NXOpen.View[] vw = node2dim(dimnodeary[i]).GetViews();
                                 }
                                 else
                                 {
@@ -1621,14 +1669,10 @@ public class finalconbine
             else if (block == jplcpt)
             {
 
-
-
                 string roughness = null;
-
                 string jmatoffstr = null;//材料移除
                 roughness = rouname.GetProperties().GetString("Value");//粗糙度
                 string jstandenum = jstand.GetProperties().GetEnumAsString("Value");
-
                 object StandardType = null;
                 if (roughness == "")
                 {
@@ -1723,7 +1767,7 @@ public class finalconbine
                 NXOpen.Point jplcptobj = (NXOpen.Point)jplcpt.GetProperties().GetTaggedObjectVector("SelectedObjects")[0];
                 Point3d point = jplcptobj.Coordinates;
 
-                thepubfunfcf.SurfaceFinishFunction(roughness, mgh, StandardType, FinishType, point, fnface, jcrosptobj);
+                thepubfunfcf.SurfaceFinishFunction(roughness, mgh, StandardType, FinishType, point, fnface, jcrosptobj,jplcptobj);
 
 
             }
@@ -1827,7 +1871,6 @@ public class finalconbine
                     firstrefbasemat.GetProperties().SetLogical("Enable", true);
                     secrefbase.GetProperties().SetLogical("Enable", true);
                     secrefbasemat.GetProperties().SetLogical("Enable", true);
-
                 }
                 //---------Enter your code here-----------
             }
@@ -1888,7 +1931,7 @@ public class finalconbine
                 //---------Enter your code here-----------
             }
             else if (block == point0)
-            {
+            {//FIN-TYPE-10/19
                 plcpoint = point0.GetProperties().GetTaggedObjectVector("SelectedObjects");
 
                 theplcpoint = Tag2NXObject<Point>(plcpoint[0].Tag);
@@ -2126,7 +2169,7 @@ public class finalconbine
                 //selection0.GetProperties().SetSelectionFilter("SelectionFilter",Selection.SelectionAction.ClearAndEnableSpecific,
                 //thefun.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, matcondition, mainbasematobj, firstbasematobj, 
 
-                thepubfunfcf.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, matcondition, mainbasematobj, firstbasematobj, secbasematobj, kuang, zoom, conlength, pt3d, zhexiandian, guanlian, LeaderType);
+                thepubfunfcf.function(tolvalue.ToString(), baseattstr, firstbasestr, secbasestr, zhileixing, attrtype,matcondition, mainbasematobj, firstbasematobj, secbasematobj, kuang, zoom, conlength, pt3d, zhexiandian, guanlian, LeaderType);
             }
         }
         catch (Exception ex)

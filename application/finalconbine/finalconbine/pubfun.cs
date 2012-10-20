@@ -5,6 +5,8 @@ using NXOpen;
 using NXOpenUI;
 using NXOpen.BlockStyler;
 using NXOpen.UF;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
     class pubfun
     {
@@ -14,6 +16,193 @@ using NXOpen.UF;
         private Part displayPart = theSession.Parts.Display;
         // private static UI theUI = null;
 
+
+
+        public static double GetDimensionValue(NXOpen.Annotations.Dimension dimension)
+        {
+            try
+            {
+                string[] mainTextLines;
+                string[] dualTextLines;
+                dimension.GetDimensionText(out mainTextLines, out dualTextLines);
+                if (mainTextLines.Length > 0)
+                {
+                    //这里可能包含特殊字符，从中得到连续数字
+                    string num = GetNumberFromString(mainTextLines[0]);
+                    return System.Convert.ToDouble(num);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch/* (System.Exception ex)*/
+            {
+                throw new Exception("读取尺寸值失败，请手动指定尺寸值");
+            }
+
+        }
+        public static string GetNumberFromString(string str)
+        {
+            string num = "";
+            foreach (char a in str)
+            {
+                if (isNum(a))
+                {
+                    if (a == ',')
+                    {
+                        num += '.';
+                    }
+                    else
+                    {
+                        num += a;
+                    }
+                }
+            }
+            return num;
+
+        }
+        public static bool isNum(char a)
+        {
+            string num = "0123456789.,-";
+            string s = "" + a;
+            return num.Contains(s);
+        }
+
+        public static void GetTolerance(NXOpen.Annotations.Dimension dim, out double up, out double low)
+        {
+            //目前未考虑精度
+            try
+            {
+                up = 0;
+                low = 0;
+                Object tol = ReflectFun(dim, "GetTolerance");
+
+             
+
+                // ReflectSetProperty(tol, "ToleranceType", NXOpen.Annotations.ToleranceType.BilateralTwoLines);
+
+
+                //ReflectFun(dim, "SetTolerance", tol);
+                Type type = tol.GetType();
+              
+                if (type.Name == "LinearTolerance")
+                {
+                    NXOpen.Annotations.Value v_up = new NXOpen.Annotations.Value();
+                    NXOpen.Annotations.Value v_low = new NXOpen.Annotations.Value();
+                    NXOpen.Annotations.LinearTolerance lint = (NXOpen.Annotations.LinearTolerance)tol;
+                    NXOpen.Annotations.ToleranceType oldtype = lint.ToleranceType;
+
+                    if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.BilateralOneLine)
+                    {
+                        //v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                        v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceMm");
+                        v_low = v_up;
+                        up = v_up.ItemValue;
+                        low = v_low.ItemValue * (-1);
+
+
+                    }
+                    else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.UnilateralBelow)
+                    {
+                        up = 0;
+                        v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                        low = v_low.ItemValue;
+                    }
+                    else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.UnilateralAbove)
+                    {
+                        low = 0;
+                        v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceMm");
+                        up = v_up.ItemValue;
+                    }
+                    else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.BilateralTwoLines)
+                    {
+                        v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                        v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceMm");
+                        up = v_up.ItemValue;
+                        low = v_low.ItemValue;
+                    }
+                    ReflectSetProperty(tol, "ToleranceType", oldtype);
+                    ReflectFun(dim, "SetTolerance", tol);
+                }
+                else
+                {
+                    NXOpen.Annotations.AngularTolerance lint = (NXOpen.Annotations.AngularTolerance)tol;
+                    NXOpen.Annotations.ToleranceType oldtype = lint.ToleranceType;
+                    NXOpen.Annotations.Value v_up = new NXOpen.Annotations.Value();
+                    NXOpen.Annotations.Value v_low = new NXOpen.Annotations.Value();
+                    if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.BilateralOneLine)
+                    {
+                        //v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceMm");
+                        v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceDegrees");
+                        v_low = v_up;
+                        up = v_up.ItemValue;
+                        low = v_low.ItemValue * (-1);
+
+
+                    }
+                    else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.UnilateralBelow)
+                    {
+                        up = 0;
+                        v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceDegrees");
+                        low = v_low.ItemValue;
+                    }
+                    else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.UnilateralAbove)
+                    {
+                        low = 0;
+                        v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceDegrees");
+                        up = v_up.ItemValue;
+                    }
+                    else if (lint.ToleranceType == NXOpen.Annotations.ToleranceType.BilateralTwoLines)
+                    {
+                        v_low = (NXOpen.Annotations.Value)ReflectFun(tol, "GetLowerToleranceDegrees");
+                        v_up = (NXOpen.Annotations.Value)ReflectFun(tol, "GetUpperToleranceDegrees");
+                        up = v_up.ItemValue;
+                        low = v_low.ItemValue;
+                    }
+                    ReflectSetProperty(tol, "ToleranceType", oldtype);
+                    ReflectFun(dim, "SetTolerance", tol);
+                   
+                }
+
+
+
+               
+            }
+            catch (System.Exception ex)
+            {
+                UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Warning, ex.Message);
+                up = 0;
+                low = 0;
+            }
+        }
+        public static object ReflectFun(object ob, string funName)
+        {
+            Type type = ob.GetType();
+            MethodInfo mi = type.GetMethod(funName);
+            return mi.Invoke(ob, null);
+        }
+        public static object ReflectFun(object ob, string funName, object parm)
+        {
+            Type type = ob.GetType();
+            MethodInfo mi = type.GetMethod(funName);
+            object[] parms = new object[1];
+            parms[0] = parm;
+            return mi.Invoke(ob, parms);
+        }
+        public static object ReflectGetProperty(object ob, string funName)
+        {
+            Type type = ob.GetType();
+            PropertyInfo pi = type.GetProperty(funName);
+            return pi.GetValue(ob, null);
+        }
+        public static void ReflectSetProperty(object ob, string funName, object parm)
+        {
+            Type type = ob.GetType();
+            PropertyInfo pi = type.GetProperty(funName);
+            pi.SetValue(ob, parm, null);
+        }
+
         public double[] getspec(NXOpen.Annotations.Dimension dim)//返回一个尺寸的名义值和上下公差，第一个值是名义值，第二个是上公差，第三个是下公差
         {
             string[] a;
@@ -22,16 +211,15 @@ using NXOpen.UF;
             double low = 0;
             double up = 0;
             double[] final = { 0, 0, 0 };
-            dim.GetDimensionText(out a, out b);
-            maindim = double.Parse(a[0]);
-            up = dim.UpperMetricToleranceValue;
-            low = dim.LowerMetricToleranceValue;
+
+            maindim = GetDimensionValue(dim);
+            GetTolerance(dim, out up, out low);
             final[0] = maindim;
             final[1] = up;
             final[2] = low;
             return final;
         }
-        public void function(string ToleranceValue, string PrimaryDatumReference, string SecondaryDatumReference, string TertiaryDatumReference, object ZoneShape, object MaterialModifier, object PrimaryMaterialCondition, object SecondaryMaterialCondition, object TertiaryMaterialCondition,
+        public void function(string ToleranceValue, string PrimaryDatumReference, string SecondaryDatumReference, string TertiaryDatumReference, object ZoneShape,object Characteristic, object MaterialModifier, object PrimaryMaterialCondition, object SecondaryMaterialCondition, object TertiaryMaterialCondition,
             object frameStyle, double Annotationletter, double duanxian, Point3d point1, DisplayableObject point2, DisplayableObject guanlian, object LeaderType)
         {
 
@@ -43,7 +231,7 @@ using NXOpen.UF;
 
             pmiFeatureControlFrameBuilder1.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.MidCenter;
 
-            pmiFeatureControlFrameBuilder1.Characteristic = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface;
+            pmiFeatureControlFrameBuilder1.Characteristic = (NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic)Characteristic;
 
 
             pmiFeatureControlFrameBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
@@ -72,7 +260,7 @@ using NXOpen.UF;
 
             featureControlFrameDataBuilder1.ToleranceValue = ToleranceValue;
 
-            featureControlFrameDataBuilder1.MaterialModifier = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier.RegardlessOfFeatureSize;
+            featureControlFrameDataBuilder1.MaterialModifier = (NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier)MaterialModifier;
             featureControlFrameDataBuilder1.PrimaryDatumReference.Letter = PrimaryDatumReference;//基准
             featureControlFrameDataBuilder1.SecondaryDatumReference.Letter = SecondaryDatumReference;
             featureControlFrameDataBuilder1.TertiaryDatumReference.Letter = TertiaryDatumReference;
@@ -208,11 +396,12 @@ using NXOpen.UF;
 
         }
 
-        public void SurfaceFinishFunction(string a, string d, object StandardType, object FinishType, Point3d point1, Face obj, NXOpen.Point point)
+        public void SurfaceFinishFunction(string a, string d, object StandardType, object FinishType, Point3d point1, Face obj, NXOpen.Point point,Point testpoint)
         {
 
             NXOpen.Annotations.SurfaceFinish nullAnnotations_SurfaceFinish = null;
             NXOpen.Annotations.SurfaceFinishBuilder surfaceFinishBuilder1;
+           
             surfaceFinishBuilder1 = workPart.PmiManager.PmiAttributes.CreateSurfaceFinishBuilder(nullAnnotations_SurfaceFinish);
 
             surfaceFinishBuilder1.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.MidCenter;
@@ -253,11 +442,11 @@ using NXOpen.UF;
 
 
             NXOpen.Annotations.Annotation.AssociativeOriginData assocOrigin1;
-            assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.Drag;
-            NXOpen.View nullView = null;
+            assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.AtAPoint;
+            NXOpen.View nullView = workPart.ModelingViews.WorkView;
             assocOrigin1.View = nullView;
             assocOrigin1.ViewOfGeometry = nullView;
-            NXOpen.Point nullPoint = null;
+            NXOpen.Point nullPoint = testpoint;
             assocOrigin1.PointOnGeometry = nullPoint;
             assocOrigin1.VertAnnotation = null;
             assocOrigin1.VertAlignmentPosition = NXOpen.Annotations.AlignmentPosition.TopLeft;
@@ -290,15 +479,11 @@ using NXOpen.UF;
                 leaderData1.Leader.SetValue(point, workPart.ModelingViews.WorkView, point2);//折线
             }
             surfaceFinishBuilder1.Origin.SetInferRelativeToGeometry(true);
-
             bool added1;
             added1 = surfaceFinishBuilder1.AssociatedObjects.Objects.Add(obj);//关联对象
-
             NXObject nXObject1;
             nXObject1 = surfaceFinishBuilder1.Commit();
-
             surfaceFinishBuilder1.Destroy();
-
         }
        
     }
