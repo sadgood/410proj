@@ -125,7 +125,6 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock japan;// Block type: Integer
     private NXOpen.BlockStyler.UIBlock there;// Block type: Toggle
     private NXOpen.BlockStyler.UIBlock here;// Block type: Selection
-    private NXOpen.BlockStyler.UIBlock yes;// Block type: Selection
     public NXOpen.TaggedObject[] plcpoint;//放置点
     public Point theplcpoint = null;
     pubfun thepubfunfcf = new pubfun();
@@ -411,7 +410,7 @@ public class finalconbine
             here = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("here");
             china = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("china");
             japan = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("japan");
-           yes = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("yes");
+       
            tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
@@ -512,10 +511,9 @@ public class finalconbine
                 }
                 catch
                 {
-                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前工作视图为轻量级剖视图，在此视图下本工具中视图切换工具无法正常使用，可将其他费轻量级剖视图设为工作视图后重新启用本工具");
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前工作视图为轻量级剖视图，在此视图下本工具中视图切换工具无法正常使用，\n可将其他非轻量级剖视图设为工作视图后重新启用本工具");
                     menum0.GetProperties().SetLogical("Enable", false);
                     return;
-
                 }
             
             //---- Enter your callback code here -----
@@ -1721,7 +1719,7 @@ public class finalconbine
                     case "打开":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Basic;
                         break;
-                    case "打开,修饰符":
+                    case "打开，修饰符":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Modifier;
                         break;
                     case "需要移除材料":

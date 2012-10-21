@@ -366,8 +366,19 @@ public class ano
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
             Part displayPart = theSession.Parts.Display;
-            string name = workPart.ModelingViews.WorkView.Name;
-            enum0.GetProperties().SetEnumAsString("Value", name);
+            try
+            {
+
+                string name = workPart.ModelingViews.WorkView.Name;
+                enum0.GetProperties().SetEnumAsString("Value", name);
+            }
+            catch
+            {
+                theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前工作视图为轻量级剖视图，在此视图下本工具中视图切换工具无法正常使用，\n可将其他非轻量级剖视图设为工作视图后重新启用本工具");
+                enum0.GetProperties().SetLogical("Enable", false);
+                return;
+            }
+          
         }
         catch (Exception ex)
         {
