@@ -443,7 +443,7 @@ using System.Runtime.InteropServices;
 
             NXOpen.Annotations.Annotation.AssociativeOriginData assocOrigin1;
             assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.AtAPoint;
-            NXOpen.View nullView = workPart.ModelingViews.WorkView;
+            NXOpen.View nullView = null;
             assocOrigin1.View = nullView;
             assocOrigin1.ViewOfGeometry = nullView;
             NXOpen.Point nullPoint = testpoint;
@@ -472,7 +472,7 @@ using System.Runtime.InteropServices;
             //{
             //    UI.GetUI().NXMessageBox.Show("error",NXMessageBox.DialogType.Error,ex.ToString());
             //}
-            surfaceFinishBuilder1.Origin.Origin.SetValue(null, workPart.ModelingViews.WorkView, point1);
+            surfaceFinishBuilder1.Origin.Origin.SetValue(null, nullView, point1);
             if (point!=null)
             {
                 Point3d point2 = point.Coordinates;//折线点            

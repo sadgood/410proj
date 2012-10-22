@@ -1375,7 +1375,6 @@ public class finalconbine
                                     int a = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
                                     balloonNoteBuilder1.Commit();
                                     balloonNoteBuilder1.Destroy();
-
                                     fballonmap.Add(a, bal);
 
                                 }
@@ -2014,7 +2013,8 @@ public class finalconbine
                 }
                 else if (matconditionatt == "无")
                 {
-                    matcondition = null;
+                    
+                    matcondition = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier.None;
                 }
                 string baseattstr = mainbase.GetProperties().GetEnumAsString("Value");//基准类型A----H
                 if (baseattstr == "无")
