@@ -43,6 +43,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 //------------------------------------------------------------------------------
 //Represents Block Styler application class
 //------------------------------------------------------------------------------
@@ -117,6 +118,12 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock jplcpt;// Block type: Specify Point
     private NXOpen.BlockStyler.UIBlock group3;// Block type: Group
     private NXOpen.BlockStyler.UIBlock rouname;// Block type: String
+
+    private NXOpen.BlockStyler.UIBlock jiaoyanshitol;// Block type: Toggle
+    private NXOpen.BlockStyler.UIBlock jiaoyanshisel;// Block type: Selection
+    private NXOpen.BlockStyler.UIBlock jiaoyanshibut;// Block type: Button
+
+
     public static NXOpen.TaggedObject[] firstpt;//第一个点
     public static NXOpen.TaggedObject[] secpt;//第2个点
     public static NXOpen.TaggedObject[] thepmi;
@@ -410,7 +417,9 @@ public class finalconbine
             here = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("here");
             china = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("china");
             japan = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("japan");
-       
+            jiaoyanshitol = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("jiaoyanshitol");
+            jiaoyanshisel = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("jiaoyanshisel");
+            jiaoyanshibut = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("jiaoyanshibut");
            tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
@@ -504,6 +513,11 @@ public class finalconbine
                 ztoggle01.GetProperties().SetLogical("Value", false);
                 china.GetProperties().SetLogical("Enable", false);
                 japan.GetProperties().SetLogical("Enable", false);
+
+
+                jiaoyanshitol.GetProperties().SetLogical("Value", false);
+                jiaoyanshisel.GetProperties().SetLogical("Show", false);
+                jiaoyanshibut.GetProperties().SetLogical("Show", false);
                 try
                 {
                     name = workPart.ModelingViews.WorkView.Name;
@@ -958,7 +972,16 @@ public class finalconbine
             balloonNoteBuilder1.Category = "User Defined";
             balloonNoteBuilder1.Identifier = "User Defined";
             balloonNoteBuilder1.Revision = "-";
-            balloonNoteBuilder1.BalloonText = num;
+            try
+            {
+                          NXOpen.Annotations.Fcf fcff =   (NXOpen.Annotations.Fcf)anno;
+                          balloonNoteBuilder1.BalloonText = "J" + num;
+            }
+            catch
+            {
+                balloonNoteBuilder1.BalloonText = num;
+            }
+        
             balloonNoteBuilder1.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
             balloonNoteBuilder1.Style.LetteringStyle.GeneralTextFont = workPart.Fonts.AddFont("cadds4");
             balloonNoteBuilder1.Style.LetteringStyle.GeneralTextAspectRatio = AspectRatio;
@@ -981,7 +1004,22 @@ public class finalconbine
             return null;
         }
     }
-   
+
+    public static int GetNumberInt(string str)
+    {
+        int result = 0;
+        if (str != null && str != string.Empty)
+        {
+            // 正则表达式剔除非数字字符（不包含小数点.） 
+            str = Regex.Replace(str, @"[^\d.\d]", "");
+            // 如果是数字，则转换为decimal类型 
+            if (Regex.IsMatch(str, @"^[+-]?\d*[.]?\d*$"))
+            {
+                result = int.Parse(str);
+            }
+        }
+        return result;
+    }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -1011,6 +1049,58 @@ public class finalconbine
              int m = china.GetProperties().GetInteger("Value");
              labelnode(dimnode);
            }
+            else if (block == jiaoyanshitol)
+            {
+                if(jiaoyanshitol.GetProperties().GetLogical("Value"))
+                {
+                    jiaoyanshibut.GetProperties().SetLogical("Show",true);
+                    jiaoyanshisel.GetProperties().SetLogical("Show", true);
+                }
+                else
+                {
+                    jiaoyanshibut.GetProperties().SetLogical("Show", false);
+                    jiaoyanshisel.GetProperties().SetLogical("Show", false);
+                
+                }
+            
+            }
+            else
+                if(block ==  jiaoyanshibut)
+                {
+                    TaggedObject[] tt = null;
+                    tt = jiaoyanshisel.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                      if(tt.Length == 0 && jiaoyanshitol.GetProperties().GetLogical("Value"))
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "请选择要删除的PMI");
+                    return 1;
+
+                }
+                      for (int m = 0; m < tt.Length; m++ )
+                      {
+                          NXObject qq = (NXObject)tt[m];
+
+                          if (FindballonByAttr("GUID", qq.GetStringAttribute("GUID")) == null)
+                          {
+                             
+                             
+                              DeleteObject(qq);
+                          }
+                          else if (FindballonByAttr("GUID", qq.GetStringAttribute("GUID")) != null)
+                          {
+                              DeleteObject(FindballonByAttr("GUID", qq.GetStringAttribute("GUID")));
+                              DeleteObject(qq);
+                          }
+
+
+                      }
+
+
+
+
+
+                
+                }
+            
             else if(block == japan)
             {
                 int m = japan.GetProperties().GetInteger("Value");
@@ -1372,7 +1462,9 @@ public class finalconbine
                                 {
                                     NXOpen.Annotations.BalloonNote bal = FindballonByAttr("GUID", b.GetStringAttribute("GUID"));
                                     balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bal);
-                                    int a = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
+                                    //balloonNoteBuilder1.BalloonText//hereagain
+                                   int a = GetNumberInt(balloonNoteBuilder1.BalloonText);
+                                    //int a = Convert.ToInt16(balloonNoteBuilder1.BalloonText);
                                     balloonNoteBuilder1.Commit();
                                     balloonNoteBuilder1.Destroy();
                                     fballonmap.Add(a, bal);
@@ -1388,7 +1480,8 @@ public class finalconbine
                                         fballonlist.Add(bb);
                                         fanolist.Add(getanobybal(bb));
                                         balloonNoteBuilder1 = workPart.PmiManager.PmiAttributes.CreateBalloonNoteBuilder(bb);
-                                        cdfcfnode = tree_control0.CreateNode(balloonNoteBuilder1.BalloonText);
+                                       
+                                        cdfcfnode = tree_control0.CreateNode(GetNumberInt(balloonNoteBuilder1.BalloonText).ToString());
                                         balloonNoteBuilder1.Commit();
                                         balloonNoteBuilder1.Destroy();
                                         
@@ -1411,8 +1504,9 @@ public class finalconbine
                                     }
 
                                 }
+                                string qqq = cdfcfnode.GetColumnDisplayText(1);
 
-                                int q = Convert.ToInt16(cdfcfnode.GetColumnDisplayText(1));
+                                int q = Convert.ToInt16(GetNumberInt(qqq).ToString());
                                 foreach (NXOpen.Annotations.Fcf dim in funstateone)
                                 {
                                     q = q + 1;
@@ -2215,6 +2309,8 @@ public class finalconbine
         int errorCode = 0;
         try
         {
+            Part a = theSession.Parts.Work;
+            a.Save(BasePart.SaveComponents.True, BasePart.CloseAfterSave.False);
             errorCode = apply_cb();
             //---- Enter your callback code here -----
         }
@@ -2270,6 +2366,23 @@ public class finalconbine
             }
         
         }
+        else
+             if (block == jiaoyanshisel)
+             {
+                 try
+                 {
+                  NXOpen.Annotations.Annotation an =   (NXOpen.Annotations.Annotation)selectedObject;
+                        
+
+                 }
+                 catch
+                 {
+                     return (NXOpen.UF.UFConstants.UF_UI_SEL_REJECT);
+                 
+                 }
+             
+             }
+                
         else if (block == here)
         {
             try
@@ -2744,7 +2857,17 @@ public class finalconbine
         leaderData1.StubSide = NXOpen.Annotations.LeaderSide.Inferred;
         balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
         balloonNoteBuilder1.Origin.SetInferRelativeToGeometry(true);
-        balloonNoteBuilder1.BalloonText = num;
+        try
+        {
+            NXOpen.Annotations.Fcf fcff = (NXOpen.Annotations.Fcf)ano;
+            balloonNoteBuilder1.BalloonText = "J" + num;
+
+        }
+        catch
+        {
+            balloonNoteBuilder1.BalloonText =  num;
+        }
+      
         balloonNoteBuilder1.Style.LetteringStyle.GeneralTextAspectRatio = AspectRatio;
         balloonNoteBuilder1.Style.LetteringStyle.GeneralTextSize = DimensionSize;
         NXObject nXObject1;

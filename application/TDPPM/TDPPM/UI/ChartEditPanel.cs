@@ -383,23 +383,37 @@ namespace TDPPM
             pdf.path = ToFullPath("whole.pdf");
             pdf.append = false;
             List<NXOpen.Drawings.DrawingSheet> sheets = new List<NXOpen.Drawings.DrawingSheet>();
-            foreach (S_Sheet sheet in SheetList)
-            {
-                if (sheet.IsPrint == "是")
-                {
-                    string prt = ToFullPath(sheet.prtName);
-                    string guid = sheet.guid;
-                    NXOpen.Drawings.DrawingSheet ds = NXFun.ShowSheetByGuid(prt, guid);
-                    if (ds == null)
-                    {
-                        NXFun.MessageBox("检测到不可用图纸信息，可能已被删除，请重新刷新图标并更新表头", "错误", 0);
-                        return;
-                    }
-                    pdf.sheet = ds;
-                    NXFun.PrintPDF(pdf);
-                    pdf.append = true;
-                }
-            }
+            NXOpen.Drawings.DrawingSheet[] allsheets = sheets.ToArray();
+            
+          S_Sheet[] allshit = SheetList.ToArray();
+            //foreach (S_Sheet sheet in SheetList)
+            //{
+          int i = 0;
+          for (int m = 0; m < allshit.Length; m ++ )
+          {
+              if (allshit[m].IsPrint == "是")
+              {
+                  string prt = ToFullPath(allshit[m].prtName);
+                  string guid = allshit[m].guid;
+                  NXOpen.Drawings.DrawingSheet ds = NXFun.ShowSheetByGuid(prt, guid);
+                  
+                  if (ds == null)
+                  {
+                      NXFun.MessageBox("检测到不可用图纸信息，可能已被删除，请重新刷新图标并更新表头", "错误", 0);
+                      return;
+                  }
+                  pdf.sheet = ds;
+                  NXFun.PrintPDF(pdf);
+                  pdf.append = true;
+              }
+              if(allshit[m].prtName != allshit[m + 1].prtName)
+              {}
+              else 
+              {
+              i = i + 1;
+              }
+
+          }
             NXFun.OpenFile(pdf.path);
         }
         //工艺PDF预览
