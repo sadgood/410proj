@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "allpro", "allpro\allpro.csproj", "{97C56379-07FA-4D67-81CC-8E34D19B109B}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ugraf", "D:\Program Files\UGS\NX 7.5\UGII\ugraf.exe", "{179E5939-E7EF-425A-8EA5-5328BEF54AA8}"
@@ -35,12 +35,12 @@ Global
 		{97C56379-07FA-4D67-81CC-8E34D19B109B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{97C56379-07FA-4D67-81CC-8E34D19B109B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{97C56379-07FA-4D67-81CC-8E34D19B109B}.Release|x86.ActiveCfg = Release|Any CPU
-		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Debug|x86.ActiveCfg = Debug|x86
-		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Release|Any CPU.ActiveCfg = Debug|x86
-		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Release|Mixed Platforms.ActiveCfg = Debug|x86
-		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Release|x86.ActiveCfg = Debug|x86
+		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Debug|Any CPU.ActiveCfg = Debug
+		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Debug|x86.ActiveCfg = Debug
+		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Release|Any CPU.ActiveCfg = Debug
+		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Release|Mixed Platforms.ActiveCfg = Debug
+		{179E5939-E7EF-425A-8EA5-5328BEF54AA8}.Release|x86.ActiveCfg = Debug
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
