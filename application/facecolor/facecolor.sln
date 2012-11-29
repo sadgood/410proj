@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facecolor", "facecolor\facecolor.csproj", "{212B12FE-4AE5-4C93-9DF3-7BC466964169}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ugraf", "D:\Program Files\UGS\NX 7.5\UGII\ugraf.exe", "{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}"
@@ -35,12 +35,12 @@ Global
 		{212B12FE-4AE5-4C93-9DF3-7BC466964169}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{212B12FE-4AE5-4C93-9DF3-7BC466964169}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{212B12FE-4AE5-4C93-9DF3-7BC466964169}.Release|x86.ActiveCfg = Release|Any CPU
-		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Debug|Any CPU.ActiveCfg = Debug
-		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Debug|x86.ActiveCfg = Debug
-		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Release|Any CPU.ActiveCfg = Debug
-		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Release|Mixed Platforms.ActiveCfg = Debug
-		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Release|x86.ActiveCfg = Debug
+		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Debug|x86.ActiveCfg = Debug|x86
+		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Release|Any CPU.ActiveCfg = Debug|x86
+		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Release|Mixed Platforms.ActiveCfg = Debug|x86
+		{FDCCF265-C576-4E35-A1CE-C15AECFBE5FA}.Release|x86.ActiveCfg = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
