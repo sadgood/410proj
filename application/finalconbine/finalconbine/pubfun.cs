@@ -398,7 +398,7 @@ using System.Runtime.InteropServices;
 
         public void SurfaceFinishFunction(string a, string d, object StandardType, object FinishType, Point3d point1, Face obj, NXOpen.Point point,Point testpoint)
         {
-
+            //生成粗糙度符号
             NXOpen.Annotations.SurfaceFinish nullAnnotations_SurfaceFinish = null;
             NXOpen.Annotations.SurfaceFinishBuilder surfaceFinishBuilder1;
            
@@ -442,7 +442,7 @@ using System.Runtime.InteropServices;
 
 
             NXOpen.Annotations.Annotation.AssociativeOriginData assocOrigin1;
-            assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.AtAPoint;
+            assocOrigin1.OriginType = NXOpen.Annotations.AssociativeOriginType.Drag;
             NXOpen.View nullView = null;
             assocOrigin1.View = nullView;
             assocOrigin1.ViewOfGeometry = nullView;
