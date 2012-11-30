@@ -1483,9 +1483,12 @@ public class allpro
             // dimarylist.Add(ok);
 
         }
-        bool wetx = (Math.Abs(finalx)) <= 0.000000000001;
-        bool wety = (Math.Abs(finaly)) <= 0.000000000001;
-        bool wetz = (Math.Abs(finalz)) <= 0.000000000001;
+        //bool wetx = (Math.Abs(finalx)) <= 0.000000000001;
+        //bool wety = (Math.Abs(finaly)) <= 0.000000000001;
+        //bool wetz = (Math.Abs(finalz)) <= 0.000000000001;
+        bool wetx = (Math.Abs(finalx)) <= 0.1;
+        bool wety = (Math.Abs(finaly)) <= 0.1;
+        bool wetz = (Math.Abs(finalz)) <= 0.1;
         bool puanduan = (wetx && wety && wetz);
         theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
         NXOpen.Annotations.Dimension theoridim = Tag2NXObject<NXOpen.Annotations.Dimension>(theoripmi[0].Tag);
