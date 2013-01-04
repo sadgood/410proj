@@ -171,7 +171,7 @@ using System.Runtime.InteropServices;
             }
             catch (System.Exception ex)
             {
-                UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Warning, ex.Message);
+                //UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Warning, ex.Message);
                 up = 0;
                 low = 0;
             }

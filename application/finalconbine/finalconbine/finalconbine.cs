@@ -118,12 +118,12 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock jplcpt;// Block type: Specify Point
     private NXOpen.BlockStyler.UIBlock group3;// Block type: Group
     private NXOpen.BlockStyler.UIBlock rouname;// Block type: String
-
+    private NXOpen.BlockStyler.UIBlock toggle1314;// Block type: Toggle
     private NXOpen.BlockStyler.UIBlock jiaoyanshitol;// Block type: Toggle
     private NXOpen.BlockStyler.UIBlock jiaoyanshisel;// Block type: Selection
     private NXOpen.BlockStyler.UIBlock jiaoyanshibut;// Block type: Button
 
-
+    private NXOpen.BlockStyler.UIBlock enum1314;// Block type: Enumeration
     public static NXOpen.TaggedObject[] firstpt;//第一个点
     public static NXOpen.TaggedObject[] secpt;//第2个点
     public static NXOpen.TaggedObject[] thepmi;
@@ -421,6 +421,8 @@ public class finalconbine
             jiaoyanshisel = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("jiaoyanshisel");
             jiaoyanshibut = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("jiaoyanshibut");
            tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
+           enum1314 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("enum1314");
+           toggle1314 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("toggle1314");
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
             //tree_control0.SetOnInsertColumnHandler(new NXOpen.BlockStyler.Tree.OnInsertColumnCallback(OnInsertColumnCallback));
@@ -480,6 +482,8 @@ public class finalconbine
         {
             //TaggedObject[] obb = null;
             //zselection0.GetProperties().SetTaggedObjectVector("SelectedObjects", obb);
+            enum1314.GetProperties().SetLogical("Show", true);
+            toggle1314.GetProperties().SetLogical("Show", false);
             selection01.GetProperties().SetLogical("Enable", false);
             ifotherbase.GetProperties().SetEnum("Value", 0);
             firstrefbase.GetProperties().SetLogical("Enable", false);
@@ -487,9 +491,9 @@ public class finalconbine
             secrefbase.GetProperties().SetLogical("Enable", false);
             secrefbasemat.GetProperties().SetLogical("Enable", false);
             toggle0.GetProperties().SetLogical("Value", false);
-          
+            there.GetProperties().SetLogical("Show",false);
             //jtogglejy.GetProperties().GetLogical("Value")
-
+                 enum1314.GetProperties().SetEnumAsString("Value", "本模型内");
                 jtogglejy.GetProperties().SetLogical("Value", false);
                 jcrospt.GetProperties().SetLogical("Enable",false);
                 obutton0.GetProperties().SetString("Label", "查询尺寸标注");
@@ -499,6 +503,7 @@ public class finalconbine
                 tree_control0.InsertColumn(3, "上公差", 100);
                 tree_control0.InsertColumn(4, "下公差", 100);
                 there.GetProperties().SetLogical("Value", false);
+                here.GetProperties().SetLogical("Show", false);
                 here.GetProperties().SetLogical("Enable",false);
                 Session theSession = Session.GetSession();
                 Part workPart = theSession.Parts.Work;
@@ -1183,27 +1188,118 @@ public class finalconbine
                 SetDimensionTolerance(d, upper, lower);
             //---------Enter your code here-----------
             }
+                else if(block == enum1314)
+                {
+                        Part workPart = theSession.Parts.Work;
+
+                    string option = enum1314.GetProperties().GetEnumAsString("Value");
+                    if (option == "本模型内")
+                    {
+                        here.GetProperties().SetLogical("Show", false);
+                        //here.GetProperties().SetLogical("Enable", true);
+
+                    }
+                    else if (option == "指定PMI")
+                    {
+                        here.GetProperties().SetLogical("Show", true);
+                        here.GetProperties().SetLogical("Enable", true);
+                    }
+                    else if (option == "工作视图")
+                    {
+                        here.GetProperties().SetLogical("Show", false);
+                    }
+                }
+                else if(block == toggle1314)
+                {
+                if(toggle1314.GetProperties().GetLogical("Value"))
+                {
+
+                    obutton0.GetProperties().SetString("Label", "查询尺寸标注");
+                    if (dimnode != null)
+                    {
+                        if (dimnode.FirstChildNode != null)
+                        {
+                            foreach (Node nd in getcdnd(dimnode))
+                            {
+                                tree_control0.DeleteNode(nd);//undone
+
+                            }
+                            tree_control0.DeleteNode(dimnode);
+                            dimnode = null;
+                        }
+                    }
+                    if (fcfnode != null)
+                    {
+                        if (fcfnode.FirstChildNode != null)
+                        {
+                            foreach (Node nd in getcdnd(fcfnode))
+                            {
+                                tree_control0.DeleteNode(nd);
+
+                            }
+                            tree_control0.DeleteNode(fcfnode);
+                            fcfnode = null;
+                        }
+
+                    }
+                }
+                enum1314.GetProperties().SetLogical("Enable", true);
+                if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
+                {
+                    china.GetProperties().SetLogical("Enable", false);
+                    japan.GetProperties().SetLogical("Enable", false);
+                }
+                toggle1314.GetProperties().SetLogical("Show", false);
+                }
+                   
             else if (block == obutton0)//tag now
             {
                 pubfun thepub = new pubfun();
                 Part workPart = theSession.Parts.Work;
+
+
+                NXOpen.Annotations.Dimension[] alldim = null;
+                NXOpen.Annotations.Fcf[] allfcf = null;
+                NXOpen.Annotations.Dimension[] alldimori = null;
+                NXOpen.Annotations.Fcf[] allfcfori = null;
+                ArrayList alldimary = new ArrayList();
+                ArrayList allfcfary = new ArrayList();
                 if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
                 {
-                    NXOpen.Annotations.Dimension[] alldim = null;
-                    NXOpen.Annotations.Fcf[] allfcf = null;
-                    NXOpen.Annotations.Dimension[] alldimori = null;
-                    NXOpen.Annotations.Fcf[] allfcfori = null;
-                    ArrayList alldimary = new ArrayList();
-                    ArrayList allfcfary = new ArrayList();
+                    /////////////////////////////////////////////////////////////////////////
+                   string option = enum1314.GetProperties().GetEnumAsString("Value");
+                    if(option == "本模型内")
+                    {
+                        alldimori = workPart.Dimensions.ToArray();
+                        allfcfori = workPart.Annotations.Fcfs.ToArray();
+                        foreach (NXOpen.Annotations.Dimension dim in alldimori)
+                        {
+                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                            if (!pm.IsInheritedPmi(dim))
+                            {
+                                alldimary.Add(dim);
+                            }
+
+                        }
+
+                        foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
+                        {
+                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                            if (!pm.IsInheritedPmi(fcf))
+                            {
+                                allfcfary.Add(fcf);
+                            }
+
+                        }
                     
-                    if (here.GetProperties().GetLogical("Enable"))
+                    }
+                    else if( option == "指定PMI")
                     {
                         TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
                         if (obs.Length == 0)
                         {
                             theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择需要打标号的尺寸或形位公差");
                             return 1;
-
                         }
                         else
                         {
@@ -1219,42 +1315,128 @@ public class finalconbine
                                 }
 
                             }
-
-
                         }
                     }
-                    else
+                    else if(option == "工作视图")
                     {
-
-                     
+                        View workview = workPart.ModelingViews.WorkView;
                         alldimori = workPart.Dimensions.ToArray();
                         allfcfori = workPart.Annotations.Fcfs.ToArray();
+                        View[] view1 = null;
+                        View[] view2 = null;
                         foreach (NXOpen.Annotations.Dimension dim in alldimori)
                         {
                             NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
                             if (!pm.IsInheritedPmi(dim))
                             {
-                                alldimary.Add(dim);
+                                view1 = dim.GetViews();
+                                foreach(View view in view1)
+                                {
+                                if(view == workview)
+                                {
+                                    alldimary.Add(dim);
+                                
+                                }
+                                
+                                }
+                               
                             }
 
                         }
-                       
+
                         foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
                         {
                             NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
                             if (!pm.IsInheritedPmi(fcf))
                             {
+
+                                view2 = fcf.GetViews();
+                                foreach (View view in view2)
+                                {
+                                    if (view == workview)
+                                    {
+                                        alldimary.Add(fcf);
+
+                                    }
+
+                                }
                                 allfcfary.Add(fcf);
                             }
 
                         }
-                     
+                    /////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+                   ///////////////////////////////////////////////////////////////////////
                     }
+
+
+
+
+
+
+                    /////////////////////////////////////////////////////////////////////////////
+                  
+                    ///------这些是以前只有在模型内，和用选择器选择具体的尺寸的时候的代码
+                    //if (here.GetProperties().GetLogical("Enable"))
+                    //{
+                        //TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                        //if (obs.Length == 0)
+                        //{
+                        //    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择需要打标号的尺寸或形位公差");
+                        //    return 1;
+                        //}
+                        //else
+                        //{
+                        //    foreach (TaggedObject ob in obs)
+                        //    {
+                        //        try
+                        //        {
+                        //            alldimary.Add((NXOpen.Annotations.Dimension)ob);
+                        //        }
+                        //        catch
+                        //        {
+                        //            allfcfary.Add((NXOpen.Annotations.Fcf)ob);
+                        //        }
+
+                        //    }
+                        //}
+                    //}
+                    //else
+                    //{
+
+                     
+                    //    alldimori = workPart.Dimensions.ToArray();
+                    //    allfcfori = workPart.Annotations.Fcfs.ToArray();
+                    //    foreach (NXOpen.Annotations.Dimension dim in alldimori)
+                    //    {
+                    //        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                    //        if (!pm.IsInheritedPmi(dim))
+                    //        {
+                    //            alldimary.Add(dim);
+                    //        }
+
+                    //    }
+                       
+                    //    foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
+                    //    {
+                    //        NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                    //        if (!pm.IsInheritedPmi(fcf))
+                    //        {
+                    //            allfcfary.Add(fcf);
+                    //        }
+
+                    //    }
+                     
+                    //}
                     alldim = (NXOpen.Annotations.Dimension[])alldimary.ToArray(typeof(NXOpen.Annotations.Dimension));
                     allfcf = (NXOpen.Annotations.Fcf[])allfcfary.ToArray(typeof(NXOpen.Annotations.Fcf));
                     if (alldimary.Count == 0 && allfcfary.Count == 0)
                     {
-                        theUI.NXMessageBox.Show("本工序无PMI", NXMessageBox.DialogType.Warning, "本工序无PMI,无法打标号");
+                        theUI.NXMessageBox.Show("无PMI", NXMessageBox.DialogType.Warning, "未查询到PMI,无法打标号");
                         return 1;
                     }
 
@@ -1556,7 +1738,7 @@ public class finalconbine
                             //cdfcfnode.SetState(2);
                         }
 
-                    
+                    enum1314.GetProperties().SetLogical("Enable",false);
                     obutton0.GetProperties().SetString("Label", "打标号");
                     if (obutton0.GetProperties().GetString("Label") == "打标号")
                     {
@@ -1564,6 +1746,8 @@ public class finalconbine
                         japan.GetProperties().SetLogical("Enable", true);
                     
                     }
+                    toggle1314.GetProperties().SetLogical("Show",true);
+                    toggle1314.GetProperties().SetLogical("Value", false);
                 }
 
                 else if (obutton0.GetProperties().GetString("Label") == "打标号")
@@ -1743,6 +1927,7 @@ public class finalconbine
                 if (addnewstr != "添加新视图")
                 {
                     layout1.ReplaceView(workPart.ModelingViews.WorkView, aaa[sel], true);
+                  
                 }
                 else
                 {
@@ -2552,11 +2737,11 @@ public class finalconbine
         try
         {
             TreeListMenu menu = tree.CreateMenu();
-            if (node == dimnode)
+            if (node == dimnode && node != null)
             {
                 menu.AddMenuItem(9, "全选");
             }
-                else if (node == fcfnode)
+            else if (node == fcfnode && node != null)
             {
                     menu.AddMenuItem(10,"全选");
                 }
