@@ -108,6 +108,7 @@ public class allpro
     public string folderpath = "3dppmplugin\\";
     public string pmicheckpath = "pmicheck.xml";
     public string pmixlspath = "pmi.xls";
+    public ArrayList finalnodesary = new ArrayList();
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
     //------------------------------------------------------------------------------
@@ -548,6 +549,25 @@ public class allpro
               
                 NXOpen.TaggedObject[] thept = selectPart0.GetProperties().GetTaggedObjectVector("SelectedObjects");//存放所有选择的部件
                 theoripmi = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");  //需要校核的尺寸
+                lst_Combination.Clear();
+                thedown.Clear();
+                left = null;
+                dimary.Clear();
+                NXOpen.BlockStyler.Node finalnode = null;
+                try
+                {
+                    foreach (Node nd in finalnodesary)
+                    {
+                        tree_control0.DeleteNode(nd);
+
+                    }
+                }
+                catch
+                { 
+                
+                }
+              
+                finalnodesary.Clear();
                 if (theoripmi.Length == 0)
                 {
                     theUI.NXMessageBox.Show("未选择封闭环", NXMessageBox.DialogType.Error, "请先选择需要校核的尺寸");
@@ -684,7 +704,7 @@ public class allpro
                             {
                                 lst_Combination.Add(ne);
                             }
-
+                            nene.Clear();
                         }
 
                         foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
@@ -708,7 +728,7 @@ public class allpro
                         count ct = new count();
                         ArrayList zengzu = new ArrayList();
                         ArrayList jianzu = new ArrayList();
-                        NXOpen.BlockStyler.Node finalnode = null;
+                       
                         #region
                         foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                         {
@@ -780,9 +800,9 @@ public class allpro
                                 finalnode.SetColumnDisplayText(3, a.ToString());
                                 finalnode.SetColumnDisplayText(4, b.ToString());
                             }
-
+                            finalnodesary.Add(finalnode);
                         }
-
+                        finaloneinpro.Clear();
 
                         count thect = new count();
                         double aa = 0;
@@ -873,7 +893,7 @@ public class allpro
                             {
                                 lst_Combination.Add(ne);
                             }
-
+                            nene.Clear();
                         }
 
                         foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
@@ -899,7 +919,7 @@ public class allpro
                         ArrayList jianzu = new ArrayList();
                         //NXOpen.Annotations.Dimension[] zengshuzu = null;
                         //NXOpen.Annotations.Dimension[] jianshuzu = null;
-                        NXOpen.BlockStyler.Node finalnode = null;
+                        //NXOpen.BlockStyler.Node finalnode = null;
                         foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                         {
                             jianzu.Clear();
@@ -968,8 +988,10 @@ public class allpro
                                 finalnode.SetColumnDisplayText(4, b.ToString());
 
                             }
-
+                            finalnodesary.Add(finalnode);
                         }
+                        finaloneinpro.Clear();
+                            
                         count thect = new count();
                         double aa = 0;
                         double bb = 0;
@@ -990,13 +1012,13 @@ public class allpro
                     }
                 }
                 else if(toggle01.GetProperties().GetLogical("Value"))
-                {
-                    NXOpen.Annotations.Dimension[] dimary = null;
+                {//-----0114
+                    NXOpen.Annotations.Dimension[] dimary1 = null;
                     List<int[]> nene;
                     //下面这段得到一个数组，这个数组里面有除过要校核的尺寸之外所有的尺寸。-------下面这个是在整个工序内进行判断
-                    dimary = theSession.Parts.Work.Dimensions.ToArray();
+                    dimary1 = theSession.Parts.Work.Dimensions.ToArray();
 
-                    foreach (NXOpen.Annotations.Dimension a in dimary)
+                    foreach (NXOpen.Annotations.Dimension a in dimary1)
                     {
                         string finalstr = null;
                         a.SetAttribute("temp", "temp");
@@ -1037,13 +1059,13 @@ public class allpro
                     }
                     for (int t = 2; t <= left.Length; t++)//该循环从2开始，因为一个尺寸连最起码有三个，它也有可能达到left数组的长度。
                     {
-
+                      
                         nene = Algorithms.PermutationAndCombination<int>.GetCombination(arr, t);//nene是每一次循环得到的结果，如果直接用nene参与下一步计算，以前的循环结果就作废了
                         foreach (int[] ne in nene)
                         {
                             lst_Combination.Add(ne);
                         }
-
+                        nene.Clear();
                     }
 
                     foreach (int[] a in lst_Combination)//遍历list里面存的索引数组
@@ -1064,12 +1086,13 @@ public class allpro
                         };
 
                     }
+                   
                     count ct = new count();
                     ArrayList zengzu = new ArrayList();
                     ArrayList jianzu = new ArrayList();
                     NXOpen.Annotations.Dimension[] zengshuzu = null;
                     NXOpen.Annotations.Dimension[] jianshuzu = null;
-                    NXOpen.BlockStyler.Node finalnode = null;
+                    //NXOpen.BlockStyler.Node finalnode = null;
                     foreach (NXOpen.Annotations.Dimension[] ori in finaloneinpro)//这部分终于搞定了。哈哈，很高兴啊。
                     {
                         jianzu.Clear();
@@ -1134,8 +1157,9 @@ public class allpro
 
                         }
 
-                        
+                        finalnodesary.Add(finalnode);
                     }
+                    finaloneinpro.Clear();
                     if (zengshuzu == null && jianshuzu == null)
                     {
                         theUI.NXMessageBox.Show("未找到结果", NXOpen.NXMessageBox.DialogType.Warning, "未查找到与此尺寸成环的尺寸");
