@@ -243,22 +243,7 @@ public class allpro
             tree_control0.SetOnMenuSelectionHandler(new NXOpen.BlockStyler.Tree.OnMenuSelectionCallback(OnMenuSelectionCallback)); ;
             tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
             toggle01 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("toggle01");
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
         }
         catch (Exception ex)
         {

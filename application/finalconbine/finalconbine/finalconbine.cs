@@ -123,6 +123,10 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock jiaoyanshisel;// Block type: Selection
     private NXOpen.BlockStyler.UIBlock jiaoyanshibut;// Block type: Button
 
+    private NXOpen.BlockStyler.UIBlock button0115fea;// Block type: Button
+    private NXOpen.BlockStyler.UIBlock button0115rou;// Block type: Button
+
+
     private NXOpen.BlockStyler.UIBlock enum1314;// Block type: Enumeration
     public static NXOpen.TaggedObject[] firstpt;//第一个点
     public static NXOpen.TaggedObject[] secpt;//第2个点
@@ -423,6 +427,8 @@ public class finalconbine
            tree_control0.SetStateIconNameHandler(new NXOpen.BlockStyler.Tree.StateIconNameCallback(StateIconNameCallback));
            enum1314 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("enum1314");
            toggle1314 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("toggle1314");
+           button0115fea = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115fea");
+           button0115rou = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115rou");
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
             //tree_control0.SetOnInsertColumnHandler(new NXOpen.BlockStyler.Tree.OnInsertColumnCallback(OnInsertColumnCallback));
@@ -1025,6 +1031,48 @@ public class finalconbine
         }
         return result;
     }
+    public static bool isNX64//是不是64位的NX
+    {
+        get
+        {
+            if (System.IntPtr.Size == 8)
+                return true;
+            else
+                return false;
+        }
+    }
+    /// <summary>
+    /// 利用的win32的动态调用dll功能，来调用NX的dll执行宏命令，
+    /// </summary>
+    /// <param name="path">宏文件的绝对路径,貌似不能含.marco奇怪了</param>
+    public static void PlayMacro(string path)
+    {
+        try
+        {
+            DLD myfun = new DLD();
+            //得到libugui.dll的路径
+            string libugui = NXPath + "UGII\\libugui.dll";
+            myfun.LoadDll(libugui);
+            if (isNX64)//这里64位和32位的是不一样滴！
+            {
+                myfun.LoadFun("?MACRO_playback_from_usertool@@YAXPEBD@Z");
+            }
+            else
+            {
+                myfun.LoadFun("?MACRO_playback_from_usertool@@YAXPBD@Z");
+            }
+            object[] Parameters = new object[] { (string)path, (IntPtr)(IntPtr.Zero), (int)1 }; // 实参为 0
+            Type[] ParameterTypes = new Type[] { typeof(string), typeof(IntPtr), typeof(int) }; // 实参类型为 int
+            DLD.ModePass[] themode = new DLD.ModePass[] { DLD.ModePass.ByValue, DLD.ModePass.ByValue, DLD.ModePass.ByValue }; // 传送方式为值传
+            Type Type_Return = typeof(int); // 返回类型为 int
+            myfun.Invoke(Parameters, ParameterTypes, themode, Type_Return);
+            myfun.UnLoadDll();
+        }
+        catch (System.Exception ex)
+        {
+            UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
+        }
+    }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
         try
@@ -1067,6 +1115,18 @@ public class finalconbine
                     jiaoyanshisel.GetProperties().SetLogical("Show", false);
                 
                 }
+            
+            }
+                else if(block == button0115fea)//调用录制的红文件
+            {
+
+                string fetstr = TDPPMPath + "Fet_control";
+                PlayMacro(fetstr);
+                //this.Show();
+
+                }
+            else if (block == button0115rou)//调用录制的红文件
+            {
             
             }
             else
@@ -1264,6 +1324,8 @@ public class finalconbine
                 NXOpen.Annotations.Fcf[] allfcfori = null;
                 ArrayList alldimary = new ArrayList();
                 ArrayList allfcfary = new ArrayList();
+                alldimary.Clear();
+                allfcfary.Clear();
                 if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
                 {
                     /////////////////////////////////////////////////////////////////////////
@@ -1355,12 +1417,12 @@ public class finalconbine
                                 {
                                     if (view == workview)
                                     {
-                                        alldimary.Add(fcf);
+                                        allfcfary.Add(fcf);
 
                                     }
 
                                 }
-                                allfcfary.Add(fcf);
+                              
                             }
 
                         }
@@ -1870,7 +1932,7 @@ public class finalconbine
                 stpt = a.Coordinates;
                 endpt = b.Coordinates;
                 // axisreal1.GetEndPoints(out stpt, out endpt);
-                hideit(axisreal1);
+                //hideit(axisreal1);
                 real3d = angle(axisreal1);
                 thepmi = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
                 if (thepmi.Length == 0)
@@ -1950,11 +2012,11 @@ public class finalconbine
                 roughness = rouname.GetProperties().GetString("Value");//粗糙度
                 string jstandenum = jstand.GetProperties().GetEnumAsString("Value");
                 object StandardType = null;
-                if (roughness == "")
-                {
-                    theUI.NXMessageBox.Show("请输入粗糙度", NXMessageBox.DialogType.Warning, "未输入粗糙度");
-                    return 1;
-                }
+                //if (roughness == "")
+                //{
+                    //theUI.NXMessageBox.Show("请输入粗糙度", NXMessageBox.DialogType.Warning, "未输入粗糙度");
+                    //return 1;
+                //}
                 string mgh = astring0.GetProperties().GetString("Value");
                 //if (mgh == "")
                 //{
