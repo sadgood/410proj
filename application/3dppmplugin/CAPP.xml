@@ -11,6 +11,7 @@
     <Item text="松开&lt;%C&gt;" remark="" />
     <Item text="找正后提交检验员检查" remark="" />
     <Item remark="" text="xyz" />
+    <Item remark="" text="asd" />
   </Type>
   <Type name="工作内容">
     <Item text="工作内容" remark="" />

@@ -1,4 +1,4 @@
-//==============================================================================
+ï»¿//==============================================================================
 //  WARNING!!  This file is overwritten by the Block UI Styler while generating
 //  the automation code. Any modifications to this file will be lost after
 //  generating the code again.
@@ -128,34 +128,66 @@ public class finalconbine
 
 
     private NXOpen.BlockStyler.UIBlock enum1314;// Block type: Enumeration
-    public static NXOpen.TaggedObject[] firstpt;//µÚÒ»¸öµã
-    public static NXOpen.TaggedObject[] secpt;//µÚ2¸öµã
+    public static NXOpen.TaggedObject[] firstpt;//ç¬¬ä¸€ä¸ªç‚¹
+    public static NXOpen.TaggedObject[] secpt;//ç¬¬2ä¸ªç‚¹
     public static NXOpen.TaggedObject[] thepmi;
     private NXOpen.BlockStyler.UIBlock astring0;// Block type: String
     private NXOpen.BlockStyler.UIBlock china;// Block type: Integer
     private NXOpen.BlockStyler.UIBlock japan;// Block type: Integer
     private NXOpen.BlockStyler.UIBlock there;// Block type: Toggle
     private NXOpen.BlockStyler.UIBlock here;// Block type: Selection
-    public NXOpen.TaggedObject[] plcpoint;//·ÅÖÃµã
+    public NXOpen.TaggedObject[] plcpoint;//æ”¾ç½®ç‚¹
     public Point theplcpoint = null;
     pubfun thepubfunfcf = new pubfun();
     private NXOpen.BlockStyler.UIBlock g;
     public string hb = "HB5800.xml";
-    public string folderpath = "3dppmplugin\\";
+    //public string folderpath = "3dppmplugin\\";
     private NXOpen.BlockStyler.UIBlock mstring0;// Block type: Specify Point
     private NXOpen.BlockStyler.UIBlock menum0;// Block type: Group
-    NXOpen.ModelingView[] aaa = null;//ËùÓĞµÄÊÓÍ¼
-    string[] strvalue;
-    public string viewname = null;
+    NXOpen.ModelingView[] aaa = null;//æ‰€æœ‰çš„è§†å›¾
+    //string[] strvalue;
+    //public string viewname = null;
     private NXOpen.BlockStyler.UIBlock obutton0;// Block type: Button
     private NXOpen.BlockStyler.Tree tree_control0;// Block type: Tree Control
     private NXOpen.BlockStyler.UIBlock tabPage3;// Block type: Group
-    public Node dimnode = null;//³ß´ç¹«²î¸ù½Úµã
-    Node cddimnode = null;//³ß´ç¹«²î×Ó½Úµã
-    public Node fcfnode = null;//ĞĞÎ»¹«²î¸ù½Úµã
-    Node cdfcfnode = null;//ĞĞÎ»¹«²î×Ó½Úµã
+    public Node dimnode = null;//å°ºå¯¸å…¬å·®æ ¹èŠ‚ç‚¹
+    Node cddimnode = null;//å°ºå¯¸å…¬å·®å­èŠ‚ç‚¹
+    public Node fcfnode = null;//è¡Œä½å…¬å·®æ ¹èŠ‚ç‚¹
+    Node cdfcfnode = null;//è¡Œä½å…¬å·®å­èŠ‚ç‚¹
     string fcfguid = null;
     string dimguid = null;
+
+    private noteassistance thenotefun = new noteassistance();
+    string[] strvalue;
+    public string viewname = null;
+    public string udsxml = "UserDefinedSymbol.xml";
+    public string folderpath = "3dppmplugin\\";
+    public string sbf = "3dppm_uds.sbf";
+    public string cappass = "CAPPåŠ©æ‰‹.exe";
+
+    //æ·»åŠ çš„å°ºå¯¸æ ‡æ³¨ç”¨åˆ°çš„å®
+
+    private NXOpen.BlockStyler.UIBlock macdimtog;// Block type: Toggle
+    private NXOpen.BlockStyler.UIBlock group6;// Block type: Group
+    private NXOpen.BlockStyler.UIBlock dimenum0116;// Block type: Enumeration
+    private NXOpen.BlockStyler.UIBlock dimbut0116;// Block type: Button
+
+
+    //æ³¨é‡Šçš„tab
+
+
+    private NXOpen.BlockStyler.UIBlock tabPage4;// Block type: Group
+    private NXOpen.BlockStyler.UIBlock group4;// Block type: Group
+    private NXOpen.BlockStyler.UIBlock ifcro;// Block type: Toggle
+    private NXOpen.BlockStyler.UIBlock cro;// Block type: Selection
+    private NXOpen.BlockStyler.UIBlock realanno;// Block type: Multiline String
+    private NXOpen.BlockStyler.UIBlock iflabel;// Block type: Toggle
+    private NXOpen.BlockStyler.UIBlock selection020116;// Block type: Selection
+    private NXOpen.BlockStyler.UIBlock point010116;// Block type: Specify Point
+    private NXOpen.BlockStyler.UIBlock group5;// Block type: Group
+    private NXOpen.BlockStyler.UIBlock dic;// Block type: Multiline String
+    private NXOpen.BlockStyler.UIBlock str;// Block type: Enumeration
+    private NXOpen.BlockStyler.UIBlock button0;// Block type: Button
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -216,11 +248,13 @@ public class finalconbine
             theDialog.AddKeyboardFocusNotifyHandler(new NXOpen.BlockStyler.BlockDialog.KeyboardFocusNotify(keyboardFocusNotify_cb));
             theDialog.AddDialogShownHandler(new NXOpen.BlockStyler.BlockDialog.DialogShown(dialogShown_cb));
             theDialog.AddFilterHandler(new NXOpen.BlockStyler.BlockDialog.Filter(filter_cb));
+            theDialog.AddCancelHandler(new NXOpen.BlockStyler.BlockDialog.Cancel(cancel_cb));
+
         }
         catch 
         {
             //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("ÌáÊ¾", NXMessageBox.DialogType.Warning, "ÇëÏÈ´ò¿ªÒ»¸öÄ£ĞÍÔÚÊ¹ÓÃ±¾¹¤¾ß");
+            theUI.NXMessageBox.Show("æç¤º", NXMessageBox.DialogType.Warning, "è¯·å…ˆæ‰“å¼€ä¸€ä¸ªæ¨¡å‹åœ¨ä½¿ç”¨æœ¬å·¥å…·");
         }
     }
     //------------------------------- DIALOG LAUNCHING ---------------------------------
@@ -429,6 +463,32 @@ public class finalconbine
            toggle1314 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("toggle1314");
            button0115fea = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115fea");
            button0115rou = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115rou");
+
+            //å°ºå¯¸æ ‡æ³¨è°ƒç”¨å®
+           macdimtog = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("macdimtog");
+           group6 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("group6");
+           dimenum0116 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("dimenum0116");
+           dimbut0116 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("dimbut0116");
+
+
+            //æ³¨é‡Šçš„tab
+
+           tabPage4 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("tabPage4");
+           group4 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("group4");
+           ifcro = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("ifcro");
+           cro = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("cro");
+           realanno = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("realanno");
+           iflabel = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("iflabel");
+           selection020116 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("selection020116");
+           point010116 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("point010116");
+           group5 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("group5");
+           dic = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("dic");
+           str = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("str");
+           button0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0");
+
+
+
+
             //tree_control0.SetOnExpandHandler(new NXOpen.BlockStyler.Tree.OnExpandCallback(OnExpandCallback));
 
             //tree_control0.SetOnInsertColumnHandler(new NXOpen.BlockStyler.Tree.OnInsertColumnCallback(OnInsertColumnCallback));
@@ -469,6 +529,7 @@ public class finalconbine
 
             //tree_control0.SetOnDropMenuHandler(new NXOpen.BlockStyler.Tree.OnDropMenuCallback(OnDropMenuCallback));
             
+
         }
         catch (Exception ex)
         {
@@ -486,6 +547,12 @@ public class finalconbine
     {
         try
         {
+
+            macdimtog.GetProperties().SetLogical("Value", false);
+            group6.GetProperties().SetLogical("Enable", false);
+
+
+
             //TaggedObject[] obb = null;
             //zselection0.GetProperties().SetTaggedObjectVector("SelectedObjects", obb);
             enum1314.GetProperties().SetLogical("Show", true);
@@ -499,15 +566,15 @@ public class finalconbine
             toggle0.GetProperties().SetLogical("Value", false);
             there.GetProperties().SetLogical("Show",false);
             //jtogglejy.GetProperties().GetLogical("Value")
-                 enum1314.GetProperties().SetEnumAsString("Value", "±¾Ä£ĞÍÄÚ");
+                 enum1314.GetProperties().SetEnumAsString("Value", "æœ¬æ¨¡å‹å†…");
                 jtogglejy.GetProperties().SetLogical("Value", false);
                 jcrospt.GetProperties().SetLogical("Enable",false);
-                obutton0.GetProperties().SetString("Label", "²éÑ¯³ß´ç±ê×¢");
+                obutton0.GetProperties().SetString("Label", "æŸ¥è¯¢å°ºå¯¸æ ‡æ³¨");
                 tree_control0.GetProperties().SetLogical("Show", true);
-                tree_control0.InsertColumn(1, "±àºÅ", 130);//Ò»¶¨ÓĞ×¢Òâ²»Í¬µÄ»Øµ÷º¯ÊıµÄÎÊÌâ
-                tree_control0.InsertColumn(2, "ÃûÒå³ß", 100);
-                tree_control0.InsertColumn(3, "ÉÏ¹«²î", 100);
-                tree_control0.InsertColumn(4, "ÏÂ¹«²î", 100);
+                tree_control0.InsertColumn(1, "ç¼–å·", 130);//ä¸€å®šæœ‰æ³¨æ„ä¸åŒçš„å›è°ƒå‡½æ•°çš„é—®é¢˜
+                tree_control0.InsertColumn(2, "åä¹‰å°º", 100);
+                tree_control0.InsertColumn(3, "ä¸Šå…¬å·®", 100);
+                tree_control0.InsertColumn(4, "ä¸‹å…¬å·®", 100);
                 there.GetProperties().SetLogical("Value", false);
                 here.GetProperties().SetLogical("Show", false);
                 here.GetProperties().SetLogical("Enable",false);
@@ -536,10 +603,30 @@ public class finalconbine
                 }
                 catch
                 {
-                    theUI.NXMessageBox.Show("ÌáÊ¾", NXMessageBox.DialogType.Warning, "µ±Ç°¹¤×÷ÊÓÍ¼ÎªÇáÁ¿¼¶ÆÊÊÓÍ¼£¬ÔÚ´ËÊÓÍ¼ÏÂ±¾¹¤¾ßÖĞÊÓÍ¼ÇĞ»»¹¤¾ßÎŞ·¨Õı³£Ê¹ÓÃ£¬\n¿É½«ÆäËû·ÇÇáÁ¿¼¶ÆÊÊÓÍ¼ÉèÎª¹¤×÷ÊÓÍ¼ºóÖØĞÂÆôÓÃ±¾¹¤¾ß");
+                    theUI.NXMessageBox.Show("æç¤º", NXMessageBox.DialogType.Warning, "å½“å‰å·¥ä½œè§†å›¾ä¸ºè½»é‡çº§å‰–è§†å›¾ï¼Œåœ¨æ­¤è§†å›¾ä¸‹æœ¬å·¥å…·ä¸­è§†å›¾åˆ‡æ¢å·¥å…·æ— æ³•æ­£å¸¸ä½¿ç”¨ï¼Œ\nå¯å°†å…¶ä»–éè½»é‡çº§å‰–è§†å›¾è®¾ä¸ºå·¥ä½œè§†å›¾åé‡æ–°å¯ç”¨æœ¬å·¥å…·");
                     menum0.GetProperties().SetLogical("Enable", false);
                     return;
                 }
+
+
+
+
+
+            //////tabæ³¨é‡Š
+                realanno.GetProperties().SetLogical("Show", true);
+                ifcro.GetProperties().SetLogical("Value", false);
+                cro.GetProperties().SetLogical("Enable", false);
+                if (ifcro.GetProperties().GetLogical("Value"))
+                {
+                    cro.GetProperties().SetLogical("Enable", true);
+                }
+                else if (!ifcro.GetProperties().GetLogical("Value"))
+                {
+                    cro.GetProperties().SetLogical("Enable", false);
+                }
+                iflabel.GetProperties().SetLogical("Value", false);
+                selection020116.GetProperties().SetLogical("Enable", false);
+                OpenFile(ApplicationPath + folderpath + cappass);
             
             //---- Enter your callback code here -----
         }
@@ -549,8 +636,25 @@ public class finalconbine
             theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
         }
     }
+    public static bool isFileExist(string path)
+    {
+        return System.IO.File.Exists(path);
+    }
+    public static bool OpenFile(string filepath)
+    {
+        if (isFileExist(filepath))
+        {
+            Process.Start(filepath);
+            return true;
+        }
+        else
+        {
+            theUI.NXMessageBox.Show("æœªèƒ½æ‰“å¼€", NXMessageBox.DialogType.Error, "æœªèƒ½æ‰“å¼€CAPPåŠ©æ‰‹");
+            return false;
+        }
+    }  
     /// <summary>
-    /// ·´Éä¼¼Êõ£¬Î¨ÎÒ¶À×ğ£¡£¡£¡
+    /// åå°„æŠ€æœ¯ï¼Œå”¯æˆ‘ç‹¬å°Šï¼ï¼ï¼
     /// </summary>
     /// <param name="ob"></param>
     /// <param name="funName"></param>
@@ -570,7 +674,7 @@ public class finalconbine
         return mi.Invoke(ob, parms);
     }
     /// <summary>
-    /// Õâ¸ö¶à²ÎµÄÃ²ËÆÓĞÎÊÌâ°¡£¡
+    /// è¿™ä¸ªå¤šå‚çš„è²Œä¼¼æœ‰é—®é¢˜å•Šï¼
     /// </summary>
     /// <param name="ob"></param>
     /// <param name="funName"></param>
@@ -631,7 +735,7 @@ public class finalconbine
             ReflectFun(tol, "SetLowerToleranceDegrees", lowerToleranceMm1);
             ReflectFun(tol, "SetUpperToleranceDegrees", upperToleranceMm1);
         }
-        //ÉèÖÃ¹«²îÀàĞÍ
+        //è®¾ç½®å…¬å·®ç±»å‹
         if (upper + lower == 0)
         {
             ReflectSetProperty(tol, "ToleranceType", NXOpen.Annotations.ToleranceType.BilateralOneLine);
@@ -650,7 +754,7 @@ public class finalconbine
         }
         ReflectFun(dimension, "SetTolerance", tol);
 
-        //ÉèÖÃ¹«²îµÄÏÔÊ¾´óĞ¡
+        //è®¾ç½®å…¬å·®çš„æ˜¾ç¤ºå¤§å°
         NXOpen.Annotations.LetteringPreferences letteringPreferences1;
         letteringPreferences1 = dimension.GetLetteringPreferences();
         NXOpen.Annotations.Lettering toleranceText1 = letteringPreferences1.GetDimensionText();
@@ -665,7 +769,7 @@ public class finalconbine
         int errorCode = 0;
         try
         {
-          
+            StopProcess("CAPPåŠ©æ‰‹");
            
             //---- Enter your callback code here -----
         }
@@ -682,11 +786,11 @@ public class finalconbine
     //Callback Name: update_cb
     //------------------------------------------------------------------------------
 
-    public static double ConvertDegreesToRadians(double degrees)//½Ç¶Èµ½»¡¶ÈµÄ×ª»»·½·¨
+    public static double ConvertDegreesToRadians(double degrees)//è§’åº¦åˆ°å¼§åº¦çš„è½¬æ¢æ–¹æ³•
     {
         double radians = (Math.PI / 180) * degrees;
         // return (radians);
-        return radians;//return µÄÕâÁ½ÖÖĞ´·¨¶¼ÊÇ¿ÉÒÔµÄ
+        return radians;//return çš„è¿™ä¸¤ç§å†™æ³•éƒ½æ˜¯å¯ä»¥çš„
     }
     public static T Tag2NXObject<T>(Tag tag)
     {
@@ -751,14 +855,14 @@ public class finalconbine
         MeasureAngle measureAngle3;
         measureAngle3 = workPart.MeasureManager.NewAngle(nullUnit11, a, NXOpen.MeasureManager.EndpointType.StartPoint, b2, NXOpen.MeasureManager.EndpointType.StartPoint, true, false);
         double deg2 = measureAngle3.Value;
-        angle3d[0] = deg;//deg ÊÇÏà¶ÔÓëXÖáµÄ½Ç¶È
-        angle3d[1] = deg1;//Ïà¶ÔÓÚY
-        angle3d[2] = deg2;//Ïà¶ÔÓÚZ
+        angle3d[0] = deg;//deg æ˜¯ç›¸å¯¹ä¸Xè½´çš„è§’åº¦
+        angle3d[1] = deg1;//ç›¸å¯¹äºY
+        angle3d[2] = deg2;//ç›¸å¯¹äºZ
 
         bbuilder.Destroy();
-        return angle3d;//ÔÚÒ»¸ö·½·¨ÖĞ·µ»ØÒ»¸öÊı×é£¬Ö±½ÓĞ´return +Êı×éÃû¾Í¿ÉÒÔÁË
+        return angle3d;//åœ¨ä¸€ä¸ªæ–¹æ³•ä¸­è¿”å›ä¸€ä¸ªæ•°ç»„ï¼Œç›´æ¥å†™return +æ•°ç»„åå°±å¯ä»¥äº†
     }
-    public void hideit(NXObject objtohide)//////ÕâÊÇÒ»¸öÒş²ØNXObjectµÄ·½·¨
+    public void hideit(NXObject objtohide)//////è¿™æ˜¯ä¸€ä¸ªéšè—NXObjectçš„æ–¹æ³•
     {
         DisplayableObject a = (DisplayableObject)objtohide;
         DisplayableObject[] objects1 = new DisplayableObject[1];
@@ -801,7 +905,7 @@ public class finalconbine
             dimension.GetDimensionText(out mainTextLines, out dualTextLines);
             if (mainTextLines.Length > 0)
             {
-                //ÕâÀï¿ÉÄÜ°üº¬ÌØÊâ×Ö·û£¬´ÓÖĞµÃµ½Á¬ĞøÊı×Ö
+                //è¿™é‡Œå¯èƒ½åŒ…å«ç‰¹æ®Šå­—ç¬¦ï¼Œä»ä¸­å¾—åˆ°è¿ç»­æ•°å­—
                 string num = GetNumberFromString(mainTextLines[0]);
                 return System.Convert.ToDouble(num);
             }
@@ -812,7 +916,7 @@ public class finalconbine
         }
         catch/* (System.Exception ex)*/
         {
-            throw new Exception("¶ÁÈ¡³ß´çÖµÊ§°Ü£¬ÇëÊÖ¶¯Ö¸¶¨³ß´çÖµ");
+            throw new Exception("è¯»å–å°ºå¯¸å€¼å¤±è´¥ï¼Œè¯·æ‰‹åŠ¨æŒ‡å®šå°ºå¯¸å€¼");
         }
 
     }
@@ -830,7 +934,7 @@ public class finalconbine
         double upper, lower;
         if (!GetTolerance(dim, type, out upper, out lower, ApplicationPath + folderpath + hb))//undone
         {
-            theUI.NXMessageBox.Show("ÌáÊ¾", NXMessageBox.DialogType.Error, "Ã»ÓĞ²éÑ¯µ½¸Ã³ß´çµÄÏà¹Ø¹«²î£¬ÇëÊÖ¶¯ÌîĞ´£¡");
+            theUI.NXMessageBox.Show("æç¤º", NXMessageBox.DialogType.Error, "æ²¡æœ‰æŸ¥è¯¢åˆ°è¯¥å°ºå¯¸çš„ç›¸å…³å…¬å·®ï¼Œè¯·æ‰‹åŠ¨å¡«å†™ï¼");
         }
         zdoubleup.GetProperties().SetDouble("Value", upper);
         zdoubledown.GetProperties().SetDouble("Value", lower);
@@ -884,6 +988,24 @@ public class finalconbine
             return dll.Substring(0, dll.Length - 12) + "3DPPM\\";
         }
     }
+    public static void StopProcess(string processName)
+    {
+        try
+        {
+            Process[] ps = System.Diagnostics.Process.GetProcessesByName(processName);
+            foreach (Process p in ps)
+            {
+                p.Kill();
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+    }
     public int FindTol(double dim)
     {
         double0.GetProperties().SetDouble("Value", dim);
@@ -891,11 +1013,25 @@ public class finalconbine
         double upper, lower;
         if (!GetTolerance(dim, type, out upper, out lower, ApplicationPath + folderpath + hb))//undone
         {
-            theUI.NXMessageBox.Show("ÌáÊ¾", NXMessageBox.DialogType.Error, "Ã»ÓĞ²éÑ¯µ½¸Ã³ß´çµÄÏà¹Ø¹«²î£¬ÇëÊÖ¶¯ÌîĞ´£¡");
+            theUI.NXMessageBox.Show("æç¤º", NXMessageBox.DialogType.Error, "æ²¡æœ‰æŸ¥è¯¢åˆ°è¯¥å°ºå¯¸çš„ç›¸å…³å…¬å·®ï¼Œè¯·æ‰‹åŠ¨å¡«å†™ï¼");
         }
         zdoubleup.GetProperties().SetDouble("Value", upper);
         zdoubledown.GetProperties().SetDouble("Value", lower);
         return 1;
+    }
+       private void SetSBF()
+    {
+        string sbf_file = ApplicationPath + folderpath + sbf;
+        if (!isFileExist(sbf_file))
+        {
+            theUI.NXMessageBox.Show("æœªèƒ½åŠ è½½", NXMessageBox.DialogType.Error, "æœªèƒ½åŠ è½½Sbfæ–‡ä»¶");
+        }
+        else
+        {
+            UFSession theuf = UFSession.GetUFSession();
+            theuf.Drf.SetSpecifiedSbfFile(sbf_file);
+            //Program.theUfSession.Drf.SetSpecifiedSbfFile(sbf_file);
+        }
     }
     public void refreshenum()
     {
@@ -912,7 +1048,7 @@ public class finalconbine
             strvalue[i] = aaa[i].Name;
 
         }
-        strvalue[i] = "Ìí¼ÓĞÂÊÓÍ¼";
+        strvalue[i] = "æ·»åŠ æ–°è§†å›¾";
         menum0.GetProperties().SetEnumMembers("Value", strvalue);
 
     }
@@ -947,7 +1083,7 @@ public class finalconbine
     {
         try
         {
-            //¼ÆËã¿í¸ß±È
+            //è®¡ç®—å®½é«˜æ¯”
             double DimensionSize = ((NXOpen.Annotations.Annotation)(anno)).GetLetteringPreferences().GetDimensionText().Size;
             double AspectRatio = 1;
             switch (num.Length)
@@ -1021,9 +1157,9 @@ public class finalconbine
         int result = 0;
         if (str != null && str != string.Empty)
         {
-            // ÕıÔò±í´ïÊ½ÌŞ³ı·ÇÊı×Ö×Ö·û£¨²»°üº¬Ğ¡Êıµã.£© 
+            // æ­£åˆ™è¡¨è¾¾å¼å‰”é™¤éæ•°å­—å­—ç¬¦ï¼ˆä¸åŒ…å«å°æ•°ç‚¹.ï¼‰ 
             str = Regex.Replace(str, @"[^\d.\d]", "");
-            // Èç¹ûÊÇÊı×Ö£¬Ôò×ª»»ÎªdecimalÀàĞÍ 
+            // å¦‚æœæ˜¯æ•°å­—ï¼Œåˆ™è½¬æ¢ä¸ºdecimalç±»å‹ 
             if (Regex.IsMatch(str, @"^[+-]?\d*[.]?\d*$"))
             {
                 result = int.Parse(str);
@@ -1031,7 +1167,7 @@ public class finalconbine
         }
         return result;
     }
-    public static bool isNX64//ÊÇ²»ÊÇ64Î»µÄNX
+    public static bool isNX64//æ˜¯ä¸æ˜¯64ä½çš„NX
     {
         get
         {
@@ -1042,18 +1178,18 @@ public class finalconbine
         }
     }
     /// <summary>
-    /// ÀûÓÃµÄwin32µÄ¶¯Ì¬µ÷ÓÃdll¹¦ÄÜ£¬À´µ÷ÓÃNXµÄdllÖ´ĞĞºêÃüÁî£¬
+    /// åˆ©ç”¨çš„win32çš„åŠ¨æ€è°ƒç”¨dllåŠŸèƒ½ï¼Œæ¥è°ƒç”¨NXçš„dllæ‰§è¡Œå®å‘½ä»¤ï¼Œ
     /// </summary>
-    /// <param name="path">ºêÎÄ¼şµÄ¾ø¶ÔÂ·¾¶,Ã²ËÆ²»ÄÜº¬.marcoÆæ¹ÖÁË</param>
+    /// <param name="path">å®æ–‡ä»¶çš„ç»å¯¹è·¯å¾„,è²Œä¼¼ä¸èƒ½å«.marcoå¥‡æ€ªäº†</param>
     public static void PlayMacro(string path)
     {
         try
         {
             DLD myfun = new DLD();
-            //µÃµ½libugui.dllµÄÂ·¾¶
+            //å¾—åˆ°libugui.dllçš„è·¯å¾„
             string libugui = NXPath + "UGII\\libugui.dll";
             myfun.LoadDll(libugui);
-            if (isNX64)//ÕâÀï64Î»ºÍ32Î»µÄÊÇ²»Ò»ÑùµÎ£¡
+            if (isNX64)//è¿™é‡Œ64ä½å’Œ32ä½çš„æ˜¯ä¸ä¸€æ ·æ»´ï¼
             {
                 myfun.LoadFun("?MACRO_playback_from_usertool@@YAXPEBD@Z");
             }
@@ -1061,10 +1197,10 @@ public class finalconbine
             {
                 myfun.LoadFun("?MACRO_playback_from_usertool@@YAXPBD@Z");
             }
-            object[] Parameters = new object[] { (string)path, (IntPtr)(IntPtr.Zero), (int)1 }; // Êµ²ÎÎª 0
-            Type[] ParameterTypes = new Type[] { typeof(string), typeof(IntPtr), typeof(int) }; // Êµ²ÎÀàĞÍÎª int
-            DLD.ModePass[] themode = new DLD.ModePass[] { DLD.ModePass.ByValue, DLD.ModePass.ByValue, DLD.ModePass.ByValue }; // ´«ËÍ·½Ê½ÎªÖµ´«
-            Type Type_Return = typeof(int); // ·µ»ØÀàĞÍÎª int
+            object[] Parameters = new object[] { (string)path, (IntPtr)(IntPtr.Zero), (int)1 }; // å®å‚ä¸º 0
+            Type[] ParameterTypes = new Type[] { typeof(string), typeof(IntPtr), typeof(int) }; // å®å‚ç±»å‹ä¸º int
+            DLD.ModePass[] themode = new DLD.ModePass[] { DLD.ModePass.ByValue, DLD.ModePass.ByValue, DLD.ModePass.ByValue }; // ä¼ é€æ–¹å¼ä¸ºå€¼ä¼ 
+            Type Type_Return = typeof(int); // è¿”å›ç±»å‹ä¸º int
             myfun.Invoke(Parameters, ParameterTypes, themode, Type_Return);
             myfun.UnLoadDll();
         }
@@ -1072,6 +1208,23 @@ public class finalconbine
         {
             UI.GetUI().NXMessageBox.Show("Message", NXMessageBox.DialogType.Error, ex.Message);
         }
+    }
+    //------------------------------------------------------------------------------
+    //Callback Name: cancel_cb
+    //------------------------------------------------------------------------------
+    public int cancel_cb()
+    {
+        try
+        {
+            StopProcess("CAPPåŠ©æ‰‹");
+            //---- Enter your callback code here -----
+        }
+        catch (Exception ex)
+        {
+            //---- Enter your exception handling code here -----
+            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+        }
+        return 0;
     }
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
     {
@@ -1097,6 +1250,127 @@ public class finalconbine
             FindTol();
             //---------Enter your code here-----------
             }
+
+
+
+            else if (block == macdimtog)
+            {
+               if(macdimtog.GetProperties().GetLogical("Value"))
+               {
+                   zgroup.GetProperties().SetLogical("Enable", false);
+                   zgroup0.GetProperties().SetLogical("Enable", false);
+                   group6.GetProperties().SetLogical("Enable", true);
+                   string[] strs = { "è‡ªåŠ¨åˆ¤æ–­", "æ°´å¹³","ç«–ç›´","å¹³è¡Œ","å‚ç›´","å€’æ–œè§’","è§’åº¦","åœ†æŸ±å½¢","å­”","ç›´å¾„","åŠå¾„","è¿‡åœ†å¿ƒçš„åŠå¾„","å¸¦æŠ˜çº¿çš„åŠå¾„","åšåº¦","åœ†å¼§é•¿","æ°´å¹³é“¾","ç«–ç›´é“¾","æ°´å¹³åŸºå‡†","ç«–ç›´åŸºå‡†","åæ ‡" };
+                   dimenum0116.GetProperties().SetEnumMembers("Value", strs);
+               }
+               else if (!macdimtog.GetProperties().GetLogical("Value"))
+               {
+                   group6.GetProperties().SetLogical("Enable", false);
+                   zgroup.GetProperties().SetLogical("Enable", true);
+                   zgroup0.GetProperties().SetLogical("Enable", true);
+               }
+
+                //---------Enter your code here-----------
+            }
+            else if (block == dimenum0116)
+            {
+                //---------Enter your code here-----------
+            }
+            else if (block == dimbut0116)
+            {
+                string ans = dimenum0116.GetProperties().GetEnumAsString("Value");
+                switch (ans)
+                { 
+                    case "è‡ªåŠ¨åˆ¤æ–­":
+                        PlayMacro(TDPPMPath + "1");
+                        break;
+                    case "Ë®Æ½":
+                        PlayMacro(TDPPMPath + "2");
+                        break;
+                    case "ç«–ç›´":
+                        PlayMacro(TDPPMPath + "3");
+                        break;
+                    case "å¹³è¡Œ" :
+                 PlayMacro(TDPPMPath + "4");
+                        break;
+                    case "å‚ç›´":
+                        PlayMacro(TDPPMPath + "5");
+                        break;
+                    case "å€’æ–œè§’":
+                        PlayMacro(TDPPMPath + "6");
+                        break;
+                    case "è§’åº¦":
+                        PlayMacro(TDPPMPath + "7");
+                        break;
+                    case "åœ†æŸ±å½¢":
+                        PlayMacro(TDPPMPath + "8");
+                        break;
+                    case "å­”":
+                        PlayMacro(TDPPMPath + "9");
+                        break;
+                    case "ç›´å¾„":
+                        PlayMacro(TDPPMPath + "10");
+                        break;
+                    case "åŠå¾„":
+                        PlayMacro(TDPPMPath + "11");
+                        break;
+                    case "è¿‡åœ†å¿ƒçš„åŠå¾„":
+                        PlayMacro(TDPPMPath + "12");
+                        break;
+                    case "å¸¦æŠ˜çº¿çš„åŠå¾„":
+                        PlayMacro(TDPPMPath + "13");
+                        break;
+                    case "åšåº¦":
+                        PlayMacro(TDPPMPath + "14");
+                        break;
+                    case "åœ†å¼§é•¿":
+                        PlayMacro(TDPPMPath + "15");
+                        break;
+                    case "Ë®Æ½ï¿½ï¿½"://è¿™ä¸ªçœŸæ˜¯å¥‡è‘©å•Šï¼
+                        PlayMacro(TDPPMPath + "16");
+                        break;
+                    case "ç«–ç›´é“¾":
+                        PlayMacro(TDPPMPath + "17");
+                        break;
+                    case "æ°´å¹³åŸºå‡†":
+                        PlayMacro(TDPPMPath + "18");
+                        break;
+                    case "ç«–ç›´åŸºå‡†":
+                        PlayMacro(TDPPMPath + "19");
+                        break;
+                    case "åæ ‡":
+                        PlayMacro(TDPPMPath + "20");
+                        break;
+                }
+                //if(ans == "è‡ªåŠ¨åˆ¤æ–­")
+                //{
+                
+                //}
+                //else if(ans == "æ°´å¹³")
+                //{
+                
+                
+                //}
+                //else if (ans == "ç«–ç›´")
+                //{ 
+                
+                
+                //}
+                //else if (ans == "å¹³è¡Œ")
+                //{
+                
+                //}
+                //else if(ans == "å‚ç›´")
+                //{
+                //}
+                //else if()
+                //{
+                
+                
+                //}
+
+                //---------Enter your code here-----------
+            }
            else if(block == china)
            {
              int m = china.GetProperties().GetInteger("Value");
@@ -1117,15 +1391,16 @@ public class finalconbine
                 }
             
             }
-                else if(block == button0115fea)//µ÷ÓÃÂ¼ÖÆµÄºìÎÄ¼ş
+                else if(block == button0115fea)//è°ƒç”¨å½•åˆ¶çš„çº¢æ–‡ä»¶
             {
 
                 string fetstr = TDPPMPath + "Fet_control";
+                //string fetstr = TDPPMPath + "AutoDim";
                 PlayMacro(fetstr);
                 //this.Show();
 
                 }
-            else if (block == button0115rou)//µ÷ÓÃÂ¼ÖÆµÄºìÎÄ¼ş
+            else if (block == button0115rou)//è°ƒç”¨å½•åˆ¶çš„çº¢æ–‡ä»¶
             {
             
             }
@@ -1136,7 +1411,7 @@ public class finalconbine
                     tt = jiaoyanshisel.GetProperties().GetTaggedObjectVector("SelectedObjects");
                       if(tt.Length == 0 && jiaoyanshitol.GetProperties().GetLogical("Value"))
                 {
-                    theUI.NXMessageBox.Show("ÌáÊ¾", NXMessageBox.DialogType.Warning, "ÇëÑ¡ÔñÒªÉ¾³ıµÄPMI");
+                    theUI.NXMessageBox.Show("æç¤º", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©è¦åˆ é™¤çš„PMI");
                     return 1;
 
                 }
@@ -1182,7 +1457,7 @@ public class finalconbine
             {
                 here.GetProperties().SetLogical("Enable", false);
             }
-            obutton0.GetProperties().SetString("Label", "²éÑ¯³ß´ç±ê×¢");
+            obutton0.GetProperties().SetString("Label", "æŸ¥è¯¢å°ºå¯¸æ ‡æ³¨");
                 if(dimnode != null)
                 {
             if (dimnode.FirstChildNode != null)
@@ -1210,7 +1485,7 @@ public class finalconbine
                 }
           
                 }
-                if (obutton0.GetProperties().GetString("Label") == "²éÑ¯³ß´ç±ê×¢")
+                if (obutton0.GetProperties().GetString("Label") == "æŸ¥è¯¢å°ºå¯¸æ ‡æ³¨")
                 {
                 china.GetProperties().SetLogical("Enable", false);
                 japan.GetProperties().SetLogical("Enable", false);
@@ -1239,7 +1514,7 @@ public class finalconbine
                 TaggedObject[] obs = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
                 if (obs.Length == 0)
                 {
-                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡Ôñ³ß´ç");
+                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©å°ºå¯¸");
                     return 1;
                 }
                 double upper = zdoubleup.GetProperties().GetDouble("Value");
@@ -1253,18 +1528,18 @@ public class finalconbine
                         Part workPart = theSession.Parts.Work;
 
                     string option = enum1314.GetProperties().GetEnumAsString("Value");
-                    if (option == "±¾Ä£ĞÍÄÚ")
+                    if (option == "æœ¬æ¨¡å‹å†…")
                     {
                         here.GetProperties().SetLogical("Show", false);
                         //here.GetProperties().SetLogical("Enable", true);
 
                     }
-                    else if (option == "Ö¸¶¨PMI")
+                    else if (option == "æŒ‡å®šPMI")
                     {
                         here.GetProperties().SetLogical("Show", true);
                         here.GetProperties().SetLogical("Enable", true);
                     }
-                    else if (option == "¹¤×÷ÊÓÍ¼")
+                    else if (option == "å·¥ä½œè§†å›¾")
                     {
                         here.GetProperties().SetLogical("Show", false);
                     }
@@ -1274,7 +1549,7 @@ public class finalconbine
                 if(toggle1314.GetProperties().GetLogical("Value"))
                 {
 
-                    obutton0.GetProperties().SetString("Label", "²éÑ¯³ß´ç±ê×¢");
+                    obutton0.GetProperties().SetString("Label", "æŸ¥è¯¢å°ºå¯¸æ ‡æ³¨");
                     if (dimnode != null)
                     {
                         if (dimnode.FirstChildNode != null)
@@ -1304,7 +1579,7 @@ public class finalconbine
                     }
                 }
                 enum1314.GetProperties().SetLogical("Enable", true);
-                if (obutton0.GetProperties().GetString("Label") == "²éÑ¯³ß´ç±ê×¢")
+                if (obutton0.GetProperties().GetString("Label") == "æŸ¥è¯¢å°ºå¯¸æ ‡æ³¨")
                 {
                     china.GetProperties().SetLogical("Enable", false);
                     japan.GetProperties().SetLogical("Enable", false);
@@ -1326,11 +1601,11 @@ public class finalconbine
                 ArrayList allfcfary = new ArrayList();
                 alldimary.Clear();
                 allfcfary.Clear();
-                if (obutton0.GetProperties().GetString("Label") == "²éÑ¯³ß´ç±ê×¢")
+                if (obutton0.GetProperties().GetString("Label") == "æŸ¥è¯¢å°ºå¯¸æ ‡æ³¨")
                 {
                     /////////////////////////////////////////////////////////////////////////
                    string option = enum1314.GetProperties().GetEnumAsString("Value");
-                    if(option == "±¾Ä£ĞÍÄÚ")
+                    if(option == "æœ¬æ¨¡å‹å†…")
                     {
                         alldimori = workPart.Dimensions.ToArray();
                         allfcfori = workPart.Annotations.Fcfs.ToArray();
@@ -1355,12 +1630,12 @@ public class finalconbine
                         }
                     
                     }
-                    else if( option == "Ö¸¶¨PMI")
+                    else if( option == "æŒ‡å®šPMI")
                     {
                         TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
                         if (obs.Length == 0)
                         {
-                            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡ÔñĞèÒª´ò±êºÅµÄ³ß´ç»òĞÎÎ»¹«²î");
+                            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©éœ€è¦æ‰“æ ‡å·çš„å°ºå¯¸æˆ–å½¢ä½å…¬å·®");
                             return 1;
                         }
                         else
@@ -1379,7 +1654,7 @@ public class finalconbine
                             }
                         }
                     }
-                    else if(option == "¹¤×÷ÊÓÍ¼")
+                    else if(option == "å·¥ä½œè§†å›¾")
                     {
                         View workview = workPart.ModelingViews.WorkView;
                         alldimori = workPart.Dimensions.ToArray();
@@ -1442,13 +1717,13 @@ public class finalconbine
 
                     /////////////////////////////////////////////////////////////////////////////
                   
-                    ///------ÕâĞ©ÊÇÒÔÇ°Ö»ÓĞÔÚÄ£ĞÍÄÚ£¬ºÍÓÃÑ¡ÔñÆ÷Ñ¡Ôñ¾ßÌåµÄ³ß´çµÄÊ±ºòµÄ´úÂë
+                    ///------è¿™äº›æ˜¯ä»¥å‰åªæœ‰åœ¨æ¨¡å‹å†…ï¼Œå’Œç”¨é€‰æ‹©å™¨é€‰æ‹©å…·ä½“çš„å°ºå¯¸çš„æ—¶å€™çš„ä»£ç 
                     //if (here.GetProperties().GetLogical("Enable"))
                     //{
                         //TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
                         //if (obs.Length == 0)
                         //{
-                        //    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡ÔñĞèÒª´ò±êºÅµÄ³ß´ç»òĞÎÎ»¹«²î");
+                        //    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©éœ€è¦æ‰“æ ‡å·çš„å°ºå¯¸æˆ–å½¢ä½å…¬å·®");
                         //    return 1;
                         //}
                         //else
@@ -1498,7 +1773,7 @@ public class finalconbine
                     allfcf = (NXOpen.Annotations.Fcf[])allfcfary.ToArray(typeof(NXOpen.Annotations.Fcf));
                     if (alldimary.Count == 0 && allfcfary.Count == 0)
                     {
-                        theUI.NXMessageBox.Show("ÎŞPMI", NXMessageBox.DialogType.Warning, "Î´²éÑ¯µ½PMI,ÎŞ·¨´ò±êºÅ");
+                        theUI.NXMessageBox.Show("æ— PMI", NXMessageBox.DialogType.Warning, "æœªæŸ¥è¯¢åˆ°PMI,æ— æ³•æ‰“æ ‡å·");
                         return 1;
                     }
 
@@ -1512,7 +1787,7 @@ public class finalconbine
 
                         ArrayList stateone = new ArrayList();
                         ArrayList unstateone = new ArrayList();
-                        dimnode = tree_control0.CreateNode("³ß´ç¹«²î");
+                        dimnode = tree_control0.CreateNode("å°ºå¯¸å…¬å·®");
                         tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
                         double[] final = { 0, 0, 0 };
                         for (int i = 0; i < alldim.Length; i++)
@@ -1633,7 +1908,7 @@ public class finalconbine
                         {
                             ArrayList nodes = new ArrayList();
                             Node nd = null;
-                          NXOpen.Annotations.Dimension[]  left = (NXOpen.Annotations.Dimension[])unstateone.ToArray((typeof(NXOpen.Annotations.Dimension)));//°Ñ¶¯Ì¬Êı×é×ª»¯³ÉÊı×é
+                          NXOpen.Annotations.Dimension[]  left = (NXOpen.Annotations.Dimension[])unstateone.ToArray((typeof(NXOpen.Annotations.Dimension)));//æŠŠåŠ¨æ€æ•°ç»„è½¬åŒ–æˆæ•°ç»„
                           for (int i = 0; i < left.Length; i ++ )
                           {//tag-hereA4
                               
@@ -1671,7 +1946,7 @@ public class finalconbine
                     {
                         ArrayList fstateone = new ArrayList();
                         ArrayList funstateone = new ArrayList();
-                        fcfnode = tree_control0.CreateNode("ĞÎÎ»¹«²î");
+                        fcfnode = tree_control0.CreateNode("å½¢ä½å…¬å·®");
                         tree_control0.InsertNode(fcfnode, null, null, Tree.NodeInsertOption.AlwaysLast);
                         for (int m = 0; m < allfcf.Length; m++)
                         {
@@ -1767,7 +2042,7 @@ public class finalconbine
                             }
                             else if (fstateone.Count == 0)
                             {
-                                NXOpen.Annotations.Fcf[] left = (NXOpen.Annotations.Fcf[])funstateone.ToArray((typeof(NXOpen.Annotations.Fcf)));//°Ñ¶¯Ì¬Êı×é×ª»¯³ÉÊı×é
+                                NXOpen.Annotations.Fcf[] left = (NXOpen.Annotations.Fcf[])funstateone.ToArray((typeof(NXOpen.Annotations.Fcf)));//æŠŠåŠ¨æ€æ•°ç»„è½¬åŒ–æˆæ•°ç»„
                                 for (int i = 0; i < left.Length; i++)
                                 {
 
@@ -1801,8 +2076,8 @@ public class finalconbine
                         }
 
                     enum1314.GetProperties().SetLogical("Enable",false);
-                    obutton0.GetProperties().SetString("Label", "´ò±êºÅ");
-                    if (obutton0.GetProperties().GetString("Label") == "´ò±êºÅ")
+                    obutton0.GetProperties().SetString("Label", "æ‰“æ ‡å·");
+                    if (obutton0.GetProperties().GetString("Label") == "æ‰“æ ‡å·")
                     {
                         china.GetProperties().SetLogical("Enable", true);
                         japan.GetProperties().SetLogical("Enable", true);
@@ -1812,7 +2087,7 @@ public class finalconbine
                     toggle1314.GetProperties().SetLogical("Value", false);
                 }
 
-                else if (obutton0.GetProperties().GetString("Label") == "´ò±êºÅ")
+                else if (obutton0.GetProperties().GetString("Label") == "æ‰“æ ‡å·")
                 {
                     ArrayList dellist = new ArrayList();
                     
@@ -1907,18 +2182,18 @@ public class finalconbine
                 TaggedObject[] obs = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
                 if (obs.Length == 0)
                 {
-                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡Ôñ³ß´ç");
+                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©å°ºå¯¸");
                     return 1;
                 }
                 if (firstpt.Length == 0)
                 {
-                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡ÔñÆğÊ¼µã");
+                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©èµ·å§‹ç‚¹");
                     return 1;
                 }
                 if (secpt.Length == 0)
                 {
 
-                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡ÔñÖÕÖ¹µã");
+                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©ç»ˆæ­¢ç‚¹");
                     return 1;
                 }
                 Point a = Tag2NXObject<Point>(firstpt[0].Tag);
@@ -1927,8 +2202,8 @@ public class finalconbine
                 double[] real3d;
                 NXOpen.Features.DatumAxisFeature axisreal = (NXOpen.Features.DatumAxisFeature)axisyo;
                 DatumAxis axisreal1 = axisreal.DatumAxis;
-                Point3d stpt;//ÖáµÄÆğµã
-                Point3d endpt;//ÖáµÄÖÕµã
+                Point3d stpt;//è½´çš„èµ·ç‚¹
+                Point3d endpt;//è½´çš„ç»ˆç‚¹
                 stpt = a.Coordinates;
                 endpt = b.Coordinates;
                 // axisreal1.GetEndPoints(out stpt, out endpt);
@@ -1937,7 +2212,7 @@ public class finalconbine
                 thepmi = zselection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
                 if (thepmi.Length == 0)
                 {
-                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "ÇëÑ¡Ôñ³ß´ç");
+                    theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©å°ºå¯¸");
                     return 1;
                 }
                 NXObject last = Tag2NXObject<NXObject>(thepmi[0].Tag);
@@ -1983,10 +2258,10 @@ public class finalconbine
             else if (block == menum0)
             {
                 Part workPart = theSession.Parts.Work;
-                Layout layout1 = (Layout)workPart.Layouts.FindObject("L1");//´Ë´¦Ğ´ËÀÁË¡£¡£¡£¡£¡£TAG ERROR
+                Layout layout1 = (Layout)workPart.Layouts.FindObject("L1");//æ­¤å¤„å†™æ­»äº†ã€‚ã€‚ã€‚ã€‚ã€‚TAG ERROR
                 int sel = menum0.GetProperties().GetEnum("Value");
                 string addnewstr = menum0.GetProperties().GetEnumAsString("Value");
-                if (addnewstr != "Ìí¼ÓĞÂÊÓÍ¼")
+                if (addnewstr != "æ·»åŠ æ–°è§†å›¾")
                 {
                     layout1.ReplaceView(workPart.ModelingViews.WorkView, aaa[sel], true);
                   
@@ -2008,20 +2283,20 @@ public class finalconbine
             {
 
                 string roughness = null;
-                string jmatoffstr = null;//²ÄÁÏÒÆ³ı
-                roughness = rouname.GetProperties().GetString("Value");//´Ö²Ú¶È
+                string jmatoffstr = null;//ææ–™ç§»é™¤
+                roughness = rouname.GetProperties().GetString("Value");//ç²—ç³™åº¦
                 string jstandenum = jstand.GetProperties().GetEnumAsString("Value");
                 object StandardType = null;
                 //if (roughness == "")
                 //{
-                    //theUI.NXMessageBox.Show("ÇëÊäÈë´Ö²Ú¶È", NXMessageBox.DialogType.Warning, "Î´ÊäÈë´Ö²Ú¶È");
+                    //theUI.NXMessageBox.Show("è¯·è¾“å…¥ç²—ç³™åº¦", NXMessageBox.DialogType.Warning, "æœªè¾“å…¥ç²—ç³™åº¦");
                     //return 1;
                 //}
                 string mgh = astring0.GetProperties().GetString("Value");
                 //if (mgh == "")
                 //{
 
-                //    theUI.NXMessageBox.Show("ÇëÊäÈëÎ»ÖÃ·ûºÅ", NXMessageBox.DialogType.Warning, "Î´ÊäÈëÎ»ÖÃ·ûºÅ");
+                //    theUI.NXMessageBox.Show("è¯·è¾“å…¥ä½ç½®ç¬¦å·", NXMessageBox.DialogType.Warning, "æœªè¾“å…¥ä½ç½®ç¬¦å·");
                 //    return 1;
 
                 //}
@@ -2056,34 +2331,34 @@ public class finalconbine
                 object FinishType = null;
                 switch (jmatoffenum)
                 {
-                    case "´ò¿ª":
+                    case "æ‰“å¼€":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Basic;
                         break;
-                    case "´ò¿ª£¬ĞŞÊÎ·û":
+                    case "æ‰“å¼€ï¼Œä¿®é¥°ç¬¦":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.Modifier;
                         break;
-                    case "ĞèÒªÒÆ³ı²ÄÁÏ":
+                    case "éœ€è¦ç§»é™¤ææ–™":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.MaterialRemovalRequired;
                         break;
-                    case "ĞŞÊÎ·û£¬ĞèÒªÒÆ³ı²ÄÁÏ":
+                    case "ä¿®é¥°ç¬¦ï¼Œéœ€è¦ç§»é™¤ææ–™":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.ModifierMaterialRemovalRequired;
                         break;
-                    case "½ûÖ¹ÒÆ³ı²ÄÁÏ":
+                    case "ç¦æ­¢ç§»é™¤ææ–™":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.MaterialRemovalProhibited;
                         break;
-                    case "ĞŞÊÎ·û£¬½ûÖ¹ÒÆ³ı²ÄÁÏ":
+                    case "ä¿®é¥°ç¬¦ï¼Œç¦æ­¢ç§»é™¤ææ–™":
                         FinishType = NXOpen.Annotations.SurfaceFinishBuilder.FinishType.ModifierMaterialRemovalProhibited;
                         break;
 
 
                 }
-                TaggedObject[] fnfaceobj = g.GetProperties().GetTaggedObjectVector("SelectedObjects");//¹ØÁª¶ÔÏó
+                TaggedObject[] fnfaceobj = g.GetProperties().GetTaggedObjectVector("SelectedObjects");//å…³è”å¯¹è±¡
 
 
 
                 if (fnfaceobj.Length == 0)//tag undone
                 {
-                    theUI.NXMessageBox.Show("ÇëÑ¡Ôñ¹ØÁª¶ÔÏó", NXMessageBox.DialogType.Warning, "Î´Ñ¡Ôñ¹ØÁª¶ÔÏó");
+                    theUI.NXMessageBox.Show("è¯·é€‰æ‹©å…³è”å¯¹è±¡", NXMessageBox.DialogType.Warning, "æœªé€‰æ‹©å…³è”å¯¹è±¡");
                     return 1;
                 }
                 Face fnface = (Face)fnfaceobj[0];
@@ -2091,16 +2366,16 @@ public class finalconbine
                 if (jtogglejy.GetProperties().GetLogical("Value"))
                 {
                     TaggedObject[] jcrosptobjobj = null;
-                    jcrosptobjobj = jcrospt.GetProperties().GetTaggedObjectVector("SelectedObjects");//ÕÛÏßÎ»ÖÃ
+                    jcrosptobjobj = jcrospt.GetProperties().GetTaggedObjectVector("SelectedObjects");//æŠ˜çº¿ä½ç½®
                     if (jcrosptobjobj.Length == 0)
                     {
-                        theUI.NXMessageBox.Show("ÇëÑ¡ÔñÕÛÏßÎ»ÖÃ", NXMessageBox.DialogType.Warning, "Î´Ñ¡ÔñÕÛÏßÎ»ÖÃ");
+                        theUI.NXMessageBox.Show("è¯·é€‰æ‹©æŠ˜çº¿ä½ç½®", NXMessageBox.DialogType.Warning, "æœªé€‰æ‹©æŠ˜çº¿ä½ç½®");
                         return 1;
                     }
                     jcrosptobj = (Point)jcrosptobjobj[0];
                 }
 
-                // TaggedObject[] jintobjobj = jintobj.GetProperties().GetTaggedObjectVector("SelectedObjects");//¹ØÁª¶ÔÏó
+                // TaggedObject[] jintobjobj = jintobj.GetProperties().GetTaggedObjectVector("SelectedObjects");//å…³è”å¯¹è±¡
                 //DisplayableObject obj=(DisplayableObject)jintobjobj[0];
                 NXOpen.Point jplcptobj = (NXOpen.Point)jplcpt.GetProperties().GetTaggedObjectVector("SelectedObjects")[0];
                 Point3d point = jplcptobj.Coordinates;
@@ -2126,18 +2401,157 @@ public class finalconbine
             else if (block == zenum01)
             {
                 string table = zenum01.GetProperties().GetEnumAsString("Value");
-                if (table == "±í1")
+                if (table == "è¡¨1")
                 {
                     zlabel0.GetProperties().SetLogical("Show", true);
                     zlabel01.GetProperties().SetLogical("Show", false);
                 }
-                else if (table == "±í4")
+                else if (table == "è¡¨4")
                 {
                     zlabel0.GetProperties().SetLogical("Show", false);
                     zlabel01.GetProperties().SetLogical("Show", true);
                 }
                 //---------Enter your code here-----------
             }
+
+
+                else if (block == ifcro)
+                {
+
+                    if (ifcro.GetProperties().GetLogical("Value"))
+                    {
+                        cro.GetProperties().SetLogical("Enable", true);
+
+                    }
+                    else if (!ifcro.GetProperties().GetLogical("Value"))
+                    {
+                        cro.GetProperties().SetLogical("Enable", false);
+                    }
+                    //---------Enter your code here-----------
+                }
+                else if (block == cro)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == realanno)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == iflabel)
+                {
+
+                    if (iflabel.GetProperties().GetLogical("Value"))
+                    {
+
+                        selection020116.GetProperties().SetLogical("Enable", true);
+
+                    }
+                    else if (!iflabel.GetProperties().GetLogical("Value"))
+                    {
+                        selection020116.GetProperties().SetLogical("Enable", false);
+                    }
+                    //---------Enter your code here-----------
+                }
+                else if (block == selection020116)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == point010116)
+                {
+                    NXOpen.TaggedObject[] guanlian = null;
+                    NXOpen.DisplayableObject guanlianobj = null;
+                    if (ifcro.GetProperties().GetLogical("Value") == true)
+                    {
+                        guanlian = cro.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                        if (guanlian.Length == 0)
+                        {
+                            theUI.NXMessageBox.Show("æœªé€‰æ‹©å…³è”å¯¹è±¡", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©å…³è”å¯¹è±¡");
+
+                            return 1;
+                        }
+                        guanlianobj = Tag2NXObject<DisplayableObject>(guanlian[0].Tag);//è¿™ä¸ªæ˜¯å…³è”å¯¹è±¡
+                    }
+
+                    string[] zhushiwenzi = null;
+                    zhushiwenzi = realanno.GetProperties().GetStrings("Value");//è¿™ä¸ªæ˜¯æ³¨é‡Šæ–‡å­—
+                    // int ps = zhushiwenzi[0].Length;
+                    //if (zhushiwenzi == null)
+                    //{
+
+                    //    theUI.NXMessageBox.Show("è­¦å‘Š", NXMessageBox.DialogType.Error, "æ³¨é‡Šæ–‡å­—ä¸èƒ½ä¸ºç©º");
+                    //}
+                    NXOpen.TaggedObject[] zhiyin = null;
+                    NXOpen.NXObject zhiyinobj = null;
+
+                    if (iflabel.GetProperties().GetLogical("Value") == true)
+                    {
+                        zhiyin = selection020116.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                        if (zhiyin.Length == 0)
+                        {
+                            theUI.NXMessageBox.Show("æœªé€‰æ‹©Labelæ”¾ç½®ç‚¹", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©Labelæ”¾ç½®ç‚¹");
+                            return 1;
+
+
+                        }
+                        zhiyinobj = Tag2NXObject<NXObject>(zhiyin[0].Tag);//æŒ‡å¼•çº¿
+                    }
+                    NXOpen.TaggedObject[] placept = null;
+                    placept = point010116.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                    Point placeptobj = Tag2NXObject<Point>(placept[0].Tag);//æ³¨é‡Šæœ€åçš„æ”¾ç½®ç‚¹
+                    Point3d placeptobj3d = placeptobj.Coordinates;
+                    //---------Enter our code here-----------
+                    SetSBF();
+                    thenotefun.function_note(zhushiwenzi, guanlianobj, zhiyinobj, placeptobj3d);
+
+
+
+
+
+
+                    //---------Enter your code here-----------
+                }
+                else if (block == dic)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == str)
+                {
+                    //---------Enter your code here-----------
+                }
+                else if (block == button0)
+                {
+
+
+
+                    string[] diction = null;//è¿™ä¸ªæœ‰â€æ·»åŠ è‡³CAPPåŠ©æ‰‹â€œä¸­å¾—åˆ°çš„å­—ç¬¦ä¸²
+                    diction = dic.GetProperties().GetStrings("Value");
+                    if (diction == null)
+                    {
+                        theUI.NXMessageBox.Show("è­¦å‘Š", NXMessageBox.DialogType.Error, "æ·»åŠ æ–‡å­—ä¸èƒ½ä¸ºç©º");
+
+                    }
+                    string strvalue = str.GetProperties().GetEnumAsString("Value");
+
+                    thenotefun.Xmlforcapp(strvalue, diction[0]);
+
+                    StopProcess("CAPPåŠ©æ‰‹");
+                    OpenFile(ApplicationPath + folderpath + cappass);
+                    //---------Enter your code here-----------
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             else if (block == zlabel0)
             {
                 //---------Enter your code here-----------
@@ -2273,58 +2687,58 @@ public class finalconbine
                 plcpoint = point0.GetProperties().GetTaggedObjectVector("SelectedObjects");
 
                 theplcpoint = Tag2NXObject<Point>(plcpoint[0].Tag);
-                Point3d pt3d = theplcpoint.Coordinates;//Õâ¸ö¾ÍÊÇ·ÅÖÃµã
+                Point3d pt3d = theplcpoint.Coordinates;//è¿™ä¸ªå°±æ˜¯æ”¾ç½®ç‚¹
                 string attvalue = tolatt.GetProperties().GetEnumAsString("Value");
-                object attrtype = null;//Õâ¸öÊÇ¹«²îÀàĞÍ
+                object attrtype = null;//è¿™ä¸ªæ˜¯å…¬å·®ç±»å‹
                 switch (attvalue)
                 {
-                    case "Ö±Ïß¶È":
+                    case "ç›´çº¿åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Straightness;
                         break;
-                    case "Æ½Ãæ¶È":
+                    case "å¹³é¢åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Flatness;
 
                         break;
-                    case "Ô²¶È":
+                    case "åœ†åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Circularity;
                         break;
-                    case "Ô²Öù¶È":
+                    case "åœ†æŸ±åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Cylindricity;
                         break;
-                    case "Ö±ÏßÂÖÀª":
+                    case "ç›´çº¿è½®å»“":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine;
                         break;
-                    case "ÇúÃæÂÖÀª":
+                    case "æ›²é¢è½®å»“":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface;
                         break;
-                    case "ÇãĞ±¶È":
+                    case "å€¾æ–œåº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity;
                         break;
-                    case "´¹Ö±¶È":
+                    case "å‚ç›´åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity;
                         break;
-                    case "Æ½ĞĞ¶È":
+                    case "å¹³è¡Œåº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism;
                         break;
-                    case "Î»ÖÃ":
+                    case "ä½ç½®":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position;
                         break;
-                    case "¶Ô³Æ¶È":
+                    case "å¯¹ç§°åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry;
                         break;
-                    case "Í¬Öá¶È":
+                    case "åŒè½´åº¦":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity;
                         break;
-                    case "Ô²Ìø¶¯":
+                    case "åœ†è·³åŠ¨":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout;
                         break;
-                    case "È«Ìø¶¯":
+                    case "å…¨è·³åŠ¨":
                         attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout;
                         break;
 
                 }
                 int i = valuestyle.GetProperties().GetEnum("Value");
-                object zhileixing = null;//Õâ¸öÊÇ¹«²îµÄÖµÀàĞÍ£¬¿ÉÒÔÊÇfai,Sfai.
+                object zhileixing = null;//è¿™ä¸ªæ˜¯å…¬å·®çš„å€¼ç±»å‹ï¼Œå¯ä»¥æ˜¯fai,Sfai.
                 if (i == 0)
                 {
                     zhileixing = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceZoneShape.Diameter;
@@ -2337,120 +2751,120 @@ public class finalconbine
                 {
                     zhileixing = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceZoneShape.SphericalDiameter;
                 }
-                object matcondition = null;//ĞĞÎª¹«²îµÄ²ÄÁÏ×´¿ö
+                object matcondition = null;//è¡Œä¸ºå…¬å·®çš„ææ–™çŠ¶å†µ
                 //string matconditionatt =  .GetProperties().GetEnumAsString("Value");
                 string matconditionatt = matrstyle.GetProperties().GetEnumAsString("Value");
-                if (matconditionatt == "×îºÃ²ÄÁÏ×´¿ö")
+                if (matconditionatt == "æœ€å¥½ææ–™çŠ¶å†µ")
                 {
                     matcondition = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier.MaximumMaterialCondition;
                 }
-                else if (matconditionatt == "×î²î²ÄÁÏ×´¿ö")
+                else if (matconditionatt == "æœ€å·®ææ–™çŠ¶å†µ")
                 {
                     matcondition = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier.LeastMaterialCondition;
                 }
-                else if (matconditionatt == "²»¿¼ÂÇÌØÕ÷´óĞ¡")
+                else if (matconditionatt == "ä¸è€ƒè™‘ç‰¹å¾å¤§å°")
                 {
                     matcondition = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier.RegardlessOfFeatureSize;
                 }
-                else if (matconditionatt == "ÎŞ")
+                else if (matconditionatt == "æ— ")
                 {
                     
                     matcondition = NXOpen.Annotations.FeatureControlFrameDataBuilder.ToleranceMaterialModifier.None;
                 }
-                string baseattstr = mainbase.GetProperties().GetEnumAsString("Value");//»ù×¼ÀàĞÍA----H
-                if (baseattstr == "ÎŞ")
+                string baseattstr = mainbase.GetProperties().GetEnumAsString("Value");//åŸºå‡†ç±»å‹A----H
+                if (baseattstr == "æ— ")
                 {
                     baseattstr = null;
                 }
                 string mainbasematstr = maiinbasemat.GetProperties().GetEnumAsString("Value");
-                object mainbasematobj = null;//Õâ¸öÊÇÖ÷»ù×¼²ÄÁÏ×´¿ö
-                if (mainbasematstr == "×îºÃ²ÄÁÏ×´¿ö")
+                object mainbasematobj = null;//è¿™ä¸ªæ˜¯ä¸»åŸºå‡†ææ–™çŠ¶å†µ
+                if (mainbasematstr == "æœ€å¥½ææ–™çŠ¶å†µ")
                 {
                     mainbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.MaximumMaterialCondition;
                 }
-                else if (mainbasematstr == "×î²î²ÄÁÏ×´¿ö")
+                else if (mainbasematstr == "æœ€å·®ææ–™çŠ¶å†µ")
                 {
                     mainbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.LeastMaterialCondition;
                 }
-                else if (mainbasematstr == "²»¿¼ÂÇÌØÕ÷´óĞ¡")
+                else if (mainbasematstr == "ä¸è€ƒè™‘ç‰¹å¾å¤§å°")
                 {
                     mainbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.RegardlessOfFeatureSize;
                 }
-                else if (mainbasematstr == "ÎŞ")
+                else if (mainbasematstr == "æ— ")
                 {
                     mainbasematobj = null;
                 }
-                string firstbasestr = firstrefbase.GetProperties().GetEnumAsString("Value");//µÚÒ»²Î¿¼»ù×¼£¬Ò²¾ÍÊÇÆ½³£ËµµÄµÚ¶ş²Î¿¼»ù×¼
-                if (firstbasestr == "ÎŞ")
+                string firstbasestr = firstrefbase.GetProperties().GetEnumAsString("Value");//ç¬¬ä¸€å‚è€ƒåŸºå‡†ï¼Œä¹Ÿå°±æ˜¯å¹³å¸¸è¯´çš„ç¬¬äºŒå‚è€ƒåŸºå‡†
+                if (firstbasestr == "æ— ")
                 {
                     firstbasestr = null;
                 }
                 string firstbasematstr = firstrefbasemat.GetProperties().GetEnumAsString("Value");
-                object firstbasematobj = null;//Õâ¸öÊÇµÚÒ»£¨µÚ¶ş£©²Î¿¼»ù×¼µÄ²ÄÁÏÌØĞÔ
-                if (firstbasematstr == "×îºÃ²ÄÁÏ×´¿ö")
+                object firstbasematobj = null;//è¿™ä¸ªæ˜¯ç¬¬ä¸€ï¼ˆç¬¬äºŒï¼‰å‚è€ƒåŸºå‡†çš„ææ–™ç‰¹æ€§
+                if (firstbasematstr == "æœ€å¥½ææ–™çŠ¶å†µ")
                 {
                     firstbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.MaximumMaterialCondition;
                 }
-                else if (firstbasematstr == "×î²î²ÄÁÏ×´¿ö")
+                else if (firstbasematstr == "æœ€å·®ææ–™çŠ¶å†µ")
                 {
                     firstbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.LeastMaterialCondition;
                 }
-                else if (firstbasematstr == "²»¿¼ÂÇÌØÕ÷´óĞ¡")
+                else if (firstbasematstr == "ä¸è€ƒè™‘ç‰¹å¾å¤§å°")
                 {
                     firstbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.RegardlessOfFeatureSize;
                 }
-                else if (firstbasematstr == "ÎŞ")
+                else if (firstbasematstr == "æ— ")
                 {
 
                     firstbasematobj = null;
                 }
-                string secbasestr = secrefbase.GetProperties().GetEnumAsString("Value");//µÚ¶ş²Î¿¼»ù×¼£¨µÚÈı£©
-                if (secbasestr == "ÎŞ")
+                string secbasestr = secrefbase.GetProperties().GetEnumAsString("Value");//ç¬¬äºŒå‚è€ƒåŸºå‡†ï¼ˆç¬¬ä¸‰ï¼‰
+                if (secbasestr == "æ— ")
                 {
                     secbasestr = null;
 
                 }
                 string secbasematstr = secrefbasemat.GetProperties().GetEnumAsString("Value");
 
-                object secbasematobj = null;//Õâ¸öÊÇµÚ¶ş£¨µÚÈı£©²Î¿¼»ù×¼µÄ²ÄÁÏÌØĞÔ
-                if (secbasematstr == "×îºÃ²ÄÁÏ×´¿ö")
+                object secbasematobj = null;//è¿™ä¸ªæ˜¯ç¬¬äºŒï¼ˆç¬¬ä¸‰ï¼‰å‚è€ƒåŸºå‡†çš„ææ–™ç‰¹æ€§
+                if (secbasematstr == "æœ€å¥½ææ–™çŠ¶å†µ")
                 {
                     secbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.MaximumMaterialCondition;
                 }
-                else if (secbasematstr == "×î²î²ÄÁÏ×´¿ö")
+                else if (secbasematstr == "æœ€å·®ææ–™çŠ¶å†µ")
                 {
                     secbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.LeastMaterialCondition;
                 }
-                else if (secbasematstr == "²»¿¼ÂÇÌØÕ÷´óĞ¡")
+                else if (secbasematstr == "ä¸è€ƒè™‘ç‰¹å¾å¤§å°")
                 {
                     secbasematobj = NXOpen.Annotations.DatumReferenceBuilder.DatumReferenceMaterialCondition.RegardlessOfFeatureSize;
                 }
-                else if (secbasematstr == "ÎŞ")
+                else if (secbasematstr == "æ— ")
                 {
                     secbasematobj = null;
 
                 }
-                double tolvalue = double0.GetProperties().GetDouble("Value");//Õâ¸öÊÇ¹«²îÖµ
-                double zoom = double01.GetProperties().GetDouble("Value");//Õâ¸öÊÇ·Å´óËõĞ¡µÄÒò×Ó
+                double tolvalue = double0.GetProperties().GetDouble("Value");//è¿™ä¸ªæ˜¯å…¬å·®å€¼
+                double zoom = double01.GetProperties().GetDouble("Value");//è¿™ä¸ªæ˜¯æ”¾å¤§ç¼©å°çš„å› å­
                 if (tolvalue == 0.0)
                 {
-                    theUI.NXMessageBox.Show("¹«²îÖµÎª0", NXMessageBox.DialogType.Warning, "¹«²îÖµ²»ÄÜÎª0");
+                    theUI.NXMessageBox.Show("å…¬å·®å€¼ä¸º0", NXMessageBox.DialogType.Warning, "å…¬å·®å€¼ä¸èƒ½ä¸º0");
                     return 1;
                 }
 
                 int pp = framstyle.GetProperties().GetEnum("Value");
-                object kuang = null;//¿òÑùÊ½
-                if (pp == 0)//µ¥¿ò
+                object kuang = null;//æ¡†æ ·å¼
+                if (pp == 0)//å•æ¡†
                 {
                     kuang = NXOpen.Annotations.FeatureControlFrameBuilder.FcfFrameStyle.SingleFrame;
                 }
-                else if (pp == 1)//¶à¿ò
+                else if (pp == 1)//å¤šæ¡†
                 {
                     kuang = NXOpen.Annotations.FeatureControlFrameBuilder.FcfFrameStyle.CompositeFrame;
                 }
                 //int qq = postion.GetProperties().GetEnum("Value");
                 object LeaderType = null;
-                // if (qq == 0)//ÕÛÏßĞÎÊ½ÊÇÑ¡Ôñµã
+                // if (qq == 0)//æŠ˜çº¿å½¢å¼æ˜¯é€‰æ‹©ç‚¹
                 // {
                 LeaderType = NXOpen.Annotations.LeaderData.LeaderType.Plain;
                 //    Selection.MaskTriple[] msktripe = null;
@@ -2458,7 +2872,7 @@ public class finalconbine
                 //    selection0.GetProperties().SetSelectionFilter("SelectionFilter", Selection.SelectionAction.ClearAndEnableSpecific, msktripe);
                 //    //NXOpen.TaggedObject tagobj = selection0.GetProperties().GetTaggedObject("SelectedObjects");
                 //  }
-                // else if (qq == 1)//ÕÛÏÖĞÎÊ½ÊÇÑ¡ÔñÏß
+                // else if (qq == 1)//æŠ˜ç°å½¢å¼æ˜¯é€‰æ‹©çº¿
                 //{
                 //  LeaderType=NXOpen.Annotations.LeaderData.LeaderType.Flag;
                 //    Selection.MaskTriple[] msktripe = null;
@@ -2472,18 +2886,18 @@ public class finalconbine
                 NXOpen.TaggedObject[] tagobj00 = selection0.GetProperties().GetTaggedObjectVector("SelectedObjects");
                 if (tagobj00.Length == 0)
                 {
-                    theUI.NXMessageBox.Show("Î´Ñ¡ÔñÕÛÏß½Çµã", NXMessageBox.DialogType.Warning, "ÇëÏÈÑ¡ÔñÕÛÏß½Çµã");
+                    theUI.NXMessageBox.Show("æœªé€‰æ‹©æŠ˜çº¿è§’ç‚¹", NXMessageBox.DialogType.Warning, "è¯·å…ˆé€‰æ‹©æŠ˜çº¿è§’ç‚¹");
                     return 1;
                 }
                 zhexiandian = Tag2NXObject<DisplayableObject>(tagobj00[0].Tag);
-                //Point3d realdian = zhexiandian.Coordinates;//Õâ¸öÊÇÕÛÏßµã
-                DisplayableObject guanlian = null;//¹ØÁª¶ÔÏó
+                //Point3d realdian = zhexiandian.Coordinates;//è¿™ä¸ªæ˜¯æŠ˜çº¿ç‚¹
+                DisplayableObject guanlian = null;//å…³è”å¯¹è±¡
                 if (selection01.GetProperties().GetLogical("Enable"))
                 {
                     NXOpen.TaggedObject[] tagobj1 = selection01.GetProperties().GetTaggedObjectVector("SelectedObjects");
                     if (tagobj1.Length == 0)
                     {
-                        theUI.NXMessageBox.Show("Î´Ñ¡Ôñ¹ØÁª¶ÔÏó", NXMessageBox.DialogType.Warning, "ÇëÑ¡Ôñ¹ØÁª¶ÔÏó");
+                        theUI.NXMessageBox.Show("æœªé€‰æ‹©å…³è”å¯¹è±¡", NXMessageBox.DialogType.Warning, "è¯·é€‰æ‹©å…³è”å¯¹è±¡");
                         return 1;
                     }
                     guanlian = Tag2NXObject<DisplayableObject>(tagobj1[0].Tag);
@@ -2502,7 +2916,7 @@ public class finalconbine
                     secbasestr = null;
                     secbasematobj = null;
                 }
-                double conlength = double02.GetProperties().GetDouble("Value");//ÕâÊÇ¶ÌÏß³¤¶È¡£
+                double conlength = double02.GetProperties().GetDouble("Value");//è¿™æ˜¯çŸ­çº¿é•¿åº¦ã€‚
                 //Selection.MaskTriple msktrp;
                 //msktrp.Subtype = 
                 //selection0.GetProperties().SetSelectionFilter("SelectionFilter",Selection.SelectionAction.ClearAndEnableSpecific,
@@ -2728,7 +3142,7 @@ public class finalconbine
         }
 
 
-    public void nd2nd(Node odnd, Node newnd,Node topnode, int state)//½«odnd·ÅÔÚnewndºóÃæ
+    public void nd2nd(Node odnd, Node newnd,Node topnode, int state)//å°†odndæ”¾åœ¨newndåé¢
     {
         Node tempnode = null;
         tempnode = tree_control0.CreateNode("node");
@@ -2801,23 +3215,23 @@ public class finalconbine
             TreeListMenu menu = tree.CreateMenu();
             if (node == dimnode && node != null)
             {
-                menu.AddMenuItem(9, "È«Ñ¡");
+                menu.AddMenuItem(9, "å…¨é€‰");
             }
             else if (node == fcfnode && node != null)
             {
-                    menu.AddMenuItem(10,"È«Ñ¡");
+                    menu.AddMenuItem(10,"å…¨é€‰");
                 }
             else if (node.ParentNode == dimnode && node != dimnode)
             {
                 int state = node.GetState();
                 if (state == 1)
                 {
-                    menu.AddMenuItem(2, "´ò±ê");
+                    menu.AddMenuItem(2, "æ‰“æ ‡");
                 }
                 else if (state == 2)
                 {
-                    menu.AddMenuItem(1, "²»´ò±ê");
-                    menu.AddMenuItem(15, "¸ü¸Ä·½Ïò");
+                    menu.AddMenuItem(1, "ä¸æ‰“æ ‡");
+                    menu.AddMenuItem(15, "æ›´æ”¹æ–¹å‘");
                 }
             }
             else if (node.ParentNode == fcfnode && node != fcfnode)
@@ -2825,12 +3239,12 @@ public class finalconbine
                 int state = node.GetState();
                 if (state == 1)
                 {
-                    menu.AddMenuItem(3, "´ò±ê");
+                    menu.AddMenuItem(3, "æ‰“æ ‡");
                 }
                 else if (state == 2)
                 {
-                    menu.AddMenuItem(4, "²»´ò±ê");
-                    menu.AddMenuItem(16, "¸ü¸Ä·½Ïò");
+                    menu.AddMenuItem(4, "ä¸æ‰“æ ‡");
+                    menu.AddMenuItem(16, "æ›´æ”¹æ–¹å‘");
                 }
             
             }
@@ -2971,7 +3385,7 @@ public class finalconbine
             }
         }
     }
-    public ArrayList getcdnd(Node parentnode)//µÃµ½Ò»¸ö¸¸½ÚµãÏÂÃæËùÓĞµÄ×Ó½Úµã
+    public ArrayList getcdnd(Node parentnode)//å¾—åˆ°ä¸€ä¸ªçˆ¶èŠ‚ç‚¹ä¸‹é¢æ‰€æœ‰çš„å­èŠ‚ç‚¹
     {
         ArrayList allnodes = new ArrayList();
         Node nd = parentnode.FirstChildNode;
@@ -3064,7 +3478,7 @@ public class finalconbine
     }
     public static void EditBalloonNote(NXOpen.Annotations.BalloonNote balloonnote, NXOpen.Annotations.Annotation ano,string num)
     {
-        //¼ÆËã¿í¸ß±È
+        //è®¡ç®—å®½é«˜æ¯”
         double DimensionSize = ano.GetLetteringPreferences().GetDimensionText().Size;
         double AspectRatio = 1;
         switch (num.Length)
