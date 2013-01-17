@@ -125,7 +125,7 @@ public class finalconbine
 
     private NXOpen.BlockStyler.UIBlock button0115fea;// Block type: Button
     private NXOpen.BlockStyler.UIBlock button0115rou;// Block type: Button
-
+    private NXOpen.BlockStyler.UIBlock button0117zhushi;// Block type: Button
 
     private NXOpen.BlockStyler.UIBlock enum1314;// Block type: Enumeration
     public static NXOpen.TaggedObject[] firstpt;//第一个点
@@ -464,6 +464,9 @@ public class finalconbine
            button0115fea = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115fea");
            button0115rou = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115rou");
 
+
+
+           button0117zhushi = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0117zhushi");
             //尺寸标注调用宏
            macdimtog = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("macdimtog");
            group6 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("group6");
@@ -573,8 +576,8 @@ public class finalconbine
                 tree_control0.GetProperties().SetLogical("Show", true);
                 tree_control0.InsertColumn(1, "编号", 130);//一定有注意不同的回调函数的问题
                 tree_control0.InsertColumn(2, "名义尺", 100);
-                tree_control0.InsertColumn(3, "上公差", 100);
-                tree_control0.InsertColumn(4, "下公差", 100);
+                tree_control0.InsertColumn(3, "上公差/形位基准", 100);
+                tree_control0.InsertColumn(4, "下公差/形位类型", 100);
                 there.GetProperties().SetLogical("Value", false);
                 here.GetProperties().SetLogical("Show", false);
                 here.GetProperties().SetLogical("Enable",false);
@@ -591,6 +594,7 @@ public class finalconbine
                 ztoggle01.GetProperties().SetLogical("Value", false);
                 china.GetProperties().SetLogical("Enable", false);
                 japan.GetProperties().SetLogical("Enable", false);
+            
 
 
                 jiaoyanshitol.GetProperties().SetLogical("Value", false);
@@ -607,11 +611,6 @@ public class finalconbine
                     menum0.GetProperties().SetLogical("Enable", false);
                     return;
                 }
-
-
-
-
-
             //////tab注释
                 realanno.GetProperties().SetLogical("Show", true);
                 ifcro.GetProperties().SetLogical("Value", false);
@@ -1402,8 +1401,16 @@ public class finalconbine
                 }
             else if (block == button0115rou)//调用录制的红文件
             {
-            
+                string roumac = TDPPMPath + "cucaodu";
+
+                PlayMacro(roumac);
             }
+                else if(block == button0117zhushi)
+            {
+                string zhushi = TDPPMPath + "zhushi";
+                OpenFile(ApplicationPath + folderpath + cappass);
+                PlayMacro(zhushi);
+                }
             else
                 if(block ==  jiaoyanshibut)
                 {
@@ -1577,6 +1584,16 @@ public class finalconbine
                         }
 
                     }
+                    //enum1314.GetProperties().SetEnumAsString("Value", "本模型内");
+                    //here.GetProperties().SetTaggedObject("SelectedObject", null);
+                    //TaggedObject[] a = null;
+                    //here.GetProperties().SetLogical("Show", false);
+                    //here.GetProperties().
+                    //TaggedObject[] tagobs = null;
+                    //Array.Clear(tagobs, 0, tagobs.Length);
+                    //here.GetProperties().SetTaggedObjectVector("SelectedObjects", tagobs);
+                  //string[] aa = null;
+                  //aa = here.GetProperties().GetPropertyNames();
                 }
                 enum1314.GetProperties().SetLogical("Enable", true);
                 if (obutton0.GetProperties().GetString("Label") == "查询尺寸标注")
@@ -1930,7 +1947,7 @@ public class finalconbine
 
                               }
                               //string pname = left[i].GetType().Name;
-                             cddimnode.SetColumnDisplayText(2, final[0].ToString());
+                              cddimnode.SetColumnDisplayText(2, final[0].ToString());
                               cddimnode.SetColumnDisplayText(3, final[1].ToString());
                               cddimnode.SetColumnDisplayText(4, final[2].ToString());
                               cddimnode.SetState(1);//set the checked one 
@@ -2016,10 +2033,75 @@ public class finalconbine
                                         NXOpen.Annotations.FeatureControlFrameDataBuilder featureControlFrameDataBuilder1 = (NXOpen.Annotations.FeatureControlFrameDataBuilder)taggedObject1;
                                         string vl = featureControlFrameDataBuilder1.ToleranceValue;
                                         cdfcfnode.SetColumnDisplayText(2, vl);
+                                        string datumA = featureControlFrameDataBuilder1.PrimaryDatumReference.Letter;
+                                        string datumB = featureControlFrameDataBuilder1.SecondaryDatumReference.Letter;
+                                        string datumC = featureControlFrameDataBuilder1.TertiaryDatumReference.Letter;
+                                        cdfcfnode.SetColumnDisplayText(3, datumA + " " + datumB + " " + datumC);
+                                       NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic obj = pmiFeatureControlFrameBuilder1.Characteristic;
+                                        switch (obj)
+                                        {
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Straightness:
+                                             
+                                                cdfcfnode.SetColumnDisplayText(4,"直线度");
+                                                break;
+                                            case  NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Flatness:
+                                               
+
+                                                cdfcfnode.SetColumnDisplayText(4, "平面度");
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Circularity:
+                                                cdfcfnode.SetColumnDisplayText(4, "圆度");
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Cylindricity:
+                                               
+                                                 cdfcfnode.SetColumnDisplayText(4, "圆柱度");
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine:
+                                                cdfcfnode.SetColumnDisplayText(4, "直线轮廓");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface:
+                                                cdfcfnode.SetColumnDisplayText(4, "曲面轮廓");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity:
+                                                cdfcfnode.SetColumnDisplayText(4, "倾斜度");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity:
+                                                cdfcfnode.SetColumnDisplayText(4, "垂直度");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism:
+                                                cdfcfnode.SetColumnDisplayText(4, "平行度");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position:
+                                                cdfcfnode.SetColumnDisplayText(4, "位置");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry:
+                                                cdfcfnode.SetColumnDisplayText(4, "对称度");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity:
+                                                cdfcfnode.SetColumnDisplayText(4, "同轴度");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout:
+                                                cdfcfnode.SetColumnDisplayText(4, "圆跳动");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout;
+                                                break;
+                                            case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout:
+                                                cdfcfnode.SetColumnDisplayText(4, "全跳动");
+                                                //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout;
+                                                break;
+
+                                        }
                                         pmiFeatureControlFrameBuilder1.Commit();
                                         pmiFeatureControlFrameBuilder1.Destroy();
                                         cdfcfnode.SetState(2);//set the checked one 
-
+                                        
                                     }
 
                                 }
@@ -2036,6 +2118,87 @@ public class finalconbine
                                     dimdata.Dispose();
                                     tree_control0.InsertNode(cdfcfnode, fcfnode, null, Tree.NodeInsertOption.Last);
 
+                                    //
+                                    NXOpen.Annotations.PmiFeatureControlFrameBuilder pmiFeatureControlFrameBuilder1;
+                                    pmiFeatureControlFrameBuilder1 = workPart.Annotations.CreatePmiFeatureControlFrameBuilder(dim);
+                                    TaggedObject taggedObject1;
+                                    taggedObject1 = pmiFeatureControlFrameBuilder1.FeatureControlFrameDataList.FindItem(0);
+
+                                    NXOpen.Annotations.FeatureControlFrameDataBuilder featureControlFrameDataBuilder1 = (NXOpen.Annotations.FeatureControlFrameDataBuilder)taggedObject1;
+                                    string vl = featureControlFrameDataBuilder1.ToleranceValue;
+                                    string datumA = featureControlFrameDataBuilder1.PrimaryDatumReference.Letter;
+                                    string datumB = featureControlFrameDataBuilder1.SecondaryDatumReference.Letter;
+                                    string datumC = featureControlFrameDataBuilder1.TertiaryDatumReference.Letter;
+                                   // featureControlFrameDataBuilder1.TertiaryCompoundDatumReference.
+                                    cdfcfnode.SetColumnDisplayText(2, vl);
+                                    cdfcfnode.SetColumnDisplayText(3,  datumA + " " + datumB + " "+datumC);
+                                    NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic obj = pmiFeatureControlFrameBuilder1.Characteristic;
+                                    switch (obj)
+                                    {
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Straightness:
+
+                                            cdfcfnode.SetColumnDisplayText(4, "直线度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Flatness:
+
+
+                                            cdfcfnode.SetColumnDisplayText(4, "平面度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Circularity:
+                                            cdfcfnode.SetColumnDisplayText(4, "圆度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Cylindricity:
+
+                                            cdfcfnode.SetColumnDisplayText(4, "圆柱度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine:
+                                            cdfcfnode.SetColumnDisplayText(4, "直线轮廓");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface:
+                                            cdfcfnode.SetColumnDisplayText(4, "曲面轮廓");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity:
+                                            cdfcfnode.SetColumnDisplayText(4, "倾斜度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity:
+                                            cdfcfnode.SetColumnDisplayText(4, "垂直度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism:
+                                            cdfcfnode.SetColumnDisplayText(4, "平行度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position:
+                                            cdfcfnode.SetColumnDisplayText(4, "位置");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry:
+                                            cdfcfnode.SetColumnDisplayText(4, "对称度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity:
+                                            cdfcfnode.SetColumnDisplayText(4, "同轴度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout:
+                                            cdfcfnode.SetColumnDisplayText(4, "圆跳动");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout:
+                                            cdfcfnode.SetColumnDisplayText(4, "全跳动");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout;
+                                            break;
+
+                                    }
+                                    pmiFeatureControlFrameBuilder1.Commit();
+                                    pmiFeatureControlFrameBuilder1.Destroy();
+
+
+
+                                    //
                                     cdfcfnode.SetState(1);//set the checked one 
 
                                 }
@@ -2059,7 +2222,74 @@ public class finalconbine
 
                                     NXOpen.Annotations.FeatureControlFrameDataBuilder featureControlFrameDataBuilder1 = (NXOpen.Annotations.FeatureControlFrameDataBuilder)taggedObject1;
                                     string vl = featureControlFrameDataBuilder1.ToleranceValue;
+                                  
+                                  string datumA = featureControlFrameDataBuilder1.PrimaryDatumReference.Letter;
+                                  string datumB = featureControlFrameDataBuilder1.SecondaryDatumReference.Letter;
+                                  string datumC = featureControlFrameDataBuilder1.TertiaryDatumReference.Letter;
+                                
                                     cdfcfnode.SetColumnDisplayText(2, vl);
+                                    cdfcfnode.SetColumnDisplayText(3, datumA + " " + datumB + " " + datumC);
+                                    NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic obj = pmiFeatureControlFrameBuilder1.Characteristic;
+                                    switch (obj)
+                                    {
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Straightness:
+
+                                            cdfcfnode.SetColumnDisplayText(4, "直线度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Flatness:
+
+
+                                            cdfcfnode.SetColumnDisplayText(4, "平面度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Circularity:
+                                            cdfcfnode.SetColumnDisplayText(4, "圆度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Cylindricity:
+
+                                            cdfcfnode.SetColumnDisplayText(4, "圆柱度");
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine:
+                                            cdfcfnode.SetColumnDisplayText(4, "直线轮廓");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfALine;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface:
+                                            cdfcfnode.SetColumnDisplayText(4, "曲面轮廓");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.ProfileOfASurface;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity:
+                                            cdfcfnode.SetColumnDisplayText(4, "倾斜度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Angularity;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity:
+                                            cdfcfnode.SetColumnDisplayText(4, "垂直度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Perpendicularity;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism:
+                                            cdfcfnode.SetColumnDisplayText(4, "平行度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Parallelism;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position:
+                                            cdfcfnode.SetColumnDisplayText(4, "位置");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Position;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry:
+                                            cdfcfnode.SetColumnDisplayText(4, "对称度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Symmetry;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity:
+                                            cdfcfnode.SetColumnDisplayText(4, "同轴度");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Concentricity;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout:
+                                            cdfcfnode.SetColumnDisplayText(4, "圆跳动");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.CircularRunout;
+                                            break;
+                                        case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout:
+                                            cdfcfnode.SetColumnDisplayText(4, "全跳动");
+                                            //attrtype = NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.TotalRunout;
+                                            break;
+
+                                    }
                                     pmiFeatureControlFrameBuilder1.Commit();
                                     pmiFeatureControlFrameBuilder1.Destroy();
                                     cdfcfnode.SetState(1);//set the checked one 
@@ -2079,8 +2309,27 @@ public class finalconbine
                     obutton0.GetProperties().SetString("Label", "打标号");
                     if (obutton0.GetProperties().GetString("Label") == "打标号")
                     {
-                        china.GetProperties().SetLogical("Enable", true);
-                        japan.GetProperties().SetLogical("Enable", true);
+                        if(fcfnode == null && dimnode == null)
+                        {
+                            china.GetProperties().SetLogical("Enable",false);
+                            japan.GetProperties().SetLogical("Enable",false);
+                        
+                        }
+                        else if (fcfnode == null && dimnode != null)
+                        {
+                            china.GetProperties().SetLogical("Enable", true);
+                            japan.GetProperties().SetLogical("Enable",false);
+                        }
+                        else if (fcfnode != null && dimnode == null)
+                        {
+                            china.GetProperties().SetLogical("Enable", false);
+                            japan.GetProperties().SetLogical("Enable", true);
+                        }
+                        else if (fcfnode != null && dimnode != null)
+                        {
+                            china.GetProperties().SetLogical("Enable", true);
+                            japan.GetProperties().SetLogical("Enable", true);
+                        }
                     
                     }
                     toggle1314.GetProperties().SetLogical("Show",true);
