@@ -550,7 +550,7 @@ public class finalconbine
     {
         try
         {
-
+            //tree_control0.GetProperties().SetLogical("CanStretchHeight", true);
             macdimtog.GetProperties().SetLogical("Value", false);
             group6.GetProperties().SetLogical("Enable", false);
 
@@ -1277,70 +1277,76 @@ public class finalconbine
             }
             else if (block == dimbut0116)
             {
-                string ans = dimenum0116.GetProperties().GetEnumAsString("Value");
-                switch (ans)
-                { 
-                    case "自动判断":
-                        PlayMacro(TDPPMPath + "1");
-                        break;
-                    case "ˮƽ":
-                        PlayMacro(TDPPMPath + "2");
-                        break;
-                    case "竖直":
-                        PlayMacro(TDPPMPath + "3");
-                        break;
-                    case "平行" :
-                 PlayMacro(TDPPMPath + "4");
-                        break;
-                    case "垂直":
-                        PlayMacro(TDPPMPath + "5");
-                        break;
-                    case "倒斜角":
-                        PlayMacro(TDPPMPath + "6");
-                        break;
-                    case "角度":
-                        PlayMacro(TDPPMPath + "7");
-                        break;
-                    case "圆柱形":
-                        PlayMacro(TDPPMPath + "8");
-                        break;
-                    case "孔":
-                        PlayMacro(TDPPMPath + "9");
-                        break;
-                    case "直径":
-                        PlayMacro(TDPPMPath + "10");
-                        break;
-                    case "半径":
-                        PlayMacro(TDPPMPath + "11");
-                        break;
-                    case "过圆心的半径":
-                        PlayMacro(TDPPMPath + "12");
-                        break;
-                    case "带折线的半径":
-                        PlayMacro(TDPPMPath + "13");
-                        break;
-                    case "厚度":
-                        PlayMacro(TDPPMPath + "14");
-                        break;
-                    case "圆弧长":
-                        PlayMacro(TDPPMPath + "15");
-                        break;
-                    case "ˮƽ��"://这个真是奇葩啊！
-                        PlayMacro(TDPPMPath + "16");
-                        break;
-                    case "竖直链":
-                        PlayMacro(TDPPMPath + "17");
-                        break;
-                    case "水平基准":
-                        PlayMacro(TDPPMPath + "18");
-                        break;
-                    case "竖直基准":
-                        PlayMacro(TDPPMPath + "19");
-                        break;
-                    case "坐标":
-                        PlayMacro(TDPPMPath + "20");
-                        break;
+                int m;
+            m = theUI.NXMessageBox.Show("请确定以下信息", NXMessageBox.DialogType.Question, "请注意以下两点：\n" + "1:标注尺寸之前，需要先设置标注平面。\n" + "2:选择标注对象关联对象！");
+                if (m == 1)
+                {
+                    string ans = dimenum0116.GetProperties().GetEnumAsString("Value");
+                    switch (ans)
+                    {
+                        case "自动判断":
+                            PlayMacro(TDPPMPath + "1");
+                            break;
+                        case "ˮƽ":
+                            PlayMacro(TDPPMPath + "2");
+                            break;
+                        case "竖直":
+                            PlayMacro(TDPPMPath + "3");
+                            break;
+                        case "平行":
+                            PlayMacro(TDPPMPath + "4");
+                            break;
+                        case "垂直":
+                            PlayMacro(TDPPMPath + "5");
+                            break;
+                        case "倒斜角":
+                            PlayMacro(TDPPMPath + "6");
+                            break;
+                        case "角度":
+                            PlayMacro(TDPPMPath + "7");
+                            break;
+                        case "圆柱形":
+                            PlayMacro(TDPPMPath + "8");
+                            break;
+                        case "孔":
+                            PlayMacro(TDPPMPath + "9");
+                            break;
+                        case "直径":
+                            PlayMacro(TDPPMPath + "10");
+                            break;
+                        case "半径":
+                            PlayMacro(TDPPMPath + "11");
+                            break;
+                        case "过圆心的半径":
+                            PlayMacro(TDPPMPath + "12");
+                            break;
+                        case "带折线的半径":
+                            PlayMacro(TDPPMPath + "13");
+                            break;
+                        case "厚度":
+                            PlayMacro(TDPPMPath + "14");
+                            break;
+                        case "圆弧长":
+                            PlayMacro(TDPPMPath + "15");
+                            break;
+                        case "ˮƽ��"://这个真是奇葩啊！
+                            PlayMacro(TDPPMPath + "16");
+                            break;
+                        case "竖直链":
+                            PlayMacro(TDPPMPath + "17");
+                            break;
+                        case "水平基准":
+                            PlayMacro(TDPPMPath + "18");
+                            break;
+                        case "竖直基准":
+                            PlayMacro(TDPPMPath + "19");
+                            break;
+                        case "坐标":
+                            PlayMacro(TDPPMPath + "20");
+                            break;
+                    }
                 }
+               
                 //if(ans == "自动判断")
                 //{
                 
@@ -1622,17 +1628,26 @@ public class finalconbine
                 {
                     /////////////////////////////////////////////////////////////////////////
                    string option = enum1314.GetProperties().GetEnumAsString("Value");
+               
                     if(option == "本模型内")
                     {
                         alldimori = workPart.Dimensions.ToArray();
+                    
                         allfcfori = workPart.Annotations.Fcfs.ToArray();
                         foreach (NXOpen.Annotations.Dimension dim in alldimori)
                         {
-                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
-                            if (!pm.IsInheritedPmi(dim))
+                            string mm = dim.GetType().ToString();
+                            if(mm.Contains("Pmi"))
                             {
-                                alldimary.Add(dim);
+                                NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                                if (!pm.IsInheritedPmi(dim))
+                                {
+
+                                    alldimary.Add(dim);
+                                }
                             }
+                           
+                           
 
                         }
 
@@ -1674,50 +1689,61 @@ public class finalconbine
                     else if(option == "工作视图")
                     {
                         View workview = workPart.ModelingViews.WorkView;
-                        alldimori = workPart.Dimensions.ToArray();
-                        allfcfori = workPart.Annotations.Fcfs.ToArray();
-                        View[] view1 = null;
-                        View[] view2 = null;
-                        foreach (NXOpen.Annotations.Dimension dim in alldimori)
+                        if (workview != null)
                         {
-                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
-                            if (!pm.IsInheritedPmi(dim))
+                            alldimori = workPart.Dimensions.ToArray();
+                            allfcfori = workPart.Annotations.Fcfs.ToArray();
+                            View[] view1 = null;
+                            View[] view2 = null;
+                            foreach (NXOpen.Annotations.Dimension dim in alldimori)
                             {
-                                view1 = dim.GetViews();
-                                foreach(View view in view1)
+                                NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                                if (!pm.IsInheritedPmi(dim))
                                 {
-                                if(view == workview)
-                                {
-                                    alldimary.Add(dim);
-                                
-                                }
-                                
-                                }
-                               
-                            }
-
-                        }
-
-                        foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
-                        {
-                            NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
-                            if (!pm.IsInheritedPmi(fcf))
-                            {
-
-                                view2 = fcf.GetViews();
-                                foreach (View view in view2)
-                                {
-                                    if (view == workview)
+                                    view1 = dim.GetViews();
+                                    foreach (View view in view1)
                                     {
-                                        allfcfary.Add(fcf);
+                                        if (view == workview)
+                                        {
+                                            alldimary.Add(dim);
+
+                                        }
 
                                     }
 
                                 }
-                              
+
+                            }
+
+                            foreach (NXOpen.Annotations.Fcf fcf in allfcfori)
+                            {
+                                NXOpen.Annotations.PmiManager pm = Session.GetSession().Parts.Work.PmiManager;
+                                if (!pm.IsInheritedPmi(fcf))
+                                {
+
+                                    view2 = fcf.GetViews();
+                                    foreach (View view in view2)
+                                    {
+                                        if (view == workview)
+                                        {
+                                            allfcfary.Add(fcf);
+
+                                        }
+
+                                    }
+
+                                }
+
                             }
 
                         }
+                        else
+                        {
+                            theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为制图环境或轻量化视图，请切换至建模环境或其他非轻量化视图！");
+                            return 1;
+                        
+                        }
+                    
                     /////////////////////////////////////////////////////////////////////////
 
 
@@ -2334,6 +2360,7 @@ public class finalconbine
                     }
                     toggle1314.GetProperties().SetLogical("Show",true);
                     toggle1314.GetProperties().SetLogical("Value", false);
+                    tree_control0.GetProperties().SetLogical("ShowExpandCollapseMarker", true);
                 }
 
                 else if (obutton0.GetProperties().GetString("Label") == "打标号")
