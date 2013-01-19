@@ -128,6 +128,9 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock button0115rou;// Block type: Button
     private NXOpen.BlockStyler.UIBlock button0117zhushi;// Block type: Button
 
+    private NXOpen.BlockStyler.UIBlock button0119datum;// Block type: Button
+
+
     private NXOpen.BlockStyler.UIBlock enum1314;// Block type: Enumeration
     public static NXOpen.TaggedObject[] firstpt;//第一个点
     public static NXOpen.TaggedObject[] secpt;//第2个点
@@ -466,7 +469,7 @@ public class finalconbine
            button0115fea = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115fea");
            button0115rou = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0115rou");
 
-
+           button0119datum = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0119datum");
 
            button0117zhushi = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0117zhushi");
             //尺寸标注调用宏
@@ -1313,7 +1316,28 @@ public class finalconbine
             //---------Enter your code here-----------
             }
 
+            else if(block == button0119datum)
+            {
+               if (IsModeling())
+                {
+                    string fetstr = TDPPMPath + "datum";
+                    PlayMacro(fetstr);
+                }
+                else if(IsDrafting())
+                {
+                    string fetstr = TDPPMPath + "ddatum";
+                    PlayMacro(fetstr);
+                
+                }
+                else if(IsGateWay())
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为基本环境，请切换至建模环境或制图环境！");
+                    //menum0.GetProperties().SetLogical("Enable", false);
+                    return 1;
 
+                }
+               
+            }
 
             else if (block == macdimtog)
             {
@@ -1699,9 +1723,9 @@ public class finalconbine
                     //TaggedObject[] a = null;
                     //here.GetProperties().SetLogical("Show", false);
                     //here.GetProperties().
-                    //TaggedObject[] tagobs = null;
+                    TaggedObject[] tagobs = new TaggedObject[0];
                     //Array.Clear(tagobs, 0, tagobs.Length);
-                    //here.GetProperties().SetTaggedObjectVector("SelectedObjects", tagobs);
+                    here.GetProperties().SetTaggedObjectVector("SelectedObjects", tagobs);
                   //string[] aa = null;
                   //aa = here.GetProperties().GetPropertyNames();
                 }
@@ -1923,11 +1947,6 @@ public class finalconbine
                         theUI.NXMessageBox.Show("无PMI", NXMessageBox.DialogType.Warning, "未查询到PMI,无法打标号");
                         return 1;
                     }
-
-
-
-
-
 
                     if (alldimary.Count != 0)
                     {

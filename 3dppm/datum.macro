@@ -1,0 +1,86 @@
+NX 7.5.0.32
+Macro File: F:\github\410proj\3dppm\datum.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by Jerry on Sat Jan 19 21:58:27 2013
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.247629 1
+Display Parameters 1.000000 12.543471 5.470691 -1.000000 -0.436139 1.000000 0.436139
+*****************
+RESET
+MENU, 0, UG_PMI_DATUM UG_GATEWAY_MAIN_MENUBAR ! <MB/Toolbar> 
+ASK_ITEM 1769472 (1 BOOL 0) = 1  !  
+ASK_ITEM 1769472 (1 BOOL 0) = 0  !  
+ASK_ITEM 2097152 (1 BOOL 0) = 1  !  
+ASK_ITEM 2097152 (1 BOOL 0) = 1  !  
+ASK_ITEM 2424832 (1 BOOL 0) = 1  !  
+ASK_ITEM 2424832 (1 BOOL 0) = 1  !  
+ASK_ITEM 2752512 (1 BOOL 0) = 1  !  
+ASK_ITEM 2752512 (1 BOOL 0) = 1  !  
+ASK_ITEM 3080192 (1 BOOL 0) = 1  !  
+ASK_ITEM 3080192 (1 BOOL 0) = 1  !  
+ASK_ITEM 7733248 (1 BOOL 0) = 1  ! Show All Views in Drawing
+ASK_ITEM 7733248 (1 BOOL 0) = 0  ! Show All Views in Drawing
+ASK_ITEM 9633792 (1 BOOL 0) = 1  ! Create with Jogs
+ASK_ITEM 9633792 (1 BOOL 0) = 0  ! Create with Jogs
+ASK_ITEM 14024704 (1 BOOL 0) = 1  ! Apply Style Settings to All
+ASK_ITEM 14024704 (1 BOOL 0) = 1  ! Apply Style Settings to All
+ASK_ITEM 9043968 (1 BOOL 0) = 0  ! 选择终止对象
+ASK_ITEM 9043968 (1 BOOL 0) = 0  ! 选择终止对象
+ASK_ITEM 9633792 (1 BOOL 0) = 0  ! Create with Jogs
+ASK_ITEM 9633792 (1 BOOL 0) = 0  ! Create with Jogs
+ASK_ITEM 9830400 (1 BOOL 0) = 0  ! 
+ASK_ITEM 9830400 (1 BOOL 0) = 0  ! 
+ASK_ITEM 10420226 (1 TOOL 0) = 3  ! Datum
+ASK_ITEM 10420224 (1 OPTM 0) = 0  ! Plain
+ASK_ITEM 10420224 (1 OPTM 0) = 4  ! Datum
+ASK_ITEM 10420224 (1 OPTM 0) = 4  ! Datum
+ASK_ITEM 10420224 (1 OPTM 0) = 4  ! Datum
+ASK_ITEM 11141120 (1 OPTM 0) = 0  ! Closed Arrow
+ASK_ITEM 11141120 (1 OPTM 0) = 17  ! Filled Datum
+ASK_ITEM 11141120 (1 OPTM 0) = 17  ! Filled Datum
+ASK_ITEM 11141120 (1 OPTM 0) = 17  ! Filled Datum
+ASK_ITEM 11665410 (1 TOOL 0) = 2  ! Inferred
+ASK_ITEM 11665408 (1 OPTM 0) = 0  ! Left
+ASK_ITEM 11665408 (1 OPTM 0) = 2  ! Inferred
+ASK_ITEM 11665408 (1 OPTM 0) = 2  ! Inferred
+ASK_ITEM 11665408 (1 OPTM 0) = 2  ! Inferred
+ASK_ITEM 12189696 (1 REAL 0) = 0.0000000000000000  ! Stub Length
+ASK_ITEM 12189696 (1 REAL 0) = 0.0000000000000000  ! Stub Length
+ASK_ITEM 11141120 (1 OPTM 0) = 17  ! Filled Datum
+ASK_ITEM 11141120 (1 OPTM 0) = 17  ! Filled Datum
+ASK_ITEM 11141122 (1 TOOL 0) = 0  ! Closed Arrow
+ASK_ITEM 11141122 (1 TOOL 0) = 1  ! Closed Solid Arrow
+DIALOG_BEGIN "Datum Feature Symbol" 0 ! DA2
+BEG_ITEM 393216 (1 BOOL 0) = 0  ! 指定位置
+BEG_ITEM 1245184 (1 OPTM 0) = 0  ! Associative
+BEG_ITEM 1245186 (1 TOOL 0) = 0  ! Associative
+BEG_ITEM 1769472 (1 BOOL 0) = 0  !  
+BEG_ITEM 2097152 (1 BOOL 0) = 1  !  
+BEG_ITEM 2424832 (1 BOOL 0) = 1  !  
+BEG_ITEM 2752512 (0 BOOL 0) = 1  !  
+BEG_ITEM 3080192 (1 BOOL 0) = 1  !  
+BEG_ITEM 3407872 (1 OPTM 0) = 4  ! Middle Center
+BEG_ITEM 3407874 (1 TOOL 0) = 3  ! Middle Center
+BEG_ITEM 4587520 (1 OPTM 0) = 3  ! Model View
+BEG_ITEM 4587522 (1 TOOL 0) = 3  ! Model View
+BEG_ITEM 5111808 (1 OPTT 0) = 0 0 ! Inferred
+BEG_ITEM 6029312 (0 BOOL 0) = 0  ! View
+BEG_ITEM 6750208 (0 LIST 0) = 0  ! List (Items selected)
+BEG_ITEM 7733248 (0 BOOL 0) = 0  ! Show All Views in Drawing
+BEG_ITEM 9043968 (1 BOOL 0) = 0  ! 选择终止对象
+BEG_ITEM 9633792 (1 BOOL 0) = 0  ! Create with Jogs
+BEG_ITEM 9830400 (1 BOOL 0) = 0  ! 
+BEG_ITEM 10420224 (1 OPTM 0) = 4  ! Datum
+BEG_ITEM 10420226 (1 TOOL 0) = 3  ! Datum
+BEG_ITEM 11141120 (1 OPTM 0) = 17  ! Filled Datum
+BEG_ITEM 11141122 (1 TOOL 0) = 1  ! Closed Solid Arrow
+BEG_ITEM 11665408 (1 OPTM 0) = 2  ! Inferred
+BEG_ITEM 11665410 (1 TOOL 0) = 2  ! Inferred
+BEG_ITEM 12189696 (1 REAL 0) = 0.0000000000000000  ! Stub Length
+BEG_ITEM 14024704 (1 BOOL 0) = 1  ! Apply Style Settings to All
+BEG_ITEM 15007744 (1 BOOL 0) = 0  ! 
+BEG_ITEM 16056320 (1 STRN 0) = "A"  ! Letter
+BEG_ITEM 17432578 (1 BOOL 0) = 1  ! Preview
+ASK_ITEM 393216 (1 BOOL 0) = 0  ! 指定位置
+ASK_ITEM 393216 (1 BOOL 0) = 1  ! 指定位置
