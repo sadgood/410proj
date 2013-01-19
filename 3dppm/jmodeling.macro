@@ -1,0 +1,12 @@
+NX 7.5.0.32
+Macro File: F:\github\410proj\3dppm\jmodeling.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by Jerry on Sat Jan 19 11:39:53 2013
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.247629 1
+Display Parameters 1.000000 12.543471 6.244094 -1.000000 -0.497796 1.000000 0.497796
+*****************
+RESET
+MENU, 0, UG_APP_MODELING UG_GATEWAY_MAIN_MENUBAR ! <MB/Toolbar> 
+WINDOW RESIZE 1.000000 12.543471 5.470691 -1.000000 -0.436139 1.000000 0.436139

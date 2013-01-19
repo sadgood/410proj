@@ -52,6 +52,7 @@ public class finalconbine
     //class members
     private static Session theSession = null;
     private static UI theUI = null;
+    public static UFSession theUfSession;
     public static finalconbine thefinalconbine;
     private string theDialogName;
     private NXOpen.BlockStyler.BlockDialog theDialog;
@@ -238,6 +239,7 @@ public class finalconbine
         {
             theSession = Session.GetSession();
             theUI = UI.GetUI();
+            theUfSession = UFSession.GetUFSession();
             theDialogName = "finalconbine.dlx";
             theDialog = theUI.CreateDialog(theDialogName);
             theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));
@@ -600,18 +602,8 @@ public class finalconbine
                 jiaoyanshitol.GetProperties().SetLogical("Value", false);
                 jiaoyanshisel.GetProperties().SetLogical("Show", false);
                 jiaoyanshibut.GetProperties().SetLogical("Show", false);
-                try
-                {
-                    name = workPart.ModelingViews.WorkView.Name;
-                    menum0.GetProperties().SetEnumAsString("Value", name);
-                }
-                catch
-                {
-                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前工作视图为轻量级剖视图，在此视图下本工具中视图切换工具无法正常使用，\n可将其他非轻量级剖视图设为工作视图后重新启用本工具");
-                    menum0.GetProperties().SetLogical("Enable", false);
-                    return;
-                }
-            //////tab注释
+
+
                 realanno.GetProperties().SetLogical("Show", true);
                 ifcro.GetProperties().SetLogical("Value", false);
                 cro.GetProperties().SetLogical("Enable", false);
@@ -626,8 +618,39 @@ public class finalconbine
                 iflabel.GetProperties().SetLogical("Value", false);
                 selection020116.GetProperties().SetLogical("Enable", false);
                 OpenFile(ApplicationPath + folderpath + cappass);
+
+            if(IsModeling())
+            {
+
+                try
+                {
+                    name = workPart.ModelingViews.WorkView.Name;
+                    menum0.GetProperties().SetEnumAsString("Value", name);
+                }
+                catch
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前工作视图为轻量级剖视图，在此视图下本工具中视图切换工具无法正常使用，\n可将其他非轻量级剖视图设为工作视图后重新启用本工具");
+                    menum0.GetProperties().SetLogical("Enable", false);
+                    return;
+                }
+            }
+            else if(IsDrafting())
+            {
+                //theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为制图环境，本工具中视图切换工具无法正常使用！");
+                menum0.GetProperties().SetLogical("Enable", false);
+                //return;
+            }
+            else if(IsGateWay())
+            {
             
-            //---- Enter your callback code here -----
+                theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为基本环境，请切换至建模环境！");
+                menum0.GetProperties().SetLogical("Enable", false);
+                return;
+            }
+
+
+               
+    
         }
         catch (Exception ex)
         {
@@ -1076,8 +1099,50 @@ public class finalconbine
         }
         return Array;
     }
-        
-    
+
+    public static bool IsGateWay()
+    {
+        int module_id;
+        theUfSession.UF.AskApplicationModule(out module_id);
+        if (module_id == UFConstants.UF_APP_GATEWAY)
+        {
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static bool IsModeling()
+    {
+        int module_id;
+        theUfSession.UF.AskApplicationModule(out module_id);
+        if (module_id == UFConstants.UF_APP_MODELING)
+        {
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static bool IsDrafting()
+    {
+        int module_id;
+      theUfSession.UF.AskApplicationModule(out module_id);
+        if (module_id == UFConstants.UF_APP_DRAFTING)
+        {
+   
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static NXOpen.Annotations.BalloonNote AddBalloonNote(NXOpen.Annotations.Annotation anno, string num,string label)
     {
         try
@@ -1238,8 +1303,6 @@ public class finalconbine
               NXOpen.Annotations.Dimension dim = (NXOpen.Annotations.Dimension)obs[0];
               NXOpen.Builder tempbuilder = workPart.Annotations.CreateAssociateDimensionBuilder(dim);
            //   int m = dim.NumberOfAssociativities;
-
-              
            // NXOpen.Annotations.Associativity asa = dim.GetAssociativity(1);
            // NXOpen.Annotations.Associativity asaa = dim.GetAssociativity(2);
            // NXObject aa = asa.FirstObject;
@@ -1281,100 +1344,85 @@ public class finalconbine
             m = theUI.NXMessageBox.Show("请确定以下信息", NXMessageBox.DialogType.Question, "请注意以下两点：\n" + "1:标注尺寸之前，需要先设置标注平面。\n" + "2:选择标注对象关联对象！");
                 if (m == 1)
                 {
+                    bool isdrf = IsDrafting();
                     string ans = dimenum0116.GetProperties().GetEnumAsString("Value");
-                    switch (ans)
+                    if(!isdrf)
                     {
-                        case "自动判断":
-                            PlayMacro(TDPPMPath + "1");
-                            break;
-                        case "ˮƽ":
-                            PlayMacro(TDPPMPath + "2");
-                            break;
-                        case "竖直":
-                            PlayMacro(TDPPMPath + "3");
-                            break;
-                        case "平行":
-                            PlayMacro(TDPPMPath + "4");
-                            break;
-                        case "垂直":
-                            PlayMacro(TDPPMPath + "5");
-                            break;
-                        case "倒斜角":
-                            PlayMacro(TDPPMPath + "6");
-                            break;
-                        case "角度":
-                            PlayMacro(TDPPMPath + "7");
-                            break;
-                        case "圆柱形":
-                            PlayMacro(TDPPMPath + "8");
-                            break;
-                        case "孔":
-                            PlayMacro(TDPPMPath + "9");
-                            break;
-                        case "直径":
-                            PlayMacro(TDPPMPath + "10");
-                            break;
-                        case "半径":
-                            PlayMacro(TDPPMPath + "11");
-                            break;
-                        case "过圆心的半径":
-                            PlayMacro(TDPPMPath + "12");
-                            break;
-                        case "带折线的半径":
-                            PlayMacro(TDPPMPath + "13");
-                            break;
-                        case "厚度":
-                            PlayMacro(TDPPMPath + "14");
-                            break;
-                        case "圆弧长":
-                            PlayMacro(TDPPMPath + "15");
-                            break;
-                        case "ˮƽ��"://这个真是奇葩啊！
-                            PlayMacro(TDPPMPath + "16");
-                            break;
-                        case "竖直链":
-                            PlayMacro(TDPPMPath + "17");
-                            break;
-                        case "水平基准":
-                            PlayMacro(TDPPMPath + "18");
-                            break;
-                        case "竖直基准":
-                            PlayMacro(TDPPMPath + "19");
-                            break;
-                        case "坐标":
-                            PlayMacro(TDPPMPath + "20");
-                            break;
+                        switch (ans)
+                        {
+                            case "自动判断":
+                                PlayMacro(TDPPMPath + "1");
+                                break;
+                            case "ˮƽ":
+                                PlayMacro(TDPPMPath + "2");
+                                break;
+                            case "竖直":
+                                PlayMacro(TDPPMPath + "3");
+                                break;
+                            case "平行":
+                                PlayMacro(TDPPMPath + "4");
+                                break;
+                            case "垂直":
+                                PlayMacro(TDPPMPath + "5");
+                                break;
+                            case "倒斜角":
+                                PlayMacro(TDPPMPath + "6");
+                                break;
+                            case "角度":
+                                PlayMacro(TDPPMPath + "7");
+                                break;
+                            case "圆柱形":
+                                PlayMacro(TDPPMPath + "8");
+                                break;
+                            case "孔":
+                                PlayMacro(TDPPMPath + "9");
+                                break;
+                            case "直径":
+                                PlayMacro(TDPPMPath + "10");
+                                break;
+                            case "半径":
+                                PlayMacro(TDPPMPath + "11");
+                                break;
+                            case "过圆心的半径":
+                                PlayMacro(TDPPMPath + "12");
+                                break;
+                            case "带折线的半径":
+                                PlayMacro(TDPPMPath + "13");
+                                break;
+                            case "厚度":
+                                PlayMacro(TDPPMPath + "14");
+                                break;
+                            case "圆弧长":
+                                PlayMacro(TDPPMPath + "15");
+                                break;
+                            case "ˮƽ��"://这个真是奇葩啊！
+                                PlayMacro(TDPPMPath + "16");
+                                break;
+                            case "竖直链":
+                                PlayMacro(TDPPMPath + "17");
+                                break;
+                            case "水平基准":
+                                PlayMacro(TDPPMPath + "18");
+                                break;
+                            case "竖直基准":
+                                PlayMacro(TDPPMPath + "19");
+                                break;
+                            case "坐标":
+                                PlayMacro(TDPPMPath + "20");
+                                break;
+                        }
+                    
                     }
-                }
-               
-                //if(ans == "自动判断")
-                //{
-                
-                //}
-                //else if(ans == "水平")
-                //{
-                
-                
-                //}
-                //else if (ans == "竖直")
-                //{ 
-                
-                
-                //}
-                //else if (ans == "平行")
-                //{
-                
-                //}
-                //else if(ans == "垂直")
-                //{
-                //}
-                //else if()
-                //{
-                
-                
-                //}
+                    else if(isdrf)
+                    {
+                        theUI.NXMessageBox.Show("制图环境", NXMessageBox.DialogType.Warning, "当前在制图环境，请在建模环境下进行PMI标注");
+                        return 1;
 
-                //---------Enter your code here-----------
+
+
+                    }
+
+                }
             }
            else if(block == china)
            {
@@ -1398,24 +1446,80 @@ public class finalconbine
             }
                 else if(block == button0115fea)//调用录制的红文件
             {
+                if (IsModeling())
+                {
+                    string fetstr = TDPPMPath + "Fet_control";
+                    PlayMacro(fetstr);
+                }
+                else if(IsDrafting())
+                {
+                    string fetstr = TDPPMPath + "dFea_control";
+                    PlayMacro(fetstr);
+                
+                }
+                else if(IsGateWay())
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为基本环境，请切换至建模环境或制图环境！");
+                    //menum0.GetProperties().SetLogical("Enable", false);
+                    return 1;
 
-                string fetstr = TDPPMPath + "Fet_control";
-                //string fetstr = TDPPMPath + "AutoDim";
-                PlayMacro(fetstr);
-                //this.Show();
+                }
+             
+              
 
                 }
             else if (block == button0115rou)//调用录制的红文件
             {
-                string roumac = TDPPMPath + "cucaodu";
+              
+                if (IsDrafting())
+                {
+                    string roumac = TDPPMPath + "dcucaodu";
+                    PlayMacro(roumac);
+                }
+                else if(IsModeling())
+                {
+                    string roumac = TDPPMPath + "cucaodu";
+                    PlayMacro(roumac);
+                
+                }
+                else if(IsGateWay())
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为基本环境，请切换至建模环境或制图环境！");
+                    //menum0.GetProperties().SetLogical("Enable", false);
+                    return 1;
+                
+                }
 
-                PlayMacro(roumac);
+
+
+
             }
                 else if(block == button0117zhushi)
             {
-                string zhushi = TDPPMPath + "zhushi";
-                OpenFile(ApplicationPath + folderpath + cappass);
-                PlayMacro(zhushi);
+               
+
+                if (IsDrafting())
+                {
+                    string zhushi = TDPPMPath + "dzhushi";
+                    OpenFile(ApplicationPath + folderpath + cappass);
+                    PlayMacro(zhushi);
+                }
+                else if (IsModeling())
+                {
+                    string zhushi = TDPPMPath + "zhushi";
+                    OpenFile(ApplicationPath + folderpath + cappass);
+                    PlayMacro(zhushi);
+
+                }
+                else if (IsGateWay())
+                {
+                    theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "当前为基本环境，请切换至建模环境或制图环境！");
+                    //menum0.GetProperties().SetLogical("Enable", false);
+                    return 1;
+
+                }
+
+
                 }
             else
                 if(block ==  jiaoyanshibut)
@@ -1831,8 +1935,8 @@ public class finalconbine
                         ArrayList stateone = new ArrayList();
                         ArrayList unstateone = new ArrayList();
                         dimnode = tree_control0.CreateNode("尺寸公差");
-                        tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysLast);
-                        double[] final = { 0, 0, 0 };
+                        tree_control0.InsertNode(dimnode, null, null, Tree.NodeInsertOption.AlwaysFirst);
+                        string[] final = null;
                         for (int i = 0; i < alldim.Length; i++)
                         {
 
@@ -1902,9 +2006,9 @@ public class finalconbine
                                     }
                                     catch
                                     {
-                                        final[0] = 0;
-                                        final[1] = 0;
-                                        final[2] = 0;
+                                        final[0] = "0";
+                                        final[1] = "0";
+                                        final[2] = "0";
 
                                     }
                                     //string pname = aaaaa.GetType().Name;
@@ -1935,9 +2039,9 @@ public class finalconbine
                                 catch
                                 {
 
-                                    final[0] = 0;
-                                    final[1] = 0;
-                                    final[2] = 0;
+                                    final[0] = "0";
+                                    final[1] = "0";
+                                    final[2] = "0";
 
                                 }
                                 cddimnode.SetColumnDisplayText(2, final[0].ToString());
@@ -1960,16 +2064,16 @@ public class finalconbine
                               DataContainer dimdata = cddimnode.GetNodeData();
                               dimdata.AddTaggedObject("Data", left[i]);
                               dimdata.Dispose();
-                              tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Last);
+                              tree_control0.InsertNode(cddimnode, dimnode, null, Tree.NodeInsertOption.Sort);
                              try
                               {
                                   final = thepub.getspec(left[i]);
                               }
                              catch
                               {
-                                  final[0] = 0;
-                                  final[1] = 0;
-                                  final[2] = 0;
+                                  final[0] = "0";
+                                  final[1] = "0";
+                                  final[2] = "0";
 
                               }
                               //string pname = left[i].GetType().Name;
@@ -2166,8 +2270,6 @@ public class finalconbine
                                             cdfcfnode.SetColumnDisplayText(4, "直线度");
                                             break;
                                         case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Flatness:
-
-
                                             cdfcfnode.SetColumnDisplayText(4, "平面度");
                                             break;
                                         case NXOpen.Annotations.FeatureControlFrameBuilder.FcfCharacteristic.Circularity:

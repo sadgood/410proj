@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 
 
 
-        public static double GetDimensionValue(NXOpen.Annotations.Dimension dimension)
+        public static string GetDimensionValue(NXOpen.Annotations.Dimension dimension)
         {
             try
             {
@@ -29,11 +29,11 @@ using System.Runtime.InteropServices;
                 {
                     //这里可能包含特殊字符，从中得到连续数字
                     string num = GetNumberFromString(mainTextLines[0]);
-                    return System.Convert.ToDouble(num);
+                    return num;
                 }
                 else
                 {
-                    return 0;
+                    return null;
                 }
             }
             catch/* (System.Exception ex)*/
@@ -45,22 +45,31 @@ using System.Runtime.InteropServices;
         public static string GetNumberFromString(string str)
         {
             string num = "";
-            foreach (char a in str)
+            if (str.Contains("<$s>"))
             {
-                if (isNum(a))
+
+               str = str.Replace("<$s>", "'");
+                num = str;
+            }
+            else
+            {
+                foreach (char a in str)
                 {
-                    if (a == ',')
+                    if (isNum(a))
                     {
-                        num += '.';
-                    }
-                    else
-                    {
-                        num += a;
+                        if (a == ',')
+                        {
+                            num += '.';
+                        }
+                        else
+                        {
+                            num += a;
+                        }
                     }
                 }
+              
             }
             return num;
-
         }
         public static bool isNum(char a)
         {
@@ -203,20 +212,20 @@ using System.Runtime.InteropServices;
             pi.SetValue(ob, parm, null);
         }
 
-        public double[] getspec(NXOpen.Annotations.Dimension dim)//返回一个尺寸的名义值和上下公差，第一个值是名义值，第二个是上公差，第三个是下公差
+        public string[] getspec(NXOpen.Annotations.Dimension dim)//返回一个尺寸的名义值和上下公差，第一个值是名义值，第二个是上公差，第三个是下公差
         {
             string[] a;
             string[] b;
-            double maindim = 0;
+            string maindim = null;
             double low = 0;
             double up = 0;
-            double[] final = { 0, 0, 0 };
+            string[] final = {"","",""};
 
             maindim = GetDimensionValue(dim);
             GetTolerance(dim, out up, out low);
             final[0] = maindim;
-            final[1] = up;
-            final[2] = low;
+            final[1] = up.ToString();
+            final[2] = low.ToString();
             return final;
         }
         public void function(string ToleranceValue, string PrimaryDatumReference, string SecondaryDatumReference, string TertiaryDatumReference, object ZoneShape,object Characteristic, object MaterialModifier, object PrimaryMaterialCondition, object SecondaryMaterialCondition, object TertiaryMaterialCondition,

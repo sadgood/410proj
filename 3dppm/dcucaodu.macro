@@ -1,0 +1,117 @@
+NX 7.5.0.32
+Macro File: F:\github\410proj\3dppm\dcucaodu.macro
+Macro Version 7.50
+Macro List Language and Codeset: simpl_chinese 13
+Created by Jerry on Sat Jan 19 11:07:19 2013
+Part Name Display Style: $FILENAME
+Selection Parameters 1 2 0.247629 1
+Display Parameters 1.000000 12.543471 5.857393 -1.000000 -0.466967 1.000000 0.466967
+*****************
+RESET
+MENU, 0, UG_DRAFT_CRE_SURFACE_SYMBOL UG_GATEWAY_MAIN_MENUBAR ! <MB/Toolbar> 
+ASK_ITEM 2621440 (1 BOOL 0) = 1  !  
+ASK_ITEM 2621440 (1 BOOL 0) = 0  !  
+ASK_ITEM 2949120 (1 BOOL 0) = 1  !  
+ASK_ITEM 2949120 (1 BOOL 0) = 1  !  
+ASK_ITEM 3276800 (1 BOOL 0) = 1  !  
+ASK_ITEM 3276800 (1 BOOL 0) = 1  !  
+ASK_ITEM 3604480 (1 BOOL 0) = 1  !  
+ASK_ITEM 3604480 (1 BOOL 0) = 1  !  
+ASK_ITEM 3932160 (1 BOOL 0) = 1  !  
+ASK_ITEM 3932160 (1 BOOL 0) = 1  !  
+ASK_ITEM 8585216 (1 BOOL 0) = 1  ! Show All Views in Drawing
+ASK_ITEM 8585216 (1 BOOL 0) = 0  ! Show All Views in Drawing
+ASK_ITEM 5439488 (1 OPTM 0) = 3  ! Model View
+ASK_ITEM 5439488 (1 OPTM 0) = 0  ! XC-YC Plane
+ASK_ITEM 5439490 (1 TOOL 0) = 0  ! XC-YC Plane
+ASK_ITEM 10485760 (1 BOOL 0) = 1  ! Create with Jogs
+ASK_ITEM 10485760 (1 BOOL 0) = 0  ! Create with Jogs
+ASK_ITEM 14876672 (1 BOOL 0) = 1  ! Apply Style Settings to All
+ASK_ITEM 14876672 (1 BOOL 0) = 1  ! Apply Style Settings to All
+ASK_ITEM 9895936 (1 BOOL 0) = 0  ! 选择终止对象
+ASK_ITEM 9895936 (1 BOOL 0) = 0  ! 选择终止对象
+ASK_ITEM 10485760 (1 BOOL 0) = 0  ! Create with Jogs
+ASK_ITEM 10485760 (1 BOOL 0) = 0  ! Create with Jogs
+ASK_ITEM 10682368 (1 BOOL 0) = 0  ! 
+ASK_ITEM 10682368 (1 BOOL 0) = 0  ! 
+ASK_ITEM 11272194 (1 TOOL 0) = 0  ! Plain
+ASK_ITEM 11272192 (1 OPTM 0) = 0  ! Plain
+ASK_ITEM 11272192 (1 OPTM 0) = 0  ! Plain
+ASK_ITEM 11272192 (1 OPTM 0) = 0  ! Plain
+ASK_ITEM 11272192 (1 OPTM 0) = 0  ! Plain
+ASK_ITEM 11993090 (1 TOOL 0) = 3  ! Filled Arrow
+ASK_ITEM 11993088 (1 OPTM 0) = 0  ! Closed Arrow
+ASK_ITEM 11993088 (1 OPTM 0) = 3  ! Filled Arrow
+ASK_ITEM 11993088 (1 OPTM 0) = 3  ! Filled Arrow
+ASK_ITEM 11993088 (1 OPTM 0) = 3  ! Filled Arrow
+ASK_ITEM 12517378 (1 TOOL 0) = 0  ! Left
+ASK_ITEM 12517376 (1 OPTM 0) = 0  ! Left
+ASK_ITEM 12517376 (1 OPTM 0) = 0  ! Left
+ASK_ITEM 12517376 (1 OPTM 0) = 0  ! Left
+ASK_ITEM 12517376 (1 OPTM 0) = 0  ! Left
+ASK_ITEM 13041664 (1 REAL 0) = 0.0000000000000000  ! Stub Length
+ASK_ITEM 13041664 (1 REAL 0) = 0.0000000000000000  ! Stub Length
+ASK_ITEM 12517376 (1 OPTM 0) = 0  ! Left
+ASK_ITEM 12517376 (1 OPTM 0) = 2  ! Inferred
+ASK_ITEM 12517378 (1 TOOL 0) = 2  ! Inferred
+ASK_ITEM 25624576 (1 REAL 0) = 0.1000000000000000  ! Upper Tolerance
+ASK_ITEM 25821184 (1 REAL 0) = -0.1000000000000000  ! Lower Tolerance
+ASK_ITEM 27525120 (1 BOOL 0) = 1  ! Invert text
+ASK_ITEM 27525120 (1 BOOL 0) = 0  ! Invert text
+DIALOG_BEGIN "Surface Finish" 0 ! DA2
+BEG_ITEM 327680 (1 OPTT 0) = 0 0 ! Inferred Point
+BEG_ITEM 1245184 (1 BOOL 0) = 0  ! 指定位置
+BEG_ITEM 2097152 (1 OPTM 0) = 0  ! Associative
+BEG_ITEM 2097154 (1 TOOL 0) = 0  ! Associative
+BEG_ITEM 2621440 (1 BOOL 0) = 0  !  
+BEG_ITEM 2949120 (1 BOOL 0) = 1  !  
+BEG_ITEM 3276800 (1 BOOL 0) = 1  !  
+BEG_ITEM 3604480 (0 BOOL 0) = 1  !  
+BEG_ITEM 3932160 (1 BOOL 0) = 1  !  
+BEG_ITEM 4259840 (1 OPTM 0) = 4  ! Middle Center
+BEG_ITEM 4259842 (1 TOOL 0) = 3  ! Middle Center
+BEG_ITEM 5439488 (1 OPTM 0) = 0  ! XC-YC Plane
+BEG_ITEM 5439490 (1 TOOL 0) = 0  ! XC-YC Plane
+BEG_ITEM 5963776 (1 OPTT 0) = 0 0 ! Inferred
+BEG_ITEM 6881280 (0 BOOL 0) = 0  ! View
+BEG_ITEM 7602176 (0 LIST 0) = 0  ! List (Items selected)
+BEG_ITEM 8585216 (0 BOOL 0) = 0  ! Show All Views in Drawing
+BEG_ITEM 9895936 (1 BOOL 0) = 0  ! 选择终止对象
+BEG_ITEM 10485760 (1 BOOL 0) = 0  ! Create with Jogs
+BEG_ITEM 10682368 (1 BOOL 0) = 0  ! 
+BEG_ITEM 11272192 (1 OPTM 0) = 0  ! Plain
+BEG_ITEM 11272194 (1 TOOL 0) = 0  ! Plain
+BEG_ITEM 11993088 (1 OPTM 0) = 3  ! Filled Arrow
+BEG_ITEM 11993090 (1 TOOL 0) = 3  ! Filled Arrow
+BEG_ITEM 12517376 (1 OPTM 0) = 2  ! Inferred
+BEG_ITEM 12517378 (1 TOOL 0) = 2  ! Inferred
+BEG_ITEM 13041664 (1 REAL 0) = 0.0000000000000000  ! Stub Length
+BEG_ITEM 14876672 (1 BOOL 0) = 1  ! Apply Style Settings to All
+BEG_ITEM 15794176 (1 OPTT 0) = 0 0 ! Inferred
+BEG_ITEM 16646144 (1 OPTT 0) = 0 0 ! Inferred Vector
+BEG_ITEM 17891328 (1 OPTT 0) = 0 0 ! Inferred Vector
+BEG_ITEM 19136512 (1 OPTT 0) = 0 0 ! Inferred Vector
+BEG_ITEM 20381696 (1 OPTT 0) = 0 0 ! Inferred Point
+BEG_ITEM 21299200 (1 BOOL 0) = 0  ! 
+BEG_ITEM 22347776 (1 STRN 0) = ""  ! Title
+BEG_ITEM 22544384 (1 OPTM 0) = 0  ! ANSI
+BEG_ITEM 22740992 (1 OPTM 0) = 0  ! Open
+BEG_ITEM 22740994 (1 TOOL 0) = 0  ! Open
+BEG_ITEM 23855104 (1 COMB 0) = ""  ! Upper Text (a1)
+BEG_ITEM 24051712 (1 COMB 0) = ""  ! Lower Text (a2)
+BEG_ITEM 24248320 (0 COMB 0) = ""  ! Production Process (b)
+BEG_ITEM 24444928 (0 COMB 0) = ""  ! Waviness (c)
+BEG_ITEM 24641536 (1 COMB 0) = ""  ! Lay Symbol (d)
+BEG_ITEM 24838144 (0 COMB 0) = ""  ! Machining (e)
+BEG_ITEM 25034752 (0 COMB 0) = ""  ! Cutoff (f1)
+BEG_ITEM 25231360 (0 COMB 0) = ""  ! Secondary Roughness (f2)
+BEG_ITEM 25427968 (1 OPTM 0) = 0  ! None
+BEG_ITEM 25624576 (1 REAL 0) = 0.1000000000000000  ! Upper Tolerance
+BEG_ITEM 25821184 (1 REAL 0) = -0.1000000000000000  ! Lower Tolerance
+BEG_ITEM 27066370 (1 OPTM 0) = 1  ! deg
+BEG_ITEM 27066371 (1 STRN 0) = "0"  ! 角度
+BEG_ITEM 27525120 (1 BOOL 0) = 0  ! Invert text
+BEG_ITEM 27721728 (1 OPTM 0) = 0  ! None
+BEG_ITEM 28311554 (1 BOOL 0) = 1  ! Preview
+ASK_ITEM 1245184 (1 BOOL 0) = 0  ! 指定位置
+ASK_ITEM 1245184 (1 BOOL 0) = 1  ! 指定位置
