@@ -129,7 +129,7 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock button0117zhushi;// Block type: Button
 
     private NXOpen.BlockStyler.UIBlock button0119datum;// Block type: Button
-
+    private NXOpen.BlockStyler.UIBlock DelButton;// Block type: Button
 
     private NXOpen.BlockStyler.UIBlock enum1314;// Block type: Enumeration
     public static NXOpen.TaggedObject[] firstpt;//第一个点
@@ -175,6 +175,12 @@ public class finalconbine
     private NXOpen.BlockStyler.UIBlock group6;// Block type: Group
     private NXOpen.BlockStyler.UIBlock dimenum0116;// Block type: Enumeration
     private NXOpen.BlockStyler.UIBlock dimbut0116;// Block type: Button
+
+    //特殊尺寸标注
+    private NXOpen.BlockStyler.UIBlock groupteshu;// Block type: Group
+    private NXOpen.BlockStyler.UIBlock selectionteshu;// Block type: Selection
+    private NXOpen.BlockStyler.UIBlock stringteshu;// Block type: String
+    private NXOpen.BlockStyler.UIBlock buttonteshu;// Block type: Button
 
 
     //注释的tab
@@ -478,6 +484,12 @@ public class finalconbine
            dimenum0116 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("dimenum0116");
            dimbut0116 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("dimbut0116");
 
+            //特殊尺寸标注
+           groupteshu = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("groupteshu");
+           selectionteshu = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("selectionteshu");
+           stringteshu = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("stringteshu");
+           buttonteshu = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("buttonteshu");
+
 
             //注释的tab
 
@@ -493,7 +505,7 @@ public class finalconbine
            dic = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("dic");
            str = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("str");
            button0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("button0");
-
+           DelButton = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("DelButton");
 
 
 
@@ -560,7 +572,7 @@ public class finalconbine
             group6.GetProperties().SetLogical("Enable", false);
 
 
-
+           // DelButton.GetProperties().SetLogical("Show", false);
             //TaggedObject[] obb = null;
             //zselection0.GetProperties().SetTaggedObjectVector("SelectedObjects", obb);
             enum1314.GetProperties().SetLogical("Show", true);
@@ -931,7 +943,8 @@ public class finalconbine
             if (mainTextLines.Length > 0)
             {
                 //这里可能包含特殊字符，从中得到连续数字
-                string num = GetNumberFromString(mainTextLines[0]);
+                //string num = GetNumberFromString(mainTextLines[0]);
+                string num = mainTextLines[0];
                 return System.Convert.ToDouble(num);
             }
             else
@@ -953,7 +966,20 @@ public class finalconbine
             return 0;
         }
         NXOpen.Annotations.Dimension d = (NXOpen.Annotations.Dimension)obs[0];
-        double dim = GetDimensionValue(d);
+        double dim = 0;
+        try
+        {
+             dim = GetDimensionValue(d);//问题
+        }
+        catch
+        {
+             TaggedObject[] SetZero = new TaggedObject[0];
+            zselection0.GetProperties().SetTaggedObjectVector("SelectedObjects", SetZero);
+            theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "该尺寸为特殊尺寸或角度尺寸！");
+          
+            return 1;
+        }
+      
         zdouble0.GetProperties().SetDouble("Value", dim);
         string type = zenum0.GetProperties().GetEnumAsString("Value");
         double upper, lower;
@@ -1579,10 +1605,40 @@ public class finalconbine
 
 
 
+
+                }
+                #region 这是增加的特殊尺寸标注的回调模块
+                else if(block == selectionteshu)
+                {
                 
                 }
-            
-            else if(block == japan)
+                      else if(block == buttonteshu)
+                {
+                          string[] TeshuAry = new string[1];
+                          string TeShu = stringteshu.GetProperties().GetString("Value");
+                          TeshuAry[0] = TeShu;
+                          TaggedObject[] TeShuDim = selectionteshu.GetProperties().GetTaggedObjectVector("SelectedObjects");
+                          if(TeShuDim == null)
+                          {
+                              theUI.NXMessageBox.Show("警告", NXMessageBox.DialogType.Warning, "未选择进行特殊标注的尺寸！");
+                              return 1;
+                          }
+                          NXOpen.Annotations.Dimension dim = (NXOpen.Annotations.Dimension)TeShuDim[0];
+                          dim.SetDimensionText(TeshuAry);
+                          TaggedObject[] SetZero = new TaggedObject[0];
+                          selectionteshu.GetProperties().SetTaggedObjectVector("SelectedObjects", SetZero);
+                }
+                      else if(block == stringteshu)
+                {
+                
+                }
+                      else if(block == groupteshu)
+                {
+
+                }
+                #endregion
+
+                else if(block == japan)
             {
                 int m = japan.GetProperties().GetInteger("Value");
                 labelnode(fcfnode);
@@ -1662,10 +1718,13 @@ public class finalconbine
                 double lower = zdoubledown.GetProperties().GetDouble("Value");
                 NXOpen.Annotations.Dimension d = (NXOpen.Annotations.Dimension)obs[0];
                 SetDimensionTolerance(d, upper, lower);
+                TaggedObject[] SetZero = new TaggedObject[0];
+                zselection0.GetProperties().SetTaggedObjectVector("SelectedObjects", SetZero);
             //---------Enter your code here-----------
             }
                 else if(block == enum1314)
                 {
+                   
                         Part workPart = theSession.Parts.Work;
 
                     string option = enum1314.GetProperties().GetEnumAsString("Value");
@@ -2666,7 +2725,7 @@ public class finalconbine
                 else
                 {
                     mstring0.GetProperties().SetLogical("Show", true);
-
+                    //DelButton.GetProperties().SetLogical("Show", true);
                     //string newviewname = null;
                     ////add.Show_add();
                     //add theadd = new add();
@@ -2915,7 +2974,34 @@ public class finalconbine
                 {
                     //---------Enter your code here-----------
                 }
-                else if (block == button0)
+                else if(block == DelButton)//删除capp助手中的条目
+                {
+                    string[] realannoo = null;
+                    //string[] tmp = new string[0];
+                    realannoo = realanno.GetProperties().GetStrings("Value");
+                    //if(realannoo == tmp)
+                    //{
+                      
+                    //}
+                    string strvalue = str.GetProperties().GetEnumAsString("Value");
+                    try
+                    {
+                        thenotefun.Xmlforcappdelet(strvalue, realannoo[0]);
+                    }
+                    catch
+                    {
+                        theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "未输入删除内容！");
+                        return 1;
+                    }
+                 
+
+                    StopProcess("CAPP助手?");
+                    OpenFile(ApplicationPath + folderpath + cappass);
+
+                
+                }
+
+                else if (block == button0)//增加capp助手中的条目
                 {
 
 

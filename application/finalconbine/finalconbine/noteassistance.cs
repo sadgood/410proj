@@ -143,6 +143,52 @@ using NXOpen.Annotations;
                   }
               }
       }
+      public void Xmlforcappdelet(string value, string Innertext)
+      {
+          string folderpath = "3dppmplugin\\";
+          string cappxml = "CAPP.xml";
+          XmlDocument doc = new XmlDocument();
+          doc.Load(finalconbine.ApplicationPath + folderpath + cappxml);
+
+          int m = doc.SelectSingleNode("/CAPPAssistant").ChildNodes.Count;
+
+
+          // TreeNode[] n=new TreeNode[m];
+
+          for (int i = 1; i < m + 1; i++)
+          {
+              try
+              {
+                  XmlNode node = doc.SelectSingleNode("/CAPPAssistant/Type[" + i + "]");
+                  int num = doc.SelectSingleNode("/CAPPAssistant/Type[" + i + "]").ChildNodes.Count;
+                  if (node.Attributes["name"].Value.ToString() == value)
+                  {
+
+                      XmlNode nodedelet = doc.SelectSingleNode("/CAPPAssistant/Type[" + i + "]/Item[@text='" + Innertext + "']");
+                      if (nodedelet != null)
+                      {
+                          node.RemoveChild(nodedelet);
+                          doc.Save(finalconbine.ApplicationPath + folderpath + cappxml);
+                          break;
+                      }
+                      else
+                      {
+                          MessageBox.Show("存在无效删除，请查证后继续?");
+                          break;
+                      }
+                  }
+
+
+              }
+              catch (Exception error)
+              {
+                  MessageBox.Show(error.Message, "警ˉ告?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+              }
+          }
+      }
+
+
+
         
  }
 

@@ -53,20 +53,22 @@ using System.Runtime.InteropServices;
             }
             else
             {
-                foreach (char a in str)
-                {
-                    if (isNum(a))
-                    {
-                        if (a == ',')
-                        {
-                            num += '.';
-                        }
-                        else
-                        {
-                            num += a;
-                        }
-                    }
-                }
+                num = str;
+                //foreach (char a in str)
+                //{
+                //    if (isNum(a))
+                //    {
+                //        if (a == ',')
+                //        {
+                //            num += '.';
+                //        }
+                //        else
+                //        {
+                //            num += a;
+                //        }
+                //    }
+                //}
+
               
             }
             return num;
