@@ -633,10 +633,10 @@ public class finalconbine
                 iflabel.GetProperties().SetLogical("Value", false);
                 selection020116.GetProperties().SetLogical("Enable", false);
                 OpenFile(ApplicationPath + folderpath + cappass);
-
+                zselection0.Focus();
+                    stringteshu.GetProperties().SetString("Value","");
             if(IsModeling())
             {
-
                 try
                 {
                     name = workPart.ModelingViews.WorkView.Name;
@@ -1310,7 +1310,6 @@ public class finalconbine
         try
         {
             StopProcess("CAPP助手");
-            //---- Enter your callback code here -----
         }
         catch (Exception ex)
         {
@@ -1347,12 +1346,30 @@ public class finalconbine
                if (IsModeling())
                 {
                     string fetstr = TDPPMPath + "datum";
-                    PlayMacro(fetstr);
+                  int m =  theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                  if (m == 1)
+                  {
+                      PlayMacro(fetstr);
+                  }
+                  else
+                  {
+                      return 1;
+                  }
+                  
                 }
                 else if(IsDrafting())
                 {
                     string fetstr = TDPPMPath + "ddatum";
-                    PlayMacro(fetstr);
+
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        PlayMacro(fetstr);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 
                 }
                 else if(IsGateWay())
@@ -1396,81 +1413,98 @@ public class finalconbine
                 {
                     bool isdrf = IsDrafting();
                     string ans = dimenum0116.GetProperties().GetEnumAsString("Value");
-                    if(!isdrf)
+                    int n = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (n == 1)
                     {
-                        switch (ans)
+
+                        if (!isdrf)
                         {
-                            case "自动判断":
-                                PlayMacro(TDPPMPath + "1");
-                                break;
-                            case "ˮƽ":
-                                PlayMacro(TDPPMPath + "2");
-                                break;
-                            case "竖直":
-                                PlayMacro(TDPPMPath + "3");
-                                break;
-                            case "平行":
-                                PlayMacro(TDPPMPath + "4");
-                                break;
-                            case "垂直":
-                                PlayMacro(TDPPMPath + "5");
-                                break;
-                            case "倒斜角":
-                                PlayMacro(TDPPMPath + "6");
-                                break;
-                            case "角度":
-                                PlayMacro(TDPPMPath + "7");
-                                break;
-                            case "圆柱形":
-                                PlayMacro(TDPPMPath + "8");
-                                break;
-                            case "孔":
-                                PlayMacro(TDPPMPath + "9");
-                                break;
-                            case "直径":
-                                PlayMacro(TDPPMPath + "10");
-                                break;
-                            case "半径":
-                                PlayMacro(TDPPMPath + "11");
-                                break;
-                            case "过圆心的半径":
-                                PlayMacro(TDPPMPath + "12");
-                                break;
-                            case "带折线的半径":
-                                PlayMacro(TDPPMPath + "13");
-                                break;
-                            case "厚度":
-                                PlayMacro(TDPPMPath + "14");
-                                break;
-                            case "圆弧长":
-                                PlayMacro(TDPPMPath + "15");
-                                break;
-                            case "ˮƽ��"://这个真是奇葩啊！
-                                PlayMacro(TDPPMPath + "16");
-                                break;
-                            case "竖直链":
-                                PlayMacro(TDPPMPath + "17");
-                                break;
-                            case "水平基准":
-                                PlayMacro(TDPPMPath + "18");
-                                break;
-                            case "竖直基准":
-                                PlayMacro(TDPPMPath + "19");
-                                break;
-                            case "坐标":
-                                PlayMacro(TDPPMPath + "20");
-                                break;
+
+                            switch (ans)
+                            {
+                                case "自动判断":
+
+
+
+
+                                    PlayMacro(TDPPMPath + "1");
+                                    break;
+                                case "ˮƽ":
+                                    PlayMacro(TDPPMPath + "2");
+                                    break;
+                                case "竖直":
+                                    PlayMacro(TDPPMPath + "3");
+                                    break;
+                                case "平行":
+                                    PlayMacro(TDPPMPath + "4");
+                                    break;
+                                case "垂直":
+                                    PlayMacro(TDPPMPath + "5");
+                                    break;
+                                case "倒斜角":
+                                    PlayMacro(TDPPMPath + "6");
+                                    break;
+                                case "角度":
+                                    PlayMacro(TDPPMPath + "7");
+                                    break;
+                                case "圆柱形":
+                                    PlayMacro(TDPPMPath + "8");
+                                    break;
+                                case "孔":
+                                    PlayMacro(TDPPMPath + "9");
+                                    break;
+                                case "直径":
+                                    PlayMacro(TDPPMPath + "10");
+                                    break;
+                                case "半径":
+                                    PlayMacro(TDPPMPath + "11");
+                                    break;
+                                case "过圆心的半径":
+                                    PlayMacro(TDPPMPath + "12");
+                                    break;
+                                case "带折线的半径":
+                                    PlayMacro(TDPPMPath + "13");
+                                    break;
+                                case "厚度":
+                                    PlayMacro(TDPPMPath + "14");
+                                    break;
+                                case "圆弧长":
+                                    PlayMacro(TDPPMPath + "15");
+                                    break;
+                                case "ˮƽ��"://这个真是奇葩啊！
+                                    PlayMacro(TDPPMPath + "16");
+                                    break;
+                                case "竖直链":
+                                    PlayMacro(TDPPMPath + "17");
+                                    break;
+                                case "水平基准":
+                                    PlayMacro(TDPPMPath + "18");
+                                    break;
+                                case "竖直基准":
+                                    PlayMacro(TDPPMPath + "19");
+                                    break;
+                                case "坐标":
+                                    PlayMacro(TDPPMPath + "20");
+                                    break;
+                            }
+
                         }
-                    
+                        else if (isdrf)
+                        {
+                            theUI.NXMessageBox.Show("制图环境", NXMessageBox.DialogType.Warning, "当前在制图环境，请在建模环境下进行PMI标注");
+                            return 1;
+
+
+
+                        }
+
+                        
                     }
-                    else if(isdrf)
+                    else
                     {
-                        theUI.NXMessageBox.Show("制图环境", NXMessageBox.DialogType.Warning, "当前在制图环境，请在建模环境下进行PMI标注");
                         return 1;
-
-
-
                     }
+                 
 
                 }
             }
@@ -1499,12 +1533,30 @@ public class finalconbine
                 if (IsModeling())
                 {
                     string fetstr = TDPPMPath + "Fet_control";
-                    PlayMacro(fetstr);
+
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        PlayMacro(fetstr);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
                 else if(IsDrafting())
                 {
                     string fetstr = TDPPMPath + "dFea_control";
-                    PlayMacro(fetstr);
+
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        PlayMacro(fetstr);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 
                 }
                 else if(IsGateWay())
@@ -1524,12 +1576,29 @@ public class finalconbine
                 if (IsDrafting())
                 {
                     string roumac = TDPPMPath + "dcucaodu";
-                    PlayMacro(roumac);
+
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        PlayMacro(roumac);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
                 else if(IsModeling())
                 {
                     string roumac = TDPPMPath + "cucaodu";
-                    PlayMacro(roumac);
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        PlayMacro(roumac);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 
                 }
                 else if(IsGateWay())
@@ -1551,14 +1620,34 @@ public class finalconbine
                 if (IsDrafting())
                 {
                     string zhushi = TDPPMPath + "dzhushi";
-                    OpenFile(ApplicationPath + folderpath + cappass);
-                    PlayMacro(zhushi);
+               
+                   
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        OpenFile(ApplicationPath + folderpath + cappass);
+                        PlayMacro(zhushi);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
                 }
                 else if (IsModeling())
                 {
                     string zhushi = TDPPMPath + "zhushi";
-                    OpenFile(ApplicationPath + folderpath + cappass);
-                    PlayMacro(zhushi);
+                  
+               
+                    int m = theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Question, "是否已点击“应用”来保存更改?");
+                    if (m == 1)
+                    {
+                        OpenFile(ApplicationPath + folderpath + cappass);
+                        PlayMacro(zhushi);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
 
                 }
                 else if (IsGateWay())
@@ -1568,8 +1657,6 @@ public class finalconbine
                     return 1;
 
                 }
-
-
                 }
             else
                 if(block ==  jiaoyanshibut)
@@ -1854,7 +1941,7 @@ public class finalconbine
                         TaggedObject[] obs = here.GetProperties().GetTaggedObjectVector("SelectedObjects");
                         if (obs.Length == 0)
                         {
-                            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择需要打标号的尺寸或形位公差");
+                            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Warning, "请选择尺寸或形位公差");
                             return 1;
                         }
                         else
@@ -3025,6 +3112,10 @@ public class finalconbine
 
 
 
+                else if(block == dic)
+                {
+                    //OpenFile(ApplicationPath + folderpath + cappass);
+                }
 
 
 
@@ -3699,11 +3790,14 @@ public class finalconbine
             if (node == dimnode && node != null)
             {
                 menu.AddMenuItem(9, "全选");
+                menu.AddMenuItem(20, "全不选");
             }
             else if (node == fcfnode && node != null)
             {
                     menu.AddMenuItem(10,"全选");
+                    menu.AddMenuItem(21, "全不选");
                 }
+          
             else if (node.ParentNode == dimnode && node != dimnode)
             {
                 int state = node.GetState();
@@ -3818,6 +3912,26 @@ public class finalconbine
                 a.SetState(2);
             }
         }
+        else if(menuItemID == 20)
+        {
+            ArrayList alldims = new ArrayList();
+            alldims = getcdnd(dimnode);
+            foreach (Node a in alldims)
+            {
+                a.SetState(1);
+            }
+        }
+               else if(menuItemID == 21)
+        {
+
+            ArrayList allfcfs = new ArrayList();
+            allfcfs = getcdnd(fcfnode);
+            foreach (Node a in allfcfs)
+            {
+                a.SetState(1);
+            }
+        }
+
         else if (menuItemID == 15)
         {
             Part displayPart = theSession.Parts.Display;
