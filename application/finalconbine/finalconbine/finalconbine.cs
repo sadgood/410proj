@@ -571,7 +571,10 @@ public class finalconbine
             macdimtog.GetProperties().SetLogical("Value", false);
             group6.GetProperties().SetLogical("Enable", false);
 
-
+            zgroup01.GetProperties().SetLogical("Expanded", false);
+            zgroup1.GetProperties().SetLogical("Expanded", false);
+            group.GetProperties().SetLogical("Expanded", false);
+            group5.GetProperties().SetLogical("Expanded", false);
            // DelButton.GetProperties().SetLogical("Show", false);
             //TaggedObject[] obb = null;
             //zselection0.GetProperties().SetTaggedObjectVector("SelectedObjects", obb);
@@ -591,10 +594,11 @@ public class finalconbine
                 jcrospt.GetProperties().SetLogical("Enable",false);
                 obutton0.GetProperties().SetString("Label", "查询尺寸标注");
                 tree_control0.GetProperties().SetLogical("Show", true);
-                tree_control0.InsertColumn(1, "编号", 130);//一定有注意不同的回调函数的问题
-                tree_control0.InsertColumn(2, "名义尺", 100);
-                tree_control0.InsertColumn(3, "上公差/形位基准", 100);
-                tree_control0.InsertColumn(4, "下公差/形位类型", 100);
+                tree_control0.InsertColumn(1, "编号", 80);//一定有注意不同的回调函数的问题
+                tree_control0.InsertColumn(2, "名义尺寸", 80);
+                tree_control0.InsertColumn(3, "上公差/形位基准", 50);
+                tree_control0.InsertColumn(4, "下公差/形位类型", 50);
+          
                 there.GetProperties().SetLogical("Value", false);
                 here.GetProperties().SetLogical("Show", false);
                 here.GetProperties().SetLogical("Enable",false);
@@ -606,8 +610,6 @@ public class finalconbine
                 //string name = workPart.ModelingViews.WorkView.Name;
                 string name = null;
                
-           
-          
                 ztoggle01.GetProperties().SetLogical("Value", false);
                 china.GetProperties().SetLogical("Enable", false);
                 japan.GetProperties().SetLogical("Enable", false);
@@ -632,8 +634,8 @@ public class finalconbine
                 }
                 iflabel.GetProperties().SetLogical("Value", false);
                 selection020116.GetProperties().SetLogical("Enable", false);
-                OpenFile(ApplicationPath + folderpath + cappass);
-                zselection0.Focus();
+                //OpenFile(ApplicationPath + folderpath + cappass);
+                //zselection0.Focus();
                     stringteshu.GetProperties().SetString("Value","");
             if(IsModeling())
             {
@@ -806,7 +808,7 @@ public class finalconbine
         int errorCode = 0;
         try
         {
-            StopProcess("CAPP助手");
+            //StopProcess("CAPP助手");
            
             //---- Enter your callback code here -----
         }
@@ -1226,7 +1228,7 @@ public class finalconbine
             balloonNoteBuilder1.Style.LetteringStyle.GeneralTextFont = workPart.Fonts.AddFont("cadds4");
             balloonNoteBuilder1.Style.LetteringStyle.GeneralTextAspectRatio = AspectRatio;
             balloonNoteBuilder1.Style.LetteringStyle.GeneralTextSize = DimensionSize;
-            balloonNoteBuilder1.Scale = 0.6;
+            balloonNoteBuilder1.Scale = DimensionSize / 8;
       
             NXObject nXObject1;
             nXObject1 = balloonNoteBuilder1.Commit();
@@ -1675,8 +1677,6 @@ public class finalconbine
 
                           if (FindballonByAttr("GUID", qq.GetStringAttribute("GUID")) == null)
                           {
-                             
-                             
                               DeleteObject(qq);
                           }
                           else if (FindballonByAttr("GUID", qq.GetStringAttribute("GUID")) != null)
@@ -1684,14 +1684,7 @@ public class finalconbine
                               DeleteObject(FindballonByAttr("GUID", qq.GetStringAttribute("GUID")));
                               DeleteObject(qq);
                           }
-
-
                       }
-
-
-
-
-
 
                 }
                 #region 这是增加的特殊尺寸标注的回调模块
@@ -1889,7 +1882,7 @@ public class finalconbine
                 pubfun thepub = new pubfun();
                 Part workPart = theSession.Parts.Work;
 
-
+              
                 NXOpen.Annotations.Dimension[] alldim = null;
                 NXOpen.Annotations.Fcf[] allfcf = null;
                 NXOpen.Annotations.Dimension[] alldimori = null;
@@ -3082,7 +3075,7 @@ public class finalconbine
                     }
                  
 
-                    StopProcess("CAPP助手?");
+                    StopProcess("CAPP助手");
                     OpenFile(ApplicationPath + folderpath + cappass);
 
                 
@@ -3095,14 +3088,19 @@ public class finalconbine
 
                     string[] diction = null;//这个有”添加至CAPP助手“中得到的字符串
                     diction = dic.GetProperties().GetStrings("Value");
-                    if (diction == null)
-                    {
-                        theUI.NXMessageBox.Show("警告", NXMessageBox.DialogType.Error, "添加文字不能为空");
-
-                    }
+                  
                     string strvalue = str.GetProperties().GetEnumAsString("Value");
 
-                    thenotefun.Xmlforcapp(strvalue, diction[0]);
+                    try
+                    {
+                        thenotefun.Xmlforcapp(strvalue, diction[0]);
+                    }
+                    catch
+                    {
+                        theUI.NXMessageBox.Show("提示", NXMessageBox.DialogType.Warning, "未输入添加内容！");
+                        return 1;
+                    }
+                  
 
                     StopProcess("CAPP助手");
                     OpenFile(ApplicationPath + folderpath + cappass);

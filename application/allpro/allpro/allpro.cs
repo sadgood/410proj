@@ -57,6 +57,14 @@ public class allpro
     private NXOpen.BlockStyler.Tree tree_control0;// Block type: Tree Control
     private NXOpen.BlockStyler.UIBlock button0;// Block type: Button
     private NXOpen.BlockStyler.UIBlock toggle01;// Block type: Toggle
+
+    //矢量标注模块
+
+    private NXOpen.BlockStyler.UIBlock group;// Block type: Group
+    private NXOpen.BlockStyler.UIBlock zselection0;// Block type: Selection
+    private NXOpen.BlockStyler.UIBlock zpoint01;// Block type: Specify Point
+    private NXOpen.BlockStyler.UIBlock zpoint02;// Block type: Specify Point
+    private NXOpen.BlockStyler.UIBlock zbutton0;// Block type: Button
     public static readonly int              SnapPointTypesEnabled_UserDefined = (1 << 0);
     public static readonly int                 SnapPointTypesEnabled_Inferred = (1 << 1);
     public static readonly int           SnapPointTypesEnabled_ScreenPosition = (1 << 2);
@@ -244,6 +252,13 @@ public class allpro
             tree_control0.SetOnEditOptionSelectedHandler(new NXOpen.BlockStyler.Tree.OnEditOptionSelectedCallback(OnEditOptionSelectedCallback));
             toggle01 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("toggle01");
 
+
+
+            group = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("group");
+            zselection0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zselection0");
+            zpoint01 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zpoint01");
+            zpoint02 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zpoint02");
+            zbutton0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zbutton0");
         }
         catch (Exception ex)
         {
@@ -268,6 +283,20 @@ public class allpro
             tree_control0.InsertColumn(6,"所在部件",100);
             toggle01.GetProperties().SetLogical("Value", false);
             toggle0.GetProperties().SetLogical("Enable",true);
+
+
+            group.GetProperties().SetLogical("Show", false);
+            zselection0.GetProperties().SetLogical("Show", false);
+            zpoint01.GetProperties().SetLogical("Show", false);
+            zpoint02.GetProperties().SetLogical("Show", false);
+            zbutton0.GetProperties().SetLogical("Show", false);
+
+
+            //group = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("group");
+            //zselection0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zselection0");
+            //zpoint01 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zpoint01");
+            //zpoint02 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zpoint02");
+            //zbutton0 = (NXOpen.BlockStyler.UIBlock)theDialog.TopBlock.FindBlock("zbutton0");
         }
         catch (Exception ex)
         {
